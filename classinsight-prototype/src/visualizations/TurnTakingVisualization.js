@@ -33,25 +33,6 @@ const h = 10;
 const multiplier = 6;
 const strokeW = 2;
 
-const colors = {
-    "Metacognitive Modeling Questions": "#10273d",
-    "Teacher Explanation + Evidence": "#204e79",
-    "Teacher Open-Ended S/Q": "#3075b5",
-    "Teacher Close-Ended S/Q": "#5e9bd4",
-    "Assorted Teacher Talk": "#d7e6f4",
-
-    "Turn-Taking Facilitation": "#daacec",
-    "Re-Voicing": "#a22fd0",
-    "Behavior Management Questions": "#411353",
-
-    "Student Explanation + Evidence": "#562810",
-    "Student Open-Ended S/Q": "#97471c",
-    "Student Open-Ended Response": "#d76528",
-    "Student Close-Ended S/Q": "#e39368",
-    "Student Close-Ended Response": "#efc1a9",
-    "Assorted Student Talk": "#fbf0e9",
-};
-
 function drawLegend(height) {
     const h = 22;
     const numTeacher = 8;
@@ -107,11 +88,6 @@ function drawLegend(height) {
     }
 }
 
-// function preload() {
-//     // load the data
-//     data = loadJSON("Sara.json");
-// }
-
 function setup() {
     // get the first relevant segment
     //data = data.segments[0].speaking_turns;
@@ -126,16 +102,6 @@ function setup() {
 
                 for (const utterance of talk.utterances) {
                     // categorize student and teacher talk for talk that has no utterance types
-                    // console.log(utterance.utterance_type);
-                    // if (utterance.utterance_type.length === 0) {
-                    //     allData.push({
-                    //         content: utterance.utterance,
-                    //         speaker: talk.speaker_pseudonym,
-                    //         length: utterance.n_tokens,
-                    //         types: utterance.utterance_type,
-                    //         right: false
-                    //     });
-                    // }
                     if (
                         utterance.utterance_type.length > 0 &&
                         (utterance.utterance_type[0].includes("Teacher") ||
@@ -197,7 +163,6 @@ function setup() {
 }
 
 function draw() {
-    //   console.log(allData);
     if (eraseAndDraw) {
         clear();
         background(255);
@@ -225,18 +190,11 @@ function draw() {
             rect(pos.x, pos.y, length, h);
 
             // draw timestamp
-            // fill("#d8d8d8");
             noStroke();
             fill(10);
             textSize(12);
             text(data.time, center + 200, pos.y + 12);
-            // rects.push({
-            //     x: pos.x,
-            //     y: pos.y,
-            //     h: h,
-            //     w: length,
-            //     data: data
-            // });
+
             y += h + strokeW * 2;
         }
 
@@ -250,46 +208,6 @@ function draw() {
         text("Teacher Talk", leftX, 30);
         text("Student Talk", rightX, 30);
 
-        // // draw tooltip
-        // if (tooltip) {
-        //     textSize(18);
-        //     text(tooltip.data.speaker, width - 200, tooltip.t + h);
-        //     textSize(12);
-        //     text(
-        //         tooltip.data.content,
-        //         width - 200,
-        //         tooltip.t + 18 + h,
-        //         150,
-        //         400
-        //     );
-
-        //     // bar extending below the graph's bar
-        //     fill(240);
-        //     rect(
-        //         tooltip.barX,
-        //         tooltip.t + h,
-        //         width - 200 - center + (center - tooltip.barX) - 6,
-        //         1
-        //     );
-        // }
-
         eraseAndDraw = false;
     }
 }
-
-// function isIn(rect, x, y) {
-//     return (
-//         rect.x <= x &&
-//         x <= rect.x + rect.w &&
-//         (rect.y <= y && y <= rect.y + rect.h)
-//     );
-// }
-
-// function mouseClicked() {
-//     for (const rect of rects) {
-//         if (isIn(rect, mouseX, mouseY)) {
-//             tooltip = { t: rect.y, data: rect.data, barX: rect.x };
-//             eraseAndDraw = true;
-//         }
-//     }
-// }

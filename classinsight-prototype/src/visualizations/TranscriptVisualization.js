@@ -1,45 +1,3 @@
-const colors = {
-    "Metacognitive Modeling Questions": "#10273d",
-    "Teacher Explanation + Evidence": "#204e79",
-    "Teacher Open-Ended S/Q": "#3075b5",
-    "Teacher Close-Ended S/Q": "#5e9bd4",
-    "Assorted Teacher Talk": "#d7e6f4",
-
-    "Turn-Taking Facilitation": "#daacec",
-    "Re-Voicing": "#a22fd0",
-    "Behavior Management Questions": "#411353",
-
-    "Student Explanation + Evidence": "#562810",
-    "Student Open-Ended S/Q": "#97471c",
-    "Student Open-Ended Response": "#d76528",
-    "Student Close-Ended S/Q": "#e39368",
-    "Student Close-Ended Response": "#efc1a9",
-    "Assorted Student Talk": "#fbf0e9",
-};
-
-const labels = {
-    Teacher: [
-        "Metacognitive Modeling Questions",
-        "Teacher Explanation + Evidence",
-        "Teacher Open-Ended S/Q",
-        "Teacher Close-Ended S/Q",
-        "Assorted Teacher Talk",
-    ],
-    Student: [
-        "Student Explanation + Evidence",
-        "Student Open-Ended S/Q",
-        "Student Open-Ended Response",
-        "Student Close-Ended S/Q",
-        "Student Close-Ended Response",
-        "Assorted Student Talk",
-    ],
-    Technique: [
-        "Turn-Taking Facilitation",
-        "Re-Voicing",
-        "Behavior Management Questions",
-    ],
-};
-
 // UI button class
 class Button {
     constructor(x, y, w, h, content, display, color, strokeColor) {
@@ -219,11 +177,6 @@ const buttonColor = 240;
 ////////////////////////////////////////////////////////////////////////////////
 // key instance
 const s1 = (sketch) => {
-    //let data;
-
-    // sketch.preload = () => {
-    //     data = sketch.loadJSON("Sara.json");
-    // };
     sketch.setup = () => {
         // this function processes the data in the same way as Viz 1 to get the
         // overall quantities for each category
@@ -349,11 +302,6 @@ let h = 20;
 // transcript instance
 const s2 = (sketch) => {
     let viz3Data = [];
-    // let data;
-
-    // sketch.preload = () => {
-    //     data = sketch.loadJSON("Sara.json");
-    // };
 
     sketch.setup = () => {
         viz3Data = getDataForViz3(data[0].data);
@@ -585,9 +533,6 @@ function aggregateData(data) {
             const turn = seg.speaking_turns;
 
             for (const talk of turn) {
-                //  console.log(talk);
-                //  let dur = talk.duration;
-
                 for (let i = 0; i < talk.utterances.length; i++) {
                     const utterance = talk.utterances[i];
                     // calculate amount of time utterance took, might want to use the timestamp to more accurately calc
