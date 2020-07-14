@@ -28,10 +28,10 @@ import data from '../data/data';
 */
 //let data;
 let allData = [];
-let rects = [];
-let canvas;
-let lookup;
-let tooltip;
+// let rects = [];
+// let canvas;
+// let lookup;
+// let tooltip;
 let eraseAndDraw = true;
 
 const h = 10;
@@ -60,7 +60,7 @@ function drawLegend(height, p, canvas) {
         dispText = dispText.replace("Modeling", "");
         dispText = dispText.replace("S/Q", "Questions");
 
-        let rightLegendWidth = 270;
+        // let rightLegendWidth = 270;
 
         // draw legends
         if (iter < numTeacher) {
@@ -92,22 +92,22 @@ function drawLegend(height, p, canvas) {
 }
 
 export default class App extends Component {
-    constructor() {
-        super();
+    // constructor() {
+    //     super();
         // this.state = {
         //     color: [Math.random()*255, Math.random()*255, Math.random()*255]
         // };
         // this.randomColor = this.randomColor.bind(this);
-    }
+    // }
 
     // randomColor() {
     //     this.setState({color:[Math.random()*255, Math.random()*255, Math.random()*255]})
     // }
 
+          // <button onClick={this.randomColor}>Random Color</button>
     render() {
       return (
         <div>
-          // <button onClick={this.randomColor}>Random Color</button>
           <P5Wrapper
             sketch={sketch}
             // color={this.state.color}
