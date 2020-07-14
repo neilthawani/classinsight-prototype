@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import P5Wrapper from 'react-p5-wrapper';
 
 export default class App extends Component {
-  constructor(){
-    super();
-    this.state = {color:[Math.random()*255, Math.random()*255, Math.random()*255]};
-    this.randomColor = this.randomColor.bind(this);
-  }
+    constructor() {
+        super();
+        this.state = {
+            color: [Math.random()*255, Math.random()*255, Math.random()*255]
+        };
+        this.randomColor = this.randomColor.bind(this);
+    }
 
   randomColor(){
     this.setState({color:[Math.random()*255, Math.random()*255, Math.random()*255]}
@@ -23,21 +25,21 @@ export default class App extends Component {
   }
 }
 
-var sketch = function(p){
+var sketch = function(p) {
     let canvas;
 
     p.setup = () => {
-      canvas = p.createCanvas(300, 200);
-      p.noStroke();
+        canvas = p.createCanvas(300, 200);
+        p.noStroke();
     }
 
     p.draw = () => {
-      p.background('orangered');
-      p.ellipse(150, 100, 100, 100);
+        p.background('orangered');
+        p.ellipse(150, 100, 100, 100);
     }
 
     p.myCustomRedrawAccordingToNewPropsHandler = (newProps) => {
-      if(canvas) //Make sure the canvas has been created
-        p.fill(newProps.color);
+        if(canvas) //Make sure the canvas has been created
+            p.fill(newProps.color);
     }
 }

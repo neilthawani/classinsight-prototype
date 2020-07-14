@@ -1,4 +1,7 @@
-import Colors from './fixtures/colors';
+import React, { Component } from 'react';
+import P5Wrapper from 'react-p5-wrapper';
+import Colors from '../fixtures/colors';
+import data from '../data/data';
 
 // for this file, the data we're after is in data.segments[0].speaking_turns.
 // Each object in this array is a record of someone speaking. It has this
@@ -37,17 +40,17 @@ const strokeW = 2;
 
 const colors = Colors;
 
-function drawLegend(height) {
+function drawLegend(height, p, canvas) {
     const h = 22;
     const numTeacher = 8;
     const numModifiers = 3;
     let y = height;
-    textSize(12);
-    noStroke();
+    p.textSize(12);
+    p.noStroke();
     let iter = 0;
     for (const key in colors) {
         let fillColor = colors[key];
-        fill(fillColor);
+        p.fill(fillColor);
 
         let dispText = key;
         dispText = dispText.replace("Teacher", "");
@@ -56,10 +59,6 @@ function drawLegend(height) {
         dispText = dispText.replace("Assorted  Talk", "Other talk");
         dispText = dispText.replace("Modeling", "");
         dispText = dispText.replace("S/Q", "Questions");
-        // dispText = dispText.replace(
-        //     "Turn-Taking Facilitation",
-        //     "Motivate student"
-        // );
 
         let rightLegendWidth = 270;
 
@@ -68,213 +67,188 @@ function drawLegend(height) {
             if (iter >= numTeacher - numModifiers) {
                 // if the flavor is a modifier, draw the color on the bottom
                 fillColor = 220;
-                fill(fillColor);
-                rect(30, y, h, h);
-                fill(colors[key]);
-                rect(30, y + h - 5, h, 5);
+                p.fill(fillColor);
+                p.rect(30, y, h, h);
+                p.fill(colors[key]);
+                p.rect(30, y + h - 5, h, 5);
             } else {
-                rect(30, y, h, h);
+                p.rect(30, y, h, h);
             }
-            fill(10);
-            textAlign(LEFT);
-            text(dispText, 60, y + 10);
+            p.fill(10);
+            p.textAlign(p.LEFT);
+            p.text(dispText, 60, y + 10);
         } else {
             if (iter === numTeacher) y = height;
             // colored box
-            rect(canvas.width - 60, y, h, h);
+            p.rect(canvas.width - 60, y, h, h);
             // legend text
-            fill(10);
-            textAlign(RIGHT);
-            text(dispText, canvas.width - 70, y + 10);
+            p.fill(10);
+            p.textAlign(p.RIGHT);
+            p.text(dispText, canvas.width - 70, y + 10);
         }
         iter++;
         y += h + 3;
     }
 }
 
-// function preload() {
-//     // load the data
-//     data = loadJSON("Sara.json");
-// }
+export default class App extends Component {
+    constructor() {
+        super();
+        // this.state = {
+        //     color: [Math.random()*255, Math.random()*255, Math.random()*255]
+        // };
+        // this.randomColor = this.randomColor.bind(this);
+    }
 
-function setup() {
-    // get the first relevant segment
-    //data = data.segments[0].speaking_turns;
+    // randomColor() {
+    //     this.setState({color:[Math.random()*255, Math.random()*255, Math.random()*255]})
+    // }
 
-    // calculate the amount of time each speaker takes
-    for (const seg of data[0].data.segments) {
-        if (seg.participation_type !== "Other") {
-            const turn = seg.speaking_turns;
+    render() {
+      return (
+        <div>
+          // <button onClick={this.randomColor}>Random Color</button>
+          <P5Wrapper
+            sketch={sketch}
+            // color={this.state.color}
+          ></P5Wrapper>
+        </div>
+      );
+    }
+}
 
-            for (const talk of turn) {
-                //  console.log(talk);
+var sketch = function(p) {
+    let canvas;
 
-                for (const utterance of talk.utterances) {
-                    // categorize student and teacher talk for talk that has no utterance types
-                    // console.log(utterance.utterance_type);
-                    // if (utterance.utterance_type.length === 0) {
-                    //     allData.push({
-                    //         content: utterance.utterance,
-                    //         speaker: talk.speaker_pseudonym,
-                    //         length: utterance.n_tokens,
-                    //         types: utterance.utterance_type,
-                    //         right: false
-                    //     });
-                    // }
-                    if (
-                        utterance.utterance_type.length > 0 &&
-                        (utterance.utterance_type[0].includes("Teacher") ||
-                            utterance.utterance_type[0].includes("Turn") ||
-                            utterance.utterance_type[0].includes(
-                                "Re-Voicing"
-                            ) ||
-                            utterance.utterance_type[0].includes("Questions"))
-                    ) {
-                        allData.push({
-                            content: utterance.utterance,
-                            speaker: talk.speaker_pseudonym,
-                            length: utterance.n_tokens,
-                            types: utterance.utterance_type,
-                            time: utterance.timestamp,
-                            right: false,
-                        });
-                    } else if (utterance.utterance_type.length === 0) {
+    p.setup = () => {
+        // get the first relevant segment
+        //data = data.segments[0].speaking_turns;
+
+        // calculate the amount of time each speaker takes
+        for (const seg of data[0].data.segments) {
+            if (seg.participation_type !== "Other") {
+                const turn = seg.speaking_turns;
+
+                for (const talk of turn) {
+                    for (const utterance of talk.utterances) {
+                        // categorize student and teacher talk for talk that has no utterance types
                         if (
-                            talk.speaker_pseudonym.includes("Class") ||
-                            talk.speaker_pseudonym.includes("Student")
+                            utterance.utterance_type.length > 0 &&
+                            (utterance.utterance_type[0].includes("Teacher") ||
+                                utterance.utterance_type[0].includes("Turn") ||
+                                utterance.utterance_type[0].includes(
+                                    "Re-Voicing"
+                                ) ||
+                                utterance.utterance_type[0].includes("Questions"))
                         ) {
                             allData.push({
                                 content: utterance.utterance,
                                 speaker: talk.speaker_pseudonym,
                                 length: utterance.n_tokens,
-                                types: ["Assorted Student Talk"],
+                                types: utterance.utterance_type,
                                 time: utterance.timestamp,
-                                right: true,
+                                right: false,
                             });
-                        } else if (talk.speaker_pseudonym.includes("Teacher")) {
+                        } else if (utterance.utterance_type.length === 0) {
+                            if (
+                                talk.speaker_pseudonym.includes("Class") ||
+                                talk.speaker_pseudonym.includes("Student")
+                            ) {
+                                allData.push({
+                                    content: utterance.utterance,
+                                    speaker: talk.speaker_pseudonym,
+                                    length: utterance.n_tokens,
+                                    types: ["Assorted Student Talk"],
+                                    time: utterance.timestamp,
+                                    right: true,
+                                });
+                            } else if (talk.speaker_pseudonym.includes("Teacher")) {
+                                allData.push({
+                                    content: utterance.utterance,
+                                    speaker: talk.speaker_pseudonym,
+                                    length: utterance.n_tokens,
+                                    types: ["Assorted Teacher Talk"],
+                                    time: utterance.timestamp,
+                                    right: false,
+                                });
+                            }
+                        } else {
                             allData.push({
                                 content: utterance.utterance,
                                 speaker: talk.speaker_pseudonym,
                                 length: utterance.n_tokens,
-                                types: ["Assorted Teacher Talk"],
+                                types: utterance.utterance_type,
                                 time: utterance.timestamp,
-                                right: false,
+                                right: true,
                             });
                         }
-                    } else {
-                        allData.push({
-                            content: utterance.utterance,
-                            speaker: talk.speaker_pseudonym,
-                            length: utterance.n_tokens,
-                            types: utterance.utterance_type,
-                            time: utterance.timestamp,
-                            right: true,
-                        });
                     }
                 }
             }
         }
+
+        canvas = p.createCanvas(1200, 15000);
+        p.noLoop();
+        p.noStroke();
+
+        // canvas = p.createCanvas(300, 200);
+        // p.noStroke();
     }
 
-    canvas = createCanvas(1200, 15000);
-    noLoop();
-    noStroke();
-}
+    p.draw = () => {
+        //   console.log(allData);
+        if (eraseAndDraw) {
+            p.clear();
+            p.background(255);
+            p.strokeWeight(strokeW);
 
-function draw() {
-    //   console.log(allData);
-    if (eraseAndDraw) {
-        clear();
-        background(255);
-        strokeWeight(strokeW);
+            const center = canvas.width / 2;
+            let y = 60;
 
-        const center = canvas.width / 2;
-        let y = 60;
+            const getUpperCorner = (yPos, right, length) => {
+                if (right) return { x: center + strokeW, y: yPos };
+                else return { x: center - length - strokeW, y: yPos };
+            };
 
-        const getUpperCorner = (yPos, right, length) => {
-            if (right) return { x: center + strokeW, y: yPos };
-            else return { x: center - length - strokeW, y: yPos };
-        };
+            // draw the graphs
+            for (const data of allData) {
+                let length = multiplier * data.length;
+                const pos = getUpperCorner(y, data.right, length);
+                p.fill(colors[data.types[0]]);
+                if (data.types.length > 1) {
+                    p.fill(colors[data.types[1]]);
+                    p.stroke(colors[data.types[0]]);
+                } else {
+                    p.stroke(colors[data.types[0]]);
+                }
+                p.rect(pos.x, pos.y, length, h);
 
-        // draw the graphs
-        for (const data of allData) {
-            let length = multiplier * data.length;
-            const pos = getUpperCorner(y, data.right, length);
-            fill(colors[data.types[0]]);
-            if (data.types.length > 1) {
-                fill(colors[data.types[1]]);
-                stroke(colors[data.types[0]]);
-            } else {
-                stroke(colors[data.types[0]]);
+                // draw timestamp
+                // fill("#d8d8d8");
+                p.noStroke();
+                p.fill(10);
+                p.textSize(12);
+                p.text(data.time, center + 200, pos.y + 12);
+
+                y += h + strokeW * 2;
             }
-            rect(pos.x, pos.y, length, h);
 
-            // draw timestamp
-            // fill("#d8d8d8");
-            noStroke();
-            fill(10);
-            textSize(12);
-            text(data.time, center + 200, pos.y + 12);
-            // rects.push({
-            //     x: pos.x,
-            //     y: pos.y,
-            //     h: h,
-            //     w: length,
-            //     data: data
-            // });
-            y += h + strokeW * 2;
+            drawLegend(150, p, canvas);
+
+            // label side
+            let rightX = center + 100;
+            let leftX = center - 200;
+            p.textSize(18);
+            p.textAlign(p.CENTER, p.CENTER);
+            p.text("Teacher Talk", leftX, 30);
+            p.text("Student Talk", rightX, 30);
+
+            eraseAndDraw = false;
         }
-
-        drawLegend(150);
-
-        // label side
-        let rightX = center + 100;
-        let leftX = center - 200;
-        textSize(18);
-        textAlign(CENTER, CENTER);
-        text("Teacher Talk", leftX, 30);
-        text("Student Talk", rightX, 30);
-
-        // // draw tooltip
-        // if (tooltip) {
-        //     textSize(18);
-        //     text(tooltip.data.speaker, width - 200, tooltip.t + h);
-        //     textSize(12);
-        //     text(
-        //         tooltip.data.content,
-        //         width - 200,
-        //         tooltip.t + 18 + h,
-        //         150,
-        //         400
-        //     );
-
-        //     // bar extending below the graph's bar
-        //     fill(240);
-        //     rect(
-        //         tooltip.barX,
-        //         tooltip.t + h,
-        //         width - 200 - center + (center - tooltip.barX) - 6,
-        //         1
-        //     );
-        // }
-
-        eraseAndDraw = false;
     }
+
+    // p.myCustomRedrawAccordingToNewPropsHandler = (newProps) => {
+    //     if(canvas) //Make sure the canvas has been created
+    //         p.fill(newProps.color);
+    // }
 }
-
-// function isIn(rect, x, y) {
-//     return (
-//         rect.x <= x &&
-//         x <= rect.x + rect.w &&
-//         (rect.y <= y && y <= rect.y + rect.h)
-//     );
-// }
-
-// function mouseClicked() {
-//     for (const rect of rects) {
-//         if (isIn(rect, mouseX, mouseY)) {
-//             tooltip = { t: rect.y, data: rect.data, barX: rect.x };
-//             eraseAndDraw = true;
-//         }
-//     }
-// }
