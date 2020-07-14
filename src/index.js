@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import TalkRatio from './visualizations/TalkRatio';
+import { Button, Utterance } from './visualizations/Transcript';
+import TurnTaking from './visualizations/TurnTaking';
 import './index.scss';
 
 ReactDOM.render(
-  <App />,
+  <Utterance />,
   document.getElementById('root')
 );

@@ -192,11 +192,19 @@ function setup() {
                         let newFlavor = flavor;
 
                         // when the flavor is a modifer, check the prev utterance type for the main flavor to add to
-                        if ((flavor === "Turn-Taking Facilitation" || flavor === "Re-Voicing" || flavor === "Behavior Management Questions") && talk.speaker_type !== "student") {
+                        if (
+                            (flavor === "Turn-Taking Facilitation" ||
+                                flavor === "Re-Voicing" ||
+                                flavor === "Behavior Management Questions") &&
+                            talk.speaker_type !== "student"
+                        ) {
                             let prevUtterance = talk.utterances[i - 1];
                             let classifier;
 
-                            if (prevUtterance === undefined || prevUtterance.utterance_type.length === 0) {
+                            if (
+                                prevUtterance === undefined ||
+                                prevUtterance.utterance_type.length === 0
+                            ) {
                                 // classify
                                 classifier = classifyUtteranceType(talk);
                             } else {
@@ -220,7 +228,12 @@ function setup() {
                         }
 
                         // don't double count the overall student/teacher duration
-                        if (firstFlavor && flavor !== "Turn-Taking Facilitation" && flavor !== "Re-Voicing" && flavor !== "Behavior Management Questions") {
+                        if (
+                            firstFlavor &&
+                            flavor !== "Turn-Taking Facilitation" &&
+                            flavor !== "Re-Voicing" &&
+                            flavor !== "Behavior Management Questions"
+                        ) {
                             if (flavor.includes("Student")) {
                                 totalStudent += utteranceDur;
                             } else {
@@ -233,7 +246,6 @@ function setup() {
             }
         }
     }
-
     canvas = createCanvas(1200, 400);
     background(255);
     noLoop();
@@ -243,7 +255,9 @@ function setup() {
 function draw() {
     const center = canvas.width / 2;
     const graphHeight = 50;
-
+    // const legendWidth = 125;
+    // const legendYPos = 150;
+    // const legendHeight = 30;
     let y = 60;
     textSize(12);
 
@@ -254,6 +268,7 @@ function draw() {
     const percentTeacher = totalTeacher / (totalTeacher + totalStudent);
     const percentStudent = totalStudent / (totalTeacher + totalStudent);
     let xPos = center - percentTeacher * multiplier;
+    // let legendXPos = center - (legendWidth * Object.keys(colors).length) / 2;
 
     // obj to store where the rects for each flavor are drawn.
     let drawPos = {};
@@ -262,7 +277,11 @@ function draw() {
     for (const flavor of drawOrder) {
         // if there's data for this utterance type, draw it on the graph
         if (allData[flavor] !== undefined) {
-            if (flavor !== "Turn-Taking Facilitation" && flavor !== "Re-Voicing" && flavor !== "Behavior Management Questions") {
+            if (
+                flavor !== "Turn-Taking Facilitation" &&
+                flavor !== "Re-Voicing" &&
+                flavor !== "Behavior Management Questions"
+            ) {
                 // draw the flavor's bar on the graph
                 fill(colors[flavor]);
                 const avg = allData[flavor] / (totalTeacher + totalStudent);
@@ -275,18 +294,25 @@ function draw() {
                 // the flavor is a modifier, find the combination(s) in allData and draw lines under the relevant sections of the graph
                 for (const flavorCombo in allData) {
                     //      console.log(flavorCombo);
-                    if (flavorCombo.includes("&&") && flavorCombo.split("&&")[1] === flavor) {
+                    if (
+                        flavorCombo.includes("&&") &&
+                        flavorCombo.split("&&")[1] === flavor
+                    ) {
                         const firstFlavor = flavorCombo.split("&&")[0];
                         const modifier = flavorCombo.split("&&")[1];
 
                         let firstFlavorPos = drawPos[firstFlavor];
                         fill(colors[modifier]);
-                        const firstFlavorAvg = allData[firstFlavor] / (totalTeacher + totalStudent);
-                        const modifierAvg = allData[flavor] / (totalTeacher + totalStudent);
+                        const firstFlavorAvg =
+                            allData[firstFlavor] /
+                            (totalTeacher + totalStudent);
+                        const modifierAvg =
+                            allData[flavor] / (totalTeacher + totalStudent);
                         const modifierAvgOfFirst = firstFlavorAvg * modifierAvg;
 
                         rect(
-                            drawPos[firstFlavor] - multiplier * modifierAvgOfFirst,
+                            drawPos[firstFlavor] -
+                                multiplier * modifierAvgOfFirst,
                             30 + graphHeight - 5,
                             multiplier * modifierAvgOfFirst,
                             5
