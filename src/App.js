@@ -1,18 +1,5 @@
-// import React from 'react';
-// import ReactDOM from 'react-dom';
-// import Sketch from 'react-p5';
-//
-// export default class App extends React.Component {
-//
-//     render() {
-//         return (
-//             <h1>Hello World!</h1>
-//         )
-//     }
-// }
 import React, { Component } from 'react';
 import P5Wrapper from 'react-p5-wrapper';
-// import './App.css';
 
 export default class App extends Component {
   constructor(){
