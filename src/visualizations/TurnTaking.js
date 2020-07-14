@@ -17,6 +17,7 @@ import data from '../data/data';
 ​​​​​    utterances: [],
 },
 ​​​​​*/
+
 // Utterances is an array of objects that contain information about what
 // was said. Each object in the array has this structure:
 /*
@@ -26,12 +27,8 @@ import data from '../data/data';
 ​​​​​​​​    utterance: "Ok, so what is it that you though- ...",
     utterance_type: [ " Teachers  Open-Ended  Statements/Question (S/Q)" ]
 */
-//let data;
+
 let allData = [];
-// let rects = [];
-// let canvas;
-// let lookup;
-// let tooltip;
 let eraseAndDraw = true;
 
 const h = 10;
@@ -60,8 +57,6 @@ function drawLegend(height, p, canvas) {
         dispText = dispText.replace("Modeling", "");
         dispText = dispText.replace("S/Q", "Questions");
 
-        // let rightLegendWidth = 270;
-
         // draw legends
         if (iter < numTeacher) {
             if (iter >= numTeacher - numModifiers) {
@@ -86,34 +81,17 @@ function drawLegend(height, p, canvas) {
             p.textAlign(p.RIGHT);
             p.text(dispText, canvas.width - 70, y + 10);
         }
+
         iter++;
         y += h + 3;
     }
 }
 
 export default class App extends Component {
-    // constructor() {
-    //     super();
-        // this.state = {
-        //     color: [Math.random()*255, Math.random()*255, Math.random()*255]
-        // };
-        // this.randomColor = this.randomColor.bind(this);
-    // }
-
-    // randomColor() {
-    //     this.setState({color:[Math.random()*255, Math.random()*255, Math.random()*255]})
-    // }
-
-          // <button onClick={this.randomColor}>Random Color</button>
     render() {
-      return (
-        <div>
-          <P5Wrapper
-            sketch={sketch}
-            // color={this.state.color}
-          ></P5Wrapper>
-        </div>
-      );
+        return (
+            <P5Wrapper sketch={sketch}></P5Wrapper>
+        );
     }
 }
 
@@ -121,9 +99,6 @@ var sketch = function(p) {
     let canvas;
 
     p.setup = () => {
-        // get the first relevant segment
-        //data = data.segments[0].speaking_turns;
-
         // calculate the amount of time each speaker takes
         for (const seg of data[0].data.segments) {
             if (seg.participation_type !== "Other") {
@@ -190,13 +165,9 @@ var sketch = function(p) {
         canvas = p.createCanvas(1200, 15000);
         p.noLoop();
         p.noStroke();
-
-        // canvas = p.createCanvas(300, 200);
-        // p.noStroke();
     }
 
     p.draw = () => {
-        //   console.log(allData);
         if (eraseAndDraw) {
             p.clear();
             p.background(255);
@@ -224,7 +195,6 @@ var sketch = function(p) {
                 p.rect(pos.x, pos.y, length, h);
 
                 // draw timestamp
-                // fill("#d8d8d8");
                 p.noStroke();
                 p.fill(10);
                 p.textSize(12);
@@ -246,9 +216,4 @@ var sketch = function(p) {
             eraseAndDraw = false;
         }
     }
-
-    // p.myCustomRedrawAccordingToNewPropsHandler = (newProps) => {
-    //     if(canvas) //Make sure the canvas has been created
-    //         p.fill(newProps.color);
-    // }
 }
