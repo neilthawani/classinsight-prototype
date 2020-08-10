@@ -1,150 +1,15 @@
-import Colors from './fixtures/colors';
-import Labels from './fixtures/labels';
+import React, { Component } from 'react';
+import P5Wrapper from 'react-p5-wrapper';
+import Colors from '../../fixtures/colors';
+import Labels from '../../fixtures/labels';
+import Utterance from './transcript/Utterance';
+import Button from './transcript/Button';
+import data from '../../data/data';
 
 const colors = Colors;
 const labels = Labels;
 
-// UI button class
-class Button {
-    constructor(x, y, w, h, content, display, color, strokeColor) {
-        this.x = x;
-        this.y = y;
-        this.w = w;
-        this.h = h;
-        this.c = content;
-        this.display = display;
-        this.col = color;
-        this.stroke = strokeColor;
-        this.strokeWeight = 3;
-        this.clicked = false;
-        this.clickable = true;
-        this.enabled = false;
-        this.onClickedFunc = () => {};
-    }
-
-    setP5Instance(instance) {
-        this.p5 = instance;
-    }
-
-    draw() {
-        this.p5.stroke(this.stroke);
-        this.p5.strokeWeight(this.strokeWeight);
-        this.p5.fill(this.col);
-        this.p5.rect(
-            this.x,
-            this.y,
-            this.w - this.strokeWeight,
-            this.h - this.strokeWeight
-        );
-        this.p5.noStroke();
-
-        if (this.enabled && this.p5.lightness(this.col) < 60) this.p5.fill(255);
-        else this.p5.fill(0);
-        this.p5.textAlign(this.p5.LEFT, this.p5.CENTER);
-        this.p5.text(
-            this.display,
-            this.x + 20,
-            this.y,
-            this.w - this.strokeWeight,
-            this.h - this.strokeWeight
-        );
-
-        if (
-            this.p5.mouseX >= this.x &&
-            this.p5.mouseY >= this.y &&
-            this.p5.mouseX < this.x + this.w &&
-            this.p5.mouseY < this.y + this.h
-        ) {
-            if (this.clickable) this.p5.cursor("pointer");
-            else this.p5.cursor("arrow");
-
-            if (this.p5.mouseIsPressed && !this.clicked) {
-                this.clicked = true;
-                this.onClickedFunc();
-            } else if (!this.p5.mouseIsPressed && this.clicked) {
-                this.clicked = false;
-            }
-        }
-    }
-
-    onPress(f) {
-        this.onClickedFunc = f;
-    }
-}
-
-class Utterance {
-    constructor(x, y, content, primaryType, secondaryType, id) {
-        this.c = content;
-        this.t1 = primaryType;
-        this.t2 = secondaryType;
-        this.x = x;
-        this.y = y;
-        this.selected = false;
-        this.outlined = false;
-        this.color = colors[primaryType];
-        this.strokeColor = "#FFF";
-        this.addedToDOM = false;
-        this.id = id;
-
-        const elt = document.createElement("div");
-        const text = document.createTextNode(content);
-        elt.appendChild(text);
-        elt.id = id;
-        elt.style.position = "absolute";
-        elt.style.top = `${y}px`;
-        elt.style.left = `${x}px`;
-        elt.style.width = "900px";
-        elt.style.paddingLeft = "4px";
-        elt.style.border = "2px solid transparent";
-        this.elt = elt;
-
-        // might need to check this if the secondary type is not a modified type
-        // checked this and it works for when the second type is the main type and first is the modifier
-        if (labels.Technique.includes(primaryType)) {
-            this.strokeColor = colors[primaryType];
-            secondaryType !== undefined
-                ? (this.color = colors[secondaryType])
-                : (this.color = "#FFF");
-        } else if (
-            secondaryType !== undefined &&
-            labels.Technique.includes(secondaryType)
-        ) {
-            this.strokeColor = colors[secondaryType];
-        }
-    }
-
-    setP5Instance(instance) {
-        this.p5 = instance;
-    }
-
-    draw() {
-        if (!this.addedToDOM) {
-            document.getElementById("transcript").appendChild(this.elt);
-            this.addedToDOM = true;
-        }
-        if (this.selected) {
-            this.elt.style.backgroundColor = this.color;
-        } else {
-            this.elt.style.backgroundColor = "transparent";
-        }
-        if (this.outlined) {
-            this.elt.style.border = `2px solid ${this.strokeColor}`;
-        } else {
-            this.elt.style.border = "2px solid transparent";
-        }
-
-        if (this.t1 !== undefined) {
-            //console.log(this);
-            if (this.selected && this.p5.lightness(this.color) < 60)
-                this.elt.style.color = "#FFF";
-            else this.elt.style.color = "#000";
-        } else {
-            this.elt.style.color = "#999";
-        }
-    }
-}
-
-let prevLoc = 0;
+// let prevLoc = 0;
 let allData = [];
 let formattedData = [];
 let redraw = true;
@@ -178,6 +43,17 @@ function unsetUtterances(type) {
 
 let buttons = [];
 const buttonColor = 240;
+
+export default class Transcript extends Component {
+    render() {
+        return (
+          <div>
+            <P5Wrapper sketch={s1}></P5Wrapper>
+            <P5Wrapper sketch={s2}></P5Wrapper>
+          </div>
+        )
+    }
+}
 
 // set up two p5 instances, one for the key and one for the transcript
 ////////////////////////////////////////////////////////////////////////////////
@@ -308,7 +184,7 @@ const s1 = (sketch) => {
     };
 };
 
-let h = 20;
+let h = 0;
 ////////////////////////////////////////////////////////////////////////////////
 // transcript instance
 const s2 = (sketch) => {
@@ -322,9 +198,9 @@ const s2 = (sketch) => {
     sketch.setup = () => {
         viz3Data = getDataForViz3(data[0].data);
 
-        let strokeW = 0;
+        // let strokeW = 0;
         let totalUtters = 0;
-        y = 55;
+        var y = 0;
 
         // creating the utterance lines
         for (const seg of data[0].data.segments) {
@@ -337,7 +213,12 @@ const s2 = (sketch) => {
 
                     // each time there's a new speaker, add extra height to account for the speaker's name to be drawn
                     // create an utterance that's just for the speaker's name
-                    y += h * 1.5;
+                    if (h !== 0) {
+                      y += h * 1.5;
+                    } else {
+                      y += h;
+                      h = 20;
+                    }
 
                     const utterObj = new Utterance(
                         320,
@@ -422,8 +303,8 @@ const s2 = (sketch) => {
     };
 };
 
-let keySk = new p5(s1);
-let transcriptSk = new p5(s2);
+// let keySk = new p5(s1);
+// let transcriptSk = new p5(s2);
 
 const multiplier = 1;
 const strokeW = 0;
