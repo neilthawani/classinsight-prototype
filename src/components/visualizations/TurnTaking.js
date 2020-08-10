@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import P5Wrapper from 'react-p5-wrapper';
-import Colors from '../fixtures/colors';
-import data from '../data/data';
+import Colors from '../../fixtures/colors';
+import data from '../../data/data';
 
 // for this file, the data we're after is in data.segments[0].speaking_turns.
 // Each object in this array is a record of someone speaking. It has this

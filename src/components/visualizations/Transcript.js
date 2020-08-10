@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-// import Sketch from 'react-p5';
 import P5Wrapper from 'react-p5-wrapper';
-import Colors from '../fixtures/colors';
-import Labels from '../fixtures/labels';
-import Utterance from '../components/transcript/Utterance';
-import Button from '../components/transcript/Button';
-import data from '../data/data';
+import Colors from '../../fixtures/colors';
+import Labels from '../../fixtures/labels';
+import Utterance from './transcript/Utterance';
+import Button from './transcript/Button';
+import data from '../../data/data';
 
 const colors = Colors;
 const labels = Labels;

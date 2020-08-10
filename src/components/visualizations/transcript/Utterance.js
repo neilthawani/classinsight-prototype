@@ -1,5 +1,5 @@
-import Colors from '../../fixtures/colors';
-import Labels from '../../fixtures/labels';
+import Colors from '../../../fixtures/colors';
+import Labels from '../../../fixtures/labels';
 
 const colors = Colors;
 const labels = Labels;
