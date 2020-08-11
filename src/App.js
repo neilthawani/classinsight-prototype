@@ -6,9 +6,12 @@ export default class App extends Component {
     constructor(props) {
         super(props);
 
-        var handleClick = this.handleClick.bind(this);
+        if (!window.localStorage.getItem("buttonSelectorSelectedOption")) {
+            window.localStorage.setItem("buttonSelectorSelectedOption", Object.keys(this.components)[0]);
+        }
+
         this.state = {
-            selectedOption: Object.keys(this.components)[0]
+            selectedOption: window.localStorage.getItem("buttonSelectorSelectedOption")
         };
     }
 
@@ -19,6 +22,8 @@ export default class App extends Component {
         this.setState({
             selectedOption: value
         });
+
+        window.localStorage.setItem("buttonSelectorSelectedOption", value);
     }
 
     render() {
@@ -29,7 +34,7 @@ export default class App extends Component {
               selectedOption={this.state.selectedOption}
               onClick={this.handleClick.bind(this)} />
 
-            <div class="visualization">
+            <div className="visualization">
               {React.createElement(this.components[this.state.selectedOption])}
             </div>
           </div>

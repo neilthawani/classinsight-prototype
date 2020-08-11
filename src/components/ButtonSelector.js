@@ -6,7 +6,13 @@ export default class ButtonSelector extends Component {
         return (
             <div className="button-selector">
               {this.props.options.map((item, index, array) => {
-                  return <button className="button-selector-item" key={index} onClick={() => this.props.onClick(item)}>
+                  var isActive = item === this.props.selectedOption;
+                  var buttonClass = 'button-selector-item';
+                  if (isActive) {
+                      buttonClass += ' active';
+                  }
+
+                  return <button className={buttonClass} key={index} onClick={() => this.props.onClick(item)}>
                     {capitalCase(item)}
                   </button>
               })}

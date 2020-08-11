@@ -8,7 +8,7 @@
     color: black;
     border: 1px solid blue;
     background-color: white;
-    padding: 10px 5px;
+    padding: 10px 15px;
     margin-left: 10px;
     margin-right: 10px;
     border-radius: 5px;
@@ -20,5 +20,16 @@
     &:hover {
         background-color: #ddd;
         box-shadow: 1px 1px blue;
+    }
+}
+
+.button-selector-item.active {
+    cursor: not-allowed;
+    border: 1px solid white;
+    color: white;
+    background-color: blue;
+
+    &:hover {        
+        box-shadow: none;
     }
 }
