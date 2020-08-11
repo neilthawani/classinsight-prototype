@@ -29,7 +29,9 @@ export default class App extends Component {
               selectedOption={this.state.selectedOption}
               onClick={this.handleClick.bind(this)} />
 
-            {React.createElement(this.components[this.state.selectedOption])}
+            <div class="visualization">
+              {React.createElement(this.components[this.state.selectedOption])}
+            </div>
           </div>
         )
     }

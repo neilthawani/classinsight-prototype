@@ -9,6 +9,8 @@ import data from '../../data/data';
 const colors = Colors;
 const labels = Labels;
 
+const HEIGHT_OFFSET = 80;
+
 // let prevLoc = 0;
 let allData = [];
 let formattedData = [];
@@ -184,7 +186,7 @@ const s1 = (sketch) => {
     };
 };
 
-let h = 0;
+let h = HEIGHT_OFFSET;
 ////////////////////////////////////////////////////////////////////////////////
 // transcript instance
 const s2 = (sketch) => {
@@ -213,7 +215,7 @@ const s2 = (sketch) => {
 
                     // each time there's a new speaker, add extra height to account for the speaker's name to be drawn
                     // create an utterance that's just for the speaker's name
-                    if (h !== 0) {
+                    if (h !== HEIGHT_OFFSET) {
                       y += h * 1.5;
                     } else {
                       y += h;
