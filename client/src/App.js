@@ -43,14 +43,14 @@ export default class App extends Component {
               <Route exact path="/login" component={Login} />
             </Router>
 
-            <ButtonSelector
+            {/* <ButtonSelector
               options={this.buttonSelectorOptions}
               selectedOption={this.state.selectedOption}
               onClick={this.handleClick.bind(this)} />
 
             <div className="visualization">
               {React.createElement(this.components[this.state.selectedOption])}
-            </div>
+            </div> */}
           </div>
         )
     }
