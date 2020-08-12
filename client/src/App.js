@@ -35,14 +35,13 @@ export default class App extends Component {
     render() {
         return (
           <div className="container">
-          <Router>
-            <div className="App">
+            <Router>
               <Navbar />
+              
               <Route exact path="/" component={Landing} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
-            </div>
-          </Router>
+            </Router>
 
             <ButtonSelector
               options={this.buttonSelectorOptions}
