@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 
-import ButtonSelector from './components/ButtonSelector';
-import VisualizationComponents from './fixtures/visualization_components';
+import ButtonSelector from '../ButtonSelector';
+import VisualizationComponents from '../../fixtures/visualization_components';
 
 class Dashboard extends Component {
   constructor(props) {
