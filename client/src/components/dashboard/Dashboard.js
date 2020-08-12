@@ -3,7 +3,33 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 
+import ButtonSelector from './components/ButtonSelector';
+import VisualizationComponents from './fixtures/visualization_components';
+
 class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+
+    if (!window.localStorage.getItem("buttonSelectorSelectedOption")) {
+      window.localStorage.setItem("buttonSelectorSelectedOption", Object.keys(this.components)[0]);
+    }
+
+    this.state = {
+      selectedOption: window.localStorage.getItem("buttonSelectorSelectedOption")
+    };
+  }
+
+  components = VisualizationComponents;
+  buttonSelectorOptions = Object.keys(this.components);
+
+  handleClick(value) {
+    this.setState({
+      selectedOption: value
+    });
+
+    window.localStorage.setItem("buttonSelectorSelectedOption", value);
+  }
+
   onLogoutClick = e => {
     e.preventDefault();
     this.props.logoutUser();
@@ -23,6 +49,15 @@ class Dashboard extends Component {
         <button onClick={this.onLogoutClick}>
           Logout
         </button>
+
+        <ButtonSelector
+          options={this.buttonSelectorOptions}
+          selectedOption={this.state.selectedOption}
+          onClick={this.handleClick.bind(this)} />
+
+        <div className="visualization">
+          {React.createElement(this.components[this.state.selectedOption])}
+        </div>
       </div>
     );
   }
