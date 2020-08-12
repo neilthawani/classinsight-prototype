@@ -13,8 +13,8 @@ import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
-// import ButtonSelector from './components/ButtonSelector';
-// import VisualizationComponents from './fixtures/visualization_components';
+import ButtonSelector from './components/ButtonSelector';
+import VisualizationComponents from './fixtures/visualization_components';
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -40,33 +40,33 @@ if (localStorage.jwtToken) {
 }
 
 export default class App extends Component {
-  // constructor(props) {
-  //     super(props);
+  constructor(props) {
+    super(props);
 
-  //     if (!window.localStorage.getItem("buttonSelectorSelectedOption")) {
-  //         window.localStorage.setItem("buttonSelectorSelectedOption", Object.keys(this.components)[0]);
-  //     }
+    if (!window.localStorage.getItem("buttonSelectorSelectedOption")) {
+      window.localStorage.setItem("buttonSelectorSelectedOption", Object.keys(this.components)[0]);
+    }
 
-  //     this.state = {
-  //         selectedOption: window.localStorage.getItem("buttonSelectorSelectedOption")
-  //     };
-  // }
+    this.state = {
+      selectedOption: window.localStorage.getItem("buttonSelectorSelectedOption")
+    };
+  }
 
-  // components = VisualizationComponents;
-  // buttonSelectorOptions = Object.keys(this.components);
+  components = VisualizationComponents;
+  buttonSelectorOptions = Object.keys(this.components);
 
-  // handleClick(value) {
-  //     this.setState({
-  //         selectedOption: value
-  //     });
+  handleClick(value) {
+    this.setState({
+      selectedOption: value
+    });
 
-  //     window.localStorage.setItem("buttonSelectorSelectedOption", value);
-  // }
+    window.localStorage.setItem("buttonSelectorSelectedOption", value);
+  }
 
   render() {
     return (
       <div className="container">
-        <Provider store={store}>
+        {/* <Provider store={store}>
           <Router>
             <Navbar />
 
@@ -77,16 +77,16 @@ export default class App extends Component {
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
             </Switch>
           </Router>
-        </Provider>
+        </Provider> */}
 
-        {/* <ButtonSelector
-              options={this.buttonSelectorOptions}
-              selectedOption={this.state.selectedOption}
-              onClick={this.handleClick.bind(this)} />
+        <ButtonSelector
+          options={this.buttonSelectorOptions}
+          selectedOption={this.state.selectedOption}
+          onClick={this.handleClick.bind(this)} />
 
-            <div className="visualization">
-              {React.createElement(this.components[this.state.selectedOption])}
-            </div> */}
+        <div className="visualization">
+          {React.createElement(this.components[this.state.selectedOption])}
+        </div>
       </div>
     )
   }
