@@ -7,12 +7,11 @@ You can learn more about ClassInSight [here](https://www.hcii.cmu.edu/research/c
 In Terminal/PowerShell, run:
 
 ```
-npm install
-npm run client-install
+npm run install
 npm run dev
 ```
 
-`npm run dev` will execute both the client and server using `[concurrently](https://www.npmjs.com/package/concurrently)`. The app will be live at `localhost:3000` in your browser. The server runs at `localhost:5000`.
+`npm run dev` will execute both the client and server using `[concurrently](https://www.npmjs.com/package/concurrently)`. The app will be live at `localhost:3000` in your browser. The server runs at `localhost:5001`.
 
 ## The Tech Stack
 
