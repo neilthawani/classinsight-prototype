@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 class Landing extends Component {
   render() {
     return (
-      <div class="form-container">
+      <div className="form-container">
         <Link to="/register" className="btn">
           Register
         </Link>

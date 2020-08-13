@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
@@ -34,19 +35,23 @@ class Dashboard extends Component {
 
     return (
       <div className="dashboard-container">
-        <ButtonSelector
+        {/* <Link to="/visualizations/TalkRatio" className="btn">Talk Ratio</Link>
+        <Link to="/visualizations/Transcript">Transcript</Link>
+        <Link to="/visualizations/TurnTaking">Turn Taking</Link> */}
+        <Route path="/visualizations/talk-ratio" component={this.components["TalkRatio"]} />
+        {/* <ButtonSelector
           options={this.buttonSelectorOptions}
           selectedOption={this.state.selectedOption}
           onClick={this.handleClick.bind(this)} />
 
-        {React.createElement(this.components[this.state.selectedOption])}
+        {React.createElement(this.components[this.state.selectedOption])} */}
       </div>
     );
   }
 }
 
 Dashboard.propTypes = {
-  logoutUser: PropTypes.func.isRequired,
+  // logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };
 

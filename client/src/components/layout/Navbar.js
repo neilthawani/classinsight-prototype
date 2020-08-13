@@ -13,7 +13,7 @@ class Navbar extends Component {
 
   render() {
     const { user } = this.props.auth;
-    var isLoggedIn = Object.keys(user).length != 0 ? true : false;
+    var isLoggedIn = Object.keys(user).length !== 0 ? true : false;
 
     return (
       <div className="navbar">
@@ -33,9 +33,9 @@ class Navbar extends Component {
 
             <div className="navbar-dropdown-menu">
               <div className="navbar-dropdown-menu-item">
-                <a className="navbar-dropdown-menu-item-link" onClick={this.onLogoutClick}>
+                <span className="navbar-dropdown-menu-item-link" onClick={this.onLogoutClick}>
                   Logout
-              </a>
+                </span>
               </div>
             </div>
           </div> : ''
