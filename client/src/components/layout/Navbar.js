@@ -18,7 +18,7 @@ class Navbar extends Component {
     return (
       <div className="navbar">
         <div className="navbar-logo">
-          <Link to="/">Home</Link>
+          <Link to="/">ClassInSight</Link>
         </div>
 
         {isLoggedIn ?
