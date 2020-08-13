@@ -13,6 +13,14 @@ a:-webkit-any-link {
     text-decoration: inherit;
 }
 
+p {
+    display: block;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+}
+
 .text-center {
     text-align: center;
 }
