@@ -22,6 +22,10 @@ This project uses the following technologies:
 - [MongoDB](https://www.mongodb.com/) for the database
 - [Redux](https://redux.js.org/basics/usagewithreact) for state management between React components
 
+## Other Tech
+
+- [Material Design Icons](https://github.com/levrik/mdi-react)
+
 ## Deployment
 
 For deploying to Heroku, please refer to [this](https://www.youtube.com/watch?v=71wSzpLyW9k) helpful video by TraversyMedia.
