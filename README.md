@@ -8,10 +8,10 @@ In Terminal/PowerShell, run:
 
 ```
 npm install
-npm start
+npm run dev
 ```
 
-The app will be live at `localhost:3000` in your browser.
+`npm run dev` will execute both the client and server using `[concurrently](https://www.npmjs.com/package/concurrently)`. The app will be live at `localhost:3000` in your browser.
 
 ## Create React App
 
