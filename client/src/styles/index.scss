@@ -7,6 +7,11 @@ body {
     font-family: sans-serif;
 }
 
+a:-webkit-any-link {
+    color: inherit;
+    text-decoration: inherit;
+}
+
 .visualization {
     margin: auto;
     width: max-content;

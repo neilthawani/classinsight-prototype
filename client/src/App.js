@@ -37,9 +37,11 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
+        {/* Routers can only have one child element */}
         <Router>
-          <div className="App">
+          <div className="app-container">
             <Navbar />
+
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />

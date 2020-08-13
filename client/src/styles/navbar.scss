@@ -1,8 +1,36 @@
-// .navbar-fixed {
-//     position: absolute;
-//     top: 0;
-// }
+.navbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    background-color: #ccc;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 20px;
+}
 
-.navbar-fixed-item {
+.navbar-logo {
   padding: 20px;
+  font-size: 24px;
+  color: black;
+  text-decoration: none;
+
+  &:visited {
+      color: black;
+  }
+
+  &:hover {
+      color: black;
+  }
+}
+
+.navbar-dropdown {
+    
+}
+
+.navbar-dropdown-photo {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: red;
 }
