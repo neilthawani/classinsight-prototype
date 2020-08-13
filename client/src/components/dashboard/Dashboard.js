@@ -38,13 +38,14 @@ class Dashboard extends Component {
         {/* <Link to="/visualizations/TalkRatio" className="btn">Talk Ratio</Link>
         <Link to="/visualizations/Transcript">Transcript</Link>
         <Link to="/visualizations/TurnTaking">Turn Taking</Link> */}
-        <Route path="/visualizations/talk-ratio" component={this.components["TalkRatio"]} />
-        {/* <ButtonSelector
+        <ButtonSelector
           options={this.buttonSelectorOptions}
           selectedOption={this.state.selectedOption}
           onClick={this.handleClick.bind(this)} />
 
-        {React.createElement(this.components[this.state.selectedOption])} */}
+        <div className="content-container">
+          {React.createElement(this.components[this.state.selectedOption])}
+        </div>
       </div>
     );
   }
