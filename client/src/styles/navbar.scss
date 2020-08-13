@@ -6,6 +6,7 @@
     background-color: #ccc;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 5px 20px;
 }
 
@@ -25,12 +26,40 @@
 }
 
 .navbar-dropdown {
-    
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    .navbar-dropdown-menu {
+       display: none;
+
+       position: absolute;
+       top: 75%;
+       right: 30px;
+       background-color: red;
+       width: 100px;
+       text-align: center;
+       border: 1px solid black;
+
+       .navbar-dropdown-menu-item {
+          padding: 5px 10px;
+          
+          &:not(:last-child) {
+              border-bottom: black;
+          }
+       }
+    }
+
+    &:hover {
+        .navbar-dropdown-menu {
+            display: block;
+        }
+    }
 }
 
 .navbar-dropdown-photo {
-    width: 25px;
-    height: 25px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    background-color: red;
+    background-color: yellow;
 }
