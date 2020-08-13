@@ -1,8 +1,77 @@
-// .navbar-fixed {
-//     position: absolute;
-//     top: 0;
-// }
+.navbar {
+    position: sticky;
+    top: 0;
+    right: 0;
+    left: 0;
+    background-color: #ccc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 20px;
+    margin-bottom: 20px;
+}
 
-.navbar-fixed-item {
+.navbar-logo {
   padding: 20px;
+  font-size: 24px;
+  color: black;
+  text-decoration: none;
+
+  &:visited {
+      color: black;
+  }
+
+  &:hover {
+      color: black;
+  }
+}
+
+.navbar-dropdown {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    .navbar-dropdown-menu {
+       display: none;
+
+       position: absolute;
+       top: 75%;
+       right: 30px;
+       background-color: white;
+       width: 100px;
+       text-align: center;
+       border: 1px solid black;
+
+       .navbar-dropdown-menu-item {
+          padding: 5px 10px;
+          
+          &:not(:last-child) {
+              border-bottom: black;
+          }
+       }
+    }
+
+    &:hover {
+        .navbar-dropdown-menu {
+            display: block;
+        }
+    }
+}
+
+.navbar-dropdown-profile {
+    text-align: center;
+    height: max-content;
+}
+
+.navbar-dropdown-profile-photo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: yellow;
+}
+
+.navbar-dropdown-profile-name {
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 4px;
 }

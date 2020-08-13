@@ -1,4 +1,5 @@
 @import "./button_selector.scss";
+@import "./forms.scss";
 @import "./navbar.scss";
 
 body {
@@ -7,7 +8,29 @@ body {
     font-family: sans-serif;
 }
 
-.visualization {
+a:-webkit-any-link {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+p {
+    display: block;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-with-link {
+    display: block;
+    margin: 5px 0;
+}
+
+.content-container {
     margin: auto;
     width: max-content;
 }
