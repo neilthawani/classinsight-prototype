@@ -1,0 +1,35 @@
+.button-selector {
+  margin: 20px auto;
+  width: max-content;
+}
+
+.button-selector-item {
+  cursor: pointer;
+  color: black;
+  border: 1px solid blue;
+  background-color: white;
+  padding: 10px 15px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 5px;
+
+  &:focus {
+      outline: 0;
+  }
+
+  &:hover {
+      background-color: #ddd;
+      box-shadow: 1px 1px blue;
+  }
+}
+
+.button-selector-item.active {
+  cursor: not-allowed;
+  border: 1px solid white;
+  color: white;
+  background-color: blue;
+
+  &:hover {        
+      box-shadow: none;
+  }
+}
