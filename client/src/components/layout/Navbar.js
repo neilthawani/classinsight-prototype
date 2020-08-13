@@ -13,7 +13,7 @@ class Navbar extends Component {
 
         <div class="navbar-dropdown">
           <div class="navbar-dropdown-photo"></div>
-          <ChevronDownIcon color="white" size="48" />
+          <ChevronDownIcon color="black" size="48" />
 
           <div class="navbar-dropdown-menu">
             <div class="navbar-dropdown-menu-item">
