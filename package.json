@@ -8,6 +8,7 @@
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
+    "install": "rm -rf node_modules && rm -rf client/node_modules && npm install && npm run client-install",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "",
