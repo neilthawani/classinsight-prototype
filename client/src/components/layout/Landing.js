@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 class Landing extends Component {
   render() {
     return (
-      <div class="landing-container">
-        <Link to="/register">
+      <div class="form-container">
+        <Link to="/register" className="btn">
           Register
         </Link>
-        <Link to="/login">
+        <Link to="/login" className="btn">
           Log In
         </Link>
       </div>

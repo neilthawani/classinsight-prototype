@@ -1,6 +1,6 @@
 @import "./button_selector.scss";
+@import "./forms.scss";
 @import "./navbar.scss";
-@import "./landing.scss";
 
 body {
     margin: 0;
@@ -11,6 +11,15 @@ body {
 a:-webkit-any-link {
     color: inherit;
     text-decoration: inherit;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-with-link {
+    display: block;
+    margin: 5px 0;
 }
 
 .visualization {
