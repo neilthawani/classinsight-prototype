@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
@@ -8,7 +8,6 @@ import classnames from "classnames";
 class Login extends Component {
   constructor() {
     super();
-
     this.state = {
       email: "",
       password: "",
@@ -25,7 +24,7 @@ class Login extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/dashboard"); // push user to dashboard when they login
+      this.props.history.push("/dashboard");
     }
 
     if (nextProps.errors) {
@@ -47,29 +46,30 @@ class Login extends Component {
       password: this.state.password
     };
 
-    // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
     this.props.loginUser(userData);
-    console.log('User data: ', userData);
   };
 
   render() {
     const { errors } = this.state;
 
     return (
-      <div>
-        <div>
-          <div>
-            <div>
+      <div className="container">
+        <div style={{ marginTop: "4rem" }} className="row">
+          <div className="col s8 offset-s2">
+            <Link to="/" className="btn-flat waves-effect">
+              <i className="material-icons left">keyboard_backspace</i> Back to
+              home
+            </Link>
+            <div className="col s12" style={{ paddingLeft: "11.250px" }}>
               <h4>
-                Login below
+                <b>Login</b> below
               </h4>
-              <p>
-                Don't have an account? <BrowserRouter><Link to="/register">Register</Link></BrowserRouter>
+              <p className="grey-text text-darken-1">
+                Don't have an account? <Link to="/register">Register</Link>
               </p>
             </div>
             <form noValidate onSubmit={this.onSubmit}>
-              <div>
-                <label htmlFor="email">Email</label>
+              <div className="input-field col s12">
                 <input
                   onChange={this.onChange}
                   value={this.state.email}
@@ -80,13 +80,13 @@ class Login extends Component {
                     invalid: errors.email || errors.emailnotfound
                   })}
                 />
+                <label htmlFor="email">Email</label>
                 <span className="red-text">
                   {errors.email}
                   {errors.emailnotfound}
                 </span>
               </div>
-              <div>
-                <label htmlFor="password">Password</label>
+              <div className="input-field col s12">
                 <input
                   onChange={this.onChange}
                   value={this.state.password}
@@ -97,13 +97,23 @@ class Login extends Component {
                     invalid: errors.password || errors.passwordincorrect
                   })}
                 />
+                <label htmlFor="password">Password</label>
                 <span className="red-text">
                   {errors.password}
                   {errors.passwordincorrect}
                 </span>
               </div>
-              <div>
-                <button type="submit">
+              <div className="col s12" style={{ paddingLeft: "11.250px" }}>
+                <button
+                  style={{
+                    width: "150px",
+                    borderRadius: "3px",
+                    letterSpacing: "1.5px",
+                    marginTop: "1rem"
+                  }}
+                  type="submit"
+                  className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                >
                   Login
                 </button>
               </div>

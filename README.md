@@ -1,4 +1,4 @@
-## ClassInSight Prototype
+# ClassInSight Prototype
 
 You can learn more about ClassInSight [here](https://www.hcii.cmu.edu/research/classinsight).
 
@@ -8,10 +8,35 @@ In Terminal/PowerShell, run:
 
 ```
 npm install
+npm run client-install
 npm run dev
 ```
 
-`npm run dev` will execute both the client and server using `[concurrently](https://www.npmjs.com/package/concurrently)`. The app will be live at `localhost:3000` in your browser.
+`npm run dev` will execute both the client and server using `[concurrently](https://www.npmjs.com/package/concurrently)`. The app will be live at `localhost:3000` in your browser. The server runs at `localhost:5000`.
+
+## The Tech Stack
+
+This project uses the following technologies:
+
+- [React](https://reactjs.org) and [React Router](https://reacttraining.com/react-router/) for frontend
+- [Express](http://expressjs.com/) and [Node](https://nodejs.org/en/) for the backend
+- [MongoDB](https://www.mongodb.com/) for the database
+- [Redux](https://redux.js.org/basics/usagewithreact) for state management between React components
+
+## Deployment
+
+For deploying to Heroku, please refer to [this](https://www.youtube.com/watch?v=71wSzpLyW9k) helpful video by TraversyMedia.
+
+## Configuration
+
+Make sure to add your own `MONGOURI` from your Mongo database in `config/keys.js`.
+
+```javascript
+module.exports = {
+  mongoURI: "YOUR_MONGO_URI_HERE",
+  secretOrKey: "secret"
+};
+```
 
 ## Create React App
 
