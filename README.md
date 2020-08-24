@@ -2,6 +2,13 @@
 
 You can learn more about ClassInSight [here](https://www.hcii.cmu.edu/research/classinsight).
 
+### Guiding Questions:
+
+- What are the visualizations designed to get teachers to wrestle with?
+- How do visualizations help to scaffold productive argumentation pedagogy?
+- How do we create visualizations that help teachers to over time (across years) shift the way in which they are using talk to support kids thinking together?
+- How do we present information in a way that prompts reasoning? How do we use that information to plan and set goals and do something differently? How do we create an infrastructure that opens up this space for teachers to reflect and do better?
+
 ## Running the App
 
 In Terminal/PowerShell, run:
