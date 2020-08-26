@@ -4,7 +4,7 @@ import Colors from '../../fixtures/colors';
 import Labels from '../../fixtures/labels';
 import Utterance from './transcript/Utterance';
 import Button from './transcript/Button';
-import data from '../../data/data';
+import data from '../../data/data_tom';
 
 const colors = Colors;
 const labels = Labels;
