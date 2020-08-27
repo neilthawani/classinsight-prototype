@@ -49,9 +49,9 @@ const buttonColor = 240;
 export default class Transcript extends Component {
   render() {
     return (
-      <div>
-        <P5Wrapper sketch={s1}></P5Wrapper>
-        <P5Wrapper sketch={s2}></P5Wrapper>
+      <div className="transcript-container">
+        <P5Wrapper className="transcript-key" sketch={s1}></P5Wrapper>
+        <P5Wrapper className="transcript-text" sketch={s2}></P5Wrapper>
       </div>
     )
   }
@@ -191,11 +191,6 @@ let h = HEIGHT_OFFSET;
 // transcript instance
 const s2 = (sketch) => {
   let viz3Data = [];
-  // let data;
-
-  // sketch.preload = () => {
-  //     data = sketch.loadJSON("Sara.json");
-  // };
 
   sketch.setup = () => {
     viz3Data = getDataForViz3(data[0].data);
