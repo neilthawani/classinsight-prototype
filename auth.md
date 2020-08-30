@@ -1,7 +1,3 @@
-https://blog.bitsrc.io/build-a-login-auth-app-with-mern-stack-part-1-c405048e3669
-https://www.youtube.com/watch?list=PLillGF-RfqbbiTGgA77tGO426V3hRF9iE&v=PBTYxXADG_k&feature=emb_logo
-https://www.youtube.com/watch?v=93p3LxR9xfM&feature=emb_logo
-
 # App Setup
 
 - Initialized our backend using npm and installed necessary packages
@@ -261,3 +257,7 @@ There is no standard way of creating protected routes in `React`. We created aut
 In `App.js`, we:
 - check `localStorage` for a token to keep the user logged in even if they close or refresh the app (e.g. until they log out or the token expires)
 - pull in our `Dashboard` component and define it as a `PrivateRoute`
+
+# Source
+
+https://blog.bitsrc.io/build-a-login-auth-app-with-mern-stack-part-1-c405048e3669

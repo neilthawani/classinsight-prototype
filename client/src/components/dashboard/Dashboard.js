@@ -44,24 +44,22 @@ class Dashboard extends Component {
 
     return (
       <Router>
-        <div className="dashboard-container">
-          <Router>
-            <div className="button-selector">
-              <Link to="/dashboard/talk-ratio" className="button-selector-item">Talk Ratio</Link>
-              <Link to="/dashboard/transcript" className="button-selector-item">Transcript</Link>
-              <Link to="/dashboard/turn-taking" className="button-selector-item">Turn Taking</Link>
-            </div>
-          </Router>
+        <div>
+          <div className="button-selector">
+            <Link className="button-selector-item" to="/dashboard/transcript">Transcript</Link>
+            <Link className="button-selector-item" to="/dashboard/talk-ratio">Talk Ratio</Link>
+            <Link className="button-selector-item" to="/dashboard/turn-taking">Turn Taking</Link>
+          </div>
 
-          {/* A <Switch> looks through all its children <Route> elements and renders the first one whose path matches the current URL. Use a <Switch> any time you have multiple routes, but you want only one of them to render at a time */}
+          {/* A <Switch> looks through all its children <Route> elements and renders the first one whose path matches the current URL. Use a <Switch> any time you have multiple routes, but you want only one of them to render at a time. */}
           <Switch>
-            <Route exact path="/dashboard/talk-ratio">
-              <TalkRatio />
-            </Route>
             <Route exact path="/dashboard/transcript">
               <Transcript />
             </Route>
-            <Route exact path="/dashboard/turn-taking">
+            <Route path="/dashboard/talk-ratio">
+              <TalkRatio />
+            </Route>
+            <Route path="/dashboard/turn-taking">
               <TurnTaking />
             </Route>
           </Switch>
