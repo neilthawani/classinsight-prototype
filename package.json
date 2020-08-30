@@ -23,6 +23,7 @@
     "mongoose": "^5.10.1",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
+    "postcss-attribute-case-insensitive": "^4.0.2",
     "validator": "^10.11.0"
   },
   "devDependencies": {
