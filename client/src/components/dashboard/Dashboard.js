@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import PrivateRoute from "../private-route/PrivateRoute";
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,45 +8,51 @@ import {
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import ButtonSelector from '../ButtonSelector';
-import VisualizationComponents from '../../fixtures/visualization_components';
+// import ButtonSelector from '../ButtonSelector';
+// import VisualizationComponents from '../../fixtures/visualization_components';
 import TalkRatio from '../visualizations/TalkRatio';
 import Transcript from '../visualizations/Transcript';
 import TurnTaking from '../visualizations/TurnTaking';
 
 class Dashboard extends Component {
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
+  //
+  //   if (!window.localStorage.getItem("buttonSelectorSelectedOption")) {
+  //     window.localStorage.setItem("buttonSelectorSelectedOption", Object.keys(this.components)[0]);
+  //   }
+  //
+  //   this.state = {
+  //     selectedOption: window.localStorage.getItem("buttonSelectorSelectedOption")
+  //   };
+  // }
 
-    if (!window.localStorage.getItem("buttonSelectorSelectedOption")) {
-      window.localStorage.setItem("buttonSelectorSelectedOption", Object.keys(this.components)[0]);
-    }
+  // components = VisualizationComponents;
+  // buttonSelectorOptions = Object.keys(this.components);
 
-    this.state = {
-      selectedOption: window.localStorage.getItem("buttonSelectorSelectedOption")
-    };
-  }
-
-  components = VisualizationComponents;
-  buttonSelectorOptions = Object.keys(this.components);
-
-  handleClick(value) {
-    this.setState({
-      selectedOption: value
-    });
-
-    window.localStorage.setItem("buttonSelectorSelectedOption", value);
-  }
+  // handleClick(value) {
+  //   console.log("value", value);
+  //   // debugger;
+  //   this.setState({
+  //     selectedOption: value
+  //   });
+  //
+  //   window.localStorage.setItem("buttonSelectorSelectedOption", value);
+  // }
+  // componentDidMount() {
+  //   // If logged in and user navigates to Register page, should redirect them to dashboard
+  //   // debugger;
+  //   this.props.history.push(`/dashboard/${this.state.selectedOption}`);
+  // }
 
   render() {
-    // const { user } = this.props.auth;
-
     return (
       <Router>
         <div>
           <div className="button-selector">
             <Link className="button-selector-item" to="/dashboard/transcript">Transcript</Link>
             <Link className="button-selector-item" to="/dashboard/talk-ratio">Talk Ratio</Link>
+            {/*onClick={this.handleClick.bind(this, "talk-ratio")}*/}
             <Link className="button-selector-item" to="/dashboard/turn-taking">Turn Taking</Link>
           </div>
 
