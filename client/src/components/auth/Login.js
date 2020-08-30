@@ -22,6 +22,7 @@ class Login extends Component {
     }
   }
 
+  // npx react-codemod rename-unsafe-lifecycles
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
       this.props.history.push("/dashboard"); // push user to dashboard when they login

@@ -14,16 +14,16 @@ https://www.youtube.com/watch?v=93p3LxR9xfM&feature=emb_logo
 
 ### Dependencies
 
-- bcryptjs: used to hash passwords before we store them in our database
-- body-parser: used to parse incoming request bodies in a middleware
-- concurrently: allows us to run our backend and frontend concurrently and on different ports
-- express: sits on top of Node to make the routing, request handling, and responding easier to write
-- is-empty: global function that will come in handy when we use validator
-- jsonwebtoken: used for authorization
-- mongoose: used to interact with MongoDB
-- passport: used to authenticate requests, which it does through an extensible set of plugins known as strategies
-- passport-jwt: passport strategy for authenticating with a JSON Web Token (JWT); lets you authenticate endpoints using a JWT
-- validator: used to validate inputs (e.g. check for valid email format, confirming passwords match)
+- `bcryptjs`: used to hash passwords before we store them in our database
+- `body-parser`: used to parse incoming request bodies in a middleware
+- `concurrently`: allows us to run our backend and frontend concurrently and on different ports
+- `express`: sits on top of Node to make the routing, request handling, and responding easier to write
+- `is-empty`: global function that will come in handy when we use validator
+- `jsonwebtoken`: used for authorization
+- `mongoose`: used to interact with MongoDB
+- `passport`: used to authenticate requests, which it does through an extensible set of plugins known as strategies
+- `passport-jwt`: passport strategy for authenticating with a JSON Web Token (JWT); lets you authenticate endpoints using a JWT
+- `validator`: used to validate inputs (e.g. check for valid email format, confirming passwords match)
 
 ### Dev Dependencies
 
@@ -56,10 +56,10 @@ module.exports = {
 
 ### Server setup: `server.js`
 
-- Pull in our required dependencies (namely express, mongoose and bodyParser)
-- Initialize our app using express()
-- Apply the middleware function for bodyparser so we can use it
-- Pull in our MongoURI from our keys.js file and connect to our MongoDB database
+- Pull in our required dependencies (namely `express`, `mongoose` and `bodyParser`)
+- Initialize our app using `express()`
+- Apply the middleware function for `bodyparser` so we can use it
+- Pull in our `MongoURI` from our `keys.js` file and connect to our MongoDB database
 - Set the port for our server to run on and have our app listen on this port
 - Pulls `api/users` routes and `passport` initializations
 
