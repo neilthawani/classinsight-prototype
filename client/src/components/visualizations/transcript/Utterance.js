@@ -22,26 +22,14 @@ export default class Utterance {
         const text = document.createTextNode(content);
         elt.appendChild(text);
         elt.id = id;
-        // elt.style.position = "absolute";
-        // elt.style.top = `${y}px`;
-        // elt.style.left = `${x}px`;
-        // elt.style.width = "900px";
-        // elt.style.paddingLeft = "4px";
-        // elt.style.border = "2px solid transparent";
-        // elt.style.zIndex = "999";
         this.elt = elt;
 
         // might need to check this if the secondary type is not a modified type
         // checked this and it works for when the second type is the main type and first is the modifier
         if (labels.Technique.includes(primaryType)) {
             this.strokeColor = colors[primaryType];
-            secondaryType !== undefined
-                ? (this.color = colors[secondaryType])
-                : (this.color = "#FFF");
-        } else if (
-            secondaryType !== undefined &&
-            labels.Technique.includes(secondaryType)
-        ) {
+            secondaryType !== undefined ? (this.color = colors[secondaryType]) : (this.color = "#FFF");
+        } else if (secondaryType !== undefined && labels.Technique.includes(secondaryType)) {
             this.strokeColor = colors[secondaryType];
         }
     }

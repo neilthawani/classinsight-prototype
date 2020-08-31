@@ -106,7 +106,7 @@ var sketch = function(p) {
 
     p.setup = () => {
         eraseAndDraw = true;
-        
+
         // calculate the amount of time each speaker takes
         for (const seg of data[0].data.segments) {
             if (seg.participation_type !== "Other") {
@@ -176,7 +176,6 @@ var sketch = function(p) {
     }
 
     p.draw = () => {
-        p.clear();
         if (eraseAndDraw) {
             p.clear();
             p.background(255);

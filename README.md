@@ -11,7 +11,7 @@ You can learn more about ClassInSight [here](https://www.hcii.cmu.edu/research/c
 
 ## Running the App
 
-In Terminal (Linx/MacOS) or PowerShell x86 (Windows), run:
+In Terminal (Linux/MacOS) or PowerShell x86 (Windows), run:
 
 ```
 npm run install

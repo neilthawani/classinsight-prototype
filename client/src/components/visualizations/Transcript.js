@@ -27,10 +27,7 @@ function setUtterances(type, rev) {
                 const outline = labels.Technique.includes(type);
 
                 if (rev !== undefined && rev === true) {
-                    outline
-                        ?
-                        (utter.outlined = false) :
-                        (utter.selected = false);
+                    outline ? (utter.outlined = false) : (utter.selected = false);
                 } else {
                     outline ? (utter.outlined = true) : (utter.selected = true);
                 }
@@ -107,10 +104,7 @@ const s1 = (sketch) => {
 
                 // show percentage for each type
                 if (formattedData[action] !== undefined) {
-                    const percent =
-                        (formattedData[action] /
-                            (totalTeacher + totalStudent)) *
-                        100;
+                    const percent = (formattedData[action] / (totalTeacher + totalStudent)) * 100;
                     dispPercent = percent < 1 ? "<1" : Math.round(percent);
                 } else {
                     dispPercent = "0";
@@ -165,7 +159,7 @@ const s1 = (sketch) => {
 
         const canvas = sketch.createCanvas(200, 900);
         canvas.parent("key");
-        // createCanvas(1200, allData.length * (h + strokeW * 2) + 200);
+
         sketch.background('255');
         sketch.frameRate(60);
     };
@@ -202,34 +196,25 @@ function aggregateData(data) {
                 for (let i = 0; i < talk.utterances.length; i++) {
                     const utterance = talk.utterances[i];
                     // calculate amount of time utterance took, might want to use the timestamp to more accurately calc
-                    const utteranceDur =
-                        talk.tokens_per_second * utterance.n_tokens;
+                    const utteranceDur = talk.tokens_per_second * utterance.n_tokens;
                     let firstFlavor = true;
 
                     // if the utterance is unclassified with a flavor, determine if it's assorted student or teacher talk
                     if (utterance.utterance_type.length === 0) {
-                        if (
-                            talk.speaker_pseudonym.includes("Class") ||
-                            talk.speaker_pseudonym.includes("Student")
-                        ) {
-                            if (formattedData["Assorted Student Talk"])
-                                formattedData[
-                                    "Assorted Student Talk"
-                                ] += utteranceDur;
-                            else
-                                formattedData[
-                                    "Assorted Student Talk"
-                                ] = utteranceDur;
+                        if (talk.speaker_pseudonym.includes("Class") ||
+                            talk.speaker_pseudonym.includes("Student")) {
+                            if (formattedData["Assorted Student Talk"]) {
+                                formattedData["Assorted Student Talk"] += utteranceDur;
+                            } else {
+                                formattedData["Assorted Student Talk"] = utteranceDur;
+                            }
                             totalStudent += utteranceDur;
                         } else if (talk.speaker_pseudonym.includes("Teacher")) {
-                            if (formattedData["Assorted Teacher Talk"])
-                                formattedData[
-                                    "Assorted Teacher Talk"
-                                ] += utteranceDur;
-                            else
-                                formattedData[
-                                    "Assorted Teacher Talk"
-                                ] = utteranceDur;
+                            if (formattedData["Assorted Teacher Talk"]) {
+                                formattedData["Assorted Teacher Talk"] += utteranceDur;
+                            } else {
+                                formattedData["Assorted Teacher Talk"] = utteranceDur;
+                            }
                             totalTeacher += utteranceDur;
                         }
                     }
@@ -271,18 +256,15 @@ function aggregateData(data) {
                         }
 
                         // don't double count the overall student/teacher duration
-                        if (
-                            firstFlavor &&
+                        if (firstFlavor &&
                             flavor !== "Turn-Taking Facilitation" &&
                             flavor !== "Re-Voicing" &&
-                            flavor !== "Behavior Management Questions"
-                        ) {
+                            flavor !== "Behavior Management Questions") {
                             if (flavor.includes("Student")) {
                                 totalStudent += utteranceDur;
                             } else {
                                 totalTeacher += utteranceDur;
                             }
-                            //   firstFlavor = false;
                         }
                     }
                 }
@@ -340,7 +322,9 @@ const s2 = (sketch) => {
                         if (types.length === 0) {
                             if (talk.speaker_type === "student") {
                                 types = ["Assorted Student Talk"];
-                            } else types = ["Assorted Teacher Talk"];
+                            } else {
+                                types = ["Assorted Teacher Talk"];
+                            }
                         }
 
                         const utterObj = new Utterance(
@@ -354,10 +338,7 @@ const s2 = (sketch) => {
                         utterObj.setP5Instance(sketch);
                         totalUtters++;
 
-                        const multiplier =
-                            Math.round(utterance.utterance.length / 100) === 0 ?
-                            1 :
-                            Math.round(utterance.utterance.length / 100);
+                        const multiplier = Math.round(utterance.utterance.length / 100) === 0 ? 1 : Math.round(utterance.utterance.length / 100);
 
                         y += h * multiplier;
 
@@ -421,15 +402,11 @@ function getDataForViz3(data) {
 
             for (const talk of turn) {
                 for (const utterance of talk.utterances) {
-                    if (
-                        utterance.utterance_type.length > 0 &&
+                    if (utterance.utterance_type.length > 0 &&
                         (utterance.utterance_type[0].includes("Teacher") ||
                             utterance.utterance_type[0].includes("Turn") ||
-                            utterance.utterance_type[0].includes(
-                                "Re-Voicing"
-                            ) ||
-                            utterance.utterance_type[0].includes("Questions"))
-                    ) {
+                            utterance.utterance_type[0].includes("Re-Voicing") ||
+                            utterance.utterance_type[0].includes("Questions"))) {
                         allData.push({
                             content: utterance.utterance,
                             speaker: talk.speaker_pseudonym,
@@ -439,10 +416,8 @@ function getDataForViz3(data) {
                             right: false,
                         });
                     } else if (utterance.utterance_type.length === 0) {
-                        if (
-                            talk.speaker_pseudonym.includes("Class") ||
-                            talk.speaker_pseudonym.includes("Student")
-                        ) {
+                        if (talk.speaker_pseudonym.includes("Class") ||
+                            talk.speaker_pseudonym.includes("Student")) {
                             allData.push({
                                 content: utterance.utterance,
                                 speaker: talk.speaker_pseudonym,
@@ -502,9 +477,6 @@ function drawViz3(allData, sketch) {
         sketch.fill(colors[data.types[0]]);
         if (data.types.length > 1) {
             sketch.fill(colors[data.types[1]]);
-            //  sketch.stroke(colors[data.types[0]]);
-        } else {
-            // sketch.stroke(colors[data.types[0]]);
         }
         sketch.rect(pos.x, pos.y, length, h);
 
