@@ -88,6 +88,10 @@ function drawLegend(height, p, canvas) {
 }
 
 export default class TurnTaking extends Component {
+    componentWillReceiveProps() {
+
+    }
+
     render() {
         return (
             <P5Wrapper sketch={sketch}></P5Wrapper>

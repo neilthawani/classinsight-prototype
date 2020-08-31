@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router";
 import {
   BrowserRouter as Router,
   Switch,
@@ -15,17 +16,18 @@ import Transcript from '../visualizations/Transcript';
 import TurnTaking from '../visualizations/TurnTaking';
 
 class Dashboard extends Component {
-  // constructor(props) {
-  //   super(props);
-  //
-  //   if (!window.localStorage.getItem("buttonSelectorSelectedOption")) {
-  //     window.localStorage.setItem("buttonSelectorSelectedOption", Object.keys(this.components)[0]);
-  //   }
-  //
-  //   this.state = {
-  //     selectedOption: window.localStorage.getItem("buttonSelectorSelectedOption")
-  //   };
-  // }
+  constructor(props) {
+    super(props);
+    console.log("constructor");
+
+    if (!window.localStorage.getItem("buttonSelectorSelectedOption")) {
+      window.localStorage.setItem("buttonSelectorSelectedOption", Object.keys(this.components)[0]);
+    }
+
+    this.state = {
+      selectedOption: window.localStorage.getItem("buttonSelectorSelectedOption")
+    };
+  }
 
   // components = VisualizationComponents;
   // buttonSelectorOptions = Object.keys(this.components);
@@ -39,11 +41,12 @@ class Dashboard extends Component {
   //
   //   window.localStorage.setItem("buttonSelectorSelectedOption", value);
   // }
-  // componentDidMount() {
-  //   // If logged in and user navigates to Register page, should redirect them to dashboard
-  //   // debugger;
-  //   this.props.history.push(`/dashboard/${this.state.selectedOption}`);
-  // }
+  componentDidMount() {
+    console.log("componentDidMount");
+    // If logged in and user navigates to Register page, should redirect them to dashboard
+    // debugger;
+    this.props.history.push(`/dashboard/${this.state.selectedOption}`);
+  }
 
   render() {
     return (
@@ -56,18 +59,22 @@ class Dashboard extends Component {
             <Link className="button-selector-item" to="/dashboard/turn-taking">Turn Taking</Link>
           </div>
 
-          {/* A <Switch> looks through all its children <Route> elements and renders the first one whose path matches the current URL. Use a <Switch> any time you have multiple routes, but you want only one of them to render at a time. */}
-          <Switch>
-            <Route exact path="/dashboard/transcript">
-              <Transcript />
-            </Route>
-            <Route path="/dashboard/talk-ratio">
-              <TalkRatio />
-            </Route>
-            <Route path="/dashboard/turn-taking">
-              <TurnTaking />
-            </Route>
-          </Switch>
+          <div className="text-center">
+            {/* A <Switch> looks through all its children <Route> elements and renders the first one whose path matches the current URL. Use a <Switch> any time you have multiple routes, but you want only one of them to render at a time. */}
+            <Switch>
+              <Route exact path="/dashboard/transcript" component={withRouter(Transcript)}>
+                // <Transcript />
+              </Route>
+              <Route exact path="/dashboard/talk-ratio" component={withRouter(TalkRatio)}>
+                // <TalkRatio />
+              </Route>
+              <Route exact path="/dashboard/turn-taking" component={withRouter(TurnTaking)}>
+                // <TurnTaking />
+              </Route>
+              <Route exact path="/">
+              </Route>
+            </Switch>
+          </div>
         </div>
       </Router>
     );

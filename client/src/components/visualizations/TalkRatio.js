@@ -127,6 +127,10 @@ function classifyUtteranceType(talk) {
 }
 
 export default class TalkRatio extends Component {
+    componentWillReceiveProps() {
+
+    }
+
     render() {
         return (
             <P5Wrapper sketch={sketch}></P5Wrapper>

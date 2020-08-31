@@ -47,6 +47,10 @@ let buttons = [];
 const buttonColor = 240;
 
 export default class Transcript extends Component {
+  componentWillReceiveProps() {
+
+  }
+
   render() {
     return (
       <div className="transcript-container">
