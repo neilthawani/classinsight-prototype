@@ -38,11 +38,16 @@ if (localStorage.jwtToken) {
 }
 
 class App extends Component {
-  // handleClick(value) {
-  //     document.getElementsByClassName("active")[0].classList.remove("active");
-  //     document.querySelector('[data-attr-name="talk-ratio"]').classList.add("active");
-  //     console.log("value");
-  // }
+  constructor(props) {
+      super(props);
+
+      this.selectedOption = window.localStorage.getItem("buttonSelectorSelectedOption");
+  }
+  handleClick(value, context) {
+      window.localStorage.setItem("buttonSelectorSelectedOption", value);
+      this.selectedOption = value;
+      context.classList.add("active");
+  }
 
   render() {
     return (
@@ -55,26 +60,26 @@ class App extends Component {
             {/* coarse, medium, and fine-grained visualizations */}
             <div className="button-selector">
               <Link
-                className="button-selector-item"
+                className={this.selectedOption === "talk-ratio" ? "button-selector-item active" : "button-selector-item"}
                 data-attr-name="talk-ratio"
-                to="/dashboard/talk-ratio">
-                {/* onClick={this.handleClick.bind(this, "talk-ratio")}> */}
+                to="/dashboard/talk-ratio"
+                onClick={this.handleClick.bind(this, "talk-ratio")}>
                 Talk Ratio
               </Link>
 
               <Link
-                className="button-selector-item"
+                className={this.selectedOption === "turn-taking" ? "button-selector-item active" : "button-selector-item"}
                 data-attr-name="transcript"
-                to="/dashboard/turn-taking">
-                {/* onClick={this.handleClick.bind(this, "turn-taking")}> */}
+                to="/dashboard/turn-taking"
+                onClick={this.handleClick.bind(this, "turn-taking")}>
                 Turn Taking
               </Link>
 
               <Link
-                className="button-selector-item"
+                className={this.selectedOption === "transcript" ? "button-selector-item active" : "button-selector-item"}
                 data-attr-name="transcript"
-                to="/dashboard/transcript">
-                {/* onClick={this.handleClick.bind(this, "transcript")}> */}
+                to="/dashboard/transcript"
+                onClick={this.handleClick.bind(this, "transcript")}>
                 Transcript
               </Link>
             </div>
