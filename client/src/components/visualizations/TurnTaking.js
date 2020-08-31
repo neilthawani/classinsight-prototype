@@ -94,7 +94,9 @@ export default class TurnTaking extends Component {
 
     render() {
         return (
-            <P5Wrapper sketch={sketch}></P5Wrapper>
+            <div className="text-center">
+              <P5Wrapper sketch={sketch}></P5Wrapper>
+            </div>
         );
     }
 }
@@ -172,6 +174,7 @@ var sketch = function(p) {
     }
 
     p.draw = () => {
+        p.clear();
         if (eraseAndDraw) {
             p.clear();
             p.background(255);

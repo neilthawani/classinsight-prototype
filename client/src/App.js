@@ -56,15 +56,13 @@ class App extends Component {
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
-            <div class="text-center">
-              {/* A <Switch> looks through all its children <Route> elements and renders the first one whose path matches the current URL. Use a <Switch> any time you have multiple routes, but you want only one of them to render at a time. */}
-              <Switch>
-                <PrivateRoute exact path="/dashboard" component={Dashboard} />
-                <PrivateRoute exact path="/dashboard/turn-taking" component={TurnTaking} />
-                <PrivateRoute exact path="/dashboard/transcript" component={Transcript} />
-                <PrivateRoute exact path="/dashboard/talk-ratio" component={TalkRatio} />
-              </Switch>
-            </div>
+            {/* A <Switch> looks through all its children <Route> elements and renders the first one whose path matches the current URL. Use a <Switch> any time you have multiple routes, but you want only one of them to render at a time. */}
+            <Switch>
+              <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              <PrivateRoute exact path="/dashboard/turn-taking" component={TurnTaking} />
+              <PrivateRoute exact path="/dashboard/transcript" component={Transcript} />
+              <PrivateRoute exact path="/dashboard/talk-ratio" component={TalkRatio} />
+            </Switch>
           </div>
         </Router>
       </Provider>

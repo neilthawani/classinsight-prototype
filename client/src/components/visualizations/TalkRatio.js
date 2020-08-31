@@ -133,7 +133,9 @@ export default class TalkRatio extends Component {
 
     render() {
         return (
-            <P5Wrapper sketch={sketch}></P5Wrapper>
+            <div className="text-center">
+              <P5Wrapper sketch={sketch}></P5Wrapper>
+            </div>
         )
     }
 }
@@ -243,6 +245,7 @@ var sketch = function(p) {
     }
 
     p.draw = () => {
+        p.clear();
         const center = canvas.width / 2;
         const graphHeight = 50;
         // const legendWidth = 125;

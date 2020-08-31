@@ -28,6 +28,7 @@ export default class Utterance {
         elt.style.width = "900px";
         elt.style.paddingLeft = "4px";
         elt.style.border = "2px solid transparent";
+        elt.style.zIndex = "999";
         this.elt = elt;
 
         // might need to check this if the secondary type is not a modified type
