@@ -47,10 +47,6 @@ let buttons = [];
 const buttonColor = 240;
 
 export default class Transcript extends Component {
-    componentWillReceiveProps() {
-
-    }
-
     render() {
         return (
           <div className="transcript-container">
@@ -305,7 +301,7 @@ const s2 = (sketch) => {
     let viz3Data = [];
 
     sketch.setup = () => {
-        console.log("setup");
+        redraw = true;
         viz3Data = getDataForViz3(data[0].data);
 
         let totalUtters = 0;
@@ -384,12 +380,14 @@ const s2 = (sketch) => {
         const transcriptDiv = document.createElement("div");
         transcriptDiv.id = "transcript";
         transcriptDiv.style.marginLeft = "300px";
-        // document.findElementsByClassName("transcript-container")[0]
-        // debugger;
+
         var transcriptContainer = document.getElementsByClassName("transcript-container")[0];
         transcriptContainer.appendChild(transcriptDiv);
         transcriptContainer.style.fontFamily = "sans-serif";
         transcriptContainer.style.fontSize = "14px";
+        transcriptContainer.style.zIndex = "999";
+        transcriptContainer.style.position = "absolute";
+        transcriptContainer.style.left = "5px";
 
         // record the % scrolled
         window.addEventListener("scroll", function() {
@@ -403,7 +401,7 @@ const s2 = (sketch) => {
     };
 
     sketch.draw = () => {
-        console.log("draw");
+        console.log("draw", redraw);
         sketch.clear();
         sketch.background(255);
         if (redraw) {

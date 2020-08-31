@@ -22,13 +22,13 @@ export default class Utterance {
         const text = document.createTextNode(content);
         elt.appendChild(text);
         elt.id = id;
-        elt.style.position = "absolute";
-        elt.style.top = `${y}px`;
-        elt.style.left = `${x}px`;
-        elt.style.width = "900px";
-        elt.style.paddingLeft = "4px";
-        elt.style.border = "2px solid transparent";
-        elt.style.zIndex = "999";
+        // elt.style.position = "absolute";
+        // elt.style.top = `${y}px`;
+        // elt.style.left = `${x}px`;
+        // elt.style.width = "900px";
+        // elt.style.paddingLeft = "4px";
+        // elt.style.border = "2px solid transparent";
+        // elt.style.zIndex = "999";
         this.elt = elt;
 
         // might need to check this if the secondary type is not a modified type
