@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 
@@ -46,15 +46,25 @@ class App extends Component {
           <div className="app-container">
             <Navbar />
 
+            <div className="button-selector">
+              <Link className="button-selector-item" to="/dashboard/transcript">Transcript</Link>
+              <Link className="button-selector-item" to="/dashboard/talk-ratio">Talk Ratio</Link>
+              {/*onClick={this.handleClick.bind(this, "talk-ratio")}*/}
+              <Link className="button-selector-item" to="/dashboard/turn-taking">Turn Taking</Link>
+            </div>
+
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
-            <Switch>
-              <PrivateRoute exact path="/dashboard" component={Dashboard} />
-              <PrivateRoute exact path="/dashboard/turn-taking" component={TurnTaking} />
-              <PrivateRoute exact path="/dashboard/transcript" component={Transcript} />
-              <PrivateRoute exact path="/dashboard/talk-ratio" component={TalkRatio} />
-            </Switch>
+            <div class="text-center">
+              {/* A <Switch> looks through all its children <Route> elements and renders the first one whose path matches the current URL. Use a <Switch> any time you have multiple routes, but you want only one of them to render at a time. */}
+              <Switch>
+                <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                <PrivateRoute exact path="/dashboard/turn-taking" component={TurnTaking} />
+                <PrivateRoute exact path="/dashboard/transcript" component={Transcript} />
+                <PrivateRoute exact path="/dashboard/talk-ratio" component={TalkRatio} />
+              </Switch>
+            </div>
           </div>
         </Router>
       </Provider>
