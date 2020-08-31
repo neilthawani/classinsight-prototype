@@ -88,9 +88,15 @@ function drawLegend(height, p, canvas) {
 }
 
 export default class TurnTaking extends Component {
+    componentWillReceiveProps() {
+
+    }
+
     render() {
         return (
-            <P5Wrapper sketch={sketch}></P5Wrapper>
+            <div className="text-center">
+              <P5Wrapper sketch={sketch}></P5Wrapper>
+            </div>
         );
     }
 }
@@ -99,6 +105,8 @@ var sketch = function(p) {
     let canvas;
 
     p.setup = () => {
+        eraseAndDraw = true;
+
         // calculate the amount of time each speaker takes
         for (const seg of data[0].data.segments) {
             if (seg.participation_type !== "Other") {

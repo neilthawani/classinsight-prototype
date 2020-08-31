@@ -3,23 +3,10 @@ type Utterances {
     duration: Int
     line_number: Int
     n_tokens: Int
-    pyobject: String
     timestamp: String
     tokens_per_second: Float
     utterance: String
     utterance_type: [String] # utterance_type: [ " Teachers  Open-Ended  Statements/Question (S/Q)" ]
-}
-
-type Pyreduce {
-    pytype: String
-}
-
-type Interval_5min {
-    pyreduce: [Pyreduce]
-}
-
-type Interval_10min {
-    pyreduce: [Pyreduce]
 }
 
 type SpeakingTurns {
@@ -27,14 +14,11 @@ type SpeakingTurns {
     duration: Int
     end_time: String
     initial_time: String
-    pyobject: String
     speaker_pseudonym: String
     speaker_type: String
     tokens_per_second: Float
     total_tokens: Int
     utterances: [Utterances]
-    interval_5min: Interval_5min
-    interval_10min: Interval_10min
 }
 
 type Segments {
@@ -42,7 +26,6 @@ type Segments {
     end_time: String
     initial_time: String
     participation_type: String
-    pyobject: String
     speaking_turns: [SpeakingTurns]
 }
 
@@ -51,7 +34,6 @@ type Data {
     end_time: String
     initial_time: String
     original_csv: String
-    pyobject: String
     teacher: String
     title: String
     segments: [Segments]

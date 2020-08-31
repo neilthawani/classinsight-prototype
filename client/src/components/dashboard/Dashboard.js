@@ -1,15 +1,11 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-
-import ButtonSelector from '../ButtonSelector';
-import VisualizationComponents from '../../fixtures/visualization_components';
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-
+    
     if (!window.localStorage.getItem("buttonSelectorSelectedOption")) {
       window.localStorage.setItem("buttonSelectorSelectedOption", Object.keys(this.components)[0]);
     }
@@ -19,40 +15,20 @@ class Dashboard extends Component {
     };
   }
 
-  components = VisualizationComponents;
-  buttonSelectorOptions = Object.keys(this.components);
-
-  handleClick(value) {
-    this.setState({
-      selectedOption: value
-    });
-
-    window.localStorage.setItem("buttonSelectorSelectedOption", value);
+  componentDidMount() {
+    // If logged in and user navigates to Register page, should redirect them to dashboard
+    this.props.history.push(`/dashboard/${this.state.selectedOption}`);
   }
 
   render() {
-    const { user } = this.props.auth;
-
     return (
-      <div className="dashboard-container">
-        {/* <Link to="/visualizations/TalkRatio" className="btn">Talk Ratio</Link>
-        <Link to="/visualizations/Transcript">Transcript</Link>
-        <Link to="/visualizations/TurnTaking">Turn Taking</Link> */}
-        <ButtonSelector
-          options={this.buttonSelectorOptions}
-          selectedOption={this.state.selectedOption}
-          onClick={this.handleClick.bind(this)} />
-
-        <div className="content-container">
-          {React.createElement(this.components[this.state.selectedOption])}
-        </div>
-      </div>
+      <div></div>
     );
   }
 }
 
 Dashboard.propTypes = {
-  // logoutUser: PropTypes.func.isRequired,
+  logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };
 

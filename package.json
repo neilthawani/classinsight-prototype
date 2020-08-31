@@ -21,9 +21,13 @@
     "is-empty": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.1",
-    "nodemon": "^2.0.4",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
+    "postcss-attribute-case-insensitive": "^4.0.2",
+    "react-router": "^5.2.0",
     "validator": "^10.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }

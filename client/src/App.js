@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 
@@ -13,6 +13,9 @@ import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
+import TalkRatio from './components/visualizations/TalkRatio';
+import Transcript from './components/visualizations/Transcript';
+import TurnTaking from './components/visualizations/TurnTaking';
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -35,6 +38,17 @@ if (localStorage.jwtToken) {
 }
 
 class App extends Component {
+  constructor(props) {
+      super(props);
+
+      this.selectedOption = window.localStorage.getItem("buttonSelectorSelectedOption");
+  }
+  handleClick(value, context) {
+      window.localStorage.setItem("buttonSelectorSelectedOption", value);
+      this.selectedOption = value;
+      context.classList.add("active");
+  }
+
   render() {
     return (
       <Provider store={store}>
@@ -43,11 +57,46 @@ class App extends Component {
           <div className="app-container">
             <Navbar />
 
+            {/* coarse, medium, and fine-grained visualizations */}
+            <div className="button-selector">
+              <Link
+                className={this.selectedOption === "talk-ratio" ? "button-selector-item active" : "button-selector-item"}
+                data-attr-name="talk-ratio"
+                to="/dashboard/talk-ratio"
+                onClick={this.handleClick.bind(this, "talk-ratio")}>
+                Talk Ratio
+              </Link>
+
+              <Link
+                className={this.selectedOption === "turn-taking" ? "button-selector-item active" : "button-selector-item"}
+                data-attr-name="transcript"
+                to="/dashboard/turn-taking"
+                onClick={this.handleClick.bind(this, "turn-taking")}>
+                Turn Taking
+              </Link>
+
+              <Link
+                className={this.selectedOption === "transcript" ? "button-selector-item active" : "button-selector-item"}
+                data-attr-name="transcript"
+                to="/dashboard/transcript"
+                onClick={this.handleClick.bind(this, "transcript")}>
+                Transcript
+              </Link>
+            </div>
+
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
+
+            {/* A <Switch> looks through all its children <Route> elements and
+              renders the first one whose path matches the current URL.
+              Use a <Switch> any time you have multiple routes,
+              but you want only one of them to render at a time. */}
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              <PrivateRoute exact path="/dashboard/talk-ratio" component={TalkRatio} />
+              <PrivateRoute exact path="/dashboard/turn-taking" component={TurnTaking} />
+              <PrivateRoute exact path="/dashboard/transcript" component={Transcript} />
             </Switch>
           </div>
         </Router>
