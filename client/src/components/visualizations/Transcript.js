@@ -25,7 +25,7 @@ function setUtterances(type, rev) {
         for (const utter of turn.utterances) {
             if (utter.t1 === type || utter.t2 === type) {
                 const outline = labels.Technique.includes(type);
-                //  console.log(outline);
+
                 if (rev !== undefined && rev === true) {
                     outline
                         ?
@@ -199,9 +199,6 @@ function aggregateData(data) {
             const turn = seg.speaking_turns;
 
             for (const talk of turn) {
-                //  console.log(talk);
-                //  let dur = talk.duration;
-
                 for (let i = 0; i < talk.utterances.length; i++) {
                     const utterance = talk.utterances[i];
                     // calculate amount of time utterance took, might want to use the timestamp to more accurately calc
@@ -346,8 +343,6 @@ const s2 = (sketch) => {
                             } else types = ["Assorted Teacher Talk"];
                         }
 
-                        //     console.log(utterance.utterance);
-
                         const utterObj = new Utterance(
                             320,
                             y,
@@ -401,7 +396,6 @@ const s2 = (sketch) => {
     };
 
     sketch.draw = () => {
-        console.log("draw", redraw);
         sketch.clear();
         sketch.background(255);
         if (redraw) {

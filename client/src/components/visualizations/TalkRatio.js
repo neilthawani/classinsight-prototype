@@ -286,11 +286,8 @@ var sketch = function(p) {
                 } else {
                     // the flavor is a modifier, find the combination(s) in allData and draw lines under the relevant sections of the graph
                     for (const flavorCombo in allData) {
-                        //      console.log(flavorCombo);
-                        if (
-                            flavorCombo.includes("&&") &&
-                            flavorCombo.split("&&")[1] === flavor
-                        ) {
+                        if (flavorCombo.includes("&&") &&
+                            flavorCombo.split("&&")[1] === flavor) {
                             const firstFlavor = flavorCombo.split("&&")[0];
                             const modifier = flavorCombo.split("&&")[1];
 

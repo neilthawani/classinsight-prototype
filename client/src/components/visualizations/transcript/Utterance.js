@@ -67,7 +67,6 @@ export default class Utterance {
         }
 
         if (this.t1 !== undefined) {
-            //console.log(this);
             if (this.selected && this.p5.lightness(this.color) < 60)
                 this.elt.style.color = "#FFF";
             else this.elt.style.color = "#000";
