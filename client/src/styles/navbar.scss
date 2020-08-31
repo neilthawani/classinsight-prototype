@@ -3,18 +3,18 @@
     top: 0;
     right: 0;
     left: 0;
-    background-color: #ccc;
+    background-color: #fff;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 5px 20px;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    color: $blue;
+    border-bottom: 1px solid $lightGray;
 }
 
 .navbar-logo {
-  padding: 20px;
-  font-size: 24px;
-  color: black;
+  padding: 5px;
   text-decoration: none;
 
   &:visited {
@@ -35,16 +35,16 @@
        display: none;
 
        position: absolute;
-       top: 75%;
-       right: 30px;
+       top: 90%;
+       right: 20px;
        background-color: white;
-       width: 100px;
-       text-align: center;
-       border: 1px solid black;
+       width: 250px;
+       text-align: left;
+       border: 1px solid $lightGray;
 
        .navbar-dropdown-menu-item {
-          padding: 5px 10px;
-          
+          padding: 15px 12px;
+
           &:not(:last-child) {
               border-bottom: black;
           }
@@ -61,6 +61,9 @@
 .navbar-dropdown-profile {
     text-align: center;
     height: max-content;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .navbar-dropdown-profile-photo {
@@ -71,7 +74,6 @@
 }
 
 .navbar-dropdown-profile-name {
-  font-size: 12px;
-  font-weight: 600;
-  margin-top: 4px;
+  font-size: 16px;
+  margin: 0 15px;
 }
