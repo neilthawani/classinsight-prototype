@@ -9,7 +9,7 @@
     align-items: center;
     padding: 5px 20px;
     margin-bottom: 25px;
-    color: $blue;
+    color: $darkGray;
     border-bottom: 1px solid $lightGray;
 }
 
@@ -44,6 +44,8 @@
 
        .navbar-dropdown-menu-item {
           padding: 15px 12px;
+          display: flex;
+          align-items: center;
 
           &:not(:last-child) {
               border-bottom: black;
@@ -56,6 +58,10 @@
             display: block;
         }
     }
+}
+
+.navbar-dropdown-menu-item-icon {
+    margin-right: 5px;
 }
 
 .navbar-dropdown-profile {

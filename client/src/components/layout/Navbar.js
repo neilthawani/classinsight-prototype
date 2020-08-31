@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import ChevronDownIcon from 'mdi-react/ChevronDownIcon';
+import LogoutIcon from 'mdi-react/LogoutIcon';
 import ClassInSightLogo from "../../assets/images/classinsight-logo.png";
 
 class Navbar extends Component {
@@ -36,8 +37,9 @@ class Navbar extends Component {
 
             <div className="navbar-dropdown-menu">
               <div className="navbar-dropdown-menu-item">
+                <LogoutIcon className="navbar-dropdown-menu-item-icon" color="#777" size="24" />
                 <span className="navbar-dropdown-menu-item-link" onClick={this.onLogoutClick}>
-                  Logout
+                   Logout
                 </span>
               </div>
             </div>
