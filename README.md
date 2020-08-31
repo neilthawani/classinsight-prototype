@@ -11,14 +11,14 @@ You can learn more about ClassInSight [here](https://www.hcii.cmu.edu/research/c
 
 ## Running the App
 
-In Terminal/PowerShell, run:
+In Terminal (Linux/MacOS) or PowerShell x86 (Windows), run:
 
 ```
 npm run install
 npm run dev
 ```
 
-`npm run dev` will execute both the client and server using [concurrently](https://www.npmjs.com/package/concurrently). The app will be live at `localhost:3000` in your browser. The server runs at `localhost:5001`.
+`npm run dev` will execute both the client and server using [concurrently](https://www.npmjs.com/package/concurrently). The app will be live at `localhost:3000` in your browser. The server runs at `localhost:5000`.
 
 ## The Tech Stack
 

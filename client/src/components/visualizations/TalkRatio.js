@@ -70,7 +70,6 @@ function drawLegend(height, p, canvas) {
             dispPercent = "0";
         }
 
-        // let rightLegendWidth = 270;
 
         // draw legends
         if (iter < numTeacher) {
@@ -127,9 +126,15 @@ function classifyUtteranceType(talk) {
 }
 
 export default class TalkRatio extends Component {
+    componentWillReceiveProps() {
+
+    }
+
     render() {
         return (
-            <P5Wrapper sketch={sketch}></P5Wrapper>
+            <div className="text-center">
+              <P5Wrapper sketch={sketch}></P5Wrapper>
+            </div>
         )
     }
 }
@@ -224,7 +229,6 @@ var sketch = function(p) {
                                 } else {
                                     totalTeacher += utteranceDur;
                                 }
-                                //   firstFlavor = false;
                             }
                         }
                     }
@@ -241,10 +245,6 @@ var sketch = function(p) {
     p.draw = () => {
         const center = canvas.width / 2;
         const graphHeight = 50;
-        // const legendWidth = 125;
-        // const legendYPos = 150;
-        // const legendHeight = 30;
-        // let y = 60;
         p.textSize(12);
 
         // draw the bar behind the graphs
@@ -254,7 +254,6 @@ var sketch = function(p) {
         const percentTeacher = totalTeacher / (totalTeacher + totalStudent);
         const percentStudent = totalStudent / (totalTeacher + totalStudent);
         let xPos = center - percentTeacher * multiplier;
-        // let legendXPos = center - (legendWidth * Object.keys(colors).length) / 2;
 
         // obj to store where the rects for each flavor are drawn.
         let drawPos = {};
@@ -279,11 +278,8 @@ var sketch = function(p) {
                 } else {
                     // the flavor is a modifier, find the combination(s) in allData and draw lines under the relevant sections of the graph
                     for (const flavorCombo in allData) {
-                        //      console.log(flavorCombo);
-                        if (
-                            flavorCombo.includes("&&") &&
-                            flavorCombo.split("&&")[1] === flavor
-                        ) {
+                        if (flavorCombo.includes("&&") &&
+                            flavorCombo.split("&&")[1] === flavor) {
                             const firstFlavor = flavorCombo.split("&&")[0];
                             const modifier = flavorCombo.split("&&")[1];
 
@@ -314,13 +310,6 @@ var sketch = function(p) {
 
         p.fill(black);
         p.textSize(18);
-        // // each section percent label
-        // text(`${Math.round(percentStudent * 100)}%`, xPos + 15, 80);
-        // text(
-        //     `${Math.round(percentTeacher * 100)}%`,
-        //     center - percentTeacher * multiplier - 50,
-        //     80
-        // );
 
         // label top
         let rightX = center + 100;
