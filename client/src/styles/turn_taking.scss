@@ -1,0 +1,94 @@
+.turn-taking-visualization-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.turn-taking-visualization {
+    width: 50%;
+    margin: auto;
+}
+
+.turn-taking-visualization-headings {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+
+    * {
+        font-weight: 400;
+    }
+}
+
+.turn-taking-visualization-row {
+    position: relative;
+}
+
+.turn-taking-bar-timestamp {
+    font-size: 10px;
+    width: max-content;
+    position: absolute;
+    left: 0;
+}
+
+.turn-taking-bar {
+    display: flex;
+    flex-direction: row;
+    height: 14px;
+    margin-bottom: 2px;
+}
+
+.turn-taking-bar-teacher-outer {
+    width: 50%;
+    position: relative;
+}
+
+.turn-taking-bar-teacher-inner {
+    position: absolute;
+    right: 0;
+}
+
+.turn-taking-bar-student-outer {
+    width: 50%;
+    position: relative;
+}
+
+.turn-taking-bar-student-inner {
+    position: absolute;
+    left: 0;
+}
+
+.turn-taking-key-teacher {
+    position: fixed;
+    top: 50%;
+    left: 5%;
+}
+
+.turn-taking-key-student {
+    position: fixed;
+    top: 50%;
+    right: 5%;
+}
+
+.turn-taking-key-student .turn-taking-key-item {
+    flex-direction: row-reverse;
+}
+
+.turn-taking-key-item {
+    margin-bottom: 2px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.turn-taking-key-item-legend {
+    height: 20px;
+    width: 20px;
+    background-color: red;
+    margin-right: 6px;
+    margin-left: 6px;
+}
+
+.turn-taking-key-item-text {
+    font-size: 12px;
+}
