@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
 
+import Labels from '../../fixtures/labels';
 import Colors from '../../fixtures/colors';
 import data from '../../data/data';
 
-// for this file, the data we're after is in data.segments[0].speaking_turns.
-// Each object in this array is a record of someone speaking. It has this
-// structure:
 /*
+For this file, the data we're after is in data.segments[0].speaking_turns.
+Each object in this array is a record of someone speaking. It has this structure:
 {
     duration: 0
     end_time: "[00:00:00;23]",
@@ -16,128 +16,26 @@ import data from '../../data/data';
     tokens_per_second: 0,
 ​​​​​    total_tokens: 108,
 ​​​​​    utterances: [],
-},
-​​​​​*/
+}
 
-// Utterances is an array of objects that contain information about what
-// was said. Each object in the array has this structure:
-/*
+Utterances is an array of objects that contain information about what was said.
+Each object in the array has this structure:
+{
     line_number: "8",
 ​​​​​​​    n_tokens: 14,
 ​​​​​​​​    timestamp: "",
 ​​​​​​​​    utterance: "Ok, so what is it that you though- ...",
     utterance_type: [ " Teachers  Open-Ended  Statements/Question (S/Q)" ]
+}
 */
-
-// const h = 10;
-// const multiplier = 6;
-// const strokeW = 2;
-//
-//
-//
-// function draw() {
-//
-//     p.strokeWeight(strokeW);
-//
-//     const center = canvas.width / 2;
-//     let y = 60;
-//
-//     const getUpperCorner = (yPos, right, length) => {
-//         if (right) return { x: center + strokeW, y: yPos };
-//         else return { x: center - length - strokeW, y: yPos };
-//     };
-//
-//     // draw the graphs
-//     for (const data of allData) {
-//         let length = multiplier * data.length;
-//         const pos = getUpperCorner(y, data.right, length);
-//         p.fill(Colors[data.types[0]]);
-//         if (data.types.length > 1) {
-//             p.fill(Colors[data.types[1]]);
-//             p.stroke(Colors[data.types[0]]);
-//         } else {
-//             p.stroke(Colors[data.types[0]]);
-//         }
-//         p.rect(pos.x, pos.y, length, h);
-//
-//         // draw timestamp
-//         p.noStroke();
-//         p.fill(10);
-//         p.textSize(12);
-//         p.text(data.time, center + 200, pos.y + 12);
-//
-//         y += h + strokeW * 2;
-//     }
-//
-//     drawLegend(150, p, canvas);
-//
-//     // label side
-//     let rightX = center + 100;
-//     let leftX = center - 200;
-//     p.textSize(18);
-//     p.textAlign(p.CENTER, p.CENTER);
-//     p.text("Teacher Talk", leftX, 30);
-//     p.text("Student Talk", rightX, 30);
-// }
 
 export default class TurnTaking extends Component {
     constructor(props) {
         super(props);
-        this.drawChart();
-        // debugger;
+        this.parseChartData();
     }
 
-    // drawLegend(height, p, canvas) {
-    //     // const h = 22;
-    //     const numTeacher = 8;
-    //     const numModifiers = 3;
-    //     // let y = height;
-    //     p.textSize(12);
-    //     p.noStroke();
-    //     let iter = 0;
-    //     for (const key in Colors) {
-    //         let fillColor = Colors[key];
-    //         p.fill(fillColor);
-    //
-    //         let dispText = key;
-    //         dispText = dispText.replace("Teacher", "");
-    //         dispText = dispText.replace("Student", "");
-    //         dispText = dispText.replace("Questions", "");
-    //         dispText = dispText.replace("Assorted  Talk", "Other talk");
-    //         dispText = dispText.replace("Modeling", "");
-    //         dispText = dispText.replace("S/Q", "Questions");
-    //
-    //         // draw legends
-    //         if (iter < numTeacher) {
-    //             if (iter >= numTeacher - numModifiers) {
-    //                 // if the flavor is a modifier, draw the color on the bottom
-    //                 fillColor = 220;
-    //                 p.fill(fillColor);
-    //                 p.rect(30, y, h, h);
-    //                 p.fill(Colors[key]);
-    //                 p.rect(30, y + h - 5, h, 5);
-    //             } else {
-    //                 p.rect(30, y, h, h);
-    //             }
-    //             p.fill(10);
-    //             p.textAlign(p.LEFT);
-    //             p.text(dispText, 60, y + 10);
-    //         } else {
-    //             if (iter === numTeacher) y = height;
-    //             // colored box
-    //             p.rect(canvas.width - 60, y, h, h);
-    //             // legend text
-    //             p.fill(10);
-    //             p.textAlign(p.RIGHT);
-    //             p.text(dispText, canvas.width - 70, y + 10);
-    //         }
-    //
-    //         iter++;
-    //         // y += h + 3;
-    //     }
-    // }
-
-    drawChart() {
+    parseChartData() {
         let allData = [];
 
         for (const seg of data[0].data.segments) {
@@ -200,25 +98,69 @@ export default class TurnTaking extends Component {
         this.chartData = allData;
     }
 
+    transformLegendLabels = function(labelTextArray, options) {
+        return labelTextArray.map((dispText) => {
+            var label = {
+                color: Colors[dispText]
+            };
+
+            dispText = dispText.replace("Teacher", "").trim();
+            dispText = dispText.replace("Student", "").trim();
+            dispText = dispText.replace("Questions", "").trim();
+            dispText = dispText.replace("Assorted  Talk", "Other Talk");
+            dispText = dispText.replace("Modeling", "").trim();
+            dispText = dispText.replace("S/Q", "Questions");
+
+            return { ...label, ...{ text: dispText } };
+        });
+    };
+    teacherLegendLabels = Labels["Teacher"];
+    studentLegendLabels = Labels["Student"];
+    metaLegendLabels = Labels["Technique"];
+
     render() {
         return (
-            <div className="text-center turn-taking-container">
-              {/*<div className="turn-taking-key">*/}
-                <div className="turn-taking-visualization">
-                  <div className="turn-taking-visualization-headings">
-                    <h2>Teacher Talk</h2>
-                    <h2>Student Talk</h2>
-                  </div>
-                  {this.chartData.map((item, index) => {
-                      return (
-                        <Bar key={index} data={item} />
-                      )
-                  })}
+            <div className="turn-taking-visualization-container">
+              <div className="turn-taking-key-teacher">
+                <Legend labels={this.transformLegendLabels(this.teacherLegendLabels)} />
+                <Legend labels={this.transformLegendLabels(this.metaLegendLabels)} />
+              </div>
+              <div className="turn-taking-visualization">
+                <div className="turn-taking-visualization-headings">
+                  <h2>Teacher Talk</h2>
+                  <h2>Student Talk</h2>
                 </div>
-              {/*</div>*/}
+                {this.chartData.map((item, index) => {
+                    return (
+                      <Bar key={index} data={item} />
+                    )
+                })}
+              </div>
+              <div className="turn-taking-key-student">
+                <Legend labels={this.transformLegendLabels(this.studentLegendLabels)} />
+              </div>
             </div>
         );
     }
+}
+
+function Legend(props) {
+    var labels = props.labels;
+
+    return (
+      <div>
+      {labels.map((label, index) => {
+        return (
+          <div key={index} className="turn-taking-key-item">
+            <div className="turn-taking-key-item-legend" style={{backgroundColor: label.color}}></div>
+            <span className="turn-taking-key-item-text">
+              {label.text}
+            </span>
+          </div>
+        );
+      })}
+      </div>
+    );
 }
 
 function Bar(props) {
@@ -276,11 +218,3 @@ function Bar(props) {
 TurnTaking.propTypes = {
     chartData: PropTypes.array
 };
-
-// {(() => {
-//     switch (item.speaker) {
-//     case "teacher":   return "Teacher";
-//     case "student": return "Student";
-//     default: return "";
-//   }
-// })()}
