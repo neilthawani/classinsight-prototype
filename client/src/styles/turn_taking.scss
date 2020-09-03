@@ -1,0 +1,52 @@
+.turn-taking-visualization {
+    width: 50%;
+    margin: auto;
+}
+
+.turn-taking-visualization-headings {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+
+    * {
+        font-weight: 400;
+    }
+}
+
+.turn-taking-visualization-row {
+    position: relative;
+}
+
+.turn-taking-bar-timestamp {
+    font-size: 10px;
+    width: max-content;
+    position: absolute;
+    left: 0;
+}
+
+.turn-taking-bar {
+    display: flex;
+    flex-direction: row;
+    height: 14px;
+    margin-bottom: 2px;
+}
+
+.turn-taking-bar-teacher-outer {
+    width: 50%;
+    position: relative;
+}
+
+.turn-taking-bar-teacher-inner {
+    position: absolute;
+    right: 0;
+}
+
+.turn-taking-bar-student-outer {
+    width: 50%;
+    position: relative;
+}
+
+.turn-taking-bar-student-inner {
+    position: absolute;
+    left: 0;
+}
