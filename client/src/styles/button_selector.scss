@@ -1,26 +1,31 @@
+.button {
+    cursor: pointer;
+    color: black;
+    border: 1px solid $blue;
+    background-color: white;
+
+
+    &:focus {
+        outline: 0;
+    }
+
+    &:hover {
+        background-color: $lightGray;
+        box-shadow: 1px 1px $blue;
+    }
+}
+
 .button-selector {
-  margin: 20px auto;
-  width: max-content;
+    margin: 20px auto;
+    width: max-content;
 }
 
 .button-selector-item {
-  cursor: pointer;
-  color: black;
-  border: 1px solid $blue;
-  background-color: white;
-  padding: 10px 15px;
-  margin-left: 10px;
-  margin-right: 10px;
-  border-radius: 5px;
-
-  &:focus {
-      outline: 0;
-  }
-
-  &:hover {
-      background-color: $lightGray;
-      box-shadow: 1px 1px $blue;
-  }
+    padding: 10px 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    @extend .button;
 }
 
 .button-selector-item.active {

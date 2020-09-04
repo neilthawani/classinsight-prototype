@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 import Labels from '../../fixtures/labels';
 import Colors from '../../fixtures/colors';
+
+import ArrowCollapseVerticalIcon from 'mdi-react/ArrowCollapseVerticalIcon';
+import ArrowExpandVerticalIcon from 'mdi-react/ArrowExpandVerticalIcon';
+
 import data from '../../data/data';
 
 /*
@@ -32,71 +36,85 @@ Each object in the array has this structure:
 export default class TurnTaking extends Component {
     constructor(props) {
         super(props);
-        this.parseChartData();
+
+        this.state = {
+            bars: "expanded"
+        };
     }
 
-    parseChartData() {
-        let allData = [];
+    toggleExpandedBars = function(value, context) {
+        this.setState({ "bars": value });
+    }
 
-        for (const seg of data[0].data.segments) {
-            if (seg.participation_type !== "Other") {
-                const turn = seg.speaking_turns;
+    barsStateIcon = {
+        "expanded": <ArrowCollapseVerticalIcon
+          className="turn-taking-visualization-heading-icon"
+          onClick={this.toggleExpandedBars.bind(this, "collapsed")}
+          size="24" />,
+        "collapsed": <ArrowExpandVerticalIcon
+          className="turn-taking-visualization-heading-icon"
+          onClick={this.toggleExpandedBars.bind(this, "expanded")}
+          size="24" />
+    }
 
-                for (const talk of turn) {
-                    for (const utterance of talk.utterances) {
-                        // categorize student and teacher talk for talk that has no utterance types
-                        if (utterance.utterance_type.length > 0 &&
-                            (utterance.utterance_type[0].includes("Teacher") ||
-                                utterance.utterance_type[0].includes("Turn") ||
-                                utterance.utterance_type[0].includes("Re-Voicing") ||
-                                utterance.utterance_type[0].includes("Questions"))
-                        ) {
+    expandedData = data[0].data.segments.reduce((allData, seg, index, array) => {
+        if (seg.participation_type !== "Other") {
+            const turn = seg.speaking_turns;
+
+            for (const talk of turn) {
+                for (const utterance of talk.utterances) {
+                    // categorize student and teacher talk for talk that has no utterance types
+                    if (utterance.utterance_type.length > 0 &&
+                        (utterance.utterance_type[0].includes("Teacher") ||
+                            utterance.utterance_type[0].includes("Turn") ||
+                            utterance.utterance_type[0].includes("Re-Voicing") ||
+                            utterance.utterance_type[0].includes("Questions"))
+                    ) {
+                        allData.push({
+                            content: utterance.utterance,
+                            speaker: talk.speaker_pseudonym,
+                            length: utterance.n_tokens,
+                            types: utterance.utterance_type,
+                            time: utterance.timestamp,
+                            right: false,
+                        });
+                    } else if (utterance.utterance_type.length === 0) {
+                        if (talk.speaker_pseudonym.includes("Class") ||
+                            talk.speaker_pseudonym.includes("Student")) {
                             allData.push({
                                 content: utterance.utterance,
                                 speaker: talk.speaker_pseudonym,
                                 length: utterance.n_tokens,
-                                types: utterance.utterance_type,
-                                time: utterance.timestamp,
-                                right: false,
-                            });
-                        } else if (utterance.utterance_type.length === 0) {
-                            if (talk.speaker_pseudonym.includes("Class") ||
-                                talk.speaker_pseudonym.includes("Student")) {
-                                allData.push({
-                                    content: utterance.utterance,
-                                    speaker: talk.speaker_pseudonym,
-                                    length: utterance.n_tokens,
-                                    types: ["Assorted Student Talk"],
-                                    time: utterance.timestamp,
-                                    right: true,
-                                });
-                            } else if (talk.speaker_pseudonym.includes("Teacher")) {
-                                allData.push({
-                                    content: utterance.utterance,
-                                    speaker: talk.speaker_pseudonym,
-                                    length: utterance.n_tokens,
-                                    types: ["Assorted Teacher Talk"],
-                                    time: utterance.timestamp,
-                                    right: false,
-                                });
-                            }
-                        } else {
-                            allData.push({
-                                content: utterance.utterance,
-                                speaker: talk.speaker_pseudonym,
-                                length: utterance.n_tokens,
-                                types: utterance.utterance_type,
+                                types: ["Assorted Student Talk"],
                                 time: utterance.timestamp,
                                 right: true,
                             });
+                        } else if (talk.speaker_pseudonym.includes("Teacher")) {
+                            allData.push({
+                                content: utterance.utterance,
+                                speaker: talk.speaker_pseudonym,
+                                length: utterance.n_tokens,
+                                types: ["Assorted Teacher Talk"],
+                                time: utterance.timestamp,
+                                right: false,
+                            });
                         }
+                    } else {
+                        allData.push({
+                            content: utterance.utterance,
+                            speaker: talk.speaker_pseudonym,
+                            length: utterance.n_tokens,
+                            types: utterance.utterance_type,
+                            time: utterance.timestamp,
+                            right: true,
+                        });
                     }
                 }
             }
         }
 
-        this.chartData = allData;
-    }
+        return allData;
+    }, []);
 
     transformLegendLabels = function(labelTextArray, options) {
         return labelTextArray.map((dispText) => {
@@ -127,10 +145,17 @@ export default class TurnTaking extends Component {
               </div>
               <div className="turn-taking-visualization">
                 <div className="turn-taking-visualization-headings">
-                  <h2>Teacher Talk</h2>
-                  <h2>Student Talk</h2>
+                  <h2 className="turn-taking-visualization-heading">
+                    Teacher Talk
+                    {this.barsStateIcon[this.state.bars]}
+                  </h2>
+
+                  <h2 className="turn-taking-visualization-heading">
+                    Student Talk
+                  </h2>
                 </div>
-                {this.chartData.map((item, index) => {
+                {/*(this.areBarsExpanded ? this.expandedData : this.collapsedData)*/}
+                {this.expandedData.map((item, index) => {
                     return (
                       <Bar key={index} data={item} />
                     )
@@ -215,6 +240,6 @@ function Bar(props) {
     );
 }
 
-TurnTaking.propTypes = {
-    chartData: PropTypes.array
-};
+// TurnTaking.propTypes = {
+    // chartData: PropTypes.array
+// };
