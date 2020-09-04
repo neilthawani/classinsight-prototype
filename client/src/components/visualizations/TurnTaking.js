@@ -46,6 +46,7 @@ export default class TurnTaking extends Component {
         this.setState({ "bars": value });
     }
 
+    // https://stackoverflow.com/questions/46424589/toggle-component-in-react-on-button-click
     barsStateIcon = {
         "expanded": <ArrowCollapseVerticalIcon
           className="turn-taking-visualization-heading-icon"
@@ -56,6 +57,13 @@ export default class TurnTaking extends Component {
           onClick={this.toggleExpandedBars.bind(this, "expanded")}
           size="24" />
     }
+
+    chartData = {
+        "expanded": this.expandedData,
+        "collapsed": this.collapsedData
+    }
+
+    collapsedData = [];
 
     expandedData = data[0].data.segments.reduce((allData, seg, index, array) => {
         if (seg.participation_type !== "Other") {
@@ -154,12 +162,7 @@ export default class TurnTaking extends Component {
                     Student Talk
                   </h2>
                 </div>
-                {/*(this.areBarsExpanded ? this.expandedData : this.collapsedData)*/}
-                {this.expandedData.map((item, index) => {
-                    return (
-                      <Bar key={index} data={item} />
-                    )
-                })}
+                <TurnTakingBars data={this.expandedData} />
               </div>
               <div className="turn-taking-key-student">
                 <Legend labels={this.transformLegendLabels(this.studentLegendLabels)} />
@@ -167,6 +170,16 @@ export default class TurnTaking extends Component {
             </div>
         );
     }
+}
+
+function TurnTakingBars(props) {
+    var chartData = props.data || [];
+
+    return chartData.map((item, index) => {
+        return (
+          <Bar key={index} data={item} />
+        )
+    })
 }
 
 function Legend(props) {
