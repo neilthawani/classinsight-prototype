@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import ChevronDownIcon from 'mdi-react/ChevronDownIcon';
+import LogoutIcon from 'mdi-react/LogoutIcon';
+import ClassInSightLogo from "../../assets/images/classinsight-logo.png";
 
 class Navbar extends Component {
   onLogoutClick = e => {
@@ -18,7 +20,9 @@ class Navbar extends Component {
     return (
       <div className="navbar">
         <div className="navbar-logo">
-          <Link to="/">ClassInSight</Link>
+          <Link to="/">
+            <img src={ClassInSightLogo} alt="ClassInSight Logo" height="50"/>
+          </Link>
         </div>
 
         {isLoggedIn ?
@@ -26,15 +30,16 @@ class Navbar extends Component {
             <div className="navbar-dropdown-profile">
               <div className="navbar-dropdown-profile-photo"></div>
               <p className="navbar-dropdown-profile-name">
-                {user.name.split(" ")[0]}
+                {user.name}
               </p>
             </div>
-            <ChevronDownIcon color="black" size="48" />
+            <ChevronDownIcon color="#0363f3" size="24" />
 
             <div className="navbar-dropdown-menu">
               <div className="navbar-dropdown-menu-item">
+                <LogoutIcon className="navbar-dropdown-menu-item-icon" color="#777" size="24" />
                 <span className="navbar-dropdown-menu-item-link" onClick={this.onLogoutClick}>
-                  Logout
+                   Logout
                 </span>
               </div>
             </div>

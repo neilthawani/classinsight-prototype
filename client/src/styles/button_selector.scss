@@ -6,7 +6,7 @@
 .button-selector-item {
   cursor: pointer;
   color: black;
-  border: 1px solid blue;
+  border: 1px solid $blue;
   background-color: white;
   padding: 10px 15px;
   margin-left: 10px;
@@ -18,8 +18,8 @@
   }
 
   &:hover {
-      background-color: #ddd;
-      box-shadow: 1px 1px blue;
+      background-color: $lightGray;
+      box-shadow: 1px 1px $blue;
   }
 }
 
@@ -27,9 +27,9 @@
   cursor: not-allowed;
   border: 1px solid white;
   color: white;
-  background-color: blue;
+  background-color: $blue;
 
-  &:hover {        
+  &:hover {
       box-shadow: none;
   }
 }
