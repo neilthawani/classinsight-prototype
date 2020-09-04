@@ -58,9 +58,12 @@ export default class TurnTaking extends Component {
           size="24" />
     }
 
-    chartData = {
-        "expanded": this.expandedData,
-        "collapsed": this.collapsedData
+    chartData = function(status) {
+        switch (status) {
+            case "expanded": return this.expandedData;
+            case "collapsed": return this.collapsedData;
+            default: return [];
+        }
     }
 
     collapsedData = [];
@@ -162,7 +165,7 @@ export default class TurnTaking extends Component {
                     Student Talk
                   </h2>
                 </div>
-                <TurnTakingBars data={this.expandedData} />
+                <TurnTakingBars data={this.chartData(this.state.bars)} />
               </div>
               <div className="turn-taking-key-student">
                 <Legend labels={this.transformLegendLabels(this.studentLegendLabels)} />
