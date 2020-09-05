@@ -240,7 +240,7 @@ function Bar(props) {
         barBorder = `3px solid ${Colors[item.types[0]]}`;
         boxSizing = "border-box";
     }
-    var barWidth = item.length,// * 6, // arbitrary multiplier
+    var barWidth = item.length,
         barHeight = "14px";
 
     var baseStyle = { height: barHeight },
