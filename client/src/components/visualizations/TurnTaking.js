@@ -38,12 +38,13 @@ export default class TurnTaking extends Component {
         super(props);
 
         this.state = {
-            bars: "expanded"
+            bars: window.localStorage.getItem("bars") || "expanded"
         };
     }
 
     toggleExpandedBars = function(value, context) {
         this.setState({ "bars": value });
+        window.localStorage.setItem("bars", value);
     }
 
     // https://stackoverflow.com/questions/46424589/toggle-component-in-react-on-button-click
@@ -139,7 +140,6 @@ export default class TurnTaking extends Component {
                         dataRow = { ...dataRow, ...{ types: utterance.utterance_type } };
                     }
 
-                    // console.log("dataRow expanded", dataRow);
                     allData.push(dataRow);
                 }
             }
