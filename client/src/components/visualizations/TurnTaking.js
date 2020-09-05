@@ -66,7 +66,54 @@ export default class TurnTaking extends Component {
         }
     }
 
-    collapsedData = [];
+    collapsedData = data[0].data.segments.reduce((allData, seg, index, array) => {
+        if (seg.participation_type !== "Other") {
+            const turn = seg.speaking_turns;
+
+            for (const talk of turn) {
+                for (const utterance of talk.utterances) {
+                    var unclassifiedStudentTalk = utterance.utterance_type.length === 0 &&
+                            (talk.speaker_pseudonym.includes("Class") ||
+                            talk.speaker_pseudonym.includes("Student")),
+                        unclassifiedTeacherTalk = utterance.utterance_type.length === 0 &&
+                            talk.speaker_pseudonym.includes("Teacher"),
+                        dataRow = {
+                            content: utterance.utterance,
+                            speaker: talk.speaker_pseudonym,
+                            length: utterance.n_tokens,
+                            time: utterance.timestamp
+                        };
+
+                    // categorize student and teacher talk for talk that has no utterance types
+                    if (unclassifiedStudentTalk) {
+                        dataRow = { ...dataRow, ...{ types: ["Assorted Student Talk"] } };
+                    } else if (unclassifiedTeacherTalk) {
+                        dataRow = { ...dataRow, ...{ types: ["Assorted Teacher Talk"] } };
+                    } else {
+                        dataRow = { ...dataRow, ...{ types: utterance.utterance_type } };
+                    }
+
+                    var sameUtteranceTypesAsPrevious = utterance.utterance_type.every((element, index) => {
+                        if (allData[allData.length - 1] && allData[allData.length - 1].types) {
+                            return element === allData[allData.length - 1].types[index]
+                        } else {
+                            return false;
+                        }
+                    });
+
+                    if (allData.length === 0 || !sameUtteranceTypesAsPrevious) {
+                        allData.push(dataRow);
+                    } else {
+                        var previousDataRow = allData[allData.length - 1];
+                        previousDataRow.length += dataRow.length;
+                        previousDataRow.time = dataRow.time;
+                    }
+                }
+            }
+        }
+
+        return allData;
+    }, []);
 
     expandedData = data[0].data.segments.reduce((allData, seg, index, array) => {
         if (seg.participation_type !== "Other") {
@@ -74,52 +121,27 @@ export default class TurnTaking extends Component {
 
             for (const talk of turn) {
                 for (const utterance of talk.utterances) {
-                    // categorize student and teacher talk for talk that has no utterance types
-                    if (utterance.utterance_type.length > 0 &&
-                        (utterance.utterance_type[0].includes("Teacher") ||
-                            utterance.utterance_type[0].includes("Turn") ||
-                            utterance.utterance_type[0].includes("Re-Voicing") ||
-                            utterance.utterance_type[0].includes("Questions"))
-                    ) {
-                        allData.push({
+                    var unclassifiedStudentTalk = utterance.utterance_type.length === 0 &&
+                            (talk.speaker_pseudonym.includes("Class") ||
+                            talk.speaker_pseudonym.includes("Student")),
+                        unclassifiedTeacherTalk = utterance.utterance_type.length === 0 &&
+                            talk.speaker_pseudonym.includes("Teacher"),
+                        dataRow = {
                             content: utterance.utterance,
                             speaker: talk.speaker_pseudonym,
                             length: utterance.n_tokens,
-                            types: utterance.utterance_type,
-                            time: utterance.timestamp,
-                            right: false,
-                        });
-                    } else if (utterance.utterance_type.length === 0) {
-                        if (talk.speaker_pseudonym.includes("Class") ||
-                            talk.speaker_pseudonym.includes("Student")) {
-                            allData.push({
-                                content: utterance.utterance,
-                                speaker: talk.speaker_pseudonym,
-                                length: utterance.n_tokens,
-                                types: ["Assorted Student Talk"],
-                                time: utterance.timestamp,
-                                right: true,
-                            });
-                        } else if (talk.speaker_pseudonym.includes("Teacher")) {
-                            allData.push({
-                                content: utterance.utterance,
-                                speaker: talk.speaker_pseudonym,
-                                length: utterance.n_tokens,
-                                types: ["Assorted Teacher Talk"],
-                                time: utterance.timestamp,
-                                right: false,
-                            });
-                        }
+                            time: utterance.timestamp
+                        };
+
+                    if (unclassifiedStudentTalk) {
+                        dataRow = { ...dataRow, ...{ types: ["Assorted Student Talk"] } };
+                    } else if (unclassifiedTeacherTalk) {
+                        dataRow = { ...dataRow, ...{ types: ["Assorted Teacher Talk"] } };
                     } else {
-                        allData.push({
-                            content: utterance.utterance,
-                            speaker: talk.speaker_pseudonym,
-                            length: utterance.n_tokens,
-                            types: utterance.utterance_type,
-                            time: utterance.timestamp,
-                            right: true,
-                        });
+                        dataRow = { ...dataRow, ...{ types: utterance.utterance_type } };
                     }
+
+                    allData.push(dataRow);
                 }
             }
         }
@@ -255,7 +277,3 @@ function Bar(props) {
       </div>
     );
 }
-
-// TurnTaking.propTypes = {
-    // chartData: PropTypes.array
-// };
