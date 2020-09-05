@@ -196,16 +196,6 @@ export default class TurnTaking extends Component {
     }
 }
 
-function TurnTakingBars(props) {
-    var chartData = props.data || [];
-
-    return chartData.map((item, index) => {
-        return (
-          <Bar key={index} data={item} />
-        )
-    })
-}
-
 function Legend(props) {
     var labels = props.labels;
 
@@ -225,8 +215,19 @@ function Legend(props) {
     );
 }
 
+function TurnTakingBars(props) {
+    var chartData = props.data || [];
+
+    return chartData.map((item, index) => {
+        return (
+          <Bar key={index} data={item} />
+        )
+    })
+}
+
 function Bar(props) {
     var item = props.data;
+    console.log("item", item);
 
     var timeStamp = item.time ? item.time : "";
 
@@ -248,14 +249,19 @@ function Bar(props) {
         teacherStyle = {},
         studentStyle = {};
 
+    console.log("item.content", item.content);
     if (isTeacherData) {
-        studentStyle = baseStyle;
+        studentStyle = { ...baseStyle };
         teacherStyle = { ...baseStyle, ...extendedStyle };
     }
 
     if (isStudentData) {
         studentStyle = { ...baseStyle, ...extendedStyle };
-        teacherStyle = baseStyle;
+        teacherStyle = { ...baseStyle };
+    }
+
+    function displayContent(evt) {
+        console.log("here", evt, this);
     }
 
     return (
@@ -263,7 +269,7 @@ function Bar(props) {
         <div className="turn-taking-bar-timestamp">
           {timeStamp}
         </div>
-        <div key={item.index} className="turn-taking-bar">
+        <div key={item.index} className="turn-taking-bar" onMouseOver={displayContent.bind(this)}>
           <div className="turn-taking-bar-teacher-outer">
             <div className="turn-taking-bar-teacher-inner" style={teacherStyle}>
             </div>
