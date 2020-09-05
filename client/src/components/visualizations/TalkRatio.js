@@ -43,7 +43,6 @@ const drawOrder = DrawOrder;
 function drawLegend(height, p, canvas) {
     const h = 22;
     const numTeacher = 8;
-    const numModifiers = 3;
     let y = height;
     p.textSize(12);
     p.noStroke();
@@ -63,50 +62,49 @@ function drawLegend(height, p, canvas) {
         let dispPercent;
         // show percentage for each type
         if (allData[key] !== undefined) {
-            const percent =
-                (allData[key] / (totalTeacher + totalStudent)) * 100;
+            const percent = (allData[key] / (totalTeacher + totalStudent)) * 100;
             dispPercent = percent < 1 ? "<1" : Math.round(percent);
         } else {
             dispPercent = "0";
         }
 
-
         // draw legends
-        if (iter < numTeacher) {
-            if (iter >= numTeacher - numModifiers) {
-                // if the flavor is a modifier, draw the color on the bottom
-                fillColor = 220;
-                p.fill(fillColor);
+        if ((key.includes("Student") || key.includes("Teacher") || key.includes("Metacognitive"))) {
+            if (iter < numTeacher) {
                 p.rect(30, y, h, h);
-                p.fill(colors[key]);
-                p.rect(30, y + h - 5, h, 5);
+
+                // switch the text color if the background color is too dark
+                if (p.lightness(fillColor) < 60) {
+                    p.fill(255);
+                } else {
+                    p.fill(0);
+                }
+                p.textAlign(p.CENTER, p.CENTER);
+                p.text(dispPercent, 30, y, h + 3, h);
+                p.fill(10);
+                p.textAlign(p.LEFT);
+                p.text(dispText, 60, y + 10);
             } else {
-                p.rect(30, y, h, h);
+                if (iter === numTeacher) {
+                    y = height;
+                }
+
+                // colored box
+                p.rect(canvas.width - 60, y, h, h);
+                // percentage inside box
+                // switch the text color if the background color is too dark
+                if (p.lightness(fillColor) < 60) {
+                    p.fill(255);
+                } else {
+                    p.fill(0);
+                }
+                p.textAlign(p.CENTER, p.CENTER);
+                p.text(dispPercent, canvas.width - 60, y, h + 3, h);
+                // legend text
+                p.fill(10);
+                p.textAlign(p.RIGHT);
+                p.text(dispText, canvas.width - 70, y + 10);
             }
-
-            // switch the text color if the background color is too dark
-            if (p.lightness(fillColor) < 60) p.fill(255);
-            else p.fill(0);
-            p.textAlign(p.CENTER, p.CENTER);
-            p.text(dispPercent, 30, y, h + 3, h);
-            p.fill(10);
-            p.textAlign(p.LEFT);
-            p.text(dispText, 60, y + 10);
-        } else {
-            if (iter === numTeacher) y = height;
-
-            // colored box
-            p.rect(canvas.width - 60, y, h, h);
-            // percentage inside box
-            // switch the text color if the background color is too dark
-            if (p.lightness(fillColor) < 60) p.fill(255);
-            else p.fill(0);
-            p.textAlign(p.CENTER, p.CENTER);
-            p.text(dispPercent, canvas.width - 60, y, h + 3, h);
-            // legend text
-            p.fill(10);
-            p.textAlign(p.RIGHT);
-            p.text(dispText, canvas.width - 70, y + 10);
         }
         iter++;
         y += h + 3;
@@ -148,7 +146,6 @@ var sketch = function(p) {
                 const turn = seg.speaking_turns;
 
                 for (const talk of turn) {
-
                     for (let i = 0; i < talk.utterances.length; i++) {
                         const utterance = talk.utterances[i];
                         // calculate amount of time utterance took, might want to use the timestamp to more accurately calc
@@ -167,9 +164,7 @@ var sketch = function(p) {
                                 totalStudent += utteranceDur;
                             } else if (talk.speaker_pseudonym.includes("Teacher")) {
                                 if (allData["Assorted Teacher Talk"]) {
-                                    allData[
-                                        "Assorted Teacher Talk"
-                                    ] += utteranceDur;
+                                    allData["Assorted Teacher Talk"] += utteranceDur;
                                 } else {
                                     allData["Assorted Teacher Talk"] = utteranceDur;
                                 }
@@ -182,12 +177,10 @@ var sketch = function(p) {
                             let newFlavor = flavor;
 
                             // when the flavor is a modifer, check the prev utterance type for the main flavor to add to
-                            if (
-                                (flavor === "Turn-Taking Facilitation" ||
+                            if ((flavor === "Turn-Taking Facilitation" ||
                                     flavor === "Re-Voicing" ||
                                     flavor === "Behavior Management Questions") &&
-                                talk.speaker_type !== "student"
-                            ) {
+                                    talk.speaker_type !== "student") {
                                 let prevUtterance = talk.utterances[i - 1];
                                 let classifier;
 
@@ -262,11 +255,9 @@ var sketch = function(p) {
         for (const flavor of drawOrder) {
             // if there's data for this utterance type, draw it on the graph
             if (allData[flavor] !== undefined) {
-                if (
-                    flavor !== "Turn-Taking Facilitation" &&
+                if (flavor !== "Turn-Taking Facilitation" &&
                     flavor !== "Re-Voicing" &&
-                    flavor !== "Behavior Management Questions"
-                ) {
+                    flavor !== "Behavior Management Questions") {
                     // draw the flavor's bar on the graph
                     p.fill(colors[flavor]);
                     const avg = allData[flavor] / (totalTeacher + totalStudent);
@@ -277,33 +268,33 @@ var sketch = function(p) {
                     drawPos[flavor] = xPos;
                 } else {
                     // the flavor is a modifier, find the combination(s) in allData and draw lines under the relevant sections of the graph
-                    for (const flavorCombo in allData) {
-                        if (flavorCombo.includes("&&") &&
-                            flavorCombo.split("&&")[1] === flavor) {
-                            const firstFlavor = flavorCombo.split("&&")[0];
-                            const modifier = flavorCombo.split("&&")[1];
-
-                            // let firstFlavorPos = drawPos[firstFlavor];
-                            p.fill(colors[modifier]);
-                            const firstFlavorAvg =
-                                allData[firstFlavor] /
-                                (totalTeacher + totalStudent);
-                            const modifierAvg =
-                                allData[flavor] / (totalTeacher + totalStudent);
-                            const modifierAvgOfFirst = firstFlavorAvg * modifierAvg;
-
-                            p.rect(
-                                drawPos[firstFlavor] -
-                                    multiplier * modifierAvgOfFirst,
-                                30 + graphHeight - 5,
-                                multiplier * modifierAvgOfFirst,
-                                5
-                            );
-
-                            // remove the bar size from the position so the next modifier isn't drawn over
-                            drawPos[firstFlavor] -= multiplier * modifierAvgOfFirst;
-                        }
-                    }
+                    // for (const flavorCombo in allData) {
+                    //     if (flavorCombo.includes("&&") &&
+                    //         flavorCombo.split("&&")[1] === flavor) {
+                    //         const firstFlavor = flavorCombo.split("&&")[0];
+                    //         const modifier = flavorCombo.split("&&")[1];
+                    //
+                    //         // let firstFlavorPos = drawPos[firstFlavor];
+                    //         p.fill(colors[modifier]);
+                    //         const firstFlavorAvg =
+                    //             allData[firstFlavor] /
+                    //             (totalTeacher + totalStudent);
+                    //         const modifierAvg =
+                    //             allData[flavor] / (totalTeacher + totalStudent);
+                    //         const modifierAvgOfFirst = firstFlavorAvg * modifierAvg;
+                    //
+                    //         p.rect(
+                    //             drawPos[firstFlavor] -
+                    //                 multiplier * modifierAvgOfFirst,
+                    //             30 + graphHeight - 5,
+                    //             multiplier * modifierAvgOfFirst,
+                    //             5
+                    //         );
+                    //
+                    //         // remove the bar size from the position so the next modifier isn't drawn over
+                    //         drawPos[firstFlavor] -= multiplier * modifierAvgOfFirst;
+                    //     }
+                    // }
                 }
             }
         }
