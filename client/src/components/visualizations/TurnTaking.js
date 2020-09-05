@@ -93,20 +93,18 @@ export default class TurnTaking extends Component {
                         dataRow = { ...dataRow, ...{ types: utterance.utterance_type } };
                     }
 
-                    var sameUtteranceTypesAsPrevious = utterance.utterance_type.every((element, index) => {
-                        if (allData[allData.length - 1] && allData[allData.length - 1].types) {
-                            return element === allData[allData.length - 1].types[index]
-                        } else {
-                            return false;
-                        }
-                    });
-
-                    if (allData.length === 0 || !sameUtteranceTypesAsPrevious) {
+                    if (allData.length === 0) {
                         allData.push(dataRow);
                     } else {
-                        var previousDataRow = allData[allData.length - 1];
-                        previousDataRow.length += dataRow.length;
-                        previousDataRow.time = dataRow.time;
+                        var previousDataRow = allData[allData.length - 1],
+                            sameUtteranceTypesAsPrevious = JSON.stringify(previousDataRow.types) === JSON.stringify(dataRow.types);
+
+                        if (sameUtteranceTypesAsPrevious) {
+                            previousDataRow.length += dataRow.length;
+                            previousDataRow.time = dataRow.time;
+                        } else {
+                            allData.push(dataRow);
+                        }
                     }
                 }
             }
@@ -141,6 +139,7 @@ export default class TurnTaking extends Component {
                         dataRow = { ...dataRow, ...{ types: utterance.utterance_type } };
                     }
 
+                    // console.log("dataRow expanded", dataRow);
                     allData.push(dataRow);
                 }
             }
@@ -241,7 +240,7 @@ function Bar(props) {
         barBorder = `3px solid ${Colors[item.types[0]]}`;
         boxSizing = "border-box";
     }
-    var barWidth = item.length * 6, // arbitrary multiplier
+    var barWidth = item.length,// * 6, // arbitrary multiplier
         barHeight = "14px";
 
     var baseStyle = { height: barHeight },
