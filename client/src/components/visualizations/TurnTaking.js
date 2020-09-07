@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
 
-import Labels from '../../fixtures/labels';
-import Colors from '../../fixtures/colors';
+import Legend from '../legend/Legend';
+
+import LegendLabels from '../../fixtures/legend_labels';
 import data from '../../data/data';
 
 /*
@@ -98,32 +99,16 @@ export default class TurnTaking extends Component {
         this.chartData = allData;
     }
 
-    transformLegendLabels = function(labelTextArray, options) {
-        return labelTextArray.map((dispText) => {
-            var label = {
-                color: Colors[dispText]
-            };
-
-            dispText = dispText.replace("Teacher", "").trim();
-            dispText = dispText.replace("Student", "").trim();
-            dispText = dispText.replace("Questions", "").trim();
-            dispText = dispText.replace("Assorted  Talk", "Other Talk");
-            dispText = dispText.replace("Modeling", "").trim();
-            dispText = dispText.replace("S/Q", "Questions");
-
-            return { ...label, ...{ text: dispText } };
-        });
+    displayLegendLabels = function(options) {
+        return LegendLabels.filter((item) => item.type === options.type);
     };
-    teacherLegendLabels = Labels["Teacher"];
-    studentLegendLabels = Labels["Student"];
-    metaLegendLabels = Labels["Technique"];
 
     render() {
         return (
             <div className="turn-taking-visualization-container">
               <div className="turn-taking-key-teacher">
-                <Legend labels={this.transformLegendLabels(this.teacherLegendLabels)} />
-                <Legend labels={this.transformLegendLabels(this.metaLegendLabels)} />
+                <Legend labels={this.displayLegendLabels({ type: "Teacher"})} />
+                <Legend labels={this.displayLegendLabels({ type: "Technique" })} />
               </div>
               <div className="turn-taking-visualization">
                 <div className="turn-taking-visualization-headings">
@@ -137,33 +122,15 @@ export default class TurnTaking extends Component {
                 })}
               </div>
               <div className="turn-taking-key-student">
-                <Legend labels={this.transformLegendLabels(this.studentLegendLabels)} />
+                <Legend labels={this.displayLegendLabels({ type: "Student" })} />
               </div>
             </div>
         );
     }
 }
 
-function Legend(props) {
-    var labels = props.labels;
-
-    return (
-      <div>
-      {labels.map((label, index) => {
-        return (
-          <div key={index} className="turn-taking-key-item">
-            <div className="turn-taking-key-item-legend" style={{backgroundColor: label.color}}></div>
-            <span className="turn-taking-key-item-text">
-              {label.text}
-            </span>
-          </div>
-        );
-      })}
-      </div>
-    );
-}
-
 function Bar(props) {
+    var legendLabels = LegendLabels;
     var item = props.data;
 
     var timeStamp = item.time ? item.time : "";
@@ -171,11 +138,13 @@ function Bar(props) {
     var isStudentData = item.speaker.includes("Student"),
         isTeacherData = item.speaker === "Teacher";
 
-    var barColor = Colors[item.types[item.types.length - 1]];
+    var legendLabelValue = item.types[item.types.length - 1];
+    var barColor = legendLabels.find(item => item.value === legendLabelValue).color;
     var barBorder = "";
     var boxSizing = "";
-    if (item.types.length > 1) {
-        barBorder = `3px solid ${Colors[item.types[0]]}`;
+    if (item.types.length > 1) { // if it has multiple types, draw a border around the bar
+        var borderValue = item.types && item.types[0];
+        barBorder = `3px solid ${legendLabels.find(item => item.value === borderValue)}.color`;
         boxSizing = "border-box";
     }
     var barWidth = item.length * 6, // arbitrary multiplier
