@@ -266,35 +266,6 @@ var sketch = function(p) {
                     xPos += multiplier * avg;
                     // record the drawing position for later if we want to come back and draw a modifier line under it
                     drawPos[flavor] = xPos;
-                } else {
-                    // the flavor is a modifier, find the combination(s) in allData and draw lines under the relevant sections of the graph
-                    // for (const flavorCombo in allData) {
-                    //     if (flavorCombo.includes("&&") &&
-                    //         flavorCombo.split("&&")[1] === flavor) {
-                    //         const firstFlavor = flavorCombo.split("&&")[0];
-                    //         const modifier = flavorCombo.split("&&")[1];
-                    //
-                    //         // let firstFlavorPos = drawPos[firstFlavor];
-                    //         p.fill(colors[modifier]);
-                    //         const firstFlavorAvg =
-                    //             allData[firstFlavor] /
-                    //             (totalTeacher + totalStudent);
-                    //         const modifierAvg =
-                    //             allData[flavor] / (totalTeacher + totalStudent);
-                    //         const modifierAvgOfFirst = firstFlavorAvg * modifierAvg;
-                    //
-                    //         p.rect(
-                    //             drawPos[firstFlavor] -
-                    //                 multiplier * modifierAvgOfFirst,
-                    //             30 + graphHeight - 5,
-                    //             multiplier * modifierAvgOfFirst,
-                    //             5
-                    //         );
-                    //
-                    //         // remove the bar size from the position so the next modifier isn't drawn over
-                    //         drawPos[firstFlavor] -= multiplier * modifierAvgOfFirst;
-                    //     }
-                    // }
                 }
             }
         }
