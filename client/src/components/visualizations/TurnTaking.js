@@ -116,7 +116,6 @@ export default class TurnTaking extends Component {
                   <h2>Teacher Talk</h2>
                   <h2>Student Talk</h2>
                 </div>
-                <Script />
                 {this.chartData.map((item, index) => {
                     return (
                       <Bar key={index} data={item} />
