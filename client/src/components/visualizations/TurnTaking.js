@@ -182,25 +182,6 @@ export default class TurnTaking extends Component {
     }
 }
 
-function Legend(props) {
-    var labels = props.labels;
-
-    return (
-      <div>
-      {labels.map((label, index) => {
-        return (
-          <div key={index} className="turn-taking-key-item">
-            <div className="turn-taking-key-item-legend" style={{backgroundColor: label.color}}></div>
-            <span className="turn-taking-key-item-text">
-              {label.text}
-            </span>
-          </div>
-        );
-      })}
-      </div>
-    );
-}
-
 function TurnTakingBars(props) {
     var chartData = props.data || [];
 
