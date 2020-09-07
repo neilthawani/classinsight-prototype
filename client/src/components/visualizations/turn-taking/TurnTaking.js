@@ -4,12 +4,11 @@ import React, { Component } from 'react';
 import ArrowCollapseVerticalIcon from 'mdi-react/ArrowCollapseVerticalIcon';
 import ArrowExpandVerticalIcon from 'mdi-react/ArrowExpandVerticalIcon';
 
-import Legend from '../legend/Legend';
+import Legend from '../../legend/Legend';
+import LegendLabels from '../../../fixtures/legend_labels';
+import Bar from './Bar';
 
-import LegendLabels from '../../fixtures/legend_labels';
-
-import data from '../../data/data';
-import Script from './transcript/Script';
+import data from '../../../data/data';
 
 /*
 For this file, the data we're after is in data.segments[0].speaking_turns.
@@ -40,7 +39,8 @@ export default class TurnTaking extends Component {
         super(props);
 
         this.state = {
-            bars: window.localStorage.getItem("bars") || "expanded"
+            bars: window.localStorage.getItem("bars") || "expanded",
+            focusText: null
         };
     }
 
@@ -155,6 +155,8 @@ export default class TurnTaking extends Component {
     };
 
     render() {
+        var chartData = this.chartData(this.state.bars);
+
         return (
             <div className="turn-taking-visualization-container">
               <div className="turn-taking-key-teacher">
@@ -172,7 +174,11 @@ export default class TurnTaking extends Component {
                     Student Talk
                   </h2>
                 </div>
-                <TurnTakingBars data={this.chartData(this.state.bars)} />
+                {chartData.map((item, index) => {
+                    return (
+                      <Bar key={index} data={item} focusText={this.state.focusText} />
+                    )
+                })}
               </div>
               <div className="turn-taking-key-student">
                 <Legend labels={this.displayLegendLabels({ type: "Student" })} />
@@ -180,81 +186,4 @@ export default class TurnTaking extends Component {
             </div>
         );
     }
-}
-
-function TurnTakingBars(props) {
-    var chartData = props.data || [];
-
-    return chartData.map((item, index) => {
-        return (
-          <Bar key={index} data={item} />
-        )
-    })
-}
-
-function Bar(props) {
-    var legendLabels = LegendLabels;
-    var item = props.data,
-        text = item.content;
-
-    var timeStamp = item.time ? item.time : "";
-
-    var isStudentData = item.speaker.includes("Student"),
-        isTeacherData = item.speaker === "Teacher";
-
-    var legendLabelValue = item.types[item.types.length - 1];
-    var barColor = legendLabels.find(item => item.value === legendLabelValue).color;
-    var barBorder = "";
-    var boxSizing = "";
-    if (item.types.length > 1) { // if it has multiple types, draw a border around the bar
-        var borderValue = item.types && item.types[0];
-        barBorder = `3px solid ${legendLabels.find(item => item.value === borderValue)}.color`;
-        boxSizing = "border-box";
-    }
-    var barWidth = item.length,
-        barHeight = "14px";
-
-    var baseStyle = { height: barHeight },
-        extendedStyle = { backgroundColor: barColor, border: barBorder, boxSizing: boxSizing, width: barWidth, height: barHeight },
-        teacherStyle = {},
-        studentStyle = {};
-
-    if (isTeacherData) {
-        studentStyle = baseStyle;
-        teacherStyle = { ...baseStyle, ...extendedStyle };
-    }
-
-    if (isStudentData) {
-        studentStyle = { ...baseStyle, ...extendedStyle };
-        teacherStyle = baseStyle;
-    }
-
-    // var focusText = null;
-    // function handleClick(textValue) {
-    //     focusText = textValue;
-    // }
-
-    return (
-      <div>
-        <div className="turn-taking-visualization-row">{/*onClick={handleClick.bind(this, text)}>*/}
-          <div className="turn-taking-bar-timestamp">
-            {timeStamp}
-          </div>
-          <div key={item.index} className="turn-taking-bar">
-            <div className="turn-taking-bar-teacher-outer">
-              <div className="turn-taking-bar-teacher-inner" style={teacherStyle}>
-              </div>
-            </div>
-            <div className="turn-taking-bar-student-outer">
-              <div className="turn-taking-bar-student-inner" style={studentStyle}>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="turn-taking-visualization-row-drilldown">
-          {/*<Script />{/*focusText={focusText} />*/}
-        </div>
-      </div>
-    );
 }
