@@ -194,8 +194,8 @@ function TurnTakingBars(props) {
 
 function Bar(props) {
     var legendLabels = LegendLabels;
-    var item = props.data;
-    console.log("item", item);
+    var item = props.data,
+        text = item.content;
 
     var timeStamp = item.time ? item.time : "";
 
@@ -219,20 +219,24 @@ function Bar(props) {
         teacherStyle = {},
         studentStyle = {};
 
-    console.log("item.content", item.content);
     if (isTeacherData) {
-        studentStyle = { ...baseStyle };
+        studentStyle = baseStyle;
         teacherStyle = { ...baseStyle, ...extendedStyle };
     }
 
     if (isStudentData) {
         studentStyle = { ...baseStyle, ...extendedStyle };
-        teacherStyle = { ...baseStyle };
+        teacherStyle = baseStyle;
     }
+
+    // var focusText = null;
+    // function handleClick(textValue) {
+    //     focusText = textValue;
+    // }
 
     return (
       <div>
-        <div className="turn-taking-visualization-row">
+        <div className="turn-taking-visualization-row">{/*onClick={handleClick.bind(this, text)}>*/}
           <div className="turn-taking-bar-timestamp">
             {timeStamp}
           </div>
@@ -248,9 +252,9 @@ function Bar(props) {
           </div>
         </div>
 
-        {/*<div className="turn-taking-visualization-row-drilldown">
-          <Script />
-        </div>*/}
+        <div className="turn-taking-visualization-row-drilldown">
+          {/*<Script />{/*focusText={focusText} />*/}
+        </div>
       </div>
     );
 }

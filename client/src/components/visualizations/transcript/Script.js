@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from "prop-types";
 
 import data from '../../../data/data';
 
@@ -62,3 +63,7 @@ export default class Script extends Component {
       )
     }
 }
+
+Script.propTypes = {
+    focusText: PropTypes.string
+};
