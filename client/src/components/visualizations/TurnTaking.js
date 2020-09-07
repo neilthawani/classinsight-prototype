@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 // import PropTypes from "prop-types";
 
-import Labels from '../../fixtures/labels';
-import Colors from '../../fixtures/colors';
-
 import ArrowCollapseVerticalIcon from 'mdi-react/ArrowCollapseVerticalIcon';
 import ArrowExpandVerticalIcon from 'mdi-react/ArrowExpandVerticalIcon';
 
+import Legend from '../legend/Legend';
+
+import LegendLabels from '../../fixtures/legend_labels';
+
 import data from '../../data/data';
+import Script from './transcript/Script';
 
 /*
 For this file, the data we're after is in data.segments[0].speaking_turns.
@@ -148,32 +150,16 @@ export default class TurnTaking extends Component {
         return allData;
     }, []);
 
-    transformLegendLabels = function(labelTextArray, options) {
-        return labelTextArray.map((dispText) => {
-            var label = {
-                color: Colors[dispText]
-            };
-
-            dispText = dispText.replace("Teacher", "").trim();
-            dispText = dispText.replace("Student", "").trim();
-            dispText = dispText.replace("Questions", "").trim();
-            dispText = dispText.replace("Assorted  Talk", "Other Talk");
-            dispText = dispText.replace("Modeling", "").trim();
-            dispText = dispText.replace("S/Q", "Questions");
-
-            return { ...label, ...{ text: dispText } };
-        });
+    displayLegendLabels = function(options) {
+        return LegendLabels.filter((item) => item.type === options.type);
     };
-    teacherLegendLabels = Labels["Teacher"];
-    studentLegendLabels = Labels["Student"];
-    metaLegendLabels = Labels["Technique"];
 
     render() {
         return (
             <div className="turn-taking-visualization-container">
               <div className="turn-taking-key-teacher">
-                <Legend labels={this.transformLegendLabels(this.teacherLegendLabels)} />
-                <Legend labels={this.transformLegendLabels(this.metaLegendLabels)} />
+                <Legend labels={this.displayLegendLabels({ type: "Teacher"})} />
+                <Legend labels={this.displayLegendLabels({ type: "Technique" })} />
               </div>
               <div className="turn-taking-visualization">
                 <div className="turn-taking-visualization-headings">
@@ -189,7 +175,7 @@ export default class TurnTaking extends Component {
                 <TurnTakingBars data={this.chartData(this.state.bars)} />
               </div>
               <div className="turn-taking-key-student">
-                <Legend labels={this.transformLegendLabels(this.studentLegendLabels)} />
+                <Legend labels={this.displayLegendLabels({ type: "Student" })} />
               </div>
             </div>
         );
@@ -226,6 +212,7 @@ function TurnTakingBars(props) {
 }
 
 function Bar(props) {
+    var legendLabels = LegendLabels;
     var item = props.data;
     console.log("item", item);
 
@@ -234,11 +221,13 @@ function Bar(props) {
     var isStudentData = item.speaker.includes("Student"),
         isTeacherData = item.speaker === "Teacher";
 
-    var barColor = Colors[item.types[item.types.length - 1]];
+    var legendLabelValue = item.types[item.types.length - 1];
+    var barColor = legendLabels.find(item => item.value === legendLabelValue).color;
     var barBorder = "";
     var boxSizing = "";
-    if (item.types.length > 1) {
-        barBorder = `3px solid ${Colors[item.types[0]]}`;
+    if (item.types.length > 1) { // if it has multiple types, draw a border around the bar
+        var borderValue = item.types && item.types[0];
+        barBorder = `3px solid ${legendLabels.find(item => item.value === borderValue)}.color`;
         boxSizing = "border-box";
     }
     var barWidth = item.length,
@@ -261,20 +250,26 @@ function Bar(props) {
     }
 
     return (
-      <div className="turn-taking-visualization-row">
-        <div className="turn-taking-bar-timestamp">
-          {timeStamp}
-        </div>
-        <div key={item.index} className="turn-taking-bar">
-          <div className="turn-taking-bar-teacher-outer">
-            <div className="turn-taking-bar-teacher-inner" style={teacherStyle}>
+      <div>
+        <div className="turn-taking-visualization-row">
+          <div className="turn-taking-bar-timestamp">
+            {timeStamp}
+          </div>
+          <div key={item.index} className="turn-taking-bar">
+            <div className="turn-taking-bar-teacher-outer">
+              <div className="turn-taking-bar-teacher-inner" style={teacherStyle}>
+              </div>
+            </div>
+            <div className="turn-taking-bar-student-outer">
+              <div className="turn-taking-bar-student-inner" style={studentStyle}>
+              </div>
             </div>
           </div>
-          <div className="turn-taking-bar-student-outer">
-            <div className="turn-taking-bar-student-inner" style={studentStyle}>
-            </div>
-          </div>
         </div>
+
+        {/*<div className="turn-taking-visualization-row-drilldown">
+          <Script />
+        </div>*/}
       </div>
     );
 }

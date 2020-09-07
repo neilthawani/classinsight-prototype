@@ -73,10 +73,7 @@ class Login extends Component {
               error={errors.email}
               id="email"
               type="email"
-              className={classnames("", {
-                invalid: errors.email || errors.emailnotfound
-              })}
-            />
+              className={classnames("", { invalid: errors.email || errors.emailnotfound })} />
             <span className="input-field-error-text">
               {errors.email}
               {errors.emailnotfound}
@@ -90,10 +87,7 @@ class Login extends Component {
               error={errors.password}
               id="password"
               type="password"
-              className={classnames("", {
-                invalid: errors.password || errors.passwordincorrect
-              })}
-            />
+              className={classnames("", { invalid: errors.password || errors.passwordincorrect })}/>
             <span className="input-field-error-text">
               {errors.password}
               {errors.passwordincorrect}
@@ -101,8 +95,7 @@ class Login extends Component {
           </div>
           <button
             type="submit"
-            className="btn btn-submit"
-          >
+            className="btn btn-submit">
             Login
           </button>
         </form>
