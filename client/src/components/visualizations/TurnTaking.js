@@ -260,16 +260,12 @@ function Bar(props) {
         teacherStyle = { ...baseStyle };
     }
 
-    function displayContent(evt) {
-        console.log("here", evt, this);
-    }
-
     return (
       <div className="turn-taking-visualization-row">
         <div className="turn-taking-bar-timestamp">
           {timeStamp}
         </div>
-        <div key={item.index} className="turn-taking-bar" onMouseOver={displayContent.bind(this)}>
+        <div key={item.index} className="turn-taking-bar">
           <div className="turn-taking-bar-teacher-outer">
             <div className="turn-taking-bar-teacher-inner" style={teacherStyle}>
             </div>
