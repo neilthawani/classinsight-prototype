@@ -5,6 +5,7 @@ import Legend from '../legend/Legend';
 
 import LegendLabels from '../../fixtures/legend_labels';
 import data from '../../data/data';
+import Script from './transcript/Script';
 
 /*
 For this file, the data we're after is in data.segments[0].speaking_turns.
@@ -166,20 +167,26 @@ function Bar(props) {
     }
 
     return (
-      <div className="turn-taking-visualization-row">
-        <div className="turn-taking-bar-timestamp">
-          {timeStamp}
-        </div>
-        <div key={item.index} className="turn-taking-bar">
-          <div className="turn-taking-bar-teacher-outer">
-            <div className="turn-taking-bar-teacher-inner" style={teacherStyle}>
+      <div>
+        <div className="turn-taking-visualization-row">
+          <div className="turn-taking-bar-timestamp">
+            {timeStamp}
+          </div>
+          <div key={item.index} className="turn-taking-bar">
+            <div className="turn-taking-bar-teacher-outer">
+              <div className="turn-taking-bar-teacher-inner" style={teacherStyle}>
+              </div>
+            </div>
+            <div className="turn-taking-bar-student-outer">
+              <div className="turn-taking-bar-student-inner" style={studentStyle}>
+              </div>
             </div>
           </div>
-          <div className="turn-taking-bar-student-outer">
-            <div className="turn-taking-bar-student-inner" style={studentStyle}>
-            </div>
-          </div>
         </div>
+
+        {/*<div className="turn-taking-visualization-row-drilldown">
+          <Script />
+        </div>*/}
       </div>
     );
 }
