@@ -37,7 +37,8 @@
     font-size: 10px;
     width: max-content;
     position: absolute;
-    left: 0;
+    left: 4px;
+    top: 3px;
 }
 
 .turn-taking-bar {
@@ -45,6 +46,13 @@
     flex-direction: row;
     height: 14px;
     margin-bottom: 2px;
+    cursor: pointer;
+
+    &:hover {
+        border: 1px solid $lightGray;
+        padding: 2px;
+
+    }
 }
 
 .turn-taking-bar-teacher-outer {

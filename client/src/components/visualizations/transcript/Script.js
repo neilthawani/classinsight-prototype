@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from "prop-types";
 
 import data from '../../../data/data';
+import Parser from '../../../data/parser';
 
 export default class Script extends Component {
     constructor(props) {
@@ -10,33 +12,45 @@ export default class Script extends Component {
 
         var segments = transcriptData[0].data.segments;
         segments.forEach((segment, index, array) => {
-            var speakingTurns = segment.speaking_turns;
-            speakingTurns.forEach((turn, jindex, jarray) => {
-                var speaker = turn.speaker_pseudonym;
-                var start = turn.initial_time;
-                var end = turn.end_time;
+            var utteranceIndex = 0;
 
-                transcript.push({speaker: speaker, start: start, end: end, utterances: []})
+            if (segment.participation_type !== "Other") {
+                var speakingTurns = segment.speaking_turns;
+                speakingTurns.forEach((turn, jindex, jarray) => {
+                    var speaker = turn.speaker_pseudonym;
+                    var start = turn.initial_time;
+                    var end = turn.end_time;
 
-                turn.utterances.forEach((utterance, kindex, karray) => {
-                    var utteranceType = utterance.utterance_type.length === 0 ? ["Unknown"] : utterance.utterance_type;
+                    transcript.push({speaker: speaker, start: start, end: end, utterances: []})
 
-                    transcript[transcript.length - 1].utterances.push({
-                        timestamp: utterance.timestamp,
-                        utterance: utterance.utterance,
-                        type: utteranceType
+                    turn.utterances.forEach((utterance, kindex, karray) => {
+                        var utteranceType = utterance.utterance_type.length === 0 ? ["Unknown"] : utterance.utterance_type;
+
+                        transcript[transcript.length - 1].utterances.push({
+                            id: utteranceIndex++,
+                            timestamp: utterance.timestamp,
+                            utterance: utterance.utterance,
+                            type: utteranceType
+                        });
                     });
                 });
-            });
+            }
         });
 
         this.transcript = transcript;
     }
 
     render() {
+      var focusObj = this.props.focusObj,
+          activeTranscript = [];
+
+      if (focusObj) {
+          activeTranscript = Parser.focusTranscript(this.transcript, focusObj, { range: {min: 1, max: 1} });
+      }
+
       return (
         <div className="alt-transcript-container">
-          {this.transcript.map((turn, index, array) => {
+          {activeTranscript.map((turn, index, array) => {
               var speaker = turn.speaker;
 
               return (
@@ -62,3 +76,7 @@ export default class Script extends Component {
       )
     }
 }
+
+Script.propTypes = {
+    focusObj: PropTypes.object
+};
