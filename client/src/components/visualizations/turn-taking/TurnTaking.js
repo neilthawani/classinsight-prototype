@@ -10,6 +10,8 @@ import Bar from './Bar';
 
 import data from '../../../data/data';
 
+import isObjectEmpty from '../../../utils/isObjectEmpty';
+
 /*
 For this file, the data we're after is in data.segments[0].speaking_turns.
 Each object in this array is a record of someone speaking. It has this structure:
@@ -40,7 +42,7 @@ export default class TurnTaking extends Component {
 
         this.state = {
             bars: window.localStorage.getItem("bars") || "expanded",
-            focusText: null
+            focusObj: {}
         };
 
         this.handleClick = this.handleClick.bind(this);
@@ -72,7 +74,9 @@ export default class TurnTaking extends Component {
     }
 
     collapsedData = data[0].data.segments.reduce((allData, seg, index, array) => {
-        if (seg.participation_type !== "Other") {
+        var utteranceIndex = 0;
+
+        if (seg.participation_type !== "Other") { // this excludes a great deal of the transcript
             const turn = seg.speaking_turns;
 
             for (const talk of turn) {
@@ -83,7 +87,8 @@ export default class TurnTaking extends Component {
                         unclassifiedTeacherTalk = utterance.utterance_type.length === 0 &&
                             talk.speaker_pseudonym.includes("Teacher"),
                         dataRow = {
-                            content: utterance.utterance,
+                            id: utteranceIndex++,
+                            utterance: utterance.utterance,
                             speaker: talk.speaker_pseudonym,
                             length: utterance.n_tokens,
                             time: utterance.timestamp
@@ -119,6 +124,8 @@ export default class TurnTaking extends Component {
     }, []);
 
     expandedData = data[0].data.segments.reduce((allData, seg, index, array) => {
+        var utteranceIndex = 0;
+
         if (seg.participation_type !== "Other") {
             const turn = seg.speaking_turns;
 
@@ -130,7 +137,8 @@ export default class TurnTaking extends Component {
                         unclassifiedTeacherTalk = utterance.utterance_type.length === 0 &&
                             talk.speaker_pseudonym.includes("Teacher"),
                         dataRow = {
-                            content: utterance.utterance,
+                            id: utteranceIndex++,
+                            utterance: utterance.utterance,
                             speaker: talk.speaker_pseudonym,
                             length: utterance.n_tokens,
                             time: utterance.timestamp
@@ -157,13 +165,12 @@ export default class TurnTaking extends Component {
     };
 
     handleClick(evt, rowObj) {
-        console.log("click", evt, rowObj);
-        var focusText = rowObj.content;
+        var focusObj = this.state.focusObj;
 
-        if (focusText === this.state.focusText) {
-            this.setState({focusText: null});
+        if (!isObjectEmpty(focusObj) && rowObj.id === focusObj.id && rowObj.utterance === focusObj.utterance) {
+            this.setState({focusObj: {}});
         } else {
-            this.setState({focusText: focusText});
+            this.setState({focusObj: rowObj});
         }
     }
 
@@ -189,7 +196,7 @@ export default class TurnTaking extends Component {
                 </div>
                 {chartData.map((item, index) => {
                     return (
-                      <Bar key={index} data={item} focusText={this.state.focusText} onRowClick={this.handleClick} />
+                      <Bar key={index} data={item} focusObj={this.state.focusObj} onRowClick={this.handleClick} />
                     )
                 })}
               </div>

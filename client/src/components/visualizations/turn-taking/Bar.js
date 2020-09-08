@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import LegendLabels from '../../../fixtures/legend_labels';
 import Script from '../transcript/Script';
+import isObjectEmpty from '../../../utils/isObjectEmpty';
 
 export default class Bar extends Component {
     constructor(props) {
@@ -16,8 +17,10 @@ export default class Bar extends Component {
 
     render() {
       var item = this.props.data,
-          text = item.content,
-          focusText = this.props.focusText;
+          focusObj = this.props.focusObj,
+          isFocusRow = isObjectEmpty(focusObj) ?
+                        false :
+                        (item.id === focusObj.id && item.utterance === focusObj.utterance);
 
       var timeStamp = item.time ? item.time : "";
 
@@ -37,7 +40,7 @@ export default class Bar extends Component {
           barHeight = "14px";
 
       var baseStyle = { height: barHeight },
-          extendedStyle = { backgroundColor: barColor, border: barBorder, boxSizing: boxSizing, width: barWidth, height: barHeight },
+          extendedStyle = { backgroundColor: barColor, border: barBorder, boxSizing: boxSizing, width: barWidth },
           teacherStyle = {},
           studentStyle = {};
 
@@ -57,7 +60,7 @@ export default class Bar extends Component {
             <div className="turn-taking-bar-timestamp">
               {timeStamp}
             </div>
-            <div key={item.index} className="turn-taking-bar">
+            <div key={item.id} className="turn-taking-bar">
               <div className="turn-taking-bar-teacher-outer">
                 <div className="turn-taking-bar-teacher-inner" style={teacherStyle}>
                 </div>
@@ -69,14 +72,11 @@ export default class Bar extends Component {
             </div>
           </div>
 
-          {this.props.focusText}
-
-          {/*this.props.focusText !== null ?
+          {isFocusRow ?
             <div className="turn-taking-visualization-row-drilldown">
-              {this.props.focusText}
-              <Script focusText={this.props.focusText} />
+              <Script focusObj={this.props.focusObj} />
             </div>
-          : ""*/}
+          : '' }
         </div>
       );
     }
