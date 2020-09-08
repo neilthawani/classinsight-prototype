@@ -8,7 +8,7 @@ import Legend from '../../legend/Legend';
 import LegendLabels from '../../../fixtures/legend_labels';
 import Bar from './Bar';
 
-import data from '../../../data/data';
+import Parser from '../../../data/parser';
 
 import isObjectEmpty from '../../../utils/isObjectEmpty';
 
@@ -53,7 +53,6 @@ export default class TurnTaking extends Component {
         window.localStorage.setItem("bars", value);
     }
 
-    // https://stackoverflow.com/questions/46424589/toggle-component-in-react-on-button-click
     barsStateIcon = {
         "expanded": <ArrowCollapseVerticalIcon
           className="turn-taking-visualization-heading-icon"
@@ -73,92 +72,8 @@ export default class TurnTaking extends Component {
         }
     }
 
-    collapsedData = data[0].data.segments.reduce((allData, seg, index, array) => {
-        var utteranceIndex = 0;
-
-        if (seg.participation_type !== "Other") { // this excludes a great deal of the transcript
-            const turn = seg.speaking_turns;
-
-            for (const talk of turn) {
-                for (const utterance of talk.utterances) {
-                    var unclassifiedStudentTalk = utterance.utterance_type.length === 0 &&
-                            (talk.speaker_pseudonym.includes("Class") ||
-                            talk.speaker_pseudonym.includes("Student")),
-                        unclassifiedTeacherTalk = utterance.utterance_type.length === 0 &&
-                            talk.speaker_pseudonym.includes("Teacher"),
-                        dataRow = {
-                            id: utteranceIndex++,
-                            utterance: utterance.utterance,
-                            speaker: talk.speaker_pseudonym,
-                            length: utterance.n_tokens,
-                            time: utterance.timestamp
-                        };
-
-                    // categorize student and teacher talk for talk that has no utterance types
-                    if (unclassifiedStudentTalk) {
-                        dataRow = { ...dataRow, ...{ types: ["Assorted Student Talk"] } };
-                    } else if (unclassifiedTeacherTalk) {
-                        dataRow = { ...dataRow, ...{ types: ["Assorted Teacher Talk"] } };
-                    } else {
-                        dataRow = { ...dataRow, ...{ types: utterance.utterance_type } };
-                    }
-
-                    if (allData.length === 0) {
-                        allData.push(dataRow);
-                    } else {
-                        var previousDataRow = allData[allData.length - 1],
-                            sameUtteranceTypesAsPrevious = JSON.stringify(previousDataRow.types) === JSON.stringify(dataRow.types);
-
-                        if (sameUtteranceTypesAsPrevious) {
-                            previousDataRow.length += dataRow.length;
-                            previousDataRow.time = dataRow.time;
-                        } else {
-                            allData.push(dataRow);
-                        }
-                    }
-                }
-            }
-        }
-
-        return allData;
-    }, []);
-
-    expandedData = data[0].data.segments.reduce((allData, seg, index, array) => {
-        var utteranceIndex = 0;
-
-        if (seg.participation_type !== "Other") {
-            const turn = seg.speaking_turns;
-
-            for (const talk of turn) {
-                for (const utterance of talk.utterances) {
-                    var unclassifiedStudentTalk = utterance.utterance_type.length === 0 &&
-                            (talk.speaker_pseudonym.includes("Class") ||
-                            talk.speaker_pseudonym.includes("Student")),
-                        unclassifiedTeacherTalk = utterance.utterance_type.length === 0 &&
-                            talk.speaker_pseudonym.includes("Teacher"),
-                        dataRow = {
-                            id: utteranceIndex++,
-                            utterance: utterance.utterance,
-                            speaker: talk.speaker_pseudonym,
-                            length: utterance.n_tokens,
-                            time: utterance.timestamp
-                        };
-
-                    if (unclassifiedStudentTalk) {
-                        dataRow = { ...dataRow, ...{ types: ["Assorted Student Talk"] } };
-                    } else if (unclassifiedTeacherTalk) {
-                        dataRow = { ...dataRow, ...{ types: ["Assorted Teacher Talk"] } };
-                    } else {
-                        dataRow = { ...dataRow, ...{ types: utterance.utterance_type } };
-                    }
-
-                    allData.push(dataRow);
-                }
-            }
-        }
-
-        return allData;
-    }, []);
+    collapsedData = Parser.collapsedData();
+    expandedData = Parser.expandedData();
 
     displayLegendLabels = function(options) {
         return LegendLabels.filter((item) => item.type === options.type);
