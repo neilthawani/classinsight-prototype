@@ -45,27 +45,8 @@ export default class Script extends Component {
           activeTranscript = [];
 
       if (focusObj) {
-          // begin parser::focusTranscript
           activeTranscript = Parser.focusTranscript(this.transcript, focusObj, { range: {min: 1, max: 1} });
-          debugger;
-          // var activeTurnIndex = 0;
-          //
-          // for (var i = 0; i < this.transcript.length; i++) {
-          //     var turn = this.transcript[i];
-          //     var utteranceIndex = turn.utterances.findIndex((utteranceObj) => {
-          //         return utteranceObj.id === focusObj.id && utteranceObj.utterance === focusObj.utterance;
-          //     });
-          //
-          //     if (utteranceIndex !== -1 ) {
-          //         activeTurnIndex = i;
-          //         break;
-          //     }
-          // }
-          //
-          // focusTranscript = this.transcript.slice(activeTurnIndex - 1, activeTurnIndex + 2);
-          // end parser::focusTranscript
       }
-      console.log("Script::activeTranscript", activeTranscript);
 
       return (
         <div className="alt-transcript-container">

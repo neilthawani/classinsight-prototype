@@ -10,11 +10,10 @@ export default {
     expandedData: {},
 
     focusTranscript: function(transcript, targetUtterance, options) {
-        console.log("here");
         var rangeMin = options.range.min || 1,
             rangeMax = options.range.max || 1
         var activeTurnIndex = 0;
-        console.log("transcript", transcript);
+
         for (var i = 0; i < transcript.length; i++) {
             var turn = transcript[i];
             var utteranceIndex = turn.utterances.findIndex((utteranceObj) => {
@@ -30,9 +29,6 @@ export default {
         // if minSlice < 0, this breaks due to how slice works
         var minSlice = activeTurnIndex - rangeMin < 0 ? 0 : activeTurnIndex - rangeMin;
 
-        console.log("activeTurnIndex", activeTurnIndex);
-        var activeTranscript = transcript.slice(minSlice, activeTurnIndex + 1 + rangeMax);
-        console.log("activeTranscript", activeTranscript);
-        return activeTranscript;
+        return transcript.slice(minSlice, activeTurnIndex + 1 + rangeMax);
     }
 }
