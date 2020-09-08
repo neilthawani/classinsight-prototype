@@ -38,20 +38,19 @@
     width: max-content;
     position: absolute;
     left: 4px;
-    top: 3px;
+    top: 2px;
 }
 
 .turn-taking-bar {
     display: flex;
     flex-direction: row;
     height: 14px;
-    margin-bottom: 2px;
     cursor: pointer;
+    margin: 1px 0;
+    padding: 1px 0;
 
     &:hover {
         border: 1px solid $lightGray;
-        padding: 2px;
-
     }
 }
 
