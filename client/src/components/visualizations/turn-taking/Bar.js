@@ -5,21 +5,13 @@ import Script from '../transcript/Script';
 export default class Bar extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            focusText: null
-        };
+        this.handleClick = this.handleClick.bind(this);
     }
 
     legendLabels = LegendLabels;
 
-    handleClick(textValue) {
-        console.log("click", textValue);
-        if (textValue === this.state.focusText) {
-            this.setState({focusText: null});
-        } else {
-            this.setState({focusText: textValue});
-        }
+    handleClick(evt) {
+        this.props.onRowClick(evt, this.props.data);
     }
 
     render() {
@@ -59,10 +51,9 @@ export default class Bar extends Component {
           teacherStyle = baseStyle;
       }
 
-      // https://stackoverflow.com/questions/38401902/onclick-not-working-react-js
       return (
         <div>
-          <div className="turn-taking-visualization-row" onClick={this.handleClick.bind(this, text)}>
+          <div className="turn-taking-visualization-row" onClick={this.handleClick}>
             <div className="turn-taking-bar-timestamp">
               {timeStamp}
             </div>
@@ -78,11 +69,14 @@ export default class Bar extends Component {
             </div>
           </div>
 
-          {focusText !== null ?
+          {this.props.focusText}
+
+          {/*this.props.focusText !== null ?
             <div className="turn-taking-visualization-row-drilldown">
-              <Script focusText={focusText} />
+              {this.props.focusText}
+              <Script focusText={this.props.focusText} />
             </div>
-          : ""}
+          : ""*/}
         </div>
       );
     }

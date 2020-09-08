@@ -42,6 +42,8 @@ export default class TurnTaking extends Component {
             bars: window.localStorage.getItem("bars") || "expanded",
             focusText: null
         };
+
+        this.handleClick = this.handleClick.bind(this);
     }
 
     toggleExpandedBars = function(value, context) {
@@ -154,6 +156,17 @@ export default class TurnTaking extends Component {
         return LegendLabels.filter((item) => item.type === options.type);
     };
 
+    handleClick(evt, rowObj) {
+        console.log("click", evt, rowObj);
+        var focusText = rowObj.content;
+
+        if (focusText === this.state.focusText) {
+            this.setState({focusText: null});
+        } else {
+            this.setState({focusText: focusText});
+        }
+    }
+
     render() {
         var chartData = this.chartData(this.state.bars);
 
@@ -176,7 +189,7 @@ export default class TurnTaking extends Component {
                 </div>
                 {chartData.map((item, index) => {
                     return (
-                      <Bar key={index} data={item} focusText={this.state.focusText} />
+                      <Bar key={index} data={item} focusText={this.state.focusText} onRowClick={this.handleClick} />
                     )
                 })}
               </div>
