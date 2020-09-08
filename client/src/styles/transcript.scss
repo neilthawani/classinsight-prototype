@@ -1,0 +1,23 @@
+.alt-transcript-container {
+
+}
+
+.transcript-turn {
+    font-size: 14px;
+    margin: 10px;
+    padding: 5px;
+    border: 1px solid $lightGray;
+}
+
+.transcript-turn-speaker {
+    color: rgb(153, 153, 153);
+}
+
+.transcript-turn-utterances {
+    color: black;
+}
+
+.transcript-turn-utterance {
+    display: block;
+    line-height: 1.4;
+}
