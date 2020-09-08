@@ -20,9 +20,14 @@ export default class Bar extends Component {
           focusObj = this.props.focusObj,
           isFocusRow = isObjectEmpty(focusObj) ?
                         false :
-                        (item.id === focusObj.id && item.utterance === focusObj.utterance);
+                        (item.id === focusObj.id && item.utterance === focusObj.utterance),
+          timeStamp = "";
 
-      var timeStamp = item.time ? item.time : "";
+      switch (item.time.length) {
+          case 0: break;
+          case 1: timeStamp = item.time[0]; break;
+          default: timeStamp = `${item.time[0]} - ${item.time[item.time.length - 1]}`;
+      }
 
       var isStudentData = item.speaker.includes("Student"),
           isTeacherData = item.speaker === "Teacher";
@@ -54,6 +59,7 @@ export default class Bar extends Component {
           teacherStyle = baseStyle;
       }
 
+      if (typeof timeStamp === "object") console.log("timeStamp", timeStamp);
       return (
         <div>
           <div className="turn-taking-visualization-row" onClick={this.handleClick}>

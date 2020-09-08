@@ -93,8 +93,12 @@ export default {
                                 utterance: utterance.utterance,
                                 speaker: talk.speaker_pseudonym,
                                 length: utterance.n_tokens,
-                                time: utterance.timestamp
+                                time: []
                             };
+
+                            if (utterance.timestamp.length > 0) {
+                                dataRow.time.push(utterance.timestamp);
+                            }
 
                         // categorize student and teacher talk for talk that has no utterance types
                         if (unclassifiedStudentTalk) {
@@ -113,7 +117,7 @@ export default {
 
                             if (sameUtteranceTypesAsPrevious) {
                                 previousDataRow.length += dataRow.length;
-                                previousDataRow.time = dataRow.time;
+                                previousDataRow.time.push(...dataRow.time);
                             } else {
                                 allData.push(dataRow);
                             }
