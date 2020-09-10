@@ -169,7 +169,7 @@ At `localhost:3000/register`, render the `Register` component.
 
 Instead of passing `state` from `component` to `component`, `Redux` provides a single source of truth that you can dispatch to any of your components.
 
-[Here's a helpful React-Redux data flow diagram from @nikgraf.](https://miro.medium.com/max/960/0*iTKm2WNdmSD_qKQj.jpg)
+![Here's a helpful React-Redux data flow diagram from @nikgraf.](https://miro.medium.com/max/960/0*iTKm2WNdmSD_qKQj.jpg)
 
 We import the following into `App.js`:
 
