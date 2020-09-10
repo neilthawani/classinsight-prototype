@@ -41,6 +41,7 @@ export default class Bar extends Component {
           barBorder = `3px solid ${this.legendLabels.find(item => item.value === borderValue)}.color`;
           boxSizing = "border-box";
       }
+
       var barWidth = item.length,
           barHeight = "14px";
 
@@ -59,21 +60,18 @@ export default class Bar extends Component {
           teacherStyle = baseStyle;
       }
 
-      if (typeof timeStamp === "object") console.log("timeStamp", timeStamp);
       return (
-        <div>
-          <div className="turn-taking-visualization-row" onClick={this.handleClick}>
-            <div className="turn-taking-bar-timestamp">
-              {timeStamp}
-            </div>
-            <div key={item.id} className="turn-taking-bar">
-              <div className="turn-taking-bar-teacher-outer">
-                <div className="turn-taking-bar-teacher-inner" style={teacherStyle}>
-                </div>
+        <div className="turn-taking-visualization-row" onClick={this.handleClick}>
+          <div className={item.time.length > 1 ? "turn-taking-bar-timestamp-range" : "turn-taking-bar-timestamp-time"}>
+            {timeStamp}
+          </div>
+          <div key={item.id} className="turn-taking-bar">
+            <div className="turn-taking-bar-teacher-outer">
+              <div className="turn-taking-bar-teacher-inner" style={teacherStyle}>
               </div>
-              <div className="turn-taking-bar-student-outer">
-                <div className="turn-taking-bar-student-inner" style={studentStyle}>
-                </div>
+            </div>
+            <div className="turn-taking-bar-student-outer">
+              <div className="turn-taking-bar-student-inner" style={studentStyle}>
               </div>
             </div>
           </div>

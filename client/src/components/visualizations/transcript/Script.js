@@ -21,7 +21,7 @@ export default class Script extends Component {
         <div className="alt-transcript-container">
           {activeTranscript.map((turn, index, array) => {
               var speaker = turn.speaker;
-
+              
               return (
                 <div key={index} className="transcript-turn">
                   <div className="transcript-turn-speaker">

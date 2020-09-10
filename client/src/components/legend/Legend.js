@@ -13,9 +13,9 @@ export default class Legend extends Component {
         <div>
         {labels.map((label, index) => {
           return (
-            <div key={index} className="turn-taking-key-item">
-              <div className="turn-taking-key-item-legend" style={{backgroundColor: label.color}}></div>
-              <span className="turn-taking-key-item-text">
+            <div key={index} className="legend-item">
+              <div className="legend-item-key" style={{backgroundColor: label.color}}></div>
+              <span className="legend-item-label">
                 {label.text}
               </span>
             </div>

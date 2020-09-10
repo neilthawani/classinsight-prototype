@@ -3,6 +3,12 @@ import data from './data';
 export default {
     segments: data[0].data.segments,
 
+    // id: int
+    // timestamp: array
+    // utterance: string
+    // length: int // number of tokens in utterance
+    // types: array
+
     transcript: function() {
         var transcript = [];
 
@@ -54,7 +60,7 @@ export default {
                                 utterance: utterance.utterance,
                                 speaker: talk.speaker_pseudonym,
                                 length: utterance.n_tokens,
-                                time: utterance.timestamp
+                                time: [utterance.timestamp]
                             };
 
                         if (unclassifiedStudentTalk) {
@@ -96,10 +102,6 @@ export default {
                                 time: []
                             };
 
-                            if (utterance.timestamp.length > 0) {
-                                dataRow.time.push(utterance.timestamp);
-                            }
-
                         // categorize student and teacher talk for talk that has no utterance types
                         if (unclassifiedStudentTalk) {
                             dataRow = { ...dataRow, ...{ types: ["Assorted Student Talk"] } };
@@ -107,6 +109,11 @@ export default {
                             dataRow = { ...dataRow, ...{ types: ["Assorted Teacher Talk"] } };
                         } else {
                             dataRow = { ...dataRow, ...{ types: utterance.utterance_type } };
+                        }
+
+
+                        if (utterance.timestamp.length > 0) {
+                            dataRow.time.push(utterance.timestamp);
                         }
 
                         if (allData.length === 0) {

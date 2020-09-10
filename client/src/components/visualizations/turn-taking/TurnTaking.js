@@ -41,7 +41,7 @@ export default class TurnTaking extends Component {
         super(props);
 
         this.state = {
-            bars: window.localStorage.getItem("bars") || "expanded",
+            bars: window.localStorage.getItem("bars") || "collapsed",
             focusObj: {}
         };
 
@@ -94,7 +94,7 @@ export default class TurnTaking extends Component {
 
         return (
             <div className="turn-taking-visualization-container">
-              <div className="turn-taking-key-teacher">
+              <div className="turn-taking-legend-teacher">
                 <Legend labels={this.displayLegendLabels({ type: "Teacher"})} />
                 <Legend labels={this.displayLegendLabels({ type: "Technique" })} />
               </div>
@@ -115,7 +115,7 @@ export default class TurnTaking extends Component {
                     )
                 })}
               </div>
-              <div className="turn-taking-key-student">
+              <div className="turn-taking-legend-student">
                 <Legend labels={this.displayLegendLabels({ type: "Student" })} />
               </div>
             </div>
