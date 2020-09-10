@@ -66,7 +66,7 @@ module.exports = {
 - Contains a Schema to represent a User, defining fields and types as objects of the Schema
 - Exports the model so we can access it outside of this file
 
-## Two validators for form input validation, `validation/register.js` and `validation/login.js`, using passport + jsonwebtokens for authentication
+## Two validators for form input validation, `validation/register.js` and `validation/login.js`, using `passport` + `jsonwebtoken`s for authentication
 
 - Pull in `validator` and `is-empty` dependencies
 - Export the function `validateRegisterInput`, which takes in `data` as a parameter (sent from our frontend registration form)
@@ -151,8 +151,10 @@ So `client/package.json` has the following under the `scripts` object:
 - Register
 - Login
 
-Forms in React: https://reactjs.org/docs/forms.html
-Handling events in React: https://reactjs.org/docs/handling-events.html
+## Documentation sources
+
+- Forms in React: https://reactjs.org/docs/forms.html
+- Handling events in React: https://reactjs.org/docs/handling-events.html
 
 Every `form` element has an `onChange` event that ties its value to our components state
 In our `onSubmit` event, we’ll use `e.preventDefault()` to stop the page from reloading when the submit button is clicked
@@ -167,7 +169,7 @@ At `localhost:3000/register`, render the `Register` component.
 
 Instead of passing `state` from `component` to `component`, `Redux` provides a single source of truth that you can dispatch to any of your components.
 
-![https://miro.medium.com/max/960/0*iTKm2WNdmSD_qKQj.jpg](Helpful React-Redux data flow diagram from @nikgraf)
+[https://miro.medium.com/max/960/0*iTKm2WNdmSD_qKQj.jpg](Here's a helpful React-Redux data flow diagram from @nikgraf.)
 
 We import the following into `App.js`:
 
