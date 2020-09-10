@@ -1,69 +1,11 @@
-.turn-taking-visualization-container {
+.turn-taking-bars-collapsed-visualization {
     width: 100%;
+}
+
+.turn-taking-bar-collapsed {
     display: flex;
     flex-direction: row;
-    position: relative;
-}
-
-.turn-taking-visualization {
-    width: 50%;
-    margin: auto;
-}
-
-.turn-taking-visualization-headings {
-    display: flex;
-    justify-content: space-around;
-    flex-direction: row;
-    align-items: center;
-}
-
-.turn-taking-visualization-heading {
-    font-weight: 400;
-    display: flex;
-    align-items: baseline;
-}
-
-.turn-taking-visualization-heading-icon {
-    margin-left: 5px;
-    color: $blue;
+    height: 3px;
     cursor: pointer;
-}
-
-.turn-taking-visualization-row {
     position: relative;
-}
-
-.turn-taking-bar {
-    display: flex;
-    flex-direction: row;
-    height: 1px;
-    cursor: pointer;
-}
-
-.turn-taking-bar-teacher-outer {
-    width: 50%;
-    position: relative;
-
-    .turn-taking-bar-teacher-inner {
-        max-width: 100%;
-    }
-}
-
-.turn-taking-bar-teacher-inner {
-    position: absolute;
-    right: 0;
-}
-
-.turn-taking-bar-student-outer {
-    width: 50%;
-    position: relative;
-
-    .turn-taking-bar-student-inner {
-        max-width: 100%;
-    }
-}
-
-.turn-taking-bar-student-inner {
-    position: absolute;
-    left: 0;
 }
