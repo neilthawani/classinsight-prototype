@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
 
-import LegendLabels from '../../../fixtures/legend_labels';
 import Script from '../transcript/Script';
+
+import drawBarStyles from './drawBarStyles';
 import isObjectEmpty from '../../../utils/isObjectEmpty';
 
 export default class Bar extends Component {
@@ -10,8 +11,6 @@ export default class Bar extends Component {
         super(props);
         this.handleClick = this.handleClick.bind(this);
     }
-
-    legendLabels = LegendLabels;
 
     handleClick(evt) {
         this.props.onRowClick(evt, this.props.data);
@@ -31,36 +30,7 @@ export default class Bar extends Component {
           default: timeStamp = `${item.time[0]} - ${item.time[item.time.length - 1]}`;
       }
 
-      var isStudentData = item.speaker.includes("Student"),
-          isTeacherData = item.speaker === "Teacher";
-
-      var legendLabelValue = item.types[item.types.length - 1];
-      var barColor = this.legendLabels.find(item => item.value === legendLabelValue).color;
-      var barBorder = "";
-      var boxSizing = "";
-      if (item.types.length > 1) { // if it has multiple types, draw a border around the bar
-          var borderValue = item.types && item.types[0];
-          barBorder = `3px solid ${this.legendLabels.find(item => item.value === borderValue)}.color`;
-          boxSizing = "border-box";
-      }
-
-      var barWidth = item.length,
-          barHeight = "14px";
-
-      var baseStyle = { height: barHeight },
-          extendedStyle = { backgroundColor: barColor, border: barBorder, boxSizing: boxSizing, width: barWidth },
-          teacherStyle = {},
-          studentStyle = {};
-
-      if (isTeacherData) {
-          studentStyle = baseStyle;
-          teacherStyle = { ...baseStyle, ...extendedStyle };
-      }
-
-      if (isStudentData) {
-          studentStyle = { ...baseStyle, ...extendedStyle };
-          teacherStyle = baseStyle;
-      }
+      var { teacherStyle, studentStyle } = drawBarStyles(item);
 
       return (
         <div className="turn-taking-visualization-row" onClick={this.handleClick}>
