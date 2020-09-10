@@ -42,6 +42,8 @@ export default class TurnTakingCollapsed extends Component {
                       teacherStyle = baseStyle;
                   }
 
+                  {/* .turn-taking-bar-collapsed is the only novel class here that isn't in turn_taking.scss
+                      the outer/inner bar styles are shared with the TurnTaking component */}
                   return (
                       <div className="turn-taking-bar-collapsed">
                         <div className="turn-taking-bar-teacher-outer">
