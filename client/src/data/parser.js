@@ -41,7 +41,7 @@ export default {
         return transcript;
     },
 
-    expandedData: function() {
+    parsedData: function(isCollapsed) {
         return this.segments.reduce((allData, seg, index, array) => {
             var utteranceIndex = 0;
 
@@ -60,7 +60,7 @@ export default {
                                 utterance: utterance.utterance,
                                 speaker: talk.speaker_pseudonym,
                                 length: utterance.n_tokens,
-                                time: [utterance.timestamp]
+                                time: []
                             };
 
                         if (unclassifiedStudentTalk) {
@@ -71,7 +71,12 @@ export default {
                             dataRow = { ...dataRow, ...{ types: utterance.utterance_type } };
                         }
 
-                        allData.push(dataRow);
+                        if (isCollapsed && allData.length > 0) {
+                            allData = this.collapseTimes(allData, dataRow, utterance);
+                        } else {
+                            if (!isCollapsed) dataRow.time.push(utterance.timestamp);
+                            allData.push(dataRow);
+                        }
                     }
                 }
             }
@@ -80,61 +85,22 @@ export default {
         }, []);
     },
 
-    collapsedData: function() {
-        return this.segments.reduce((allData, seg, index, array) => {
-            var utteranceIndex = 0;
+    collapseTimes: function(allData, dataRow, utterance) {
+        if (utterance.timestamp.length > 0) {
+            dataRow.time.push(utterance.timestamp);
+        }
 
-            if (seg.participation_type !== "Other") { // this excludes a great deal of the transcript
-                const turn = seg.speaking_turns;
+        var previousDataRow = allData[allData.length - 1],
+            sameUtteranceTypesAsPrevious = JSON.stringify(previousDataRow.types) === JSON.stringify(dataRow.types);
 
-                for (const talk of turn) {
-                    for (const utterance of talk.utterances) {
-                        var unclassifiedStudentTalk = utterance.utterance_type.length === 0 &&
-                                (talk.speaker_pseudonym.includes("Class") ||
-                                talk.speaker_pseudonym.includes("Student")),
-                            unclassifiedTeacherTalk = utterance.utterance_type.length === 0 &&
-                                talk.speaker_pseudonym.includes("Teacher"),
-                            dataRow = {
-                                id: utteranceIndex++,
-                                utterance: utterance.utterance,
-                                speaker: talk.speaker_pseudonym,
-                                length: utterance.n_tokens,
-                                time: []
-                            };
+        if (sameUtteranceTypesAsPrevious) {
+            previousDataRow.length += dataRow.length;
+            previousDataRow.time.push(...dataRow.time);
+        } else {
+            allData.push(dataRow);
+        }
 
-                        // categorize student and teacher talk for talk that has no utterance types
-                        if (unclassifiedStudentTalk) {
-                            dataRow = { ...dataRow, ...{ types: ["Assorted Student Talk"] } };
-                        } else if (unclassifiedTeacherTalk) {
-                            dataRow = { ...dataRow, ...{ types: ["Assorted Teacher Talk"] } };
-                        } else {
-                            dataRow = { ...dataRow, ...{ types: utterance.utterance_type } };
-                        }
-
-
-                        if (utterance.timestamp.length > 0) {
-                            dataRow.time.push(utterance.timestamp);
-                        }
-
-                        if (allData.length === 0) {
-                            allData.push(dataRow);
-                        } else {
-                            var previousDataRow = allData[allData.length - 1],
-                                sameUtteranceTypesAsPrevious = JSON.stringify(previousDataRow.types) === JSON.stringify(dataRow.types);
-
-                            if (sameUtteranceTypesAsPrevious) {
-                                previousDataRow.length += dataRow.length;
-                                previousDataRow.time.push(...dataRow.time);
-                            } else {
-                                allData.push(dataRow);
-                            }
-                        }
-                    }
-                }
-            }
-
-            return allData;
-        }, []);
+        return allData;
     },
 
     focusTranscript: function(transcript, targetUtterance, options) {

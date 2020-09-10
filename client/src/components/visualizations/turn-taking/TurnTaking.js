@@ -66,14 +66,11 @@ export default class TurnTaking extends Component {
 
     chartData = function(status) {
         switch (status) {
-            case "expanded": return this.expandedData;
-            case "collapsed": return this.collapsedData;
+            case "expanded": return Parser.parsedData();
+            case "collapsed": return Parser.parsedData(true);
             default: return [];
         }
     }
-
-    collapsedData = Parser.collapsedData();
-    expandedData = Parser.expandedData();
 
     displayLegendLabels = function(options) {
         return LegendLabels.filter((item) => item.type === options.type);
