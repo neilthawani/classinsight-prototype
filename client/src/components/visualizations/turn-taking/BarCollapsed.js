@@ -5,7 +5,7 @@ import LegendLabels from '../../../fixtures/legend_labels';
 import Script from '../transcript/Script';
 import isObjectEmpty from '../../../utils/isObjectEmpty';
 
-export default class Bar extends Component {
+export default class BarCollapsed extends Component {
     constructor(props) {
         super(props);
         this.handleClick = this.handleClick.bind(this);

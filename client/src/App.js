@@ -17,6 +17,7 @@ import Dashboard from "./components/dashboard/Dashboard";
 import TalkRatio from './components/visualizations/TalkRatio';
 import Transcript from './components/visualizations/Transcript';
 import TurnTaking from './components/visualizations/turn-taking/TurnTaking';
+import TurnTakingCollapsed from './components/visualizations/turn-taking/TurnTakingCollapsed';
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -70,7 +71,7 @@ class App extends Component {
 
               <Link
                 className={this.selectedOption === "turn-taking" ? "button-selector-item active" : "button-selector-item"}
-                data-attr-name="transcript"
+                data-attr-name="turn-taking"
                 to="/dashboard/turn-taking"
                 onClick={this.handleClick.bind(this, "turn-taking")}>
                 Turn Taking
@@ -96,7 +97,7 @@ class App extends Component {
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute exact path="/dashboard/talk-ratio" component={TalkRatio} />
-              <PrivateRoute exact path="/dashboard/turn-taking" component={TurnTaking} />
+              <PrivateRoute exact path="/dashboard/turn-taking" component={TurnTakingCollapsed} />
               <PrivateRoute exact path="/dashboard/transcript" component={Transcript} />
             </Switch>
           </div>
