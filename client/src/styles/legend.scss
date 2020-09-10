@@ -1,0 +1,36 @@
+// TurnTaking.js
+.turn-taking-legend-teacher {
+    position: fixed;
+    top: 40%;
+    left: 5%;
+}
+
+.turn-taking-legend-student {
+    position: fixed;
+    top: 40%;
+    right: 5%;
+}
+
+.turn-taking-legend-student .legend-item {
+    flex-direction: row-reverse;
+}
+
+// Legend.js
+.legend-item {
+    margin-bottom: 2px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.legend-item-key {
+    height: 20px;
+    width: 20px;
+    background-color: red;
+    margin-right: 6px;
+    margin-left: 6px;
+}
+
+.legend-item-label {
+    font-size: 12px;
+}
