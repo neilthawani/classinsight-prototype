@@ -33,34 +33,11 @@
     position: relative;
 }
 
-.turn-taking-bar-timestamp {
-    font-size: 10px;
-    width: max-content;
-    position: absolute;
-    top: 2px;
-}
-
-.turn-taking-bar-timestamp-time {
-    @extend .turn-taking-bar-timestamp;
-    left: -45px;
-}
-
-.turn-taking-bar-timestamp-range {
-    @extend .turn-taking-bar-timestamp;
-    left: -95px;
-}
-
 .turn-taking-bar {
     display: flex;
     flex-direction: row;
-    height: 14px;
+    height: 1px;
     cursor: pointer;
-    border: 1px solid transparent;
-    padding: 1px;
-
-    &:hover {
-        border: 1px solid $lightGray;
-    }
 }
 
 .turn-taking-bar-teacher-outer {
