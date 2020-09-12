@@ -22,22 +22,45 @@ export default {
                     });
 
                     speakingTurn.utterances.forEach((utterance, kindex, karray) => {
-                        var utteranceType = utterance.utterance_type.length === 0 ? ["Unknown"] : utterance.utterance_type;
+                        var utteranceType = utterance.utterance_type.length === 0 ? ["Unknown"] : utterance.utterance_type,
+                            unclassifiedStudentTalk = utterance.utterance_type.length === 0 &&
+                                (speakingTurn.speaker_pseudonym.includes("Class") ||
+                                speakingTurn.speaker_pseudonym.includes("Student")),
+                            unclassifiedTeacherTalk = utterance.utterance_type.length === 0 &&
+                                speakingTurn.speaker_pseudonym.includes("Teacher"),
+                            dataRow = {
+                                id: utteranceIndex++,
+                                timestamp: utterance.timestamp,
+                                utterance: utterance.utterance,
+                                utteranceType: utteranceType,
+                                nTokens: utterance.n_tokens
+                            };
 
-                        transcript[transcript.length - 1].utterances.push({
-                            id: utteranceIndex++,
-                            timestamp: utterance.timestamp,
-                            utterance: utterance.utterance,
-                            utteranceType: utteranceType,
-                            nTokens: utterance.n_tokens
-                        });
+                        if (unclassifiedStudentTalk) {
+                            dataRow = { ...dataRow, ...{ types: ["Assorted Student Talk"] } };
+                        } else if (unclassifiedTeacherTalk) {
+                            dataRow = { ...dataRow, ...{ types: ["Assorted Teacher Talk"] } };
+                        } else {
+                            dataRow = { ...dataRow, ...{ types: utterance.utterance_type } };
+                        }
+
+                        transcript[transcript.length - 1].utterances.push(dataRow);
                     });
                 });
             }
         });
 
-        console.log("transcript", transcript);
         return transcript;
+    },
+
+    expandedData: function() {
+        var transcript = this.transcript();
+
+        return transcript.reduce((prev, turn, index, array) => {
+            var utterances = turn.utterances;
+            prev = prev.concat(utterances);
+            return prev;
+        }, []);
     },
 
     parsedData: function(isCollapsed) {
@@ -84,7 +107,7 @@ export default {
             }
         });
 
-        console.log("parsedData", parsedData);
+        // console.log("parsedData", parsedData, parsedData[0]);
         return parsedData;
     },
 
