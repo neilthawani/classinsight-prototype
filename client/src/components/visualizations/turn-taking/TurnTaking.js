@@ -88,7 +88,6 @@ export default class TurnTaking extends Component {
 
     render() {
         var chartData = this.chartData(this.state.bars);
-        console.log("chartData", chartData);
 
         return (
             <div className="turn-taking-visualization-container">

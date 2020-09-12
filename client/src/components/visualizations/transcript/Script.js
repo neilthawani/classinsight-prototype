@@ -20,21 +20,35 @@ export default class Script extends Component {
       return (
         <div className="alt-transcript-container">
           {activeTranscript.map((turn, index, array) => {
-              var speakerPseudonym = turn.speakerPseudonym;
-
               return (
-                <div key={index} className="transcript-turn">
-                  <div className="transcript-turn-speaker">
-                    {speakerPseudonym}
+                <div key={index} className="transcript-turn-container">
+                  <div className="transcript-turn">
+                    <div className="transcript-turn-timestamp">
+                      <span className="transcript-turn-timestamp-text">
+                        {turn.initialTime} - {turn.endTime}
+                      </span>
+                    </div>
+                    <div className="transcript-turn-speaker">
+                      {turn.speakerPseudonym}
+                    </div>
                   </div>
                   <div className="transcript-turn-utterances">
                     {turn.utterances.map((utterance, jindex, jarray) => {
+                        var hasTimestamp = utterance.timestamp.length > 0;
+
                         return (
-                          <span key={`${utterance}-${jindex}`}
-                            className="transcript-turn-utterance"
-                            data-attr-type={utterance.utteranceType}>
-                            {utterance.utterance}
-                          </span>
+                          <div key={`${utterance}-${jindex}`} className="transcript-turn-utterance">
+                            <div className="transcript-turn-utterance-timestamp">
+                              <span className="transcript-turn-utterance-timestamp-text">
+                                {hasTimestamp ? utterance.timestamp : ""}
+                              </span>
+                            </div>
+                            <span
+                              className="transcript-turn-utterance-text"
+                              data-attr-type={utterance.utteranceType}>
+                              {utterance.utterance}
+                            </span>
+                          </div>
                         );
                     })}
                   </div>

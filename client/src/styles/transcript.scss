@@ -2,11 +2,25 @@
 
 }
 
-.transcript-turn {
+.transcript-turn-container {
     font-size: 14px;
     margin: 5px;
     padding: 5px;
     border: 1px solid $lightGray;
+}
+
+.transcript-turn {
+    display: flex;
+}
+
+.transcript-turn-timestamp {
+    color: rgb(153, 153, 153);
+    font-weight: bold;
+    min-width: 20%;
+}
+
+.transcript-turn-timestamp-text {
+    margin: 0 10px;
 }
 
 .transcript-turn-speaker {
@@ -18,6 +32,19 @@
 }
 
 .transcript-turn-utterance {
-    display: block;
+    display: flex;
+}
+
+.transcript-turn-utterance-timestamp {
+    font-weight: bold;
+    min-width: 20%;
+    text-align: right;
+}
+
+.transcript-turn-utterance-timestamp-text {
+    margin: 0 10px;
+}
+
+.transcript-turn-utterance-text {
     line-height: 1.4;
 }
