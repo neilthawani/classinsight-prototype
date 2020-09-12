@@ -13,7 +13,10 @@ export default class Bar extends Component {
     }
 
     handleClick(evt) {
-        this.props.onRowClick(evt, this.props.data);
+        // prevent: if they click the script, it collapses the expanded set too
+        if (evt.target.classList.toString().includes("turn-taking-bar")) {
+            this.props.onRowClick(evt, this.props.data);
+        }
     }
 
     render() {
