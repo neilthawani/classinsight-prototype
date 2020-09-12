@@ -57,33 +57,42 @@ export default {
 
         return transcript;
     },
-
-    parsedData: function() {
-        var transcript = this.transcript(),
-            expandedData = transcript.reduce((accumulator, turn, index, array) => {
-                return accumulator.concat(turn.utterances);
-            }, []),
+    expandedData: function() {
+        var transcript = this.transcript();
+        return transcript.reduce((accumulator, turn, index, array) => {
+            return accumulator.concat(turn.utterances);
+        }, []);
+    },
+    collapsedData: function() {
+        var expandedData = this.expandedData(),
             collapsedData = [];
 
-            expandedData.map((utterance, index, array) => {
-                var dataRow = { ...utterance },
-                    sameUtteranceTypesAsPrevious = false,
-                    previousDataRow = {};
+        expandedData.map((utterance, index, array) => {
+            var dataRow = { ...utterance },
+                sameUtteranceTypesAsPrevious = false,
+                previousDataRow = {};
 
-                if (collapsedData.length > 0) {
-                    previousDataRow = { ...collapsedData[collapsedData.length - 1] };
-                    sameUtteranceTypesAsPrevious = JSON.stringify(previousDataRow.utteranceType) === JSON.stringify(dataRow.utteranceType);
-                }
+            if (collapsedData.length > 0) {
+                previousDataRow = { ...collapsedData[collapsedData.length - 1] };
+                sameUtteranceTypesAsPrevious = JSON.stringify(previousDataRow.utteranceType) === JSON.stringify(dataRow.utteranceType);
+            }
 
-                if (sameUtteranceTypesAsPrevious) {
-                    collapsedData[collapsedData.length - 1].nTokens = previousDataRow.nTokens + dataRow.nTokens;
-                    collapsedData[collapsedData.length - 1].timestamp.push(...dataRow.timestamp);
-                }
+            if (sameUtteranceTypesAsPrevious) {
+                collapsedData[collapsedData.length - 1].nTokens = previousDataRow.nTokens + dataRow.nTokens;
+                collapsedData[collapsedData.length - 1].timestamp.push(...dataRow.timestamp);
+            }
 
-                if (collapsedData.length === 0 || (collapsedData.length > 0 && !sameUtteranceTypesAsPrevious)) {
-                    collapsedData.push(dataRow);
-                }
-            });
+            if (collapsedData.length === 0 || (collapsedData.length > 0 && !sameUtteranceTypesAsPrevious)) {
+                collapsedData.push(dataRow);
+            }
+        });
+
+        return collapsedData;
+    },
+
+    parsedData: function() {
+        var expandedData = this.expandedData(),
+            collapsedData = this.collapsedData();
 
         var parsedData = {
             "expanded": expandedData,
