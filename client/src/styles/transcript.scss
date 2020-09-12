@@ -17,10 +17,11 @@
     color: rgb(153, 153, 153);
     font-weight: bold;
     min-width: 20%;
+    text-align: right;
 }
 
 .transcript-turn-timestamp-text {
-    margin: 0 10px;
+    margin-right: 10px;
 }
 
 .transcript-turn-speaker {
@@ -42,7 +43,7 @@
 }
 
 .transcript-turn-utterance-timestamp-text {
-    margin: 0 10px;
+    margin-right: 10px;
 }
 
 .transcript-turn-utterance-text {

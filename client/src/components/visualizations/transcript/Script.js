@@ -28,9 +28,9 @@ export default class Script extends Component {
                         {turn.initialTime} - {turn.endTime}
                       </span>
                     </div>
-                    <div className="transcript-turn-speaker">
+                    <span className="transcript-turn-speaker">
                       {turn.speakerPseudonym}
-                    </div>
+                    </span>
                   </div>
                   <div className="transcript-turn-utterances">
                     {turn.utterances.map((utterance, jindex, jarray) => {
