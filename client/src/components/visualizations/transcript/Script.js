@@ -20,19 +20,19 @@ export default class Script extends Component {
       return (
         <div className="alt-transcript-container">
           {activeTranscript.map((turn, index, array) => {
-              var speaker = turn.speaker;
-              
+              var speakerPseudonym = turn.speakerPseudonym;
+
               return (
                 <div key={index} className="transcript-turn">
                   <div className="transcript-turn-speaker">
-                    {speaker}
+                    {speakerPseudonym}
                   </div>
                   <div className="transcript-turn-utterances">
                     {turn.utterances.map((utterance, jindex, jarray) => {
                         return (
                           <span key={`${utterance}-${jindex}`}
                             className="transcript-turn-utterance"
-                            data-attr-type={utterance.type}>
+                            data-attr-type={utterance.utteranceType}>
                             {utterance.utterance}
                           </span>
                         );

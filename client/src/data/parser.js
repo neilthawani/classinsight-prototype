@@ -17,21 +17,25 @@ export default {
 
             if (segment.participation_type !== "Other") {
                 var speakingTurns = segment.speaking_turns;
-                speakingTurns.forEach((turn, jindex, jarray) => {
-                    var speaker = turn.speaker_pseudonym;
-                    var start = turn.initial_time;
-                    var end = turn.end_time;
 
-                    transcript.push({speaker: speaker, start: start, end: end, utterances: []})
+                speakingTurns.forEach((speakingTurn, jindex, jarray) => {
+                    transcript.push({
+                        speakerPseudonym: speakingTurn.speaker_pseudonym,
+                        speakerType: speakingTurn.speaker_type,
+                        initialTime: speakingTurn.initial_time,
+                        endTime: speakingTurn.end_time,
+                        utterances: []
+                    });
 
-                    turn.utterances.forEach((utterance, kindex, karray) => {
+                    speakingTurn.utterances.forEach((utterance, kindex, karray) => {
                         var utteranceType = utterance.utterance_type.length === 0 ? ["Unknown"] : utterance.utterance_type;
 
                         transcript[transcript.length - 1].utterances.push({
                             id: utteranceIndex++,
                             timestamp: utterance.timestamp,
                             utterance: utterance.utterance,
-                            type: utteranceType
+                            utteranceType: utteranceType,
+                            nTokens: utterance.n_tokens
                         });
                     });
                 });
