@@ -41,7 +41,7 @@ export default class TurnTaking extends Component {
         super(props);
 
         this.state = {
-            bars: window.localStorage.getItem("bars") || "collapsed",
+            bars: window.localStorage.getItem("bars") || "expanded",
             focusObj: {}
         };
 
@@ -66,8 +66,8 @@ export default class TurnTaking extends Component {
 
     chartData = function(status) {
         switch (status) {
-            case "expanded": return Parser.parsedData();
-            case "collapsed": return Parser.parsedData(true);
+            case "expanded": return Parser.parsedData().expanded;
+            case "collapsed": return Parser.parsedData().collapsed;
             default: return [];
         }
     }
@@ -88,6 +88,7 @@ export default class TurnTaking extends Component {
 
     render() {
         var chartData = this.chartData(this.state.bars);
+        console.log("chartData", chartData);
 
         return (
             <div className="turn-taking-visualization-container">

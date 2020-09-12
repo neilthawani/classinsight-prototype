@@ -4,7 +4,7 @@ import drawBarStyles from './drawBarStyles';
 
 export default class TurnTakingCollapsed extends Component {
     render() {
-        var chartData = Parser.parsedData();
+        var chartData = Parser.parsedData().collapsed;
 
         return (
             <div className="turn-taking-bars-collapsed-visualization">

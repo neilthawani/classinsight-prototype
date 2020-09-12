@@ -22,19 +22,20 @@ export default class Bar extends Component {
           isFocusRow = isObjectEmpty(focusObj) ?
                         false :
                         (item.id === focusObj.id && item.utterance === focusObj.utterance),
+          itemTimestamp = item.timestamp,
           timeStamp = "";
 
-      switch (item.time.length) {
+      switch (item.timestamp.length) {
           case 0: break;
-          case 1: timeStamp = item.time[0]; break;
-          default: timeStamp = `${item.time[0]} - ${item.time[item.time.length - 1]}`;
+          case 1: timeStamp = itemTimestamp[0]; break;
+          default: timeStamp = `${itemTimestamp[0]} - ${itemTimestamp[itemTimestamp.length - 1]}`;
       }
 
       var { teacherStyle, studentStyle } = drawBarStyles(item);
 
       return (
         <div className="turn-taking-visualization-row" onClick={this.handleClick}>
-          <div className={item.time.length > 1 ? "turn-taking-bar-timestamp-range" : "turn-taking-bar-timestamp-time"}>
+          <div className={itemTimestamp.length > 1 ? "turn-taking-bar-timestamp-range" : "turn-taking-bar-timestamp-time"}>
             {timeStamp}
           </div>
           <div key={item.id} className="turn-taking-bar">
