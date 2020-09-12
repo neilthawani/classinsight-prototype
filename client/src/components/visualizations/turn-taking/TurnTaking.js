@@ -4,8 +4,8 @@ import React, { Component } from 'react';
 import ArrowCollapseVerticalIcon from 'mdi-react/ArrowCollapseVerticalIcon';
 import ArrowExpandVerticalIcon from 'mdi-react/ArrowExpandVerticalIcon';
 
-import Legend from '../../legend/Legend';
-import LegendLabels from '../../../fixtures/legend_labels';
+import LegendGroup from '../../legend/LegendGroup';
+import displayLegendLabels from '../../legend/displayLegendLabels';
 import Bar from './Bar';
 
 import Parser from '../../../data/parser';
@@ -72,10 +72,6 @@ export default class TurnTaking extends Component {
         }
     }
 
-    displayLegendLabels = function(options) {
-        return LegendLabels.filter((item) => item.type === options.type);
-    };
-
     handleClick(evt, rowObj) {
         var focusObj = this.state.focusObj;
 
@@ -92,8 +88,8 @@ export default class TurnTaking extends Component {
         return (
             <div className="turn-taking-visualization-container">
               <div className="turn-taking-legend-teacher">
-                <Legend labels={this.displayLegendLabels({ type: "Teacher"})} />
-                <Legend labels={this.displayLegendLabels({ type: "Technique" })} />
+                <LegendGroup labels={displayLegendLabels({ type: "Teacher"})} />
+                <LegendGroup labels={displayLegendLabels({ type: "Technique" })} />
               </div>
               <div className="turn-taking-visualization">
                 <div className="turn-taking-visualization-headings">
@@ -113,7 +109,7 @@ export default class TurnTaking extends Component {
                 })}
               </div>
               <div className="turn-taking-legend-student">
-                <Legend labels={this.displayLegendLabels({ type: "Student" })} />
+                <LegendGroup labels={displayLegendLabels({ type: "Student" })} />
               </div>
             </div>
         );

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
+import LegendItem from './LegendItem';
 
-export default class Legend extends Component {
+export default class LegendGroup extends Component {
     constructor(props) {
       super(props);
     }
@@ -13,12 +14,7 @@ export default class Legend extends Component {
         <div>
         {labels.map((label, index) => {
           return (
-            <div key={index} className="legend-item">
-              <div className="legend-item-key" style={{backgroundColor: label.color}}></div>
-              <span className="legend-item-label">
-                {label.text}
-              </span>
-            </div>
+            <LegendItem key={index} label={label} />
           );
         })}
         </div>
@@ -26,6 +22,6 @@ export default class Legend extends Component {
     }
 }
 
-Legend.propTypes = {
+LegendGroup.propTypes = {
     labels: PropTypes.array.isRequired
 };
