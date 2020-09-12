@@ -3,12 +3,6 @@ import data from './data';
 export default {
     segments: data[0].data.segments,
 
-    // id: int
-    // timestamp: array
-    // utterance: string
-    // length: int // number of tokens in utterance
-    // types: array
-
     transcript: function() {
         var transcript = [];
 
@@ -42,28 +36,32 @@ export default {
             }
         });
 
+        console.log("transcript", transcript);
         return transcript;
     },
 
     parsedData: function(isCollapsed) {
-        return this.segments.reduce((allData, seg, index, array) => {
+        var parsedData = [];
+
+        this.segments.forEach((segment, index, array) => {
             var utteranceIndex = 0;
 
-            if (seg.participation_type !== "Other") {
-                const turn = seg.speaking_turns;
+            if (segment.participation_type !== "Other") {
+                var speakingTurns = segment.speaking_turns;
 
-                for (const talk of turn) {
-                    for (const utterance of talk.utterances) {
+                speakingTurns.forEach((speakingTurn, jindex, jarray) => {
+                    var utterances = speakingTurn.utterances;
+                    utterances.forEach((utterance, kindex, karray) => {
                         var unclassifiedStudentTalk = utterance.utterance_type.length === 0 &&
-                                (talk.speaker_pseudonym.includes("Class") ||
-                                talk.speaker_pseudonym.includes("Student")),
+                                (speakingTurn.speaker_pseudonym.includes("Class") ||
+                                speakingTurn.speaker_pseudonym.includes("Student")),
                             unclassifiedTeacherTalk = utterance.utterance_type.length === 0 &&
-                                talk.speaker_pseudonym.includes("Teacher"),
+                                speakingTurn.speaker_pseudonym.includes("Teacher"),
                             dataRow = {
                                 id: utteranceIndex++,
                                 utterance: utterance.utterance,
-                                speaker: talk.speaker_pseudonym,
-                                length: utterance.n_tokens,
+                                speakerPseudonym: speakingTurn.speaker_pseudonym,
+                                nTokens: utterance.n_tokens,
                                 time: []
                             };
 
@@ -75,18 +73,19 @@ export default {
                             dataRow = { ...dataRow, ...{ types: utterance.utterance_type } };
                         }
 
-                        if (isCollapsed && allData.length > 0) {
-                            allData = this.collapseTimes(allData, dataRow, utterance);
+                        if (isCollapsed && parsedData.length > 0) {
+                            parsedData = this.collapseTimes(parsedData, dataRow, utterance);
                         } else {
                             if (!isCollapsed) dataRow.time.push(utterance.timestamp);
-                            allData.push(dataRow);
+                            parsedData.push(dataRow);
                         }
-                    }
-                }
+                    });
+                });
             }
+        });
 
-            return allData;
-        }, []);
+        console.log("parsedData", parsedData);
+        return parsedData;
     },
 
     collapseTimes: function(allData, dataRow, utterance) {
@@ -98,7 +97,7 @@ export default {
             sameUtteranceTypesAsPrevious = JSON.stringify(previousDataRow.types) === JSON.stringify(dataRow.types);
 
         if (sameUtteranceTypesAsPrevious) {
-            previousDataRow.length += dataRow.length;
+            previousDataRow.nTokens += dataRow.nTokens;
             previousDataRow.time.push(...dataRow.time);
         } else {
             allData.push(dataRow);

@@ -3,8 +3,8 @@ import LegendLabels from '../../../fixtures/legend_labels';
 var legendLabels = LegendLabels;
 
 export default function(item, isCollapsed = false) {
-    var isStudentData = item.speaker.includes("Student"),
-        isTeacherData = item.speaker === "Teacher";
+    var isStudentData = item.speakerPseudonym.includes("Student"),
+        isTeacherData = item.speakerPseudonym === "Teacher";
 
     var legendLabelValue = item.types[item.types.length - 1];
     var barColor = legendLabels.find(item => item.value === legendLabelValue).color;
@@ -16,7 +16,7 @@ export default function(item, isCollapsed = false) {
         boxSizing = "border-box";
     }
 
-    var barWidth = item.length,
+    var barWidth = item.nTokens,
         barHeight = "14px";
 
     if (isCollapsed) {
