@@ -83,13 +83,14 @@ export default class TurnTaking extends Component {
     }
 
     render() {
+        var a = Parser.talkRatios();
         var chartData = this.chartData(this.state.bars);
 
         return (
             <div className="turn-taking-visualization-container">
               <div className="turn-taking-legend-teacher">
-                <LegendGroup labels={displayLegendLabels({ type: "Teacher"})} />
-                <LegendGroup labels={displayLegendLabels({ type: "Technique" })} />
+                <LegendGroup labels={displayLegendLabels({ type: "Teacher"})} legendItemType="key" />
+                <LegendGroup labels={displayLegendLabels({ type: "Technique"})} legendItemType="key" />
               </div>
               <div className="turn-taking-visualization">
                 <div className="turn-taking-visualization-headings">
@@ -109,7 +110,7 @@ export default class TurnTaking extends Component {
                 })}
               </div>
               <div className="turn-taking-legend-student">
-                <LegendGroup labels={displayLegendLabels({ type: "Student" })} />
+                <LegendGroup labels={displayLegendLabels({ type: "Student" })} legendItemType="key" />
               </div>
             </div>
         );

@@ -1,4 +1,5 @@
 import data from './data';
+import LegendLabels from '../fixtures/legend_labels';
 
 export default {
     segments: data[0].data.segments,
@@ -22,8 +23,7 @@ export default {
                     });
 
                     speakingTurn.utterances.forEach((utterance, kindex, karray) => {
-                        var utteranceType = utterance.utterance_type.length === 0 ? ["Unknown"] : utterance.utterance_type,
-                            unclassifiedStudentTalk = utterance.utterance_type.length === 0 &&
+                        var unclassifiedStudentTalk = utterance.utterance_type.length === 0 &&
                                 (speakingTurn.speaker_pseudonym.includes("Class") ||
                                 speakingTurn.speaker_pseudonym.includes("Student")),
                             unclassifiedTeacherTalk = utterance.utterance_type.length === 0 &&
@@ -33,7 +33,6 @@ export default {
                                 timestamp: [],
                                 speakerPseudonym: speakingTurn.speaker_pseudonym,
                                 utterance: utterance.utterance,
-                                utteranceType: utteranceType,
                                 nTokens: utterance.n_tokens
                             };
 
@@ -42,11 +41,11 @@ export default {
                         }
 
                         if (unclassifiedStudentTalk) {
-                            dataRow = { ...dataRow, ...{ types: ["Assorted Student Talk"] } };
+                            dataRow = { ...dataRow, ...{ utteranceTypes: ["Assorted Student Talk"] } };
                         } else if (unclassifiedTeacherTalk) {
-                            dataRow = { ...dataRow, ...{ types: ["Assorted Teacher Talk"] } };
+                            dataRow = { ...dataRow, ...{ utteranceTypes: ["Assorted Teacher Talk"] } };
                         } else {
-                            dataRow = { ...dataRow, ...{ types: utterance.utterance_type } };
+                            dataRow = { ...dataRow, ...{ utteranceTypes: utterance.utterance_type } };
                         }
 
                         transcript[transcript.length - 1].utterances.push(dataRow);
@@ -74,7 +73,7 @@ export default {
 
             if (collapsedData.length > 0) {
                 previousDataRow = { ...collapsedData[collapsedData.length - 1] };
-                sameUtteranceTypesAsPrevious = JSON.stringify(previousDataRow.utteranceType) === JSON.stringify(dataRow.utteranceType);
+                sameUtteranceTypesAsPrevious = JSON.stringify(previousDataRow.utteranceTypes) === JSON.stringify(dataRow.utteranceTypes);
             }
 
             if (sameUtteranceTypesAsPrevious) {
@@ -124,4 +123,57 @@ export default {
 
         return transcript.slice(minSlice, activeTurnIndex + 1 + rangeMax);
     },
+
+
+    talkRatios: function() {
+        var expandedData = this.expandedData(),
+            legendLabels = LegendLabels,
+            talkRatios = legendLabels.map((labelObj, index, array) => {
+                return {
+                    value: labelObj.value,
+                    text: labelObj.text,
+                    nTokens: 0,
+                    percentage: 0,
+                    speakerType: labelObj.speakerType
+                }
+            }),
+            speakerTypes = legendLabels.reduce((accumulator, labelObj, index, array) => {
+                if (!accumulator.includes(labelObj.speakerType)) {
+                    accumulator.push(labelObj.speakerType);
+                }
+
+                return accumulator;
+            }, []);
+            // console.log("speakerTypes", speakerTypes);
+
+        talkRatios.forEach((labelObj, index, array) => {
+            expandedData.forEach((utterance, index, array) => {
+                if (utterance.utteranceTypes.includes(labelObj.value)) {
+                    labelObj.nTokens += utterance.nTokens;
+                }
+            });
+        });
+        var speakerTotals = speakerTypes.map((type, index, array) => {
+            return {
+                speakerType: type,
+                totalNTokens: 0
+            }
+        });
+        speakerTotals.forEach((totalObj, index, array) => {
+            totalObj.totalNTokens = talkRatios
+                                .filter((ratioObj) => ratioObj.speakerType === totalObj.speakerType)
+                                .map((ratioObj) => ratioObj.nTokens)
+                                .reduce((accumulator, nTokenValue, index, array) => {
+                                    accumulator += nTokenValue;
+                                    return accumulator;
+                                }, 0);
+        });
+
+        talkRatios.forEach((ratioObj, index, array) => {
+            var speakerType = speakerTotals.filter((totalObj) => totalObj.speakerType === ratioObj.speakerType)[0];
+            ratioObj.percentage = ratioObj.nTokens / speakerType.totalNTokens;
+        });
+
+        return talkRatios;
+    }
 }
