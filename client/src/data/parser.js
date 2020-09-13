@@ -126,9 +126,9 @@ export default {
 
 
     talkRatios: function() {
-        var expandedData = this.expandedData(),
+        var expandedData = this.expandedData(), // get array of every utterance in the transcript
             legendLabels = LegendLabels,
-            talkRatios = legendLabels.map((labelObj, index, array) => {
+            talkRatios = legendLabels.map((labelObj, index, array) => { // set up object to be returned
                 return {
                     value: labelObj.value,
                     text: labelObj.text,
@@ -137,15 +137,23 @@ export default {
                     speakerType: labelObj.speakerType
                 }
             }),
-            speakerTypes = legendLabels.reduce((accumulator, labelObj, index, array) => {
-                if (!accumulator.includes(labelObj.speakerType)) {
-                    accumulator.push(labelObj.speakerType);
+            // usually just speakerType: {Student, Teacher} with initialized totalNTokens
+            speakerTotals = legendLabels.reduce((accumulator, labelObj, index, array) => {
+                var speakerIsInArray = accumulator.filter((accumObj) => {
+                    return accumObj.speakerType === labelObj.speakerType;
+                });
+
+                if (speakerIsInArray.length === 0) {
+                    accumulator.push({
+                        speakerType: labelObj.speakerType,
+                        totalNTokens: 0
+                    });
                 }
 
                 return accumulator;
             }, []);
-            // console.log("speakerTypes", speakerTypes);
 
+        // calculate nTokens for each utterance type
         talkRatios.forEach((labelObj, index, array) => {
             expandedData.forEach((utterance, index, array) => {
                 if (utterance.utteranceTypes.includes(labelObj.value)) {
@@ -153,12 +161,9 @@ export default {
                 }
             });
         });
-        var speakerTotals = speakerTypes.map((type, index, array) => {
-            return {
-                speakerType: type,
-                totalNTokens: 0
-            }
-        });
+
+        // populate the initialized speakerTotals object
+        // by calculating totalNTokens for each speakerType
         speakerTotals.forEach((totalObj, index, array) => {
             totalObj.totalNTokens = talkRatios
                                 .filter((ratioObj) => ratioObj.speakerType === totalObj.speakerType)
@@ -169,6 +174,7 @@ export default {
                                 }, 0);
         });
 
+        // calculate the talk ratio percentage for each utterance type
         talkRatios.forEach((ratioObj, index, array) => {
             var speakerType = speakerTotals.filter((totalObj) => totalObj.speakerType === ratioObj.speakerType)[0];
             ratioObj.percentage = ratioObj.nTokens / speakerType.totalNTokens;
