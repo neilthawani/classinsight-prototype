@@ -83,7 +83,6 @@ export default class TurnTaking extends Component {
     }
 
     render() {
-        var a = Parser.talkRatios();
         var chartData = this.chartData(this.state.bars);
 
         return (
