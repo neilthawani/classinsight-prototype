@@ -130,12 +130,9 @@ export default {
             legendLabels = LegendLabels,
             talkRatios = legendLabels.map((labelObj, index, array) => { // set up object to be returned
                 return {
-                    value: labelObj.value,
-                    text: labelObj.text,
-                    nTokens: 0,
-                    percentage: 0,
-                    speakerType: labelObj.speakerType
-                }
+                    ...labelObj,
+                    ...{ nTokens: 0, percentage: 0 }
+                };
             }),
             // usually just speakerType: {Student, Teacher} with initialized totalNTokens
             speakerTotals = legendLabels.reduce((accumulator, labelObj, index, array) => {

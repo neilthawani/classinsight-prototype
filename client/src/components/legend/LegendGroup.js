@@ -8,12 +8,21 @@ export default class LegendGroup extends Component {
       super(props);
     }
 
+    groupClassName(legendItemType) {
+        switch(legendItemType) {
+          case "button":
+            return "collapsible";
+          case "key":
+          default:
+            break;
+        }
+    }
     renderLegendItem(legendItemType, label, index) {
         switch(legendItemType) {
-          case "key":
-            return <LegendItem key={index} label={label} />
           case "button":
             return <LegendButton key={index} label={label} />
+          case "key":
+            return <LegendItem key={index} label={label} />
           default:
             break;
         }
@@ -24,7 +33,7 @@ export default class LegendGroup extends Component {
           legendItemType = this.props.legendItemType;
 
       return (
-        <div>
+        <div className={this.groupClassName(legendItemType)}>
         {labels.map((label, index) => {
           return (
             this.renderLegendItem(legendItemType, label, index)

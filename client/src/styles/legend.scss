@@ -15,7 +15,7 @@
     flex-direction: row-reverse;
 }
 
-// Legend.js
+// LegendItem.js
 .legend-item {
     margin-bottom: 2px;
     display: flex;
@@ -26,11 +26,20 @@
 .legend-item-key {
     height: 20px;
     width: 20px;
-    background-color: red;
+    background-color: white;
     margin-right: 6px;
     margin-left: 6px;
 }
 
 .legend-item-label {
     font-size: 12px;
+}
+
+// LegendButton.js
+.legend-button {
+    padding: 16px 20px;
+    color: black;
+    background-color: $lightGray;
+    font-size: 12px;
+    margin-bottom: 5px;
 }
