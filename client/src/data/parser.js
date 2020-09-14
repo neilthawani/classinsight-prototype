@@ -62,6 +62,10 @@ export default {
             return accumulator.concat(turn.utterances);
         }, []);
     },
+    maxNTokens: function() {
+        var expandedData = this.expandedData();
+        return Math.max.apply(Math, expandedData.map((utterance) => utterance.nTokens));
+    },
     collapsedData: function() {
         var expandedData = this.expandedData(),
             collapsedData = [];

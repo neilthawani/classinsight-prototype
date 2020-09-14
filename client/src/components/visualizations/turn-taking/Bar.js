@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from "prop-types";
 
 import Script from '../transcript/Script';
-
+import Parser from '../../../data/parser';
 import drawBarStyles from './drawBarStyles';
 import isObjectEmpty from '../../../utils/isObjectEmpty';
 
@@ -54,7 +54,7 @@ export default class Bar extends Component {
 
           {isFocusRow ?
             <div className="turn-taking-visualization-row-drilldown">
-              <Script focusObj={this.props.focusObj} />
+              <Script data={Parser.transcript()} focusObj={this.props.focusObj} />
             </div>
           : '' }
         </div>

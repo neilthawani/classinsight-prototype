@@ -89,9 +89,6 @@ export default class TurnTaking extends Component {
         return (
             <div className="turn-taking-visualization-container">
               <div className="turn-taking-legend-teacher">
-                {/*<LegendButtonGroup
-                  labels={displayLegendLabels({ type: "Teacher"})}
-                  displayRatio={true} />*/}
                 <LegendItemGroup labels={displayLegendLabels({ type: "Teacher"})} />
                 <LegendItemGroup labels={displayLegendLabels({ type: "Technique"})} />
               </div>

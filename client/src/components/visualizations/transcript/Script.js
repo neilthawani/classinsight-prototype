@@ -6,19 +6,19 @@ import Parser from '../../../data/parser';
 export default class Script extends Component {
     constructor(props) {
         super(props);
-        this.transcript = Parser.transcript();
+        this.transcript = this.props.data;
     }
 
     render() {
       var focusObj = this.props.focusObj,
-          activeTranscript = [];
+          activeTranscript = this.transcript;
 
       if (focusObj) {
           activeTranscript = Parser.focusTranscript(this.transcript, focusObj, { range: {min: 1, max: 1} });
       }
 
       return (
-        <div className="alt-transcript-container">
+        <div className="script-container">
           {activeTranscript.map((turn, index, array) => {
               return (
                 <div key={index} className="transcript-turn-container">
@@ -61,5 +61,6 @@ export default class Script extends Component {
 }
 
 Script.propTypes = {
+    data: PropTypes.array.isRequired,
     focusObj: PropTypes.object
 };

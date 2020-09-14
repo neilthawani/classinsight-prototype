@@ -92,12 +92,12 @@
     left: 0;
 }
 
-// TurnTakingCollapsed.js
-.turn-taking-bars-collapsed-visualization {
-    width: 100%;
+// TurnTakingSmall.js
+.turn-taking-bars-small-visualization {
+    padding-top: 5px;
 }
 
-.turn-taking-bar-collapsed {
+.turn-taking-bar-small {
     display: flex;
     flex-direction: row;
     height: 3px;

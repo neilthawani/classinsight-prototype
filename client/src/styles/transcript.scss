@@ -1,6 +1,16 @@
-.alt-transcript-container {
-
+.transcript-visualization-container {
+    display: flex;
+    position: relative;
+    margin-left: 210px; // hacky, based on .legend-button width
 }
+
+.transcript-visualization-legend {
+    position: fixed;
+    left: 0;
+    top: 90px; // hacky, based on menu height + margin
+}
+
+.script-container {}
 
 .transcript-turn-container {
     font-size: 14px;
@@ -16,7 +26,7 @@
 .transcript-turn-timestamp {
     color: rgb(153, 153, 153);
     font-weight: bold;
-    min-width: 20%;
+    max-width: 20%;
     text-align: right;
 }
 
@@ -38,7 +48,7 @@
 
 .transcript-turn-utterance-timestamp {
     font-weight: bold;
-    min-width: 20%;
+    max-width: 20%;
     text-align: right;
 }
 
