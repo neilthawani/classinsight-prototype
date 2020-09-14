@@ -4,7 +4,8 @@ import React, { Component } from 'react';
 import ArrowCollapseVerticalIcon from 'mdi-react/ArrowCollapseVerticalIcon';
 import ArrowExpandVerticalIcon from 'mdi-react/ArrowExpandVerticalIcon';
 
-import LegendGroup from '../../legend/LegendGroup';
+import LegendButtonGroup from '../../legend/LegendButtonGroup';
+import LegendItemGroup from '../../legend/LegendItemGroup';
 import displayLegendLabels from '../../legend/displayLegendLabels';
 import Bar from './Bar';
 
@@ -88,8 +89,11 @@ export default class TurnTaking extends Component {
         return (
             <div className="turn-taking-visualization-container">
               <div className="turn-taking-legend-teacher">
-                <LegendGroup labels={displayLegendLabels({ type: "Teacher"})} legendItemType="button" />
-                <LegendGroup labels={displayLegendLabels({ type: "Technique"})} legendItemType="key" />
+                {/*<LegendButtonGroup
+                  labels={displayLegendLabels({ type: "Teacher"})}
+                  displayRatio={true} />*/}
+                <LegendItemGroup labels={displayLegendLabels({ type: "Teacher"})} />
+                <LegendItemGroup labels={displayLegendLabels({ type: "Technique"})} />
               </div>
               <div className="turn-taking-visualization">
                 <div className="turn-taking-visualization-headings">
@@ -109,7 +113,7 @@ export default class TurnTaking extends Component {
                 })}
               </div>
               <div className="turn-taking-legend-student">
-                <LegendGroup labels={displayLegendLabels({ type: "Student" })} legendItemType="key" />
+                <LegendItemGroup labels={displayLegendLabels({ type: "Student" })} displayRatio={true} />
               </div>
             </div>
         );

@@ -1,5 +1,10 @@
-import LegendLabels from '../../fixtures/legend_labels';
+// import LegendLabels from '../../fixtures/legend_labels';
+import Parser from '../../data/parser';
 
 export default function(options) {
-    return LegendLabels.filter((item) => item.type === options.type);
+    var talkRatios = Parser.talkRatios();
+    // console.log("talkRatios", talkRatios);
+    var legendLabels = talkRatios.filter((item) => item.type === options.type);
+    // console.log("legendLabels", legendLabels);
+    return legendLabels;
 };
