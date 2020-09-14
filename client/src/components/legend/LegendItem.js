@@ -23,7 +23,7 @@ export default class LegendItem extends Component {
       // console.log("label", label);
       return (
         <div className="legend-item">
-          <div className="legend-item-key" style={this.styles(label)}>{formatPercentage(label.percentage, 0)}</div>
+          <div className="legend-item-key" style={this.styles(label)}>{this.props.displayRatio ? formatPercentage(label.percentage, 0) : ""}</div>
           <span className="legend-item-label">
             {label.text}
           </span>

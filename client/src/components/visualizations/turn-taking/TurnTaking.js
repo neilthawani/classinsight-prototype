@@ -89,10 +89,10 @@ export default class TurnTaking extends Component {
         return (
             <div className="turn-taking-visualization-container">
               <div className="turn-taking-legend-teacher">
-                {/*<LegendButtonGroup
+                <LegendButtonGroup
                   labels={displayLegendLabels({ type: "Teacher"})}
-                  displayRatio={true} />*/}
-                <LegendItemGroup labels={displayLegendLabels({ type: "Teacher"})} />
+                  displayRatio={true} />
+                {/*<LegendItemGroup labels={displayLegendLabels({ type: "Teacher"})} />*/}
                 <LegendItemGroup labels={displayLegendLabels({ type: "Technique"})} />
               </div>
               <div className="turn-taking-visualization">
@@ -113,7 +113,7 @@ export default class TurnTaking extends Component {
                 })}
               </div>
               <div className="turn-taking-legend-student">
-                <LegendItemGroup labels={displayLegendLabels({ type: "Student" })} displayRatio={true} />
+                <LegendItemGroup labels={displayLegendLabels({ type: "Student" })} displayRatio={false} />
               </div>
             </div>
         );

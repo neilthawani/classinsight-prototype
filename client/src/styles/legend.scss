@@ -42,12 +42,32 @@
 // LegendButton.js
 .legend-button-dropdown {
     @extend .legend-button;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.legend-button-dropdown-text {
+    font-size: 14px;
+}
+
+.legend-button-dropdown-toggle {}
+
+.legend-button-dropdown.expanded + .legend-buttons {
+    display: block;
+}
+
+.legend-button-dropdown.collapsed + .legend-buttons {
+    display: none;
 }
 
 .legend-button {
+    cursor: pointer;
     padding: 16px 20px;
     color: black;
     background-color: $lightGray;
     font-size: 12px;
     margin-bottom: 5px;
+    width: 160px;
 }
