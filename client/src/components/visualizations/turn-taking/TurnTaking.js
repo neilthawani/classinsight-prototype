@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import ArrowCollapseVerticalIcon from 'mdi-react/ArrowCollapseVerticalIcon';
 import ArrowExpandVerticalIcon from 'mdi-react/ArrowExpandVerticalIcon';
 
-import LegendButtonGroup from '../../legend/LegendButtonGroup';
+// import LegendButtonGroup from '../../legend/LegendButtonGroup';
 import LegendItemGroup from '../../legend/LegendItemGroup';
 import displayLegendLabels from '../../legend/displayLegendLabels';
 import Bar from './Bar';
@@ -89,10 +89,10 @@ export default class TurnTaking extends Component {
         return (
             <div className="turn-taking-visualization-container">
               <div className="turn-taking-legend-teacher">
-                <LegendButtonGroup
+                {/*<LegendButtonGroup
                   labels={displayLegendLabels({ type: "Teacher"})}
-                  displayRatio={true} />
-                {/*<LegendItemGroup labels={displayLegendLabels({ type: "Teacher"})} />*/}
+                  displayRatio={true} />*/}
+                <LegendItemGroup labels={displayLegendLabels({ type: "Teacher"})} />
                 <LegendItemGroup labels={displayLegendLabels({ type: "Technique"})} />
               </div>
               <div className="turn-taking-visualization">

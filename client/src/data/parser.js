@@ -135,20 +135,7 @@ export default {
                 };
             }),
             // usually just speakerType: {Student, Teacher} with initialized totalNTokens
-            speakerTotals = legendLabels.reduce((accumulator, labelObj, index, array) => {
-                var speakerIsInArray = accumulator.filter((accumObj) => {
-                    return accumObj.speakerType === labelObj.speakerType;
-                });
-
-                if (speakerIsInArray.length === 0) {
-                    accumulator.push({
-                        speakerType: labelObj.speakerType,
-                        totalNTokens: 0
-                    });
-                }
-
-                return accumulator;
-            }, []);
+            speakerTotals = this.initializeSpeakerTotals();
 
         // calculate nTokens for each utterance type
         talkRatios.forEach((labelObj, index, array) => {
@@ -172,11 +159,51 @@ export default {
         });
 
         // calculate the talk ratio percentage for each utterance type
+        var allSpeakersTotalNTokens = speakerTotals
+                                      .reduce((accumulator, item) => accumulator += item.totalNTokens, 0);
+
         talkRatios.forEach((ratioObj, index, array) => {
-            var speakerType = speakerTotals.filter((totalObj) => totalObj.speakerType === ratioObj.speakerType)[0];
-            ratioObj.percentage = ratioObj.nTokens / speakerType.totalNTokens;
+            ratioObj.percentage = ratioObj.nTokens / allSpeakersTotalNTokens;
         });
 
         return talkRatios;
+    },
+    initializeSpeakerTotals: function() {
+        var legendLabels = LegendLabels;
+        var speakerTotals = legendLabels.reduce((accumulator, labelObj, index, array) => {
+            var speakerIsInArray = accumulator.filter((accumObj) => {
+                return accumObj.speakerType === labelObj.speakerType;
+            });
+
+            if (speakerIsInArray.length === 0) {
+                accumulator.push({
+                    speakerType: labelObj.speakerType,
+                    totalNTokens: 0
+                });
+            }
+
+            return accumulator;
+        }, []);
+
+        return speakerTotals;
+    },
+    speakerTalkTotals: function() {
+        var speakerTotals = this.initializeSpeakerTotals(),
+            talkRatios = this.talkRatios();
+
+        speakerTotals.forEach((speakerTotalObj, index, array) => {
+            talkRatios.forEach((talkRatioObj, jindex, jarray) => {
+                if (speakerTotalObj.speakerType === talkRatioObj.speakerType) {
+                    if (!speakerTotalObj.hasOwnProperty("totalTalkPercentage")) {
+                        speakerTotalObj.totalTalkPercentage = 0;
+                    }
+
+                    speakerTotalObj["totalTalkPercentage"] += talkRatioObj.percentage;
+                }
+
+            });
+        });
+
+        return speakerTotals;
     }
 }
