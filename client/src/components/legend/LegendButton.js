@@ -9,18 +9,26 @@ export default class LegendButton extends Component {
     }
 
     styles(label) {
-        return {};
-        //     backgroundColor: label.barColor,
-        //     color: label.textColor
-        // };
+        var styles = {};
+        if (this.props.activeLabels.includes(label.value)) {
+            styles = {
+                backgroundColor: label.barColor,
+                color: label.textColor
+            };
+        }
+
+        return styles;
+    }
+
+    handleClick(label) {
+        this.props.handleClick(label);
     }
 
     render() {
       var label = this.props.label;
-      // console.log("label", label);
 
       return (
-        <div className="legend-button" style={this.styles(label)}>
+        <div className="legend-button" style={this.styles(label)} onClick={this.handleClick.bind(this, label)}>
           {label.text} {this.props.displayRatio ? `(${formatPercentage(label.percentage, 0)})` : ""}
         </div>
       );
@@ -28,5 +36,7 @@ export default class LegendButton extends Component {
 }
 
 LegendButton.propTypes = {
-    label: PropTypes.object.isRequired
+    label: PropTypes.object.isRequired,
+    handleClick: PropTypes.func,
+    activeLabels: PropTypes.array
 }

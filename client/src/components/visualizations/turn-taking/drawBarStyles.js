@@ -1,30 +1,19 @@
-import LegendLabels from '../../../fixtures/legend_labels';
+import defineInitialStyle from './defineInitialStyle';
 
-var legendLabels = LegendLabels;
-
-export default function(item, isCollapsed = false) {
+export default function(item, areBarsSmall = false) {
     var isStudentData = item.speakerPseudonym.includes("Student"),
-        isTeacherData = item.speakerPseudonym === "Teacher";
-
-    var legendLabelValue = item.utteranceTypes[item.utteranceTypes.length - 1];
-    var barColor = legendLabels.find(item => item.value === legendLabelValue).barColor;
-    var barBorder = "";
-    var boxSizing = "";
-    if (item.utteranceTypes.length > 1) { // if it has multiple utterance types, draw a border around the bar
-        var borderValue = item.utteranceTypes && item.utteranceTypes[0];
-        barBorder = `3px solid ${legendLabels.find(item => item.value === borderValue).barColor}`;
-        boxSizing = "border-box";
-    }
+        isTeacherData = item.speakerPseudonym === "Teacher",
+        initialStyle = defineInitialStyle(item);
 
     var barWidth = item.nTokens,
         barHeight = "14px";
 
-    if (isCollapsed) {
+    if (areBarsSmall) {
         barHeight = "3px";
     }
 
     var baseStyle = { height: barHeight },
-        extendedStyle = { backgroundColor: barColor, border: barBorder, boxSizing: boxSizing, width: barWidth },
+        extendedStyle = { ...initialStyle, width: barWidth },
         teacherStyle = {},
         studentStyle = {};
 

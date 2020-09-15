@@ -16,6 +16,10 @@ export default class LegendGroup extends Component {
         this.setState({ isCollapsed: !isCollapsed });
     }
 
+    handleClick(label) {
+        this.props.handleClick(label);
+    }
+
     render() {
       var isCollapsed = this.state.isCollapsed,
           labels = this.props.labels;
@@ -30,9 +34,13 @@ export default class LegendGroup extends Component {
           </div>
           <div className="legend-buttons">
             {labels.map((label, index) => {
-              // console.log("label", label);
               return (
-                <LegendButton key={index} label={label} displayRatio={this.props.displayRatio} />
+                <LegendButton
+                  key={index}
+                  label={label}
+                  displayRatio={this.props.displayRatio}
+                  activeLabels={this.props.activeLabels}
+                  handleClick={this.handleClick.bind(this, label)} />
               );
             })}
           </div>
@@ -42,6 +50,8 @@ export default class LegendGroup extends Component {
 }
 
 LegendGroup.propTypes = {
+    handleClick: PropTypes.func,
     displayRatio: PropTypes.bool,
     labels: PropTypes.array.isRequired,
+    activeLabels: PropTypes.array
 };

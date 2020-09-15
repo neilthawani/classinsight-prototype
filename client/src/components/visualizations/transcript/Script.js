@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
 
+
 import Parser from '../../../data/parser';
+import Utterance from './Utterance';
 
 export default class Script extends Component {
     constructor(props) {
@@ -35,20 +37,17 @@ export default class Script extends Component {
                   <div className="transcript-turn-utterances">
                     {turn.utterances.map((utterance, jindex, jarray) => {
                         var hasTimestamp = utterance.timestamp.length > 0;
-
+                        var key = `${utterance}-${jindex}`;
+                        var timeStamp = hasTimestamp ? utterance.timestamp : "";
+                        // if (Object.keys(activeStyle).length > 0)
+                        // console.log("utterance", utterance, "utterance.type", utterance.type);
+                        // console.log("activeStyle", this.props.activeLabels.includes(utterance.type));
                         return (
-                          <div key={`${utterance}-${jindex}`} className="transcript-turn-utterance">
-                            <div className="transcript-turn-utterance-timestamp">
-                              <span className="transcript-turn-utterance-timestamp-text">
-                                {hasTimestamp ? utterance.timestamp : ""}
-                              </span>
-                            </div>
-                            <span
-                              className="transcript-turn-utterance-text"
-                              data-attr-type={utterance.utteranceType}>
-                              {utterance.utterance}
-                            </span>
-                          </div>
+                          <Utterance
+                            key={key}
+                            timeStamp={timeStamp}
+                            utterance={utterance}
+                            activeLabels={this.props.activeLabels} />
                         );
                     })}
                   </div>
@@ -62,5 +61,6 @@ export default class Script extends Component {
 
 Script.propTypes = {
     data: PropTypes.array.isRequired,
-    focusObj: PropTypes.object
+    focusObj: PropTypes.object,
+    activeLabels: PropTypes.array
 };
