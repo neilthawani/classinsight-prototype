@@ -9,11 +9,15 @@ export default class Utterance extends Component {
     render() {
         var timeStamp = this.props.timeStamp;
         var utterance = this.props.utterance;
+        var activeLabels = this.props.activeLabels;
         var isLineHighlighted = false;
-        for (var i = 0; i < utterance.utteranceTypes.length; i++) {
-            if (this.props.activeLabels.includes(utterance.utteranceTypes[i])) {
-                isLineHighlighted = true;
-                break;
+
+        if (activeLabels) {
+            for (var i = 0; i < utterance.utteranceTypes.length; i++) {
+                if (activeLabels.includes(utterance.utteranceTypes[i])) {
+                    isLineHighlighted = true;
+                    break;
+                }
             }
         }
 
