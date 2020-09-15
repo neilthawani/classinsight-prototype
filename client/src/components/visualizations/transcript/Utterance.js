@@ -22,19 +22,17 @@ export default class Utterance extends Component {
         }
 
         return (
-          <div className="transcript-turn-utterance">
-            <div className="transcript-turn-utterance-timestamp">
-              <span className="transcript-turn-utterance-timestamp-text">
-                {timeStamp}
-              </span>
-            </div>
+          <tr className="script-turn-utterance" data-attr-utterance-id={utterance.id}>
+            <td className="script-turn-utterance-timestamp">
+              {timeStamp}
+            </td>
 
-            <span
-              className="transcript-turn-utterance-text"
+            <td
+              className="script-turn-utterance-text"
               style={isLineHighlighted ? defineInitialStyle(utterance) : {}}>
               {utterance.utterance}
-            </span>
-          </div>
+            </td>
+          </tr>
         )
     }
 }

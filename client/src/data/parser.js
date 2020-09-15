@@ -6,10 +6,9 @@ export default {
 
     transcript: function() {
         var transcript = [];
+        var utteranceIndex = 0;
 
         this.segments.forEach((segment, index, array) => {
-            var utteranceIndex = 0;
-
             if (segment.participation_type !== "Other") {
                 var speakingTurns = segment.speaking_turns;
 

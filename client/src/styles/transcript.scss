@@ -9,52 +9,6 @@
     left: 0;
 }
 
-.script-container {}
-
-.transcript-turn-container {
-    font-size: 14px;
-    margin: 5px;
-    padding: 5px;
-    border: 1px solid $lightGray;
-}
-
-.transcript-turn {
-    display: flex;
-}
-
-.transcript-turn-timestamp {
-    color: rgb(153, 153, 153);
-    font-weight: bold;
-    max-width: 20%;
-    text-align: right;
-}
-
-.transcript-turn-timestamp-text {
-    margin-right: 10px;
-}
-
-.transcript-turn-speaker {
-    color: rgb(153, 153, 153);
-}
-
-.transcript-turn-utterances {
-    color: black;
-}
-
-.transcript-turn-utterance {
-    display: flex;
-}
-
-.transcript-turn-utterance-timestamp {
-    font-weight: bold;
-    max-width: 20%;
-    text-align: right;
-}
-
-.transcript-turn-utterance-timestamp-text {
-    margin-right: 10px;
-}
-
-.transcript-turn-utterance-text {
-    line-height: 1.4;
+.transcript-script-container {
+    margin-left: 122px;
 }

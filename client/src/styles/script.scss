@@ -1,0 +1,35 @@
+.script-turn-container {
+    font-size: 14px;
+    display: table;
+}
+
+.script-turn { // table
+    margin-bottom: 25px;
+}
+
+.script-turn-rows {} // tbody
+
+.script-turn-speaker {} // tr
+
+.script-turn-speaker-timestamp { // td
+    color: $darkGray;
+    font-size: 16px;
+    text-align: right;
+    padding-right: 10px;
+    white-space: nowrap;
+}
+
+.script-turn-speaker-text { // td
+    color: $darkGray;
+    font-size: 16px;
+}
+
+.script-turn-utterance {} // tr
+
+.script-turn-utterance-timestamp { // td
+    font-weight: bold;
+    text-align: right;
+    padding-right: 10px;
+}
+
+.script-turn-utterance-text {} // td

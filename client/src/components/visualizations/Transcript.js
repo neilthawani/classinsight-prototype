@@ -14,8 +14,12 @@ export default class Transcript extends Component {
     constructor(props) {
         super(props);
 
+        this.chartWidth = 2 * Parser.maxNTokens(); // double width - for both left/right side of TurnTakingSmall chart
+
         this.state = {
-            activeLabels: []
+            activeLabels: ["Metacognitive Modeling Questions", "Teacher Explanation + Evidence", "Teacher Open-Ended S/Q", "Teacher Close-Ended S/Q", "Assorted Teacher Talk", "Student Explanation + Evidence", "Student Open-Ended S/Q", "Student Open-Ended Response", "Student Close-Ended S/Q", "Student Close-Ended Response", "Turn-Taking Facilitation", "Re-Voicing", "Behavior Management Questions"],
+            topOfBox: 0,
+            bottomOfBox: 0
         };
     }
 
@@ -28,6 +32,26 @@ export default class Transcript extends Component {
         this.setState({
             activeLabels: activeLabels
         });
+    }
+
+    handleScroll(topElId, bottomElId) {
+        console.log("handleScroll base", topElId, bottomElId);
+        // debugger;
+        var turnTakingBarsSmall = document.getElementsByClassName("turn-taking-bars-small-visualization")[0];
+
+        // turnTakingBarsSmall.scrollTo(0, 500)
+        var topOfBox = turnTakingBarsSmall.querySelectorAll(`.turn-taking-bars-small-visualization [data-attr-utterance-id='${topElId}']`)[0];
+        var bottomOfBox = turnTakingBarsSmall.querySelectorAll(`.turn-taking-bars-small-visualization [data-attr-utterance-id='${bottomElId}']`)[0];
+        // debugger;
+
+        turnTakingBarsSmall.scrollTo(0, bottomOfBox.getBoundingClientRect().top)
+
+        // console.log("topElId", topElId, "bottomElId", bottomElId);
+
+        // this.setState({
+        //     turnTakingScrollY: 0
+        // });
+        console.log("this.state.activeLabels", this.state.activeLabels);
     }
 
     render() {
@@ -51,11 +75,17 @@ export default class Transcript extends Component {
               handleClick={this.handleClick.bind(this)} />
           </div>
 
-          <TurnTakingSmall />
+          <TurnTakingSmall
+            chartWidth={this.chartWidth}
+            topOfBox={this.state.topOfBox}
+            bottomOfBox={this.state.bottomOfBox} />
 
-          <Script
-            data={Parser.transcript()}
-            activeLabels={this.state.activeLabels} />
+          <div className="transcript-script-container" style={{ marginLeft: `${this.chartWidth}px` }}>
+            <Script
+              data={Parser.transcript()}
+              activeLabels={this.state.activeLabels}
+              handleScroll={this.handleScroll.bind(this)} />
+          </div>
         </div>
       );
     }
