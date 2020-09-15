@@ -7,6 +7,8 @@ export default class TurnTakingSmall extends Component {
     constructor(props) {
         super(props);
         this.chartWidth = this.props.chartWidth;
+        this.boxHeight = this.props.boxHeight;
+        this.boxHeightOffset = this.props.boxHeightOffset;
     }
 
     render() {
@@ -31,7 +33,7 @@ export default class TurnTakingSmall extends Component {
                       </div>
                   );
               })}
-              <div className="turn-taking-bars-small-focus-box" style={{height: "40px", top: "40px"}}>
+              <div className="turn-taking-bars-small-focus-box" style={{height: `${this.boxHeight}px`, top: `${this.boxHeightOffset}px`}}>
               </div>
             </div>
         );
@@ -39,5 +41,7 @@ export default class TurnTakingSmall extends Component {
 }
 
 TurnTakingSmall.propTypes = {
-    chartWidth: PropTypes.number.isRequired
+    chartWidth: PropTypes.number.isRequired,
+    boxHeight: PropTypes.number.isRequired,
+    boxHeightOffset: PropTypes.number.isRequired
 }

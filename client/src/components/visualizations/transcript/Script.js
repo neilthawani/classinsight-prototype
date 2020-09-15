@@ -18,9 +18,6 @@ export default class Script extends Component {
 
     componentDidMount() {
         window.addEventListener('scroll', this.handleScroll.bind(this));
-        // this.scriptBoundingRect = document.getElementsByClassName("script-turn-container")[0].getBoundingClientRect();
-        // this.topCoords = this.scriptBoundingRect.top;
-        // this.navbarHeight = document.getElementsByClassName("navbar")[0].clientHeight;
     }
 
     componentWillUnmount() {
