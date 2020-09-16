@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 import Script from '../transcript/Script';
 import Parser from '../../../data/parser';

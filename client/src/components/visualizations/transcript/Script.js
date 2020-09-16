@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
 
-
 import Parser from '../../../data/parser';
 import Utterance from './Utterance';
+import getElementIdsForFocusWindow from './getElementIdsForFocusWindow';
 
 export default class Script extends Component {
     constructor(props) {
@@ -13,11 +13,12 @@ export default class Script extends Component {
         this.state = {
             topElId: 0,
             bottomElId: 0
-        }
+        };
     }
 
     componentDidMount() {
         window.addEventListener('scroll', this.handleScroll.bind(this));
+        this.handleScroll();
     }
 
     componentWillUnmount() {
@@ -25,46 +26,29 @@ export default class Script extends Component {
     }
 
     handleScroll(event) {
-        var navbarHeight = document.getElementsByClassName("navbar")[0].getBoundingClientRect().height; // 75
-        var scriptBoundingRect = document.getElementsByClassName("script-turn-container")[0].getBoundingClientRect();
-        var scriptBoundingRectDistanceFromWindowTop = scriptBoundingRect.top;
-        var topY = scriptBoundingRectDistanceFromWindowTop;
+        var { topElId, bottomElId } = getElementIdsForFocusWindow();
 
-        if (scriptBoundingRectDistanceFromWindowTop < navbarHeight) {
-            topY = navbarHeight;
+        if (!topElId) { // loose equality catches null, undefined
+            topElId = this.state.topElId;
         }
 
-        var middleX = (scriptBoundingRect.right - scriptBoundingRect.left) / 2;
-        var bottomY = window.innerHeight - 5;
+        if (!bottomElId) { // loose equality catches null, undefined
+            bottomElId = this.state.bottomElId;
+        }
 
-        var topEl = document.elementFromPoint(middleX, topY);
-        // console.log("topElement", topElement);
-        var bottomEl = document.elementFromPoint(middleX, bottomY);
-        var topElId = topEl.parentElement.getAttribute('data-attr-utterance-id') || this.state.topElId;
-        // debugger;
-        // var transcriptLastTurn = this.transcript[this.transcript.length - 1].utterances;
-        var bottomElId = bottomEl.parentElement.getAttribute('data-attr-utterance-id') || this.state.bottomElId;
-        // || transcriptLastTurn[transcriptLastTurn.length - 1].id;
-        if (parseInt(topElId, 10) > parseInt(bottomElId, 10)) {
+        if (topElId > bottomElId) {
             topElId = 0;
         }
+
+        // console.log("Script::handleScroll", topElId, bottomElId);
 
         this.setState({
             topElId: topElId,
             bottomElId: bottomElId
         });
 
-
-        // console.log("this.props", this.props);
+        // console.log("handleScroll", topElId, bottomElId);
         this.props.handleScroll(topElId, bottomElId);
-        // console.log("topElement", topElement, "bottomElement", bottomElement);
-        // console.log("elem", elem);
-        // let scrollTop = event.srcElement.body.scrollTop,
-        //     itemTranslate = Math.min(0, scrollTop/3 - 60);
-        //
-        // this.setState({
-        //   transform: itemTranslate
-        // });
     }
 
     render() {

@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import defineInitialStyle from '../turn-taking/defineInitialStyle';
 
 export default class Utterance extends Component {
-    constructor(props) {
-        super(props);
-    }
+    // constructor(props) {
+    //     super(props);
+    // }
 
     render() {
         var timeStamp = this.props.timeStamp;

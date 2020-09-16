@@ -69,7 +69,7 @@ export default {
         var expandedData = this.expandedData(),
             collapsedData = [];
 
-        expandedData.map((utterance, index, array) => {
+        expandedData.forEach((utterance, index, array) => {
             var dataRow = { ...utterance },
                 sameUtteranceTypesAsPrevious = false,
                 previousDataRow = {};

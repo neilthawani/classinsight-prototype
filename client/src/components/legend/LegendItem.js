@@ -4,11 +4,11 @@ import PropTypes from "prop-types";
 import formatPercentage from '../../utils/formatPercentage';
 
 export default class LegendItem extends Component {
-    constructor(props) {
-      super(props);
+    // constructor(props) {
+    //   super(props);
       // var talkRatios = Parser.talkRatios();
       // this.labelWithRatios = talkRatios.filter((ratioObj) => ratioObj.value === this.props.label.value)[0];
-    }
+    // }
 
     styles(label) {
         return {

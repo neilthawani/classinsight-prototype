@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 import formatPercentage from '../../utils/formatPercentage';
 
 export default class LegendButton extends Component {
-    constructor(props) {
-        super(props);
-    }
+    // constructor(props) {
+    //     super(props);
+    // }
 
     styles(label) {
         var styles = {};
