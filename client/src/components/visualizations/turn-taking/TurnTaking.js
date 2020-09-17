@@ -40,7 +40,7 @@ export default class TurnTaking extends Component {
         super(props);
 
         this.state = {
-            bars: window.localStorage.getItem("bars") || "expanded",
+            bars: localStorage.getItem("bars") || "expanded",
             focusObj: {}
         };
 
@@ -49,7 +49,7 @@ export default class TurnTaking extends Component {
 
     toggleExpandedBars = function(value, context) {
         this.setState({ "bars": value });
-        window.localStorage.setItem("bars", value);
+        localStorage.setItem("bars", value);
     }
 
     barsStateIcon = {

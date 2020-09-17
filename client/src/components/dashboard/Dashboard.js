@@ -5,13 +5,9 @@ import { connect } from "react-redux";
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    
-    if (!window.localStorage.getItem("buttonSelectorSelectedOption")) {
-      window.localStorage.setItem("buttonSelectorSelectedOption", Object.keys(this.components)[0]);
-    }
 
     this.state = {
-      selectedOption: window.localStorage.getItem("buttonSelectorSelectedOption")
+      selectedOption: localStorage.getItem("buttonSelectorSelectedOption")
     };
   }
 

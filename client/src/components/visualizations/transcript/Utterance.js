@@ -36,7 +36,6 @@ export default class Utterance extends Component {
 }
 
 Utterance.propTypes = {
-    timeStamp: PropTypes.string,
     utterance: PropTypes.object,
     activeLabels: PropTypes.array,
 }
