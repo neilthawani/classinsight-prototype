@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-import Parser from '../../data/parser';
+import Parser from '../../../data/parser';
 
-import LegendButtonGroup from '../legend/LegendButtonGroup';
-import TurnTakingSmall from './turn-taking/TurnTakingSmall';
-import Script from './transcript/Script';
-import displayLegendLabels from '../legend/displayLegendLabels';
+import LegendButtonGroup from '../../legend/LegendButtonGroup';
+import TurnTakingSmall from '../turn-taking/TurnTakingSmall';
+import Script from '../transcript/Script';
+import displayLegendLabels from '../../legend/displayLegendLabels';
 
-import removeArrayValue from '../../utils/removeArrayValue';
+import removeArrayValue from '../../../utils/removeArrayValue';
 
 export default class Transcript extends Component {
     constructor(props) {
