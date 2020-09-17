@@ -38,6 +38,8 @@ export default class Transcript extends Component {
         });
     }
 
+    barHeight = 3
+
     handleScroll(topElId, bottomElId) {
         // calculate focusBox.height
         var turnTakingBarsSmall = document.getElementsByClassName("turn-taking-bars-small-visualization")[0];
@@ -45,14 +47,15 @@ export default class Transcript extends Component {
         var bottomOfBox = turnTakingBarsSmall.querySelectorAll(`.turn-taking-bars-small-visualization [data-attr-utterance-id='${bottomElId}']`)[0];
         var topOfBoxY = topOfBox.getBoundingClientRect().y;
         var bottomOfBoxY = bottomOfBox.getBoundingClientRect().y;
-        var boxHeight = bottomOfBoxY - topOfBoxY;
-        // debugger;
-        // turnTakingBarsSmall.scrollTo(0, topOfBox.getBoundingClientRect().y);
+        var boxHeight = bottomOfBoxY - topOfBoxY + 1;
+
+        // focus the box
+        turnTakingBarsSmall.scrollTo(0, topElId * this.barHeight);
 
         this.setState({
             focusBox: {
                 topElId: topElId,
-                bottomElId: bottomElId + 1,
+                bottomElId: bottomElId,
                 height: boxHeight,
             }
         });
@@ -81,6 +84,7 @@ export default class Transcript extends Component {
 
           <TurnTakingSmall
             chartWidth={this.chartWidth}
+            barHeight={this.barHeight}
             focusBox={this.state.focusBox} />
 
           <div className="transcript-script-container" style={{ marginLeft: `${this.chartWidth}px` }}>

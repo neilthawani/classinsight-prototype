@@ -7,10 +7,9 @@ export default class TurnTakingSmall extends Component {
     constructor(props) {
         super(props);
         this.chartWidth = this.props.chartWidth;
+        this.barHeight = this.props.barHeight;
         this.focusBox = this.props.focusBox;
     }
-
-    barHeight = 3
 
     render() {
         var chartData = Parser.parsedData().expanded,
@@ -20,8 +19,6 @@ export default class TurnTakingSmall extends Component {
 
         return (
             <div className="turn-taking-bars-small-visualization" style={{ minWidth: `${this.chartWidth}px` }}>
-              <div className="turn-taking-bars-small-focus-box" style={{height: `${boxHeight}px`, top: boxOffset}}>
-              </div>
               {chartData.map((item, index) => {
                   var { teacherStyle, studentStyle } = drawBarStyles(item, true);
 
@@ -38,6 +35,8 @@ export default class TurnTakingSmall extends Component {
                       </div>
                   );
               })}
+              <div className="turn-taking-bars-small-focus-box" style={{height: `${boxHeight}px`, top: boxOffset}}>
+              </div>
             </div>
         );
     }
@@ -45,5 +44,6 @@ export default class TurnTakingSmall extends Component {
 
 TurnTakingSmall.propTypes = {
     chartWidth: PropTypes.number.isRequired,
+    barHeight: PropTypes.number.isRequired,
     focusBox: PropTypes.object.isRequired
 };
