@@ -44,6 +44,7 @@ class App extends Component {
 
       this.selectedOption = window.localStorage.getItem("buttonSelectorSelectedOption");
   }
+  
   handleClick(value, context) {
       window.localStorage.setItem("buttonSelectorSelectedOption", value);
       this.selectedOption = value;

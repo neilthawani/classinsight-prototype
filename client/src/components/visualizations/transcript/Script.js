@@ -3,18 +3,11 @@ import PropTypes from "prop-types";
 
 import Parser from '../../../data/parser';
 import Utterance from './Utterance';
-import getElementIdsForFocusWindow from './getElementIdsForFocusWindow';
 
 export default class Script extends Component {
     constructor(props) {
         super(props);
         this.transcript = this.props.data;
-        this.shouldHandleScroll = this.props.shouldHandleScroll;
-
-        this.state = {
-            topElId: 0,
-            bottomElId: 0
-        };
     }
 
     componentDidMount() {
@@ -32,29 +25,40 @@ export default class Script extends Component {
         }
     }
 
-    handleScroll(event) {
-        var { topElId, bottomElId } = getElementIdsForFocusWindow();
+    getElementIdsForFocusWindow() {
+        var scriptTurnContainer = document.getElementsByClassName('script-turn-utterance'),
+            elementsInBounds = [];
 
-        if (!topElId) { // loose equality catches null, undefined
-            topElId = this.state.topElId;
+        for (var i = 0; i < scriptTurnContainer.length; i++) {
+            var el = scriptTurnContainer[i];
+
+            var elBounds = el.getBoundingClientRect();
+
+            var isElInBounds = elBounds.top >= 0 &&
+                elBounds.left >= 0 &&
+                elBounds.right <= (window.innerWidth || document.documentElement.clientWidth) &&
+                elBounds.bottom <= (window.innerHeight || document.documentElement.clientHeight);
+
+            if (isElInBounds) {
+                elementsInBounds.push(el);
+            } else if (elementsInBounds.length > 0 && !isElInBounds) {
+                break;
+            }
         }
 
-        if (!bottomElId) { // loose equality catches null, undefined
-            bottomElId = this.state.bottomElId;
-        }
+        var topElId = parseInt(elementsInBounds[0].getAttribute('data-attr-utterance-id'), 10),
+            bottomElId = parseInt(elementsInBounds[elementsInBounds.length - 1].getAttribute('data-attr-utterance-id'), 10);
 
-        if (topElId > bottomElId) {
-            topElId = 0;
-        }
-
-        // console.log("Script::handleScroll", topElId, bottomElId);
-
-        this.setState({
+        return {
             topElId: topElId,
             bottomElId: bottomElId
-        });
+        }
+    }
 
-        // console.log("handleScroll", topElId, bottomElId);
+    handleScroll(event) {
+        console.log("Script::handleScroll");
+        var { topElId, bottomElId } = this.getElementIdsForFocusWindow();
+
         this.props.handleScroll(topElId, bottomElId);
     }
 
@@ -82,7 +86,6 @@ export default class Script extends Component {
                     </tr>
 
                     {turn.utterances.map((utterance, jindex, jarray) => {
-                        // console.log("utterance", utterance);
                         var hasTimestamp = utterance.timestamp.length > 0;
                         var key = `${utterance}-${jindex}`;
                         var timeStamp = hasTimestamp ? utterance.timestamp : "";
@@ -108,4 +111,5 @@ Script.propTypes = {
     data: PropTypes.array.isRequired,
     focusObj: PropTypes.object,
     activeLabels: PropTypes.array,
+    focusBox: PropTypes.object
 };
