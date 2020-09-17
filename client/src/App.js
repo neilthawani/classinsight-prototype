@@ -15,7 +15,7 @@ import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
 import TalkRatio from './components/visualizations/TalkRatio';
-import Transcript from './components/visualizations/Transcript';
+import Transcript from './components/visualizations/transcript/Transcript';
 import TurnTaking from './components/visualizations/turn-taking/TurnTaking';
 
 // Check for token to keep user logged in
@@ -44,7 +44,7 @@ class App extends Component {
 
       this.selectedOption = window.localStorage.getItem("buttonSelectorSelectedOption");
   }
-  
+
   handleClick(value, context) {
       window.localStorage.setItem("buttonSelectorSelectedOption", value);
       this.selectedOption = value;

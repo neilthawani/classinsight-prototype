@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
-// import Parser from '../../data/parser';
+
 import formatPercentage from '../../utils/formatPercentage';
 
 export default class LegendButton extends Component {
-    // constructor(props) {
-    //     super(props);
-    // }
-
     styles(label) {
         var styles = {};
         if (this.props.activeLabels.includes(label.value)) {
@@ -39,4 +35,4 @@ LegendButton.propTypes = {
     label: PropTypes.object.isRequired,
     handleClick: PropTypes.func,
     activeLabels: PropTypes.array
-}
+};

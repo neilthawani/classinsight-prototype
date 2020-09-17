@@ -84,7 +84,7 @@ export default class Transcript extends Component {
 
     render() {
       return (
-        <div className="transcript-visualization-container">
+        <div className="transcript-visualization-container" style={{ marginLeft: this.state.chartOffsetWidth }}>
           <div className="transcript-visualization-legend">
             <LegendButtonGroup
               labels={displayLegendLabels({ type: "Teacher"})}

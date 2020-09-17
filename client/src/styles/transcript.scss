@@ -1,7 +1,6 @@
 .transcript-visualization-container {
     display: flex;
     position: relative;
-    margin-left: 210px; // hacky, based on .legend-button width
 }
 
 .transcript-visualization-legend {
@@ -9,6 +8,4 @@
     left: 0;
 }
 
-.transcript-script-container {
-    margin-left: 122px;
-}
+.transcript-script-container {}

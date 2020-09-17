@@ -3,10 +3,6 @@ import PropTypes from "prop-types";
 import LegendItem from './LegendItem';
 
 export default class LegendGroup extends Component {
-    // constructor(props) {
-    //   super(props);
-    // }
-
     render() {
       var labels = this.props.labels;
 

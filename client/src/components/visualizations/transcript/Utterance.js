@@ -1,11 +1,9 @@
+import PropTypes from "prop-types";
+
 import React, { Component } from 'react';
 import defineInitialStyle from '../turn-taking/defineInitialStyle';
 
 export default class Utterance extends Component {
-    // constructor(props) {
-    //     super(props);
-    // }
-
     render() {
         var timeStamp = this.props.timeStamp;
         var utterance = this.props.utterance;
@@ -35,4 +33,10 @@ export default class Utterance extends Component {
           </tr>
         )
     }
+}
+
+Utterance.propTypes = {
+    timeStamp: PropTypes.string,
+    utterance: PropTypes.object,
+    activeLabels: PropTypes.array,
 }

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-// import PropTypes from "prop-types";
+
+import Parser from '../../../data/parser';
 
 import Script from '../transcript/Script';
-import Parser from '../../../data/parser';
+
 import drawBarStyles from './drawBarStyles';
 import isObjectEmpty from '../../../utils/isObjectEmpty';
 
