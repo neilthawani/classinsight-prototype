@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 
@@ -14,6 +14,7 @@ import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
+import ButtonSelector from './components/ButtonSelector';
 import TalkRatio from './components/visualizations/TalkRatio';
 import Transcript from './components/visualizations/transcript/Transcript';
 import TurnTaking from './components/visualizations/turn-taking/TurnTaking';
@@ -42,13 +43,18 @@ class App extends Component {
   constructor(props) {
       super(props);
 
-      this.selectedOption = window.localStorage.getItem("buttonSelectorSelectedOption");
+      this.state = {
+          selectedOption: localStorage.getItem("buttonSelectorSelectedOption")
+      };
   }
 
-  handleClick(value, context) {
-      window.localStorage.setItem("buttonSelectorSelectedOption", value);
-      this.selectedOption = value;
-      context.classList.add("active");
+  handleClick(value) {
+      console.log("handleClick base", value);
+      localStorage.setItem("buttonSelectorSelectedOption", value);
+      this.setState({
+          selectedOption: value
+      });
+      // window.location.reload();
   }
 
   render() {
@@ -60,31 +66,9 @@ class App extends Component {
             <Navbar />
 
             {/* coarse, medium, and fine-grained visualizations */}
-            <div className="button-selector">
-              <Link
-                className={this.selectedOption === "talk-ratio" ? "button-selector-item active" : "button-selector-item"}
-                data-attr-name="talk-ratio"
-                to="/dashboard/talk-ratio"
-                onClick={this.handleClick.bind(this, "talk-ratio")}>
-                Talk Ratio
-              </Link>
-
-              <Link
-                className={this.selectedOption === "turn-taking" ? "button-selector-item active" : "button-selector-item"}
-                data-attr-name="turn-taking"
-                to="/dashboard/turn-taking"
-                onClick={this.handleClick.bind(this, "turn-taking")}>
-                Turn Taking
-              </Link>
-
-              <Link
-                className={this.selectedOption === "transcript" ? "button-selector-item active" : "button-selector-item"}
-                data-attr-name="transcript"
-                to="/dashboard/transcript"
-                onClick={this.handleClick.bind(this, "transcript")}>
-                Transcript
-              </Link>
-            </div>
+            <ButtonSelector
+              selectedOption={this.state.selectedOption}
+              handleClick={this.handleClick.bind(this)} />
 
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />

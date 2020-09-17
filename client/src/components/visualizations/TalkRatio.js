@@ -63,7 +63,7 @@ export default class TalkRatio extends Component {
                   <div key={index} className="talk-ratio-visualization-section" style={this.formatStyle(item)}></div>
                 );
             })}
-            <div class="talk-ratio-visualization-divider"></div>
+            <div className="talk-ratio-visualization-divider"></div>
             {this.studentTalkRatio.map((item, index, array) => {
                 return (
                   <div key={index} className="talk-ratio-visualization-section" style={this.formatStyle(item)}></div>
