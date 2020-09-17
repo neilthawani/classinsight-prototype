@@ -4,7 +4,7 @@ import LegendButton from './LegendButton';
 import ChevronDownIcon from 'mdi-react/ChevronDownIcon';
 import ChevronUpIcon from 'mdi-react/ChevronUpIcon';
 
-export default class LegendGroup extends Component {
+export default class LegendButtonGroup extends Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -49,7 +49,7 @@ export default class LegendGroup extends Component {
     }
 }
 
-LegendGroup.propTypes = {
+LegendButtonGroup.propTypes = {
     handleClick: PropTypes.func,
     displayRatio: PropTypes.bool,
     labels: PropTypes.array.isRequired,

@@ -28,13 +28,16 @@ export default class Transcript extends Component {
     }
 
     handleClick(label) {
-        var activeLabels = this.state.activeLabels,
-            newLabels = activeLabels.includes(label.value) ?
-                        removeArrayValue(label.value, activeLabels) :
-                        activeLabels.push(label.value);
+        var activeLabels = this.state.activeLabels;
 
+        if (activeLabels.includes(label.value)) {
+            activeLabels = removeArrayValue(label.value, activeLabels)
+        } else {
+            activeLabels.push(label.value);
+        }
+        
         this.setState({
-            activeLabels: newLabels
+            activeLabels: activeLabels
         });
     }
 

@@ -56,7 +56,6 @@ export default class Script extends Component {
     }
 
     handleScroll(event) {
-        console.log("Script::handleScroll");
         var { topElId, bottomElId } = this.getElementIdsForFocusWindow();
 
         this.props.handleScroll(topElId, bottomElId);
