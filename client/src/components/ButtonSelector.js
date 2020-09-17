@@ -7,7 +7,6 @@ export default class ButtonSelector extends Component {
     }
 
     handleClick(value) {
-        console.log("ButtonSelector value", value);
         this.props.handleClick(value);
     }
 

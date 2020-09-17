@@ -49,12 +49,10 @@ class App extends Component {
   }
 
   handleClick(value) {
-      console.log("handleClick base", value);
       localStorage.setItem("buttonSelectorSelectedOption", value);
       this.setState({
           selectedOption: value
       });
-      // window.location.reload();
   }
 
   render() {
