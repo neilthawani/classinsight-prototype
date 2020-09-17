@@ -1,0 +1,27 @@
+// TalkRatio.js
+.talk-ratio-visualization-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.talk-ratio-visualization {
+    width: 50%;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.talk-ratio-visualization-heading {
+    font-weight: 400;
+}
+
+.talk-ratio-visualization-section {}
+
+.talk-ratio-visualization-divider {
+    height: 100px;
+    width: 2px;
+    background-color: black;
+}

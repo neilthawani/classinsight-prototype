@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-// import PropTypes from "prop-types";
+
+import Parser from '../../../data/parser';
+
+import Bar from './Bar';
+import LegendItemGroup from '../../legend/LegendItemGroup';
+import displayLegendLabels from '../../legend/displayLegendLabels';
 
 import ArrowCollapseVerticalIcon from 'mdi-react/ArrowCollapseVerticalIcon';
 import ArrowExpandVerticalIcon from 'mdi-react/ArrowExpandVerticalIcon';
-
-import Legend from '../../legend/Legend';
-import LegendLabels from '../../../fixtures/legend_labels';
-import Bar from './Bar';
-
-import Parser from '../../../data/parser';
 
 import isObjectEmpty from '../../../utils/isObjectEmpty';
 
@@ -41,7 +40,7 @@ export default class TurnTaking extends Component {
         super(props);
 
         this.state = {
-            bars: window.localStorage.getItem("bars") || "collapsed",
+            bars: window.localStorage.getItem("bars") || "expanded",
             focusObj: {}
         };
 
@@ -66,15 +65,11 @@ export default class TurnTaking extends Component {
 
     chartData = function(status) {
         switch (status) {
-            case "expanded": return Parser.parsedData();
-            case "collapsed": return Parser.parsedData(true);
+            case "expanded": return Parser.parsedData().expanded;
+            case "collapsed": return Parser.parsedData().collapsed;
             default: return [];
         }
     }
-
-    displayLegendLabels = function(options) {
-        return LegendLabels.filter((item) => item.type === options.type);
-    };
 
     handleClick(evt, rowObj) {
         var focusObj = this.state.focusObj;
@@ -92,8 +87,8 @@ export default class TurnTaking extends Component {
         return (
             <div className="turn-taking-visualization-container">
               <div className="turn-taking-legend-teacher">
-                <Legend labels={this.displayLegendLabels({ type: "Teacher"})} />
-                <Legend labels={this.displayLegendLabels({ type: "Technique" })} />
+                <LegendItemGroup labels={displayLegendLabels({ type: "Teacher"})} />
+                <LegendItemGroup labels={displayLegendLabels({ type: "Technique"})} />
               </div>
               <div className="turn-taking-visualization">
                 <div className="turn-taking-visualization-headings">
@@ -113,7 +108,7 @@ export default class TurnTaking extends Component {
                 })}
               </div>
               <div className="turn-taking-legend-student">
-                <Legend labels={this.displayLegendLabels({ type: "Student" })} />
+                <LegendItemGroup labels={displayLegendLabels({ type: "Student" })} displayRatio={false} />
               </div>
             </div>
         );

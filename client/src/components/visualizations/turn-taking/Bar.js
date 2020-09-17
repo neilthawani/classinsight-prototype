@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-import LegendLabels from '../../../fixtures/legend_labels';
+
+import Parser from '../../../data/parser';
+
 import Script from '../transcript/Script';
+
+import drawBarStyles from './drawBarStyles';
 import isObjectEmpty from '../../../utils/isObjectEmpty';
 
 export default class Bar extends Component {
@@ -9,10 +13,11 @@ export default class Bar extends Component {
         this.handleClick = this.handleClick.bind(this);
     }
 
-    legendLabels = LegendLabels;
-
     handleClick(evt) {
-        this.props.onRowClick(evt, this.props.data);
+        // prevent: if they click the script, it collapses the expanded set too
+        if (evt.target.classList.toString().includes("turn-taking-bar")) {
+            this.props.onRowClick(evt, this.props.data);
+        }
     }
 
     render() {
@@ -21,48 +26,20 @@ export default class Bar extends Component {
           isFocusRow = isObjectEmpty(focusObj) ?
                         false :
                         (item.id === focusObj.id && item.utterance === focusObj.utterance),
+          itemTimestamp = item.timestamp,
           timeStamp = "";
 
-      switch (item.time.length) {
+      switch (item.timestamp.length) {
           case 0: break;
-          case 1: timeStamp = item.time[0]; break;
-          default: timeStamp = `${item.time[0]} - ${item.time[item.time.length - 1]}`;
+          case 1: timeStamp = itemTimestamp[0]; break;
+          default: timeStamp = `${itemTimestamp[0]} - ${itemTimestamp[itemTimestamp.length - 1]}`;
       }
 
-      var isStudentData = item.speaker.includes("Student"),
-          isTeacherData = item.speaker === "Teacher";
-
-      var legendLabelValue = item.types[item.types.length - 1];
-      var barColor = this.legendLabels.find(item => item.value === legendLabelValue).color;
-      var barBorder = "";
-      var boxSizing = "";
-      if (item.types.length > 1) { // if it has multiple types, draw a border around the bar
-          var borderValue = item.types && item.types[0];
-          barBorder = `3px solid ${this.legendLabels.find(item => item.value === borderValue)}.color`;
-          boxSizing = "border-box";
-      }
-
-      var barWidth = item.length,
-          barHeight = "14px";
-
-      var baseStyle = { height: barHeight },
-          extendedStyle = { backgroundColor: barColor, border: barBorder, boxSizing: boxSizing, width: barWidth },
-          teacherStyle = {},
-          studentStyle = {};
-
-      if (isTeacherData) {
-          studentStyle = baseStyle;
-          teacherStyle = { ...baseStyle, ...extendedStyle };
-      }
-
-      if (isStudentData) {
-          studentStyle = { ...baseStyle, ...extendedStyle };
-          teacherStyle = baseStyle;
-      }
+      var { teacherStyle, studentStyle } = drawBarStyles(item);
 
       return (
         <div className="turn-taking-visualization-row" onClick={this.handleClick}>
-          <div className={item.time.length > 1 ? "turn-taking-bar-timestamp-range" : "turn-taking-bar-timestamp-time"}>
+          <div className={itemTimestamp.length > 1 ? "turn-taking-bar-timestamp-range" : "turn-taking-bar-timestamp-time"}>
             {timeStamp}
           </div>
           <div key={item.id} className="turn-taking-bar">
@@ -78,7 +55,7 @@ export default class Bar extends Component {
 
           {isFocusRow ?
             <div className="turn-taking-visualization-row-drilldown">
-              <Script focusObj={this.props.focusObj} />
+              <Script data={Parser.transcript()} focusObj={this.props.focusObj} />
             </div>
           : '' }
         </div>

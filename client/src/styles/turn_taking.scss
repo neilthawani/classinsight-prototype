@@ -1,3 +1,4 @@
+// TurnTaking.js
 .turn-taking-visualization-container {
     width: 100%;
     display: flex;
@@ -89,4 +90,25 @@
 .turn-taking-bar-student-inner {
     position: absolute;
     left: 0;
+}
+
+// TurnTakingSmall.js
+.turn-taking-bars-small-visualization {
+    // height: 79vh;
+    overflow-y: scroll;
+    position: fixed;
+}
+
+.turn-taking-bar-small {
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    position: relative;
+}
+
+.turn-taking-bars-small-focus-box {
+    position: absolute;
+    width: 100%;
+    border: 2px solid black;
+    box-sizing: border-box;
 }
