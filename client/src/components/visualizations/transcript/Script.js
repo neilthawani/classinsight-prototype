@@ -9,6 +9,7 @@ export default class Script extends Component {
     constructor(props) {
         super(props);
         this.transcript = this.props.data;
+        this.shouldHandleScroll = this.props.shouldHandleScroll;
 
         this.state = {
             topElId: 0,
@@ -17,12 +18,18 @@ export default class Script extends Component {
     }
 
     componentDidMount() {
-        window.addEventListener('scroll', this.handleScroll.bind(this));
-        this.handleScroll();
+        // conditional here because TurnTaking visualization's Bar calls Script for focusObj drilldown
+        if (this.props.handleScroll) {
+            window.addEventListener('scroll', this.handleScroll.bind(this));
+            this.handleScroll();
+        }
     }
 
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleScroll.bind(this));
+        // conditional here because TurnTaking visualization's Bar calls Script for focusObj drilldown
+        if (this.props.handleScroll) {
+            window.removeEventListener('scroll', this.handleScroll.bind(this));
+        }
     }
 
     handleScroll(event) {
@@ -100,5 +107,5 @@ export default class Script extends Component {
 Script.propTypes = {
     data: PropTypes.array.isRequired,
     focusObj: PropTypes.object,
-    activeLabels: PropTypes.array
+    activeLabels: PropTypes.array,
 };

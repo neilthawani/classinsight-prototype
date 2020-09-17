@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-// import PropTypes from "prop-types";
+
+import Parser from '../../../data/parser';
+
+import Bar from './Bar';
+import LegendItemGroup from '../../legend/LegendItemGroup';
+import displayLegendLabels from '../../legend/displayLegendLabels';
 
 import ArrowCollapseVerticalIcon from 'mdi-react/ArrowCollapseVerticalIcon';
 import ArrowExpandVerticalIcon from 'mdi-react/ArrowExpandVerticalIcon';
-
-// import LegendButtonGroup from '../../legend/LegendButtonGroup';
-import LegendItemGroup from '../../legend/LegendItemGroup';
-import displayLegendLabels from '../../legend/displayLegendLabels';
-import Bar from './Bar';
-
-import Parser from '../../../data/parser';
 
 import isObjectEmpty from '../../../utils/isObjectEmpty';
 
