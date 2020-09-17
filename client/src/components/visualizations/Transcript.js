@@ -17,7 +17,7 @@ export default class Transcript extends Component {
         this.chartWidth = 2 * Parser.maxNTokens();
 
         this.state = {
-            activeLabels: ["Metacognitive Modeling Questions", "Teacher Explanation + Evidence", "Teacher Open-Ended S/Q", "Teacher Close-Ended S/Q", "Assorted Teacher Talk", "Student Explanation + Evidence", "Student Open-Ended S/Q", "Student Open-Ended Response", "Student Close-Ended S/Q", "Student Close-Ended Response", "Turn-Taking Facilitation", "Re-Voicing", "Behavior Management Questions"],
+            activeLabels: [],
             focusBox: {
                 topElId: 0,
                 bottomElId: 0,
@@ -35,7 +35,7 @@ export default class Transcript extends Component {
         } else {
             activeLabels.push(label.value);
         }
-        
+
         this.setState({
             activeLabels: activeLabels
         });
