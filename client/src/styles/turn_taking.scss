@@ -94,10 +94,9 @@
 
 // TurnTakingSmall.js
 .turn-taking-bars-small-visualization {
-    height: 100vh;
+    // height: 79vh;
     overflow-y: scroll;
     position: fixed;
-    left: 210px; // hacky, based on .legend-button width
 }
 
 .turn-taking-bar-small {

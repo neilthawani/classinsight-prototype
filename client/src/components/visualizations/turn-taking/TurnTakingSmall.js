@@ -18,7 +18,7 @@ export default class TurnTakingSmall extends Component {
             boxOffset = this.barHeight * focusBox.topElId;
 
         return (
-            <div className="turn-taking-bars-small-visualization" style={{ minWidth: `${this.chartWidth}px` }}>
+            <div className="turn-taking-bars-small-visualization" style={{ minWidth: `${this.chartWidth}px`, left:  `${this.props.chartOffsetWidth}px`, height: `${this.props.chartHeight}px`}}>
               {chartData.map((item, index) => {
                   var { teacherStyle, studentStyle } = drawBarStyles(item, true);
 
