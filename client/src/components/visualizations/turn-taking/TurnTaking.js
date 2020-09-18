@@ -75,7 +75,6 @@ export default class TurnTaking extends Component {
 
     // clean up this from Transcript too
     handleFilterClick(label) {
-        // console.log("hello");
         var activeFilters = this.state.activeFilters;
 
         if (activeFilters.includes(label.value)) {
@@ -90,7 +89,6 @@ export default class TurnTaking extends Component {
     }
 
     render() {
-        console.log("this.state.activeFilters", this.state.activeFilters);
         var parsedData = Parser.parsedData()[this.state.bars];
         var chartData = Parser.filteredData(parsedData, this.state.activeFilters);
 
@@ -120,6 +118,7 @@ export default class TurnTaking extends Component {
                       <Bar
                         key={index}
                         data={item}
+                        activeFilters={this.state.activeFilters}
                         focusObj={this.state.focusObj}
                         onRowClick={this.handleExpandClick.bind(this)} />
                     )

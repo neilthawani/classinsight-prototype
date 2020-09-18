@@ -1,5 +1,6 @@
 import data from './data';
 import LegendLabels from '../fixtures/legend_labels';
+import removeArrayValue from '../utils/removeArrayValue';
 
 export default {
     segments: data[0].data.segments,
@@ -55,6 +56,46 @@ export default {
 
         return transcript;
     },
+
+    filteredTranscript: function(filterValues) {
+        var transcript = this.transcript(),
+            filteredTranscript = [];
+        // debugger;
+
+        transcript.forEach((speakerTurn, index, array) => {
+            var speakerTurnClone = { ...speakerTurn };
+
+            // console.log("speakerTurn.utterances", speakerTurn.utterances);
+
+            speakerTurn.utterances.forEach((utterance, jindex, jarray) => {
+                // console.log("utterance", utterance);
+                // var targetUtterance = "When you're looking for those things, you're paying attention and now you're learning.";
+
+                // console.log("utterance === targetUtterance", targetUtterance === utterance.utterance);
+                var isItemRemoved = utterance.utteranceTypes.filter((item, kindex, karray) => {
+                    // console.log("item", item, "utteranceTypes", karray, filterValues, filterValues);
+                    return filterValues.includes(item);
+                });
+
+                console.log("isItemRemoved", isItemRemoved);
+
+                if (isItemRemoved.length > 0) {
+                    console.log("speakerTurnClone.utterances before", index, speakerTurn.utterances.length);
+                    speakerTurnClone.utterances = removeArrayValue(utterance, speakerTurn.utterances);
+                    console.log("speakerTurnClone.utterances after", index, speakerTurnClone.utterances.length);
+                }
+            });
+
+            // speakerTurnClone.utterances =
+            // console.log("speakerTurnClone.utterances", speakerTurnClone.utterances);
+            filteredTranscript.push(speakerTurnClone);
+        });
+        // console.log("transcript", transcript);
+        // console.log("filteredTranscript", filteredTranscript);
+
+        return filteredTranscript;
+    },
+
     expandedData: function() {
         var transcript = this.transcript();
         return transcript.reduce((accumulator, turn, index, array) => {
@@ -106,14 +147,14 @@ export default {
 
     filteredData: function(parsedData, labelValues) {
         return parsedData.reduce((accumulator, item, index, array) => {
-            var isItemRemoved = item.utteranceTypes.filter((item) => labelValues.includes(item));
+            var isItemRemoved = item.utteranceTypes.filter(item => labelValues.includes(item));
 
             if (isItemRemoved.length === 0) {
                 accumulator.push(item);
             }
 
             return accumulator
-        }, [])
+        }, []);
     },
 
     focusTranscript: function(transcript, targetUtterance, options) {
