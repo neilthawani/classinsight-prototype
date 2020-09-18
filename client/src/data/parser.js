@@ -14,7 +14,7 @@ export default {
         var activeFilters = options && options.activeFilters;
 
         console.log("options", options);
-        if (options.drilldownFilter) {
+        if (options && options.drilldownFilter) {
             activeFilters = allFilters.filter((labelValue) => {
                 return labelValue !== options.drilldownFilter;
             });
