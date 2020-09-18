@@ -79,10 +79,10 @@ export default {
 
                 console.log("isItemRemoved", isItemRemoved);
 
-                if (isItemRemoved.length > 0) {
-                    console.log("speakerTurnClone.utterances before", index, speakerTurn.utterances.length);
-                    speakerTurnClone.utterances = removeArrayValue(utterance, speakerTurn.utterances);
-                    console.log("speakerTurnClone.utterances after", index, speakerTurnClone.utterances.length);
+                if (isItemRemoved.length === 0) {
+                    // console.log("speakerTurnClone.utterances before", index, speakerTurn.utterances.length);
+                    // speakerTurnClone.utterances = removeArrayValue(utterance, speakerTurn.utterances);
+                    // console.log("speakerTurnClone.utterances after", index, speakerTurnClone.utterances.length);
                 }
             });
 

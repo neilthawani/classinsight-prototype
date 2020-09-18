@@ -26,6 +26,8 @@ export default class Script extends Component {
     }
 
     getElementIdsForFocusWindow() {
+        if (!this.props.handleScroll) return;
+        
         var scriptTurnContainer = document.getElementsByClassName('script-turn-utterance'),
             elementsInBounds = [];
 
