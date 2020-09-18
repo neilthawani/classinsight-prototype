@@ -6,23 +6,19 @@ import formatPercentage from '../../utils/formatPercentage';
 export default class LegendItem extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            isActive: true
-        };
     }
     styles(label, isActive = true) {
         return {
-            backgroundColor: isActive ? label.barColor : "transparent",
+            backgroundColor: this.isActive() ? label.barColor : "transparent",
             color: label.textColor
         };
     }
 
-    handleClick(value) {
-        this.setState({
-            isActive: !this.state.isActive
-        });
+    isActive() {
+        return this.props.activeFilters && !this.props.activeFilters.includes(this.props.label.value);
+    }
 
+    handleClick(value) {
         this.props.handleClick(value);
     }
 
@@ -33,7 +29,7 @@ export default class LegendItem extends Component {
         <div className="legend-item">
           <div
             className="legend-item-key"
-            style={this.styles(label, this.state.isActive)}
+            style={this.styles(label, this.isActive())}
             onClick={this.handleClick.bind(this, label)}>
             {this.props.displayRatio ? formatPercentage(label.percentage, 0) : ""}
           </div>
@@ -47,5 +43,6 @@ export default class LegendItem extends Component {
 
 LegendItem.propTypes = {
     label: PropTypes.object.isRequired,
-    displayRatio: PropTypes.bool
+    displayRatio: PropTypes.bool,
+    handleClick: PropTypes.func.isRequired
 };

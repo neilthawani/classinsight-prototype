@@ -64,7 +64,7 @@ export default {
     expandedData: function(options) {
         var activeFilters = options && options.activeFilters;
 
-        var transcript = this.filteredTranscript({ options: activeFilters });
+        var transcript = this.filteredTranscript({ activeFilters: activeFilters });
         return transcript.reduce((accumulator, turn, index, array) => {
             return accumulator.concat(turn.utterances);
         }, []);
@@ -72,12 +72,12 @@ export default {
     maxNTokens: function(options) {
         var activeFilters = options && options.activeFilters;
 
-        var expandedData = this.expandedData({ options: activeFilters });
+        var expandedData = this.expandedData({ activeFilters: activeFilters });
         return Math.max.apply(Math, expandedData.map((utterance) => utterance.nTokens));
     },
     collapsedData: function(options) {
         var activeFilters = options && options.activeFilters;
-        var expandedData = this.expandedData({ options: activeFilters }),
+        var expandedData = this.expandedData({ activeFilters: activeFilters }),
             collapsedData = [];
 
         expandedData.forEach((utterance, index, array) => {
@@ -105,8 +105,8 @@ export default {
 
     parsedData: function(options) {
         var activeFilters = options && options.activeFilters;
-        var expandedData = this.expandedData({ options: activeFilters }),
-            collapsedData = this.collapsedData({ options: activeFilters });
+        var expandedData = this.expandedData({ activeFilters: activeFilters }),
+            collapsedData = this.collapsedData({ activeFilters: activeFilters });
 
         var parsedData = {
             "expanded": expandedData,
@@ -119,8 +119,8 @@ export default {
     focusTranscript: function(targetUtterance, options) {
         var range = options && options.range;
         var activeFilters = options && options.activeFilters;
-        var transcript = this.transcript({activeFilters: activeFilters});
-        
+        var transcript = this.filteredTranscript({ activeFilters: activeFilters });
+
         var rangeMin = range.min || 1,
             rangeMax = range.max || 1
         var activeTurnIndex = 0;

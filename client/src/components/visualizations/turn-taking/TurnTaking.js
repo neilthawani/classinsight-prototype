@@ -96,9 +96,11 @@ export default class TurnTaking extends Component {
               <div className="turn-taking-legend-teacher">
                 <LegendItemGroup
                   labels={displayLegendLabels({ type: "Teacher"})}
+                  activeFilters={this.state.activeFilters}
                   handleClick={this.handleFilterClick.bind(this) }/>
                 <LegendItemGroup
                   labels={displayLegendLabels({ type: "Technique"})}
+                  activeFilters={this.state.activeFilters}
                   handleClick={this.handleFilterClick.bind(this) }/>
               </div>
               <div className="turn-taking-visualization">
@@ -126,6 +128,7 @@ export default class TurnTaking extends Component {
               <div className="turn-taking-legend-student">
                 <LegendItemGroup
                   labels={displayLegendLabels({ type: "Student" })}
+                  activeFilters={this.state.activeFilters}
                   handleClick={this.handleFilterClick.bind(this) }/>
               </div>
             </div>

@@ -17,6 +17,7 @@ export default class LegendItemGroup extends Component {
             <LegendItem
               key={index}
               label={label}
+              activeFilters={this.props.activeFilters}
               displayRatio={this.props.displayRatio}
               handleClick={this.handleClick.bind(this) }/>
           );
@@ -28,5 +29,7 @@ export default class LegendItemGroup extends Component {
 
 LegendItemGroup.propTypes = {
     labels: PropTypes.array.isRequired,
-    displayRatio: PropTypes.bool
+    displayRatio: PropTypes.bool,
+    handleClick: PropTypes.func.isRequired,
+    activeFilters: PropTypes.array
 };

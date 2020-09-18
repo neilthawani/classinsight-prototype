@@ -55,7 +55,10 @@ export default class TalkRatio extends Component {
             <h3 className="talk-ratio-visualization-heading">
               Teacher Talk: {formatPercentage(this.calculateSpeakerTotal("Teacher"), 0)}
             </h3>
-            <LegendItemGroup labels={displayLegendLabels({ type: "Teacher"})} displayRatio={true} />
+            <LegendItemGroup
+              labels={displayLegendLabels({ type: "Teacher"})}
+              displayRatio={true}
+              handleClick={() => {}} />
           </div>
           <div className="talk-ratio-visualization">
             {this.teacherTalkRatio.map((item, index, array) => {
@@ -74,7 +77,10 @@ export default class TalkRatio extends Component {
             <h3 className="talk-ratio-visualization-heading">
               Student Talk: {formatPercentage(this.calculateSpeakerTotal("Student"), 0)}
             </h3>
-            <LegendItemGroup labels={displayLegendLabels({ type: "Student" })} displayRatio={true} />
+            <LegendItemGroup
+              labels={displayLegendLabels({ type: "Student" })}
+              displayRatio={true}
+              handleClick={() => {}} />
           </div>
         </div>
       )

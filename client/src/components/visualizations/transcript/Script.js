@@ -67,7 +67,7 @@ export default class Script extends Component {
 
       if (focusObj) {
           activeTranscript = Parser.focusTranscript(focusObj,
-            { activeFilters: this.state.activeLabels,
+            { activeFilters: this.props.activeLabels,
               range: {min: 1, max: 1}
             }
           );
