@@ -59,37 +59,34 @@ export default {
 
     filteredTranscript: function(filterValues) {
         var transcript = this.transcript(),
-            filteredTranscript = [];
-        // debugger;
+            filteredTranscript = transcript.map((speakerTurn, index, array) => {
+                // var filteredTurn = speakerTurn.map
 
-        transcript.forEach((speakerTurn, index, array) => {
-            var speakerTurnClone = { ...speakerTurn };
+                // console.log("speakerTurn.utterances", speakerTurn.utterances);
 
-            // console.log("speakerTurn.utterances", speakerTurn.utterances);
+                speakerTurn.utterances.map((utterance, jindex, jarray) => {
+                    // console.log("utterance", utterance);
+                    // var targetUtterance = "When you're looking for those things, you're paying attention and now you're learning.";
 
-            speakerTurn.utterances.forEach((utterance, jindex, jarray) => {
-                // console.log("utterance", utterance);
-                // var targetUtterance = "When you're looking for those things, you're paying attention and now you're learning.";
+                    // console.log("utterance === targetUtterance", targetUtterance === utterance.utterance);
+                    var isItemRemoved = utterance.utteranceTypes.filter((item, kindex, karray) => {
+                        // console.log("item", item, "utteranceTypes", karray, filterValues, filterValues);
+                        return filterValues.includes(item);
+                    });
 
-                // console.log("utterance === targetUtterance", targetUtterance === utterance.utterance);
-                var isItemRemoved = utterance.utteranceTypes.filter((item, kindex, karray) => {
-                    // console.log("item", item, "utteranceTypes", karray, filterValues, filterValues);
-                    return filterValues.includes(item);
+                    console.log("isItemRemoved", isItemRemoved);
+
+                    if (isItemRemoved.length === 0) {
+                        // console.log("speakerTurnClone.utterances before", index, speakerTurn.utterances.length);
+                        // speakerTurnClone.utterances = removeArrayValue(utterance, speakerTurn.utterances);
+                        // console.log("speakerTurnClone.utterances after", index, speakerTurnClone.utterances.length);
+                    }
                 });
 
-                console.log("isItemRemoved", isItemRemoved);
-
-                if (isItemRemoved.length === 0) {
-                    // console.log("speakerTurnClone.utterances before", index, speakerTurn.utterances.length);
-                    // speakerTurnClone.utterances = removeArrayValue(utterance, speakerTurn.utterances);
-                    // console.log("speakerTurnClone.utterances after", index, speakerTurnClone.utterances.length);
-                }
+                // speakerTurnClone.utterances =
+                // console.log("speakerTurnClone.utterances", speakerTurnClone.utterances);
+                // filteredTranscript.push(speakerTurnClone);
             });
-
-            // speakerTurnClone.utterances =
-            // console.log("speakerTurnClone.utterances", speakerTurnClone.utterances);
-            filteredTranscript.push(speakerTurnClone);
-        });
         // console.log("transcript", transcript);
         // console.log("filteredTranscript", filteredTranscript);
 
