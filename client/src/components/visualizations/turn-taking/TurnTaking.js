@@ -89,8 +89,7 @@ export default class TurnTaking extends Component {
     }
 
     render() {
-        var parsedData = Parser.parsedData()[this.state.bars];
-        var chartData = Parser.filteredData(parsedData, this.state.activeFilters);
+        var chartData = Parser.parsedData({activeFilters: this.state.activeFilters})[this.state.bars];
 
         return (
             <div className="turn-taking-visualization-container">

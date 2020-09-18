@@ -61,18 +61,23 @@ export default {
         return transcript;
     },
 
-    expandedData: function() {
-        var transcript = this.filteredTranscript();
+    expandedData: function(options) {
+        var activeFilters = options && options.activeFilters;
+
+        var transcript = this.filteredTranscript({ options: activeFilters });
         return transcript.reduce((accumulator, turn, index, array) => {
             return accumulator.concat(turn.utterances);
         }, []);
     },
-    maxNTokens: function() {
-        var expandedData = this.expandedData();
+    maxNTokens: function(options) {
+        var activeFilters = options && options.activeFilters;
+
+        var expandedData = this.expandedData({ options: activeFilters });
         return Math.max.apply(Math, expandedData.map((utterance) => utterance.nTokens));
     },
-    collapsedData: function() {
-        var expandedData = this.expandedData(),
+    collapsedData: function(options) {
+        var activeFilters = options && options.activeFilters;
+        var expandedData = this.expandedData({ options: activeFilters }),
             collapsedData = [];
 
         expandedData.forEach((utterance, index, array) => {
@@ -98,9 +103,10 @@ export default {
         return collapsedData;
     },
 
-    parsedData: function() {
-        var expandedData = this.expandedData(),
-            collapsedData = this.collapsedData();
+    parsedData: function(options) {
+        var activeFilters = options && options.activeFilters;
+        var expandedData = this.expandedData({ options: activeFilters }),
+            collapsedData = this.collapsedData({ options: activeFilters });
 
         var parsedData = {
             "expanded": expandedData,
@@ -110,21 +116,13 @@ export default {
         return parsedData;
     },
 
-    filteredData: function(parsedData, labelValues) {
-        return parsedData.reduce((accumulator, item, index, array) => {
-            var isItemRemoved = item.utteranceTypes.filter(item => labelValues.includes(item));
-
-            if (isItemRemoved.length === 0) {
-                accumulator.push(item);
-            }
-
-            return accumulator
-        }, []);
-    },
-
-    focusTranscript: function(transcript, targetUtterance, options) {
-        var rangeMin = options.range.min || 1,
-            rangeMax = options.range.max || 1
+    focusTranscript: function(targetUtterance, options) {
+        var range = options && options.range;
+        var activeFilters = options && options.activeFilters;
+        var transcript = this.transcript({activeFilters: activeFilters});
+        
+        var rangeMin = range.min || 1,
+            rangeMax = range.max || 1
         var activeTurnIndex = 0;
 
         for (var i = 0; i < transcript.length; i++) {

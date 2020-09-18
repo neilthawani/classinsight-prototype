@@ -26,8 +26,6 @@ export default class Script extends Component {
     }
 
     getElementIdsForFocusWindow() {
-        if (!this.props.handleScroll) return;
-        
         var scriptTurnContainer = document.getElementsByClassName('script-turn-utterance'),
             elementsInBounds = [];
 
@@ -68,7 +66,11 @@ export default class Script extends Component {
           activeTranscript = this.transcript;
 
       if (focusObj) {
-          activeTranscript = Parser.focusTranscript(this.transcript, focusObj, { range: {min: 1, max: 1} });
+          activeTranscript = Parser.focusTranscript(focusObj,
+            { activeFilters: this.state.activeLabels,
+              range: {min: 1, max: 1}
+            }
+          );
       }
 
       return (
