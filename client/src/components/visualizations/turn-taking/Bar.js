@@ -55,7 +55,9 @@ export default class Bar extends Component {
 
           {isFocusRow ?
             <div className="turn-taking-visualization-row-drilldown">
-              <Script data={Parser.filteredTranscript(this.props.activeFilters)} focusObj={this.props.focusObj} />
+              <Script
+                data={Parser.filteredTranscript({activeFilters: this.props.activeFilters})}
+                focusObj={this.props.focusObj} />
             </div>
           : '' }
         </div>

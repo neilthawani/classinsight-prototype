@@ -113,7 +113,7 @@ export default class Transcript extends Component {
 
           <div className="transcript-script-container" style={{ marginLeft: `${this.chartWidth}px` }}>
             <Script
-              data={Parser.transcript()}
+              data={Parser.filteredTranscript()}
               activeLabels={this.state.activeLabels}
               handleScroll={this.handleScroll.bind(this)}
               focusBox={this.state.focusBox} />
