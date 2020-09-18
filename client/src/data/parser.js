@@ -1,13 +1,26 @@
 import data from './data';
 import LegendLabels from '../fixtures/legend_labels';
+import removeArrayValue from '../utils/removeArrayValue';
 
 export default {
     segments: data[0].data.segments,
 
+    legendLabelValues: LegendLabels.map((item) => item.value),
+
     filteredTranscript: function(options) {
         var transcript = [];
-        var utteranceIndex = 0
+        var utteranceIndex = 0;
+        var allFilters = this.legendLabelValues;
         var activeFilters = options && options.activeFilters;
+
+        console.log("options", options);
+        if (options.drilldownFilter) {
+            activeFilters = allFilters.filter((labelValue) => {
+                return labelValue !== options.drilldownFilter;
+            });
+        }
+
+        console.log("parser activeFilters", activeFilters);
 
         this.segments.forEach((segment, index, array) => {
             if (segment.participation_type !== "Other") {
@@ -142,7 +155,6 @@ export default {
 
         return transcript.slice(minSlice, activeTurnIndex + 1 + rangeMax);
     },
-
 
     talkRatios: function() {
         var expandedData = this.expandedData(), // get array of every utterance in the transcript

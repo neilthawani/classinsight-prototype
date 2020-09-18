@@ -4,9 +4,6 @@ import PropTypes from "prop-types";
 import formatPercentage from '../../utils/formatPercentage';
 
 export default class LegendItem extends Component {
-    constructor(props) {
-        super(props);
-    }
     styles(label, isActive = true) {
         return {
             backgroundColor: this.isActive() ? label.barColor : "transparent",
@@ -15,7 +12,7 @@ export default class LegendItem extends Component {
     }
 
     isActive() {
-        return this.props.activeFilters && !this.props.activeFilters.includes(this.props.label.value);
+        return (this.props.activeFilters && !this.props.activeFilters.includes(this.props.label.value)) || !this.props.activeFilters;
     }
 
     handleClick(value) {

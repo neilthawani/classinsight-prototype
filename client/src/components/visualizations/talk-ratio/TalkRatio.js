@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 
-import Parser from '../../data/parser';
+import Parser from '../../../data/parser';
 
-import LegendItemGroup from '../legend/LegendItemGroup';
-import displayLegendLabels from '../legend/displayLegendLabels';
+import TalkRatioSection from './TalkRatioSection';
+import Script from '../transcript/Script';
+import LegendItemGroup from '../../legend/LegendItemGroup';
+import displayLegendLabels from '../../legend/displayLegendLabels';
 
-import formatPercentage from '../../utils/formatPercentage';
+import formatPercentage from '../../../utils/formatPercentage';
 
 /*
 For this file, the data we're after is in data.segments[0].speaking_turns.
@@ -32,6 +34,14 @@ Each object in the array has this structure:
 */
 
 export default class TalkRatio extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            drilldownFilter: ""
+        };
+    }
+
     calculateSpeakerTotal(type) {
         var speakerTotalObj = Parser.speakerTalkTotals().filter((item) => item.speakerType === type);
         return speakerTotalObj[0].totalTalkPercentage;
@@ -40,12 +50,12 @@ export default class TalkRatio extends Component {
     teacherTalkRatio = Parser.talkRatios().filter((item) => item.type === "Teacher").reverse();
     studentTalkRatio = Parser.talkRatios().filter((item) => item.type === "Student");
 
-    formatStyle(item) {
-        return {
-            height: "50px",
-            width: formatPercentage(item.percentage, 2, false),
-            backgroundColor: item.barColor
-        }
+    handleClick(label) {
+        var drilldownFilter = label.value === this.state.drilldownFilter ? "" : label.value;
+        // console.log("value", label);
+        this.setState({
+            drilldownFilter: drilldownFilter
+        });
     }
 
     render() {
@@ -61,17 +71,31 @@ export default class TalkRatio extends Component {
               handleClick={() => {}} />
           </div>
           <div className="talk-ratio-visualization">
-            {this.teacherTalkRatio.map((item, index, array) => {
-                return (
-                  <div key={index} className="talk-ratio-visualization-section" style={this.formatStyle(item)}></div>
-                );
-            })}
-            <div className="talk-ratio-visualization-divider"></div>
-            {this.studentTalkRatio.map((item, index, array) => {
-                return (
-                  <div key={index} className="talk-ratio-visualization-section" style={this.formatStyle(item)}></div>
-                );
-            })}
+            <div className="talk-ratio-visualization-chart">
+              {this.teacherTalkRatio.map((item, index, array) => {
+                  return (
+                    <TalkRatioSection
+                      key={index}
+                      data={item}
+                      handleClick={this.handleClick.bind(this)} />
+                  );
+              })}
+              <div className="talk-ratio-visualization-divider"></div>
+              {this.studentTalkRatio.map((item, index, array) => {
+                  return (
+                    <TalkRatioSection
+                      key={index}
+                      data={item}
+                      handleClick={this.handleClick.bind(this)} />
+                  );
+              })}
+            </div>
+            <div className="talk-ratio-visualization-drilldown">
+              {this.state.drilldownFilter ?
+                <Script
+                  data={Parser.filteredTranscript({drilldownFilter: this.state.drilldownFilter})} />
+              : "" }
+            </div>
           </div>
           <div className="talk-ratio-legend-student">
             <h3 className="talk-ratio-visualization-heading">
