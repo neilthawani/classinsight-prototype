@@ -4,9 +4,10 @@ import LegendLabels from '../fixtures/legend_labels';
 export default {
     segments: data[0].data.segments,
 
-    transcript: function() {
+    filteredTranscript: function(options) {
         var transcript = [];
-        var utteranceIndex = 0;
+        var utteranceIndex = 0
+        var activeFilters = options && options.activeFilters;
 
         this.segments.forEach((segment, index, array) => {
             if (segment.participation_type !== "Other") {
@@ -47,7 +48,11 @@ export default {
                             dataRow = { ...dataRow, ...{ utteranceTypes: utterance.utterance_type } };
                         }
 
-                        transcript[transcript.length - 1].utterances.push(dataRow);
+                        var shouldBeFiltered = activeFilters && activeFilters.some(filter => dataRow.utteranceTypes.includes(filter));
+
+                        if (!shouldBeFiltered) {
+                            transcript[transcript.length - 1].utterances.push(dataRow);
+                        }
                     });
                 });
             }
@@ -55,18 +60,24 @@ export default {
 
         return transcript;
     },
-    expandedData: function() {
-        var transcript = this.transcript();
+
+    expandedData: function(options) {
+        var activeFilters = options && options.activeFilters;
+
+        var transcript = this.filteredTranscript({ activeFilters: activeFilters });
         return transcript.reduce((accumulator, turn, index, array) => {
             return accumulator.concat(turn.utterances);
         }, []);
     },
-    maxNTokens: function() {
-        var expandedData = this.expandedData();
+    maxNTokens: function(options) {
+        var activeFilters = options && options.activeFilters;
+
+        var expandedData = this.expandedData({ activeFilters: activeFilters });
         return Math.max.apply(Math, expandedData.map((utterance) => utterance.nTokens));
     },
-    collapsedData: function() {
-        var expandedData = this.expandedData(),
+    collapsedData: function(options) {
+        var activeFilters = options && options.activeFilters;
+        var expandedData = this.expandedData({ activeFilters: activeFilters }),
             collapsedData = [];
 
         expandedData.forEach((utterance, index, array) => {
@@ -92,9 +103,10 @@ export default {
         return collapsedData;
     },
 
-    parsedData: function() {
-        var expandedData = this.expandedData(),
-            collapsedData = this.collapsedData();
+    parsedData: function(options) {
+        var activeFilters = options && options.activeFilters;
+        var expandedData = this.expandedData({ activeFilters: activeFilters }),
+            collapsedData = this.collapsedData({ activeFilters: activeFilters });
 
         var parsedData = {
             "expanded": expandedData,
@@ -104,9 +116,13 @@ export default {
         return parsedData;
     },
 
-    focusTranscript: function(transcript, targetUtterance, options) {
-        var rangeMin = options.range.min || 1,
-            rangeMax = options.range.max || 1
+    focusTranscript: function(targetUtterance, options) {
+        var range = options && options.range;
+        var activeFilters = options && options.activeFilters;
+        var transcript = this.filteredTranscript({ activeFilters: activeFilters });
+
+        var rangeMin = range.min || 1,
+            rangeMax = range.max || 1
         var activeTurnIndex = 0;
 
         for (var i = 0; i < transcript.length; i++) {

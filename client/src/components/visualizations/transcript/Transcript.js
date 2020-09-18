@@ -45,6 +45,7 @@ export default class Transcript extends Component {
         });
     }
 
+    // clean up this from TurnTaking too
     handleClick(label) {
         var activeLabels = this.state.activeLabels;
 
@@ -112,7 +113,7 @@ export default class Transcript extends Component {
 
           <div className="transcript-script-container" style={{ marginLeft: `${this.chartWidth}px` }}>
             <Script
-              data={Parser.transcript()}
+              data={Parser.filteredTranscript()}
               activeLabels={this.state.activeLabels}
               handleScroll={this.handleScroll.bind(this)}
               focusBox={this.state.focusBox} />

@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import LegendItem from './LegendItem';
 
-export default class LegendGroup extends Component {
+export default class LegendItemGroup extends Component {
+    handleClick(value) {
+        this.props.handleClick(value);
+    }
+
     render() {
       var labels = this.props.labels;
 
@@ -10,7 +14,12 @@ export default class LegendGroup extends Component {
         <div>
         {labels.map((label, index) => {
           return (
-            <LegendItem key={index} label={label} displayRatio={this.props.displayRatio} />
+            <LegendItem
+              key={index}
+              label={label}
+              activeFilters={this.props.activeFilters}
+              displayRatio={this.props.displayRatio}
+              handleClick={this.handleClick.bind(this) }/>
           );
         })}
         </div>
@@ -18,7 +27,9 @@ export default class LegendGroup extends Component {
     }
 }
 
-LegendGroup.propTypes = {
+LegendItemGroup.propTypes = {
     labels: PropTypes.array.isRequired,
-    displayRatio: PropTypes.bool
+    displayRatio: PropTypes.bool,
+    handleClick: PropTypes.func.isRequired,
+    activeFilters: PropTypes.array
 };

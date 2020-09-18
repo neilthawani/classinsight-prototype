@@ -18,7 +18,14 @@
     font-weight: 400;
 }
 
-.talk-ratio-visualization-section {}
+.talk-ratio-visualization-section {
+    border: 2px solid transparent;
+    cursor: pointer;
+    
+    &:hover {
+        border: 2px solid black;
+    }
+}
 
 .talk-ratio-visualization-divider {
     height: 100px;

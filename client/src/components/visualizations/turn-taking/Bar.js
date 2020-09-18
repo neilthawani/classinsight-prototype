@@ -37,6 +37,8 @@ export default class Bar extends Component {
 
       var { teacherStyle, studentStyle } = drawBarStyles(item);
 
+      var scriptData = Parser.filteredTranscript({activeFilters: this.props.activeFilters});
+
       return (
         <div className="turn-taking-visualization-row" onClick={this.handleClick}>
           <div className={itemTimestamp.length > 1 ? "turn-taking-bar-timestamp-range" : "turn-taking-bar-timestamp-time"}>
@@ -55,7 +57,9 @@ export default class Bar extends Component {
 
           {isFocusRow ?
             <div className="turn-taking-visualization-row-drilldown">
-              <Script data={Parser.transcript()} focusObj={this.props.focusObj} />
+              <Script
+                data={scriptData}
+                focusObj={this.props.focusObj} />
             </div>
           : '' }
         </div>
