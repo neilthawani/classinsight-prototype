@@ -24,7 +24,7 @@ class Dashboard extends Component {
 }
 
 Dashboard.propTypes = {
-  logoutUser: PropTypes.func.isRequired,
+  // logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };
 

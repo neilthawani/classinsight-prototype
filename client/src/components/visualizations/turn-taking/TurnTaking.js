@@ -9,6 +9,7 @@ import displayLegendLabels from '../../legend/displayLegendLabels';
 import ArrowCollapseVerticalIcon from 'mdi-react/ArrowCollapseVerticalIcon';
 import ArrowExpandVerticalIcon from 'mdi-react/ArrowExpandVerticalIcon';
 
+import removeArrayValue from '../../../utils/removeArrayValue';
 import isObjectEmpty from '../../../utils/isObjectEmpty';
 
 /*
@@ -41,10 +42,9 @@ export default class TurnTaking extends Component {
 
         this.state = {
             bars: localStorage.getItem("bars") || "expanded",
-            focusObj: {}
+            focusObj: {},
+            activeFilters: []
         };
-
-        this.handleClick = this.handleClick.bind(this);
     }
 
     toggleExpandedBars = function(value, context) {
@@ -63,15 +63,7 @@ export default class TurnTaking extends Component {
           size="24" />
     }
 
-    chartData = function(status) {
-        switch (status) {
-            case "expanded": return Parser.parsedData().expanded;
-            case "collapsed": return Parser.parsedData().collapsed;
-            default: return [];
-        }
-    }
-
-    handleClick(evt, rowObj) {
+    handleExpandClick(evt, rowObj) {
         var focusObj = this.state.focusObj;
 
         if (!isObjectEmpty(focusObj) && rowObj.id === focusObj.id && rowObj.utterance === focusObj.utterance) {
@@ -81,14 +73,36 @@ export default class TurnTaking extends Component {
         }
     }
 
+    // clean up this from Transcript too
+    handleFilterClick(label) {
+        // console.log("hello");
+        var activeFilters = this.state.activeFilters;
+
+        if (activeFilters.includes(label.value)) {
+            activeFilters = removeArrayValue(label.value, activeFilters)
+        } else {
+            activeFilters.push(label.value);
+        }
+
+        this.setState({
+            activeFilters: activeFilters
+        });
+    }
+
     render() {
-        var chartData = this.chartData(this.state.bars);
+        console.log("this.state.activeFilters", this.state.activeFilters);
+        var parsedData = Parser.parsedData()[this.state.bars];
+        var chartData = Parser.filteredData(parsedData, this.state.activeFilters);
 
         return (
             <div className="turn-taking-visualization-container">
               <div className="turn-taking-legend-teacher">
-                <LegendItemGroup labels={displayLegendLabels({ type: "Teacher"})} />
-                <LegendItemGroup labels={displayLegendLabels({ type: "Technique"})} />
+                <LegendItemGroup
+                  labels={displayLegendLabels({ type: "Teacher"})}
+                  handleClick={this.handleFilterClick.bind(this) }/>
+                <LegendItemGroup
+                  labels={displayLegendLabels({ type: "Technique"})}
+                  handleClick={this.handleFilterClick.bind(this) }/>
               </div>
               <div className="turn-taking-visualization">
                 <div className="turn-taking-visualization-headings">
@@ -103,12 +117,18 @@ export default class TurnTaking extends Component {
                 </div>
                 {chartData.map((item, index) => {
                     return (
-                      <Bar key={index} data={item} focusObj={this.state.focusObj} onRowClick={this.handleClick} />
+                      <Bar
+                        key={index}
+                        data={item}
+                        focusObj={this.state.focusObj}
+                        onRowClick={this.handleExpandClick.bind(this)} />
                     )
                 })}
               </div>
               <div className="turn-taking-legend-student">
-                <LegendItemGroup labels={displayLegendLabels({ type: "Student" })} displayRatio={false} />
+                <LegendItemGroup
+                  labels={displayLegendLabels({ type: "Student" })}
+                  handleClick={this.handleFilterClick.bind(this) }/>
               </div>
             </div>
         );

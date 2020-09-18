@@ -45,6 +45,7 @@ export default class Transcript extends Component {
         });
     }
 
+    // clean up this from TurnTaking too
     handleClick(label) {
         var activeLabels = this.state.activeLabels;
 

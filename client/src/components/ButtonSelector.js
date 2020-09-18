@@ -1,11 +1,7 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default class ButtonSelector extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     handleClick(value) {
         this.props.handleClick(value);
     }

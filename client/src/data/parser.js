@@ -104,6 +104,18 @@ export default {
         return parsedData;
     },
 
+    filteredData: function(parsedData, labelValues) {
+        return parsedData.reduce((accumulator, item, index, array) => {
+            var isItemRemoved = item.utteranceTypes.filter((item) => labelValues.includes(item));
+
+            if (isItemRemoved.length === 0) {
+                accumulator.push(item);
+            }
+
+            return accumulator
+        }, [])
+    },
+
     focusTranscript: function(transcript, targetUtterance, options) {
         var rangeMin = options.range.min || 1,
             rangeMax = options.range.max || 1
