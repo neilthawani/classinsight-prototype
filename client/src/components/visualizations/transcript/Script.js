@@ -6,7 +6,6 @@ import Utterance from './Utterance';
 
 export default class Script extends Component {
     constructor(props) {
-        // console.log("Script::constructor");
         super(props);
         this.transcript = this.props.data;
     }
@@ -62,7 +61,6 @@ export default class Script extends Component {
     }
 
     render() {
-      // console.log("Script::render");
       var focusObj = this.props.focusObj,
           drilldownFilter = this.props.drilldownFilter,
           activeTranscript = this.transcript;
@@ -78,9 +76,6 @@ export default class Script extends Component {
       if (drilldownFilter) {
           activeTranscript = Parser.drilldownTranscript(activeTranscript, {drilldownFilter: drilldownFilter})
       }
-
-      // console.log("focusObj", focusObj);
-      // console.log("activeTranscript", activeTranscript);
 
       return (
         <div className="script-turn-container">
@@ -98,7 +93,6 @@ export default class Script extends Component {
                     </tr>
 
                     {turn.utterances.map((utterance, jindex, jarray) => {
-                        // console.log("utterance", utterance);
                         var hasTimestamp = utterance.timestamp.length > 0;
                         var key = `${utterance}-${jindex}`;
                         var timeStamp = hasTimestamp ? utterance.timestamp : "";

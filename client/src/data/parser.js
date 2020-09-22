@@ -49,16 +49,11 @@ export default {
                             dataRow = { ...dataRow, ...{ utteranceTypes: utterance.utterance_type } };
                         }
 
-                        // var shouldBeFiltered = activeFilters && activeFilters.some(filter => dataRow.utteranceTypes.includes(filter));
-
-                        // if (!shouldBeFiltered) {
-                            transcript[transcript.length - 1].utterances.push(dataRow);
-                        // }
+                        transcript[transcript.length - 1].utterances.push(dataRow);
                     });
                 });
             }
         });
-        // console.log("transcript", transcript);
 
         return transcript;
     },
@@ -66,17 +61,14 @@ export default {
     filteredTranscript: function(options) {
         var data = this.transcript();
         var activeFilters = options && options.activeFilters;
-        // debugger;
 
         var filteredTranscript = data.reduce((accumulator, turn, index, array) => {
             var newUtterances = turn.utterances.reduce((jaccumulator, utterance, jindex, jarray) => {
                 var shouldBeFiltered = activeFilters && activeFilters.some(filter => utterance.utteranceTypes.includes(filter));
-                // debugger;
+
                 if (!shouldBeFiltered) {
-                    // debugger;
                     jaccumulator.push(utterance);
                 }
-                // debugger;
 
                 return jaccumulator;
             }, []);
