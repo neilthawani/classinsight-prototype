@@ -6,7 +6,7 @@ import Utterance from './Utterance';
 
 export default class Script extends Component {
     constructor(props) {
-        console.log("Script::constructor");
+        // console.log("Script::constructor");
         super(props);
         this.transcript = this.props.data;
     }
@@ -63,8 +63,9 @@ export default class Script extends Component {
     }
 
     render() {
-      console.log("Script::render");
+      // console.log("Script::render");
       var focusObj = this.props.focusObj,
+          drilldownFilter = this.props.drilldownFilter,
           activeTranscript = this.transcript;
 
       if (focusObj) {
@@ -73,6 +74,10 @@ export default class Script extends Component {
               range: {min: 1, max: 1}
             }
           );
+      }
+
+      if (drilldownFilter) {
+          activeTranscript = Parser.drilldownTranscript(activeTranscript, {drilldownFilter: drilldownFilter})
       }
 
       // console.log("focusObj", focusObj);

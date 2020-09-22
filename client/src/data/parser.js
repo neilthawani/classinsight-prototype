@@ -67,10 +67,10 @@ export default {
         return transcript;
     },
 
-    drilldownTranscript: function(options) {
+    drilldownTranscript: function(data, options) {
         var drilldownFilter = options && options.drilldownFilter;
 
-        var drilldownTranscript = this.filteredTranscript().reduce((accumulator, turn, index, array) => {
+        var drilldownTranscript = data.reduce((accumulator, turn, index, array) => {
             var newUtterances = turn.utterances.reduce((jaccumulator, utterance, jindex, jarray) => {
                 if (utterance.utteranceTypes.includes(drilldownFilter)) {
                     jaccumulator.push(utterance);
