@@ -1,18 +1,14 @@
 import data from './data';
 import LegendLabels from '../fixtures/legend_labels';
-import removeArrayValue from '../utils/removeArrayValue';
 
 export default {
     segments: data[0].data.segments,
 
     legendLabelValues: LegendLabels.map((item) => item.value),
 
-    filteredTranscript: function(options) {
+    transcript: function() {
         var transcript = [];
         var utteranceIndex = 0;
-        // var activeFilters = options && options.activeFilters;
-
-        // console.log("parser activeFilters", activeFilters);
 
         this.segments.forEach((segment, index, array) => {
             if (segment.participation_type !== "Other") {
@@ -67,15 +63,34 @@ export default {
         return transcript;
     },
 
-    // _filteredTranscript: function(data, options) {
-    //   var activeFilters = options && options.activeFilters;
-    //
-    //   var shouldBeFiltered = activeFilters && activeFilters.some(filter => dataRow.utteranceTypes.includes(filter));
-    //
-    //   if (!shouldBeFiltered) {
-    //       transcript[transcript.length - 1].utterances.push(dataRow);
-    //   }
-    // },
+    filteredTranscript: function(options) {
+        var data = this.transcript();
+        var activeFilters = options && options.activeFilters;
+        // debugger;
+
+        var filteredTranscript = data.reduce((accumulator, turn, index, array) => {
+            var newUtterances = turn.utterances.reduce((jaccumulator, utterance, jindex, jarray) => {
+                var shouldBeFiltered = activeFilters && activeFilters.some(filter => utterance.utteranceTypes.includes(filter));
+                // debugger;
+                if (!shouldBeFiltered) {
+                    // debugger;
+                    jaccumulator.push(utterance);
+                }
+                // debugger;
+
+                return jaccumulator;
+            }, []);
+
+            if (newUtterances.length) {
+                turn.utterances = newUtterances;
+                accumulator.push(turn);
+            }
+
+            return accumulator;
+        }, []);
+
+        return filteredTranscript;
+    },
 
     drilldownTranscript: function(data, options) {
         var drilldownFilter = options && options.drilldownFilter;

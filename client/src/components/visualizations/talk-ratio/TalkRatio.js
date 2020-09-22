@@ -99,8 +99,9 @@ export default class TalkRatio extends Component {
             <div className="talk-ratio-visualization-drilldown">
               {this.state.drilldownFilter ?
                 <Script
-                  data={Parser.filteredTranscript()}
-                  drilldownFilter={this.state.drilldownFilter} />
+                  data={Parser.transcript()}
+                  drilldownFilter={this.state.drilldownFilter}
+                  handleScroll={() => {}} />
               : "" }
             </div>
           </div>

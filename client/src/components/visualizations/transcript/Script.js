@@ -12,18 +12,12 @@ export default class Script extends Component {
     }
 
     componentDidMount() {
-        // conditional here because TurnTaking visualization's Bar calls Script for focusObj drilldown
-        if (this.props.handleScroll) {
-            window.addEventListener('scroll', this.handleScroll.bind(this));
-            this.handleScroll();
-        }
+        window.addEventListener('scroll', this.handleScroll.bind(this));
+        this.handleScroll();
     }
 
     componentWillUnmount() {
-        // conditional here because TurnTaking visualization's Bar calls Script for focusObj drilldown
-        if (this.props.handleScroll) {
-            window.removeEventListener('scroll', this.handleScroll.bind(this));
-        }
+        window.removeEventListener('scroll', this.handleScroll.bind(this));
     }
 
     getElementIdsForFocusWindow() {
@@ -47,8 +41,13 @@ export default class Script extends Component {
             }
         }
 
-        var topElId = parseInt(elementsInBounds[0].getAttribute('data-attr-utterance-id'), 10),
+        var topElId = 0,
+            bottomElId = 0;
+
+        if (elementsInBounds.length) {
+            topElId = parseInt(elementsInBounds[0].getAttribute('data-attr-utterance-id'), 10);
             bottomElId = parseInt(elementsInBounds[elementsInBounds.length - 1].getAttribute('data-attr-utterance-id'), 10);
+        }
 
         return {
             topElId: topElId,
@@ -125,5 +124,6 @@ Script.propTypes = {
     data: PropTypes.array.isRequired,
     focusObj: PropTypes.object,
     activeLabels: PropTypes.array,
-    focusBox: PropTypes.object
+    focusBox: PropTypes.object,
+    handleScroll: PropTypes.func.isRequired
 };
