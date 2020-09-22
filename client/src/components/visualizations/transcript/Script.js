@@ -6,6 +6,7 @@ import Utterance from './Utterance';
 
 export default class Script extends Component {
     constructor(props) {
+        console.log("Script::constructor");
         super(props);
         this.transcript = this.props.data;
     }
@@ -62,6 +63,7 @@ export default class Script extends Component {
     }
 
     render() {
+      console.log("Script::render");
       var focusObj = this.props.focusObj,
           activeTranscript = this.transcript;
 

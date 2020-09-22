@@ -51,11 +51,22 @@ export default class TalkRatio extends Component {
     studentTalkRatio = Parser.talkRatios().filter((item) => item.type === "Student");
 
     handleClick(label) {
+        console.log("handleClick", label);
         var drilldownFilter = label.value === this.state.drilldownFilter ? "" : label.value;
+
+        if (drilldownFilter === this.state.drilldownFilter) {
+            drilldownFilter = "";
+        }
+
         // console.log("value", label);
         this.setState({
             drilldownFilter: drilldownFilter
         });
+    }
+
+    drilldownTranscript() {
+        console.log("drilldownTranscript()");
+        return Parser.drilldownTranscript({drilldownFilter: this.state.drilldownFilter})
     }
 
     render() {
@@ -93,7 +104,7 @@ export default class TalkRatio extends Component {
             <div className="talk-ratio-visualization-drilldown">
               {this.state.drilldownFilter ?
                 <Script
-                  data={Parser.drilldownTranscript({drilldownFilter: this.state.drilldownFilter})} />
+                  data={this.drilldownTranscript()} />
               : "" }
             </div>
           </div>
