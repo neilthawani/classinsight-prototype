@@ -6,24 +6,17 @@ import Utterance from './Utterance';
 
 export default class Script extends Component {
     constructor(props) {
-        // console.log("Script::constructor");
         super(props);
         this.transcript = this.props.data;
     }
 
     componentDidMount() {
-        // conditional here because TurnTaking visualization's Bar calls Script for focusObj drilldown
-        if (this.props.handleScroll) {
-            window.addEventListener('scroll', this.handleScroll.bind(this));
-            this.handleScroll();
-        }
+        window.addEventListener('scroll', this.handleScroll.bind(this));
+        this.handleScroll();
     }
 
     componentWillUnmount() {
-        // conditional here because TurnTaking visualization's Bar calls Script for focusObj drilldown
-        if (this.props.handleScroll) {
-            window.removeEventListener('scroll', this.handleScroll.bind(this));
-        }
+        window.removeEventListener('scroll', this.handleScroll.bind(this));
     }
 
     getElementIdsForFocusWindow() {
@@ -47,8 +40,13 @@ export default class Script extends Component {
             }
         }
 
-        var topElId = parseInt(elementsInBounds[0].getAttribute('data-attr-utterance-id'), 10),
+        var topElId = 0,
+            bottomElId = 0;
+
+        if (elementsInBounds.length) {
+            topElId = parseInt(elementsInBounds[0].getAttribute('data-attr-utterance-id'), 10);
             bottomElId = parseInt(elementsInBounds[elementsInBounds.length - 1].getAttribute('data-attr-utterance-id'), 10);
+        }
 
         return {
             topElId: topElId,
@@ -63,25 +61,23 @@ export default class Script extends Component {
     }
 
     render() {
-      // console.log("Script::render");
       var focusObj = this.props.focusObj,
           drilldownFilter = this.props.drilldownFilter,
           activeTranscript = this.transcript;
 
+      // for TurnTaking bar click
       if (focusObj) {
           activeTranscript = Parser.focusTranscript(focusObj,
-            { activeFilters: this.props.activeLabels,
-              range: {min: 1, max: 1}
-            }
+              { activeFilters: this.props.activeFilters,
+                range: {min: 1, max: 1}
+              }
           );
       }
 
+      // for TalkRatio drilldown
       if (drilldownFilter) {
-          activeTranscript = Parser.drilldownTranscript(activeTranscript, {drilldownFilter: drilldownFilter})
+          activeTranscript = Parser.drilldownTranscript({ drilldownFilter: drilldownFilter });
       }
-
-      // console.log("focusObj", focusObj);
-      // console.log("activeTranscript", activeTranscript);
 
       return (
         <div className="script-turn-container">
@@ -99,7 +95,6 @@ export default class Script extends Component {
                     </tr>
 
                     {turn.utterances.map((utterance, jindex, jarray) => {
-                        // console.log("utterance", utterance);
                         var hasTimestamp = utterance.timestamp.length > 0;
                         var key = `${utterance}-${jindex}`;
                         var timeStamp = hasTimestamp ? utterance.timestamp : "";
@@ -125,5 +120,6 @@ Script.propTypes = {
     data: PropTypes.array.isRequired,
     focusObj: PropTypes.object,
     activeLabels: PropTypes.array,
-    focusBox: PropTypes.object
+    focusBox: PropTypes.object,
+    handleScroll: PropTypes.func.isRequired
 };
