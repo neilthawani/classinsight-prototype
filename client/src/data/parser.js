@@ -10,7 +10,7 @@ export default {
     filteredTranscript: function(options) {
         var transcript = [];
         var utteranceIndex = 0;
-        var activeFilters = options && options.activeFilters;
+        // var activeFilters = options && options.activeFilters;
 
         // console.log("parser activeFilters", activeFilters);
 
@@ -53,11 +53,11 @@ export default {
                             dataRow = { ...dataRow, ...{ utteranceTypes: utterance.utterance_type } };
                         }
 
-                        var shouldBeFiltered = activeFilters && activeFilters.some(filter => dataRow.utteranceTypes.includes(filter));
+                        // var shouldBeFiltered = activeFilters && activeFilters.some(filter => dataRow.utteranceTypes.includes(filter));
 
-                        if (!shouldBeFiltered) {
+                        // if (!shouldBeFiltered) {
                             transcript[transcript.length - 1].utterances.push(dataRow);
-                        }
+                        // }
                     });
                 });
             }
@@ -66,6 +66,16 @@ export default {
 
         return transcript;
     },
+
+    // _filteredTranscript: function(data, options) {
+    //   var activeFilters = options && options.activeFilters;
+    //
+    //   var shouldBeFiltered = activeFilters && activeFilters.some(filter => dataRow.utteranceTypes.includes(filter));
+    //
+    //   if (!shouldBeFiltered) {
+    //       transcript[transcript.length - 1].utterances.push(dataRow);
+    //   }
+    // },
 
     drilldownTranscript: function(data, options) {
         var drilldownFilter = options && options.drilldownFilter;

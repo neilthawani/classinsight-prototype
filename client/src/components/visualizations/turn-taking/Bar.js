@@ -40,18 +40,16 @@ export default class Bar extends Component {
       var scriptData = Parser.filteredTranscript({activeFilters: this.props.activeFilters});
 
       return (
-        <div className="turn-taking-visualization-row" onClick={this.handleClick}>
+        <div className="turn-taking-visualization-row" onMouseOver={this.handleClick}>
           <div className={itemTimestamp.length > 1 ? "turn-taking-bar-timestamp-range" : "turn-taking-bar-timestamp-time"}>
             {timeStamp}
           </div>
           <div key={item.id} className="turn-taking-bar">
             <div className="turn-taking-bar-teacher-outer">
-              <div className="turn-taking-bar-teacher-inner" style={teacherStyle}>
-              </div>
+              <div className="turn-taking-bar-teacher-inner" style={teacherStyle}></div>
             </div>
             <div className="turn-taking-bar-student-outer">
-              <div className="turn-taking-bar-student-inner" style={studentStyle}>
-              </div>
+              <div className="turn-taking-bar-student-inner" style={studentStyle}></div>
             </div>
           </div>
 
