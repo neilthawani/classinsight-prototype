@@ -65,16 +65,18 @@ export default class Script extends Component {
           drilldownFilter = this.props.drilldownFilter,
           activeTranscript = this.transcript;
 
+      // for TurnTaking bar click
       if (focusObj) {
           activeTranscript = Parser.focusTranscript(focusObj,
-            { activeFilters: this.props.activeLabels,
-              range: {min: 1, max: 1}
-            }
+              { activeFilters: this.props.activeFilters,
+                range: {min: 1, max: 1}
+              }
           );
       }
 
+      // for TalkRatio drilldown
       if (drilldownFilter) {
-          activeTranscript = Parser.drilldownTranscript(activeTranscript, {drilldownFilter: drilldownFilter})
+          activeTranscript = Parser.drilldownTranscript({ drilldownFilter: drilldownFilter });
       }
 
       return (

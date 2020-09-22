@@ -84,8 +84,9 @@ export default {
         return filteredTranscript;
     },
 
-    drilldownTranscript: function(data, options) {
-        var drilldownFilter = options && options.drilldownFilter;
+    drilldownTranscript: function(options) {
+        var data = this.transcript(),
+            drilldownFilter = options && options.drilldownFilter;
 
         var drilldownTranscript = data.reduce((accumulator, turn, index, array) => {
             var newUtterances = turn.utterances.reduce((jaccumulator, utterance, jindex, jarray) => {
@@ -111,6 +112,7 @@ export default {
         var activeFilters = options && options.activeFilters;
 
         var transcript = this.filteredTranscript({ activeFilters: activeFilters });
+
         return transcript.reduce((accumulator, turn, index, array) => {
             return accumulator.concat(turn.utterances);
         }, []);
@@ -119,6 +121,7 @@ export default {
         var activeFilters = options && options.activeFilters;
 
         var expandedData = this.expandedData({ activeFilters: activeFilters });
+
         return Math.max.apply(Math, expandedData.map((utterance) => utterance.nTokens));
     },
     collapsedData: function(options) {
