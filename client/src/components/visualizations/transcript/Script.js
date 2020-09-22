@@ -73,6 +73,9 @@ export default class Script extends Component {
           );
       }
 
+      // console.log("focusObj", focusObj);
+      // console.log("activeTranscript", activeTranscript);
+
       return (
         <div className="script-turn-container">
           {activeTranscript.map((turn, index, array) => {
@@ -89,6 +92,7 @@ export default class Script extends Component {
                     </tr>
 
                     {turn.utterances.map((utterance, jindex, jarray) => {
+                        // console.log("utterance", utterance);
                         var hasTimestamp = utterance.timestamp.length > 0;
                         var key = `${utterance}-${jindex}`;
                         var timeStamp = hasTimestamp ? utterance.timestamp : "";

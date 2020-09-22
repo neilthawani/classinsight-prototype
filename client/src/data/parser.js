@@ -10,17 +10,9 @@ export default {
     filteredTranscript: function(options) {
         var transcript = [];
         var utteranceIndex = 0;
-        var allFilters = this.legendLabelValues;
         var activeFilters = options && options.activeFilters;
 
-        console.log("options", options);
-        if (options && options.drilldownFilter) {
-            activeFilters = allFilters.filter((labelValue) => {
-                return labelValue !== options.drilldownFilter;
-            });
-        }
-
-        console.log("parser activeFilters", activeFilters);
+        // console.log("parser activeFilters", activeFilters);
 
         this.segments.forEach((segment, index, array) => {
             if (segment.participation_type !== "Other") {
@@ -70,8 +62,32 @@ export default {
                 });
             }
         });
+        // console.log("transcript", transcript);
 
         return transcript;
+    },
+
+    drilldownTranscript: function(options) {
+        var drilldownFilter = options && options.drilldownFilter;
+
+        var drilldownTranscript = this.filteredTranscript().reduce((accumulator, turn, index, array) => {
+            var newUtterances = turn.utterances.reduce((jaccumulator, utterance, jindex, jarray) => {
+                if (utterance.utteranceTypes.includes(drilldownFilter)) {
+                    jaccumulator.push(utterance);
+                }
+
+                return jaccumulator;
+            }, []);
+
+            if (newUtterances.length) {
+                turn.utterances = newUtterances;
+                accumulator.push(turn);
+            }
+
+            return accumulator;
+        }, []);
+
+        return drilldownTranscript;
     },
 
     expandedData: function(options) {
