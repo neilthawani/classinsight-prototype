@@ -65,6 +65,9 @@ export default class Transcript extends Component {
     handleScroll(topElId, bottomElId) {
         // calculate focusBox.height
         var turnTakingBarsSmall = document.getElementsByClassName("turn-taking-bars-small-visualization")[0];
+
+        if (!turnTakingBarsSmall) return;
+
         var topOfBox = turnTakingBarsSmall.querySelectorAll(`.turn-taking-bars-small-visualization [data-attr-utterance-id='${topElId}']`)[0];
         var bottomOfBox = turnTakingBarsSmall.querySelectorAll(`.turn-taking-bars-small-visualization [data-attr-utterance-id='${bottomElId}']`)[0];
         var topOfBoxY = topOfBox.getBoundingClientRect().y;
