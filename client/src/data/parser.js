@@ -170,8 +170,8 @@ export default {
         var activeFilters = options && options.activeFilters;
         var transcript = this.filteredTranscript({ activeFilters: activeFilters });
 
-        var rangeMin = range.min || 1,
-            rangeMax = range.max || 1
+        var rangeMin = range.min,
+            rangeMax = range.max;
         var activeTurnIndex = 0;
 
         for (var i = 0; i < transcript.length; i++) {

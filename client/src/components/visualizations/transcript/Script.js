@@ -69,7 +69,7 @@ export default class Script extends Component {
       if (focusObj) {
           activeTranscript = Parser.focusTranscript(focusObj,
               { activeFilters: this.props.activeFilters,
-                range: {min: 1, max: 1}
+                range: {min: 0, max: 0}
               }
           );
       }
