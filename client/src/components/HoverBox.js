@@ -20,12 +20,11 @@ export default class HoverBox extends Component {
         return {
             width: `${this.state.width}px`,
             height: `${this.state.height}px`,
-            display: this.state.display
+            display: this.props.label.description ? this.state.display : "none"
         };
     }
 
     render() {
-
       return (
         <div className="hover-box" style={this.styles()}>
           <div className="hover-box-title">
