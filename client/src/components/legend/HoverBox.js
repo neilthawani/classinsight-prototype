@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 export default class HoverBox extends Component {
     constructor(props) {
-        console.log("props", props);
+        // console.log("props", props);
         super(props);
         this.state = {
             width: props.width,
@@ -41,5 +41,8 @@ HoverBox.propTypes = {
     label: PropTypes.object.isRequired,
     activeLabel: PropTypes.object.isRequired,
     width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired
+    height: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ])
 };

@@ -29,9 +29,9 @@ export default class LegendItem extends Component {
     }
 
     toggleDefinitionDisplay(label) {
-        console.log("toggleDefinitionDisplay", label);
+        // console.log("toggleDefinitionDisplay", label);
         var activeLabel = this.state.activeLabel === label ? "" : label;
-        console.log("activeLabel", activeLabel);
+        // console.log("activeLabel", activeLabel);
         this.setState({
             activeLabel: activeLabel
         });

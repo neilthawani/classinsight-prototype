@@ -10,7 +10,7 @@ import ArrowCollapseVerticalIcon from 'mdi-react/ArrowCollapseVerticalIcon';
 import ArrowExpandVerticalIcon from 'mdi-react/ArrowExpandVerticalIcon';
 
 import removeArrayValue from '../../../utils/removeArrayValue';
-import isObjectEmpty from '../../../utils/isObjectEmpty';
+// import isObjectEmpty from '../../../utils/isObjectEmpty';
 
 /*
 For this file, the data we're after is in data.segments[0].speaking_turns.
@@ -42,7 +42,7 @@ export default class TurnTaking extends Component {
 
         this.state = {
             bars: localStorage.getItem("bars") || "expanded",
-            focusObj: {},
+            // focusObj: {},
             activeFilters: []
         };
     }
@@ -63,15 +63,15 @@ export default class TurnTaking extends Component {
           size="24" />
     }
 
-    handleExpandClick(evt, rowObj) {
-        var focusObj = this.state.focusObj;
-
-        if (!isObjectEmpty(focusObj) && rowObj.id === focusObj.id && rowObj.utterance === focusObj.utterance) {
-            this.setState({focusObj: {}});
-        } else {
-            this.setState({focusObj: rowObj});
-        }
-    }
+    // handleExpandClick(evt, rowObj) {
+    //     var focusObj = this.state.focusObj;
+    //
+    //     if (!isObjectEmpty(focusObj) && rowObj.id === focusObj.id && rowObj.utterance === focusObj.utterance) {
+    //         this.setState({focusObj: {}});
+    //     } else {
+    //         this.setState({focusObj: rowObj});
+    //     }
+    // }
 
     // clean up this from Transcript too
     handleFilterClick(label) {
@@ -118,10 +118,7 @@ export default class TurnTaking extends Component {
                     return (
                       <Bar
                         key={index}
-                        data={item}
-                        activeFilters={this.state.activeFilters}
-                        focusObj={this.state.focusObj}
-                        onRowClick={this.handleExpandClick.bind(this)} />
+                        data={item} />
                     )
                 })}
               </div>

@@ -25,11 +25,16 @@ export default class Utterance extends Component {
               {timeStamp}
             </td>
 
-            <td
-              className="script-turn-utterance-text"
-              style={isLineHighlighted ? defineInitialStyle(utterance) : {}}>
-              {utterance.utterance}
-            </td>
+            {utterance.speakerUtterances.map((utteranceItem, index, utteranceArray) => {
+              return (
+                <td
+                  key={index}
+                  className="script-turn-utterance-text"
+                  style={isLineHighlighted ? defineInitialStyle(utterance) : {}}>
+                  {utteranceItem}
+                </td>
+              );
+            })}
           </tr>
         )
     }
