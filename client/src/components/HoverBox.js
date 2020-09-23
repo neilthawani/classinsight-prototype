@@ -6,10 +6,8 @@ export default class HoverBox extends Component {
         console.log("props", props);
         super(props);
         this.state = {
-            width: 300,
-            height: 200,
-            backgroundColor: "white",
-            border: "1px solid #cecece",
+            width: props.width,
+            height: props.height,
             display: props.activeLabel === props.label ? "block" : "none"
         };
     }
@@ -22,8 +20,6 @@ export default class HoverBox extends Component {
         return {
             width: `${this.state.width}px`,
             height: `${this.state.height}px`,
-            backgroundColor: this.state.backgroundColor,
-            border: this.state.border,
             display: this.state.display
         };
     }
@@ -32,13 +28,19 @@ export default class HoverBox extends Component {
 
       return (
         <div className="hover-box" style={this.styles()}>
+          <div className="hover-box-title">
+          </div>
+          <div className="hover-box-text">
+            {this.props.label.description}
+          </div>
         </div>
       );
     }
 }
 
 HoverBox.propTypes = {
-    // label: PropTypes.object.isRequired,
-    // displayRatio: PropTypes.bool,
-    // handleClick: PropTypes.func.isRequired
+    label: PropTypes.object.isRequired,
+    activeLabel: PropTypes.object.isRequired,
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired
 };

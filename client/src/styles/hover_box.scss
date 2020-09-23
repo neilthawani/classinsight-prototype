@@ -1,5 +1,18 @@
 .hover-box {
     position: absolute;
-    left: 2%;
+    top: 1.66em;
     z-index: 999;
+    cursor: default;
+    background-color: white;
+    border: 1px solid $lightGray;
+    padding: 5px;
+    word-wrap: break-word;
+}
+
+.hover-box-title {
+
+}
+
+.hover-box-text {
+    font-size: 14px;
 }

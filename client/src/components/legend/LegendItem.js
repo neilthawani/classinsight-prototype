@@ -42,23 +42,25 @@ export default class LegendItem extends Component {
           activeLabel = this.state.activeLabel;
 
       return (
-        <div className="legend-item"
-        onMouseOver={this.toggleDefinitionDisplay.bind(this, label)}
-        onMouseOut={this.toggleDefinitionDisplay.bind(this, label)}>
+        <div className="legend-item">
           <div
             className="legend-item-key"
             style={this.styles(label, this.isActive())}
             onClick={this.handleClick.bind(this, label)}>
             {this.props.displayRatio ? formatPercentage(label.percentage, 0) : ""}
           </div>
-          <span className="legend-item-label">
+          <span className="legend-item-label"
+          onMouseOver={this.toggleDefinitionDisplay.bind(this, label)}
+          onMouseOut={this.toggleDefinitionDisplay.bind(this, label)}>
             {label.text}
           </span>
 
           {activeLabel ?
           <HoverBox
             label={label}
-            activeLabel={activeLabel} />
+            activeLabel={activeLabel}
+            width={200}
+            height="max-content" />
           : ""}
         </div>
       );
