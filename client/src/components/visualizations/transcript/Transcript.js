@@ -45,7 +45,7 @@ export default class Transcript extends Component {
         });
     }
 
-    // clean up this from TurnTaking too
+    // same logic as in TurnTaking::handleFilterClick
     handleClick(label) {
         var activeLabels = this.state.activeLabels;
 

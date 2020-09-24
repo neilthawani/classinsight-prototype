@@ -64,6 +64,10 @@
     }
 }
 
+.turn-taking-bar.active {
+    border: 1px solid $lightGray;
+}
+
 .turn-taking-bar-teacher-outer {
     width: 50%;
     position: relative;

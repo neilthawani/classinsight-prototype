@@ -6,7 +6,7 @@ export default class HoverScript extends Component {
         var turn = this.props.data;
 
         return (
-          <div className="script-turn-container">
+          <div className="hover-script-turn-container">
             <table className="script-turn">
               <tbody className="script-turn-rows">
                 <tr className="script-turn-speaker">
