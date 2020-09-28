@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 
 export default class HoverBox extends Component {
     constructor(props) {
-        // console.log("props", props);
         super(props);
         this.state = {
             width: props.width,
@@ -25,15 +24,15 @@ export default class HoverBox extends Component {
     }
 
     render() {
-      return (
-        <div className="hover-box" style={this.styles()}>
-          <div className="hover-box-title">
+        return (
+          <div className="hover-box" style={this.styles()}>
+            <div className="hover-box-title">
+            </div>
+            <div className="hover-box-text">
+              {this.props.label.description}
+            </div>
           </div>
-          <div className="hover-box-text">
-            {this.props.label.description}
-          </div>
-        </div>
-      );
+        );
     }
 }
 

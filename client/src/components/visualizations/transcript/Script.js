@@ -69,8 +69,6 @@ export default class Script extends Component {
           activeTranscript = Parser.drilldownTranscript({ drilldownFilter: drilldownFilter });
       }
 
-      console.log("activeTranscript", activeTranscript, );
-
       return (
         <div className="script-turn-container">
           {activeTranscript.map((turn, index, array) => {
@@ -110,10 +108,6 @@ export default class Script extends Component {
 
 Script.propTypes = {
     data: PropTypes.array.isRequired,
-    // oneOfType([
-    //     PropTypes.object,
-    //     PropTypes.array
-    // ]).isRequired,
     activeLabels: PropTypes.array,
     focusBox: PropTypes.object,
     handleScroll: PropTypes.func.isRequired

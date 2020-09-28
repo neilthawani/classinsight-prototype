@@ -142,13 +142,6 @@ export default {
             if (sameUtteranceTypesAsPrevious) {
                 collapsedData[collapsedData.length - 1].nTokens = previousDataRow.nTokens + dataRow.nTokens;
                 collapsedData[collapsedData.length - 1].timestamp.push(...dataRow.timestamp);
-                // console.log("collapsedData[collapsedData.length - 1]", collapsedData[collapsedData.length - 1]);
-
-                // if (!collapsedData[collapsedData.length - 1].utterances) {
-                    // collapsedData[collapsedData.length - 1].utterances = [];
-                //     collapsedData[collapsedData.length - 1].speakerUtterances.push(collapsedData[collapsedData.length - 1].utterance);
-                // }
-
                 collapsedData[collapsedData.length - 1].speakerUtterances.push(...dataRow.speakerUtterances);
             }
 
@@ -174,35 +167,6 @@ export default {
 
         return parsedData;
     },
-
-    // focusTranscript: function(targetUtterance, options) {
-    //     var range = options && options.range;
-    //     var activeFilters = options && options.activeFilters;
-    //     var transcript = this.filteredTranscript({ activeFilters: activeFilters });
-    //
-    //     var rangeMin = range.min,
-    //         rangeMax = range.max;
-    //     var activeTurnIndex = 0;
-    //
-    //     for (var i = 0; i < transcript.length; i++) {
-    //         var turn = transcript[i];
-    //         var utteranceIndex = turn.utterances.findIndex((utteranceObj) => {
-    //             return utteranceObj.id === targetUtterance.id && utteranceObj.utterance === targetUtterance.utterance;
-    //         });
-    //
-    //         if (utteranceIndex !== -1 ) {
-    //             activeTurnIndex = i;
-    //             break;
-    //         }
-    //     }
-    //
-    //     // if minSlice < 0, this breaks due to how slice works
-    //     var minSlice = activeTurnIndex - rangeMin < 0 ? 0 : activeTurnIndex - rangeMin;
-    //     console.log("minSlice", minSlice, "activeTurnIndex", activeTurnIndex);
-    //     var ret = transcript.slice(minSlice, activeTurnIndex + 1 + rangeMax);
-    //     console.log("ret", ret);
-    //     return ret;
-    // },
 
     talkRatios: function() {
         var expandedData = this.expandedData(), // get array of every utterance in the transcript

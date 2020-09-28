@@ -10,7 +10,6 @@ import ArrowCollapseVerticalIcon from 'mdi-react/ArrowCollapseVerticalIcon';
 import ArrowExpandVerticalIcon from 'mdi-react/ArrowExpandVerticalIcon';
 
 import removeArrayValue from '../../../utils/removeArrayValue';
-// import isObjectEmpty from '../../../utils/isObjectEmpty';
 
 /*
 For this file, the data we're after is in data.segments[0].speaking_turns.
@@ -42,7 +41,6 @@ export default class TurnTaking extends Component {
 
         this.state = {
             bars: localStorage.getItem("bars") || "expanded",
-            // focusObj: {},
             activeFilters: [],
             activeTurn: {}
         };

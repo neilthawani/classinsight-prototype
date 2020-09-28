@@ -31,8 +31,4 @@ export default class HoverScript extends Component {
 
 HoverScript.propTypes = {
     data: PropTypes.object.isRequired
-    // oneOfType([
-    //     PropTypes.object,
-    //     PropTypes.array
-    // ]).isRequired
 };
