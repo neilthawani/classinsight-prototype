@@ -6,7 +6,7 @@ export default class HoverScript extends Component {
         var turn = this.props.data;
 
         return (
-          <div className="hover-script-turn-container">
+          <div className="script-turn-container">
             <table className="script-turn">
               <tbody className="script-turn-rows">
                 <tr className="script-turn-speaker">
@@ -30,8 +30,9 @@ export default class HoverScript extends Component {
 }
 
 HoverScript.propTypes = {
-    data: PropTypes.oneOfType([
-        PropTypes.object,
-        PropTypes.array
-    ]).isRequired
+    data: PropTypes.object.isRequired
+    // oneOfType([
+    //     PropTypes.object,
+    //     PropTypes.array
+    // ]).isRequired
 };

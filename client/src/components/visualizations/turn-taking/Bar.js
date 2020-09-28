@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 
 import Parser from '../../../data/parser';
 
-import HoverScript from './HoverScript';
+import Turn from '../transcript/Turn';
+// import Script from '../transcript/Script';
+// import Utterance from '../transcript/Utterance';
 
 import drawBarStyles from './drawBarStyles';
 import isObjectEmpty from '../../../utils/isObjectEmpty';
@@ -17,6 +19,7 @@ export default class Bar extends Component {
     }
 
     handleMouseOver() {
+        console.log("this.props.data", this.props.data);
         if (isObjectEmpty(this.props.activeTurn)) {
             this.setState({
                 hoveredTurn: this.props.data
@@ -64,12 +67,12 @@ export default class Bar extends Component {
               </div>
               <div className="turn-taking-bar-student-outer">
                 <div className="turn-taking-bar-student-inner" style={studentStyle}></div>
-                {isActive ?
-                <HoverScript
-                  data={item} />
-                : ""}
               </div>
             </div>
+
+            {isActive ?
+              <Turn data={item} />
+            : ""}
           </div>
       );
     }
