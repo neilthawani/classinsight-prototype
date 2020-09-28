@@ -61,18 +61,8 @@ export default class Script extends Component {
     }
 
     render() {
-      var focusObj = this.props.focusObj,
-          drilldownFilter = this.props.drilldownFilter,
+      var drilldownFilter = this.props.drilldownFilter,
           activeTranscript = this.transcript;
-
-      // for TurnTaking bar click
-      if (focusObj) {
-          activeTranscript = Parser.focusTranscript(focusObj,
-              { activeFilters: this.props.activeFilters,
-                range: {min: 1, max: 1}
-              }
-          );
-      }
 
       // for TalkRatio drilldown
       if (drilldownFilter) {
@@ -118,7 +108,6 @@ export default class Script extends Component {
 
 Script.propTypes = {
     data: PropTypes.array.isRequired,
-    focusObj: PropTypes.object,
     activeLabels: PropTypes.array,
     focusBox: PropTypes.object,
     handleScroll: PropTypes.func.isRequired

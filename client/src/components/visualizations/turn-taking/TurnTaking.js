@@ -10,7 +10,6 @@ import ArrowCollapseVerticalIcon from 'mdi-react/ArrowCollapseVerticalIcon';
 import ArrowExpandVerticalIcon from 'mdi-react/ArrowExpandVerticalIcon';
 
 import removeArrayValue from '../../../utils/removeArrayValue';
-import isObjectEmpty from '../../../utils/isObjectEmpty';
 
 /*
 For this file, the data we're after is in data.segments[0].speaking_turns.
@@ -42,8 +41,8 @@ export default class TurnTaking extends Component {
 
         this.state = {
             bars: localStorage.getItem("bars") || "expanded",
-            focusObj: {},
-            activeFilters: []
+            activeFilters: [],
+            activeTurn: {}
         };
     }
 
@@ -63,17 +62,7 @@ export default class TurnTaking extends Component {
           size="24" />
     }
 
-    handleExpandClick(evt, rowObj) {
-        var focusObj = this.state.focusObj;
-
-        if (!isObjectEmpty(focusObj) && rowObj.id === focusObj.id && rowObj.utterance === focusObj.utterance) {
-            this.setState({focusObj: {}});
-        } else {
-            this.setState({focusObj: rowObj});
-        }
-    }
-
-    // clean up this from Transcript too
+    // same logic as in Transcript::handleClick
     handleFilterClick(label) {
         var activeFilters = this.state.activeFilters;
 
@@ -85,6 +74,16 @@ export default class TurnTaking extends Component {
 
         this.setState({
             activeFilters: activeFilters
+        });
+    }
+
+    handleBarClick(value) {
+        if (value.id === this.state.activeTurn.id) {
+            value = {};
+        }
+
+        this.setState({
+            activeTurn: value
         });
     }
 
@@ -119,9 +118,8 @@ export default class TurnTaking extends Component {
                       <Bar
                         key={index}
                         data={item}
-                        activeFilters={this.state.activeFilters}
-                        focusObj={this.state.focusObj}
-                        onRowClick={this.handleExpandClick.bind(this)} />
+                        handleBarClick={this.handleBarClick.bind(this)}
+                        activeTurn={this.state.activeTurn} />
                     )
                 })}
               </div>

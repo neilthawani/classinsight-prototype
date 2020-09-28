@@ -33,3 +33,18 @@
 }
 
 .script-turn-utterance-text {} // td
+
+.hover-script-turn-container {
+    width: 100%;
+    z-index: 999;
+    background-color: white;
+    border: 1px solid $lightGray;
+    margin-top: -2px;
+    margin-right: -2px;
+    position: absolute;
+    font-size: 14px;
+
+    .script-turn {
+        margin: 0;
+    }
+}

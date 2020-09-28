@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
 
+import HoverBox from './HoverBox';
+
 import formatPercentage from '../../utils/formatPercentage';
 
 export default class LegendItem extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            activeLabel: {}
+        };
+    }
     styles(label, isActive = true) {
         return {
             backgroundColor: this.isActive() ? label.barColor : "transparent",
@@ -19,8 +28,17 @@ export default class LegendItem extends Component {
         this.props.handleClick(value);
     }
 
+    toggleDefinitionDisplay(label) {
+        var activeLabel = this.state.activeLabel === label ? "" : label;
+
+        this.setState({
+            activeLabel: activeLabel
+        });
+    }
+
     render() {
-      var label = this.props.label;
+      var label = this.props.label,
+          activeLabel = this.state.activeLabel;
 
       return (
         <div className="legend-item">
@@ -30,9 +48,19 @@ export default class LegendItem extends Component {
             onClick={this.handleClick.bind(this, label)}>
             {this.props.displayRatio ? formatPercentage(label.percentage, 0) : ""}
           </div>
-          <span className="legend-item-label">
+          <span className="legend-item-label"
+          onMouseOver={this.toggleDefinitionDisplay.bind(this, label)}
+          onMouseOut={this.toggleDefinitionDisplay.bind(this, label)}>
             {label.text}
           </span>
+
+          {activeLabel ?
+          <HoverBox
+            label={label}
+            activeLabel={activeLabel}
+            width={200}
+            height="max-content" />
+          : ""}
         </div>
       );
     }
