@@ -150,8 +150,6 @@ export default {
             }
         });
 
-        // console.log("collapsedData", collapsedData);
-
         return collapsedData;
     },
 
