@@ -20,7 +20,7 @@ export default class Utterance extends Component {
         }
 
         return (
-          <tr className="script-turn-utterance" data-attr-utterance-id={utterance.id}>
+          <tr className="script-turn-utterance" data-attr-utterance-id={utterance.id} id={utterance.id}>
             <td className="script-turn-utterance-timestamp">
               {timeStamp}
             </td>
