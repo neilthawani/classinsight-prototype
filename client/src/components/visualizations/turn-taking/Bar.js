@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Parser from '../../../data/parser';
+// import Parser from '../../../data/parser';
 
 import Turn from '../transcript/Turn';
 // import Script from '../transcript/Script';
@@ -19,7 +19,7 @@ export default class Bar extends Component {
     }
 
     handleMouseOver() {
-        console.log("this.props.data", this.props.data);
+        // console.log("this.props.data", this.props.data);
         if (isObjectEmpty(this.props.activeTurn)) {
             this.setState({
                 hoveredTurn: this.props.data
