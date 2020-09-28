@@ -14,7 +14,7 @@ You can learn more about ClassInSight [here](https://www.hcii.cmu.edu/research/c
 In Terminal (Linux/MacOS) or PowerShell x86 (Windows), run:
 
 ```
-npm run install
+npm run app_install
 npm run dev
 ```
 
