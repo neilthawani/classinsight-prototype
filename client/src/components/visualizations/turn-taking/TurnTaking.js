@@ -39,7 +39,6 @@ export default class TurnTaking extends Component {
     constructor(props) {
         super(props);
 
-        // console.log("props", props);
         this.state = {
             bars: localStorage.getItem("bars") || "expanded",
             activeFilters: [],
@@ -89,8 +88,6 @@ export default class TurnTaking extends Component {
     }
 
     handleTextClick(turnId) {
-        // console.log("this.props", this.props);
-        // console.log("this.state", this.state);
         this.props.history.push(`/dashboard/transcript#${turnId}`);
     }
 

@@ -14,10 +14,6 @@ import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
-import ButtonSelector from './components/ButtonSelector';
-import TalkRatio from './components/visualizations/talk-ratio/TalkRatio';
-import Transcript from './components/visualizations/transcript/Transcript';
-import TurnTaking from './components/visualizations/turn-taking/TurnTaking';
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -52,16 +48,7 @@ class App extends Component {
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
 
-            {/* A <Switch> looks through all its children <Route> elements and
-              renders the first one whose path matches the current URL.
-              Use a <Switch> any time you have multiple routes,
-              but you want only one of them to render at a time. */}
-            {/*<Switch>*/}
-              <PrivateRoute path="/dashboard" component={Dashboard} />
-              {/*<PrivateRoute exact path="/dashboard/talk-ratio" component={TalkRatio} state={{button: "button1"}} />
-              <PrivateRoute exact path="/dashboard/turn-taking" component={TurnTaking} state={{button: "button2"}} />
-              <PrivateRoute exact path="/dashboard/transcript" component={Transcript} state={{button: "button3"}} />*/}
-            {/*</Switch>*/}
+            <PrivateRoute path="/dashboard" component={Dashboard} />
           </div>
         </Router>
       </Provider>

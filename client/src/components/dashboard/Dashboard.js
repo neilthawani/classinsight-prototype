@@ -19,15 +19,11 @@ class Dashboard extends Component {
         };
     }
     componentWillMount() {
+        // update ButtonSelector selected option on drilldown
         this.unlisten = this.props.history.listen((location, action) => {
-            // console.log("Dashboard", "this.state", this.state, "this.props", this.props);
-            // console.log("Dashboard", location, action);
-
-            // debugger;
             var buttonSelectorSelectedOption = location.pathname.slice(location.pathname.lastIndexOf("/") + 1);
             localStorage.setItem("buttonSelectorSelectedOption", buttonSelectorSelectedOption);
             this.setState({buttonSelectorSelectedOption: buttonSelectorSelectedOption});
-            // console.log("on route change");
         });
     }
 
@@ -36,9 +32,8 @@ class Dashboard extends Component {
     }
 
     componentDidMount() {
-        // console.log("Dashboard componentDidMount");
         // If logged in and user navigates to Register page, should redirect them to dashboard
-        this.props.history.push(`/dashboard/${this.state.selectedOption}`);
+        this.props.history.push(`/dashboard/${this.state.buttonSelectorSelectedOption}`);
     }
 
     handleClick(value) {
@@ -56,16 +51,16 @@ class Dashboard extends Component {
 
         // <PrivateRoute exact path="/dashboard" component={Dashboard} />
         return (
-          <div class="dashboard-container">
+          <div className="dashboard-container">
             {/* coarse, medium, and fine-grained visualizations */}
             <ButtonSelector
               selectedOption={this.state.buttonSelectorSelectedOption}
               handleClick={this.handleClick.bind(this)} />
 
             <Switch>
-              <PrivateRoute exact path="/dashboard/talk-ratio" component={TalkRatio} state={{button: "button1"}} />
-              <PrivateRoute exact path="/dashboard/turn-taking" component={TurnTaking} state={{button: "button2"}} />
-              <PrivateRoute exact path="/dashboard/transcript" component={Transcript} state={{button: "button3"}} />
+              <PrivateRoute exact path="/dashboard/talk-ratio" component={TalkRatio} />
+              <PrivateRoute exact path="/dashboard/turn-taking" component={TurnTaking} />
+              <PrivateRoute exact path="/dashboard/transcript" component={Transcript} />
             </Switch>
           </div>
         );

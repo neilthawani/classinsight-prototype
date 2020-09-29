@@ -3,18 +3,8 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 export default class ButtonSelector extends Component {
-    constructor(props) {
-        super(props);
-        // console.log("button selector");
-    }
-
     handleClick(value) {
-        console.log("ButtonSelector handleClick");
         this.props.handleClick(value);
-    }
-
-    componentDidMount() {
-        console.log("ButtonSelector componentDidMount");
     }
 
     render() {
