@@ -29,8 +29,8 @@ export default class Transcript extends Component {
         };
     }
 
-    // dynamically orient and size TurnTakingSmall chart
     componentDidMount() {
+        // dynamically orient and size TurnTakingSmall chart
         var legendButtonGroup = document.getElementsByClassName("transcript-visualization-legend")[0],
             chartOffsetWidth = legendButtonGroup.clientWidth,
             navbarDiv = document.getElementsByClassName("navbar"),
@@ -43,6 +43,23 @@ export default class Transcript extends Component {
             chartOffsetWidth: chartOffsetWidth,
             chartHeight: chartHeight
         });
+
+        // scroll to utterance ID on drilldown from TalkRatio or TurnTaking visualization
+        var url = window.location.href;
+
+        if (url.indexOf("#") > -1) {
+            var utteranceId = url.slice(url.indexOf("#") + 1, url.length);
+            window.setTimeout(function() {
+                var focusId = document.getElementById(utteranceId);
+                var navbar = document.getElementsByClassName("navbar")[0];
+
+                // TODO: Start here.
+                if (focusId) {
+                    const y = focusId.getBoundingClientRect().top - navbar.clientHeight;
+                    window.scrollTo({top: y, behavior: 'smooth'});
+                }
+            }, 500);
+        }
     }
 
     // same logic as in TurnTaking::handleFilterClick

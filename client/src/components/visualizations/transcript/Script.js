@@ -11,21 +11,6 @@ export default class Script extends Component {
     }
 
     componentDidMount() {
-        // scroll to utterance ID on drilldown from TalkRatio or TurnTaking visualization
-        var url = window.location.href;
-
-        if (url.indexOf("#") > -1) {
-            var utteranceId = url.slice(url.indexOf("#") + 1, url.length);
-            window.setTimeout(function() {
-                var focusId = document.getElementById(utteranceId);
-
-                if (focusId) {
-                    const y = focusId.getBoundingClientRect().top;
-                    window.scrollTo({top: y, behavior: 'smooth'});
-                }
-            }, 500);
-        }
-
         window.addEventListener('scroll', this.handleScroll.bind(this));
         this.handleScroll();
     }
