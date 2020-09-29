@@ -62,6 +62,10 @@ export default class TalkRatio extends Component {
         });
     }
 
+    handleUtteranceClick(utteranceId) {
+        this.props.history.push(`/dashboard/transcript#${utteranceId}`);
+    }
+
     render() {
       return (
         <div className="talk-ratio-visualization-container">
@@ -99,6 +103,8 @@ export default class TalkRatio extends Component {
                 <Script
                   data={Parser.transcript()}
                   drilldownFilter={this.state.drilldownFilter}
+                  canInspect={true}
+                  handleUtteranceClick={this.handleUtteranceClick.bind(this)}
                   handleScroll={() => {}} />
               : "" }
             </div>

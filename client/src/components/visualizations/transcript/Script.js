@@ -60,6 +60,10 @@ export default class Script extends Component {
         this.props.handleScroll(topElId, bottomElId);
     }
 
+    handleUtteranceClick(utteranceId) {
+        this.props.handleUtteranceClick(utteranceId);
+    }
+
     render() {
       var drilldownFilter = this.props.drilldownFilter,
           activeTranscript = this.transcript;
@@ -94,7 +98,9 @@ export default class Script extends Component {
                             key={key}
                             timeStamp={timeStamp}
                             utterance={utterance}
-                            activeLabels={this.props.activeLabels} />
+                            activeLabels={this.props.activeLabels}
+                            canInspect={this.props.canInspect}
+                            handleUtteranceClick={this.handleUtteranceClick.bind(this)} />
                         );
                     })}
                   </tbody>

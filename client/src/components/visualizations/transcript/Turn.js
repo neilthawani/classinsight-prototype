@@ -24,7 +24,9 @@ export default class HoverScript extends Component {
                 {turn.speakerUtterances.map((utterance, jindex, jarray) => {
                     return (
                       <tr key={jindex} className="script-turn-utterance">
-                        <td className="script-turn-utterance-text">{utterance}</td>
+                        <td className={this.props.canInspect ? "script-turn-utterance-text inspectable" : "script-turn-utterance-text"}>
+                          {utterance}
+                        </td>
                       </tr>
                     );
                 })}

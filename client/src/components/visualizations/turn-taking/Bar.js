@@ -72,7 +72,8 @@ export default class Bar extends Component {
             {isActive ?
               <Turn
                 data={item}
-                handleTextClick={this.handleTextClick.bind(this)} />
+                handleTextClick={this.handleTextClick.bind(this)}
+                canInspect={true} />
             : ""}
           </div>
       );
