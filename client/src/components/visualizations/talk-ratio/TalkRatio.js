@@ -64,6 +64,7 @@ export default class TalkRatio extends Component {
 
     handleUtteranceClick(utteranceId) {
         this.props.history.push(`/dashboard/transcript#${utteranceId}`);
+        localStorage.setItem("buttonSelectorSelectedOption", "transcript");
     }
 
     render() {
