@@ -25,7 +25,7 @@ export default class TalkRatioSection extends Component {
 
       return (
         <div
-          className="talk-ratio-visualization-section"
+          className={item.percentage > 0 ? "talk-ratio-visualization-section" : ""}
           style={this.formatStyle(item)}
           onClick={this.props.handleTalkRatioSectionClick.bind(this, item)}>
         </div>
