@@ -13,6 +13,10 @@ export default class ButtonSelector extends Component {
         this.props.handleClick(value);
     }
 
+    componentDidMount() {
+        console.log("ButtonSelector componentDidMount");
+    }
+
     render() {
         return (
           <div className="button-selector">

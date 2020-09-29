@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 const PrivateRoute = function({ component: Component, auth, ...rest }) {
+    console.log("Component", Component);
     return (
       <Route
         {...rest}

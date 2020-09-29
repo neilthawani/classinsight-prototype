@@ -76,12 +76,12 @@ class App extends Component {
               renders the first one whose path matches the current URL.
               Use a <Switch> any time you have multiple routes,
               but you want only one of them to render at a time. */}
-            <Switch>
-              <PrivateRoute exact path="/dashboard" component={Dashboard} />
-              <PrivateRoute exact path="/dashboard/talk-ratio" component={TalkRatio} />
-              <PrivateRoute exact path="/dashboard/turn-taking" component={TurnTaking} />
-              <PrivateRoute exact path="/dashboard/transcript" component={Transcript} />
-            </Switch>
+            {/*<Switch>*/}
+              <PrivateRoute path="/dashboard" component={Dashboard} />
+              {/*<PrivateRoute exact path="/dashboard/talk-ratio" component={TalkRatio} state={{button: "button1"}} />
+              <PrivateRoute exact path="/dashboard/turn-taking" component={TurnTaking} state={{button: "button2"}} />
+              <PrivateRoute exact path="/dashboard/transcript" component={Transcript} state={{button: "button3"}} />*/}
+            {/*</Switch>*/}
           </div>
         </Router>
       </Provider>
