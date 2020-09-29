@@ -39,6 +39,7 @@ export default class TurnTaking extends Component {
     constructor(props) {
         super(props);
 
+        // console.log("props", props);
         this.state = {
             bars: localStorage.getItem("bars") || "expanded",
             activeFilters: [],

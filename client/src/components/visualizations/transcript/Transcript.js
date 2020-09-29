@@ -43,6 +43,8 @@ export default class Transcript extends Component {
             chartOffsetWidth: chartOffsetWidth,
             chartHeight: chartHeight
         });
+
+        console.log("Transcript componentDidMount props.location", this.props.location);
     }
 
     // same logic as in TurnTaking::handleFilterClick

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 export default class ButtonSelector extends Component {
     constructor(props) {
@@ -34,11 +35,20 @@ export default class ButtonSelector extends Component {
             <Link
               className={this.props.selectedOption === "transcript" ? "button-selector-item active" : "button-selector-item"}
               data-attr-name="transcript"
-              to="/dashboard/transcript"
+              to={{
+                  pathname: "/dashboard/transcript",
+                  state: {
+                      selectedOption: this.props.selectedOption
+                  }
+              }}
               onClick={this.handleClick.bind(this, "transcript")}>
               Transcript
             </Link>
           </div>
         );
     }
+}
+
+ButtonSelector.propTypes = {
+    selectedOption: PropTypes.string.isRequired
 }
