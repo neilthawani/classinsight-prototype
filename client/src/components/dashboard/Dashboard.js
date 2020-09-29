@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import PrivateRoute from "../private-route/PrivateRoute";
+
+import ButtonSelector from '../ButtonSelector';
 import TalkRatio from '../visualizations/talk-ratio/TalkRatio';
 import Transcript from '../visualizations/transcript/Transcript';
 import TurnTaking from '../visualizations/turn-taking/TurnTaking';
@@ -13,20 +15,19 @@ class Dashboard extends Component {
         super(props);
 
         this.state = {
-            selectedOption: localStorage.getItem("buttonSelectorSelectedOption")
+            buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption")
         };
     }
-
     componentWillMount() {
         this.unlisten = this.props.history.listen((location, action) => {
-            console.log("Dashboard", "this.state", this.state, "this.props", this.props);
-            console.log("Dashboard", location, action);
+            // console.log("Dashboard", "this.state", this.state, "this.props", this.props);
+            // console.log("Dashboard", location, action);
 
             // debugger;
-
-            localStorage.setItem("buttonSelectorSelectedOption", "transcript");
-            this.setState({buttonSelectorSelectedOption: "transcript"});
-            console.log("on route change");
+            var buttonSelectorSelectedOption = location.pathname.slice(location.pathname.lastIndexOf("/") + 1);
+            localStorage.setItem("buttonSelectorSelectedOption", buttonSelectorSelectedOption);
+            this.setState({buttonSelectorSelectedOption: buttonSelectorSelectedOption});
+            // console.log("on route change");
         });
     }
 
@@ -35,9 +36,16 @@ class Dashboard extends Component {
     }
 
     componentDidMount() {
-        console.log("Dashboard componentDidMount");
+        // console.log("Dashboard componentDidMount");
         // If logged in and user navigates to Register page, should redirect them to dashboard
         this.props.history.push(`/dashboard/${this.state.selectedOption}`);
+    }
+
+    handleClick(value) {
+        localStorage.setItem("buttonSelectorSelectedOption", value);
+        this.setState({
+            buttonSelectorSelectedOption: value
+        });
     }
 
     render() {
@@ -48,11 +56,18 @@ class Dashboard extends Component {
 
         // <PrivateRoute exact path="/dashboard" component={Dashboard} />
         return (
-          <Switch>
-            <PrivateRoute exact path="/dashboard/talk-ratio" component={TalkRatio} state={{button: "button1"}} />
-            <PrivateRoute exact path="/dashboard/turn-taking" component={TurnTaking} state={{button: "button2"}} />
-            <PrivateRoute exact path="/dashboard/transcript" component={Transcript} state={{button: "button3"}} />
-          </Switch>
+          <div class="dashboard-container">
+            {/* coarse, medium, and fine-grained visualizations */}
+            <ButtonSelector
+              selectedOption={this.state.buttonSelectorSelectedOption}
+              handleClick={this.handleClick.bind(this)} />
+
+            <Switch>
+              <PrivateRoute exact path="/dashboard/talk-ratio" component={TalkRatio} state={{button: "button1"}} />
+              <PrivateRoute exact path="/dashboard/turn-taking" component={TurnTaking} state={{button: "button2"}} />
+              <PrivateRoute exact path="/dashboard/transcript" component={Transcript} state={{button: "button3"}} />
+            </Switch>
+          </div>
         );
     }
 }

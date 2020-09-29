@@ -40,21 +40,6 @@ if (localStorage.jwtToken) {
 }
 
 class App extends Component {
-  constructor(props) {
-      super(props);
-
-      this.state = {
-          selectedOption: localStorage.getItem("buttonSelectorSelectedOption")
-      };
-  }
-
-  handleClick(value) {
-      localStorage.setItem("buttonSelectorSelectedOption", value);
-      this.setState({
-          selectedOption: value
-      });
-  }
-
   render() {
     return (
       <Provider store={store}>
@@ -62,11 +47,6 @@ class App extends Component {
         <Router>
           <div className="app-container">
             <Navbar />
-
-            {/* coarse, medium, and fine-grained visualizations */}
-            <ButtonSelector
-              selectedOption={this.state.selectedOption}
-              handleClick={this.handleClick.bind(this)} />
 
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
