@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
-// import { NavLink } from 'react-router-dom'
 
 export default class HoverScript extends Component {
     handleTextClick(turnId) {
@@ -9,7 +8,6 @@ export default class HoverScript extends Component {
 
     render() {
         var turn = this.props.data;
-        // console.log("turn", turn);
 
         return (
           <div className="script-turn-container" id={turn.id} onClick={this.handleTextClick.bind(this, turn.id)}>

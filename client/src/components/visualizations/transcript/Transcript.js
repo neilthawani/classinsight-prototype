@@ -43,8 +43,6 @@ export default class Transcript extends Component {
             chartOffsetWidth: chartOffsetWidth,
             chartHeight: chartHeight
         });
-
-        document.getElementsByClassName("transcript-visualization-container")[0].scrollIntoView();
     }
 
     // same logic as in TurnTaking::handleFilterClick

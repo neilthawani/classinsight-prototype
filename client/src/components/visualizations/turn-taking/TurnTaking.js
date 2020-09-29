@@ -46,10 +46,6 @@ export default class TurnTaking extends Component {
         };
     }
 
-    // componentWillUnmount() {
-    //
-    // }
-
     toggleExpandedBars = function(value, context) {
         this.setState({ "bars": value });
         localStorage.setItem("bars", value);
@@ -92,8 +88,6 @@ export default class TurnTaking extends Component {
     }
 
     handleTextClick(turnId) {
-        // console.log("this.state", this.state);
-        // console.log("this.props", this.props);
         this.props.history.push(`/dashboard/transcript#${turnId}`);
     }
 
