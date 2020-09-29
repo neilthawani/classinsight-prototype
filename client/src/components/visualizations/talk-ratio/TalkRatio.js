@@ -50,7 +50,7 @@ export default class TalkRatio extends Component {
     teacherTalkRatio = Parser.talkRatios().filter((item) => item.type === "Teacher").reverse();
     studentTalkRatio = Parser.talkRatios().filter((item) => item.type === "Student");
 
-    handleClick(label) {
+    handleTalkRatioSectionClick(label) {
         var drilldownFilter = label.value === this.state.drilldownFilter ? "" : label.value;
 
         if (drilldownFilter === this.state.drilldownFilter) {
@@ -85,7 +85,7 @@ export default class TalkRatio extends Component {
                     <TalkRatioSection
                       key={index}
                       data={item}
-                      handleClick={this.handleClick.bind(this)} />
+                      handleTalkRatioSectionClick={this.handleTalkRatioSectionClick.bind(this)} />
                   );
               })}
               <div className="talk-ratio-visualization-divider"></div>
@@ -94,7 +94,7 @@ export default class TalkRatio extends Component {
                     <TalkRatioSection
                       key={index}
                       data={item}
-                      handleClick={this.handleClick.bind(this)} />
+                      handleTalkRatioSectionClick={this.handleTalkRatioSectionClick.bind(this)} />
                   );
               })}
             </div>

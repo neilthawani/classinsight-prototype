@@ -118,8 +118,9 @@ export default class Transcript extends Component {
             <Script
               data={Parser.transcript()}
               activeLabels={this.state.activeLabels}
+              focusBox={this.state.focusBox}
               handleScroll={this.handleScroll.bind(this)}
-              focusBox={this.state.focusBox} />
+              handleUtteranceClick={() => {}} />
           </div>
         </div>
       );

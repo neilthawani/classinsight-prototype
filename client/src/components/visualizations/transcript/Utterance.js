@@ -23,7 +23,7 @@ export default class Utterance extends Component {
             }
         }
 
-        console.log("utterance", utterance);
+        // console.log("utterance", utterance);
         return (
           <tr className="script-turn-utterance" data-attr-utterance-id={utterance.id} id={utterance.id} onClick={this.handleUtteranceClick.bind(this, utterance.id)}>
             <td className="script-turn-utterance-timestamp">
