@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
-import { NavLink } from 'react-router-dom'
+// import { NavLink } from 'react-router-dom'
 
 export default class HoverScript extends Component {
+    handleTextClick(turnId) {
+        this.props.handleTextClick(turnId);
+    }
+
     render() {
         var turn = this.props.data;
         // console.log("turn", turn);
 
         return (
-          <div className="script-turn-container" id={turn.id}>
-            <NavLink to="/dashboard/transcript#34"> Dashboard </NavLink>
+          <div className="script-turn-container" id={turn.id} onClick={this.handleTextClick.bind(this, turn.id)}>
             <table className="script-turn">
               <tbody className="script-turn-rows">
                 <tr className="script-turn-speaker">

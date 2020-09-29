@@ -30,8 +30,12 @@ export default class Bar extends Component {
         }
     }
 
-    handleMouseClick(turnObj) {
+    handleBarClick(turnObj) {
         this.props.handleBarClick(turnObj);
+    }
+
+    handleTextClick(turnId) {
+        this.props.handleTextClick(turnId);
     }
 
     render() {
@@ -52,7 +56,7 @@ export default class Bar extends Component {
           <div className="turn-taking-visualization-row"
           onMouseOver={this.handleMouseOver.bind(this, item)}
           onMouseOut={this.handleMouseOut.bind(this, item)}
-          onClick={this.handleMouseClick.bind(this, item)}>
+          onClick={this.handleBarClick.bind(this, item)}>
             <div className={item.timestamp.length > 1 ? "turn-taking-bar-timestamp-range" : "turn-taking-bar-timestamp-time"}>
               {timeStamp}
             </div>
@@ -66,7 +70,9 @@ export default class Bar extends Component {
             </div>
 
             {isActive ?
-              <Turn data={item} />
+              <Turn
+                data={item}
+                handleTextClick={this.handleTextClick.bind(this)} />
             : ""}
           </div>
       );

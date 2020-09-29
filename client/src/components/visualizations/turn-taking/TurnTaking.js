@@ -87,6 +87,12 @@ export default class TurnTaking extends Component {
         });
     }
 
+    handleTextClick(turnId) {
+        console.log("this.state", this.state);
+        console.log("this.props", this.props);
+        this.props.history.push(`/dashboard/transcript#${turnId}`);
+    }
+
     render() {
         var chartData = Parser.parsedData({activeFilters: this.state.activeFilters})[this.state.bars];
 
@@ -119,6 +125,7 @@ export default class TurnTaking extends Component {
                         key={index}
                         data={item}
                         handleBarClick={this.handleBarClick.bind(this)}
+                        handleTextClick={this.handleTextClick.bind(this)}
                         activeTurn={this.state.activeTurn} />
                     )
                 })}
