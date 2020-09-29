@@ -15,28 +15,32 @@ import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
 import ButtonSelector from './components/ButtonSelector';
-import TalkRatio from './components/visualizations/talk-ratio/TalkRatio';
-import Transcript from './components/visualizations/transcript/Transcript';
-import TurnTaking from './components/visualizations/turn-taking/TurnTaking';
+// import TalkRatio from './components/visualizations/talk-ratio/TalkRatio';
+// import Transcript from './components/visualizations/transcript/Transcript';
+// import TurnTaking from './components/visualizations/turn-taking/TurnTaking';
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
-  // Set auth token header auth
-  const token = localStorage.jwtToken;
-  setAuthToken(token);
-  // Decode token and get user info and exp
-  const decoded = jwt_decode(token);
-  // Set user and isAuthenticated
-  store.dispatch(setCurrentUser(decoded));
-  // Check for expired token
-  const currentTime = Date.now() / 1000; // to get in milliseconds
-  if (decoded.exp < currentTime) {
-    // Logout user
-    store.dispatch(logoutUser());
+    // Set auth token header auth
+    const token = localStorage.jwtToken;
+    setAuthToken(token);
 
-    // Redirect to login
-    window.location.href = "./login";
-  }
+    // Decode token and get user info and exp
+    const decoded = jwt_decode(token);
+
+    // Set user and isAuthenticated
+    store.dispatch(setCurrentUser(decoded));
+
+    // Check for expired token
+    const currentTime = Date.now() / 1000; // to get in milliseconds
+
+    if (decoded.exp < currentTime) {
+        // Logout user
+        store.dispatch(logoutUser());
+
+        // Redirect to login
+        window.location.href = "./login";
+    }
 }
 
 class App extends Component {
@@ -49,6 +53,7 @@ class App extends Component {
   }
 
   handleClick(value) {
+      console.log("App handleClick", value);
       localStorage.setItem("buttonSelectorSelectedOption", value);
       this.setState({
           selectedOption: value
@@ -72,16 +77,7 @@ class App extends Component {
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
 
-            {/* A <Switch> looks through all its children <Route> elements and
-              renders the first one whose path matches the current URL.
-              Use a <Switch> any time you have multiple routes,
-              but you want only one of them to render at a time. */}
-            <Switch>
-              <PrivateRoute exact path="/dashboard" component={Dashboard} />
-              <PrivateRoute exact path="/dashboard/talk-ratio" component={TalkRatio} />
-              <PrivateRoute exact path="/dashboard/turn-taking" component={TurnTaking} />
-              <PrivateRoute exact path="/dashboard/transcript" component={Transcript} />
-            </Switch>
+            <PrivateRoute path="/dashboard" component={Dashboard} />
           </div>
         </Router>
       </Provider>

@@ -2,7 +2,13 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 export default class ButtonSelector extends Component {
+    constructor(props) {
+        super(props);
+        // console.log("button selector");
+    }
+
     handleClick(value) {
+        console.log("ButtonSelector handleClick");
         this.props.handleClick(value);
     }
 
