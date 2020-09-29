@@ -11,6 +11,19 @@ export default class Script extends Component {
     }
 
     componentDidMount() {
+        var url = window.location.href;
+
+        if (url.indexOf("#") > -1) {
+            var utteranceId = url.slice(url.indexOf("#") + 1, url.length);
+            window.setTimeout(function() {
+                var focusId = document.getElementById(utteranceId);
+
+                const y = focusId.getBoundingClientRect().top;
+
+                window.scrollTo({top: y, behavior: 'smooth'});
+            }, 500);
+        }
+
         window.addEventListener('scroll', this.handleScroll.bind(this));
         this.handleScroll();
     }
@@ -60,6 +73,10 @@ export default class Script extends Component {
         this.props.handleScroll(topElId, bottomElId);
     }
 
+    handleUtteranceClick(utteranceId) {
+        this.props.handleUtteranceClick(utteranceId);
+    }
+
     render() {
       var drilldownFilter = this.props.drilldownFilter,
           activeTranscript = this.transcript;
@@ -94,7 +111,9 @@ export default class Script extends Component {
                             key={key}
                             timeStamp={timeStamp}
                             utterance={utterance}
-                            activeLabels={this.props.activeLabels} />
+                            activeLabels={this.props.activeLabels}
+                            canInspect={this.props.canInspect}
+                            handleUtteranceClick={this.handleUtteranceClick.bind(this)} />
                         );
                     })}
                   </tbody>

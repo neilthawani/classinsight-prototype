@@ -50,7 +50,7 @@ export default class TalkRatio extends Component {
     teacherTalkRatio = Parser.talkRatios().filter((item) => item.type === "Teacher").reverse();
     studentTalkRatio = Parser.talkRatios().filter((item) => item.type === "Student");
 
-    handleClick(label) {
+    handleTalkRatioSectionClick(label) {
         var drilldownFilter = label.value === this.state.drilldownFilter ? "" : label.value;
 
         if (drilldownFilter === this.state.drilldownFilter) {
@@ -60,6 +60,11 @@ export default class TalkRatio extends Component {
         this.setState({
             drilldownFilter: drilldownFilter
         });
+    }
+
+    handleUtteranceClick(utteranceId) {
+        this.props.history.push(`/dashboard/transcript#${utteranceId}`);
+        localStorage.setItem("buttonSelectorSelectedOption", "transcript");
     }
 
     render() {
@@ -81,7 +86,7 @@ export default class TalkRatio extends Component {
                     <TalkRatioSection
                       key={index}
                       data={item}
-                      handleClick={this.handleClick.bind(this)} />
+                      handleTalkRatioSectionClick={this.handleTalkRatioSectionClick.bind(this)} />
                   );
               })}
               <div className="talk-ratio-visualization-divider"></div>
@@ -90,7 +95,7 @@ export default class TalkRatio extends Component {
                     <TalkRatioSection
                       key={index}
                       data={item}
-                      handleClick={this.handleClick.bind(this)} />
+                      handleTalkRatioSectionClick={this.handleTalkRatioSectionClick.bind(this)} />
                   );
               })}
             </div>
@@ -99,6 +104,8 @@ export default class TalkRatio extends Component {
                 <Script
                   data={Parser.transcript()}
                   drilldownFilter={this.state.drilldownFilter}
+                  canInspect={true}
+                  handleUtteranceClick={this.handleUtteranceClick.bind(this)}
                   handleScroll={() => {}} />
               : "" }
             </div>

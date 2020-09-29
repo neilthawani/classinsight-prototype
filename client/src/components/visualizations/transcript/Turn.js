@@ -2,11 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from "prop-types";
 
 export default class HoverScript extends Component {
+    handleTextClick(turnId) {
+        this.props.handleTextClick(turnId);
+    }
+
     render() {
         var turn = this.props.data;
 
         return (
-          <div className="script-turn-container">
+          <div className="script-turn-container" id={turn.id} onClick={this.handleTextClick.bind(this, turn.id)}>
             <table className="script-turn">
               <tbody className="script-turn-rows">
                 <tr className="script-turn-speaker">
@@ -18,7 +22,9 @@ export default class HoverScript extends Component {
                 {turn.speakerUtterances.map((utterance, jindex, jarray) => {
                     return (
                       <tr key={jindex} className="script-turn-utterance">
-                        <td className="script-turn-utterance-text">{utterance}</td>
+                        <td className={this.props.canInspect ? "script-turn-utterance-text inspectable" : "script-turn-utterance-text"}>
+                          {utterance}
+                        </td>
                       </tr>
                     );
                 })}

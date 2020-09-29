@@ -16,8 +16,8 @@ export default class TalkRatioSection extends Component {
         }
     }
 
-    handleClick(value) {
-        this.props.handleClick(value);
+    handleTalkRatioSectionClick(value) {
+        this.props.handleTalkRatioSectionClick(value);
     }
 
     render() {
@@ -25,9 +25,9 @@ export default class TalkRatioSection extends Component {
 
       return (
         <div
-          className="talk-ratio-visualization-section"
+          className={item.percentage > 0 ? "talk-ratio-visualization-section" : ""}
           style={this.formatStyle(item)}
-          onClick={this.props.handleClick.bind(this, item)}>
+          onClick={this.props.handleTalkRatioSectionClick.bind(this, item)}>
         </div>
       );
     }
@@ -35,5 +35,5 @@ export default class TalkRatioSection extends Component {
 
 TalkRatioSection.propTypes = {
     data: PropTypes.object.isRequired,
-    handleClick: PropTypes.func.isRequired,
+    handleTalkRatioSectionClick: PropTypes.func.isRequired,
 };
