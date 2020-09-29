@@ -35,12 +35,7 @@ export default class ButtonSelector extends Component {
             <Link
               className={this.props.selectedOption === "transcript" ? "button-selector-item active" : "button-selector-item"}
               data-attr-name="transcript"
-              to={{
-                  pathname: "/dashboard/transcript",
-                  state: {
-                      selectedOption: this.props.selectedOption
-                  }
-              }}
+              to="/dashboard/transcript"
               onClick={this.handleClick.bind(this, "transcript")}>
               Transcript
             </Link>
