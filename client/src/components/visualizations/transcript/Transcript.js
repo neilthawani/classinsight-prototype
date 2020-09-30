@@ -45,24 +45,24 @@ export default class Transcript extends Component {
         });
 
         // scroll to utterance ID on drilldown from TalkRatio or TurnTaking visualization
-        var url = window.location.href;
-
-        if (url.indexOf("#") > -1) {
-            var utteranceId = url.slice(url.indexOf("#") + 1, url.length);
-            window.setTimeout(function() {
-                var focusId = document.getElementById(utteranceId);
-                var tempTop = focusId.getBoundingClientRect().top;
-                // var navbar = document.getElementsByClassName("navbar")[0];
-
-                // TODO: Start here.
-                if (focusId && navbar) {
-                    // const y = focusId.getBoundingClientRect().top - navbar.clientHeight;
-                    // window.scrollTo({top: y, behavior: 'smooth'});
-                    focusId.scrollIntoView();
-                    document.getElementsByClassName("transcript-visualization-container")[0].scrollTop -= navbar.clientHeight;
-                }
-            }, 1000);
-        }
+        // var url = window.location.href;
+        //
+        // if (url.indexOf("#") > -1) {
+        //     var utteranceId = url.slice(url.indexOf("#") + 1, url.length);
+        //     window.setTimeout(function() {
+        //         var focusId = document.getElementById(utteranceId);
+        //         var tempTop = focusId.getBoundingClientRect().top;
+        //         // var navbar = document.getElementsByClassName("navbar")[0];
+        //
+        //         // TODO: Start here.
+        //         if (focusId && navbar) {
+        //             // const y = focusId.getBoundingClientRect().top - navbar.clientHeight;
+        //             // window.scrollTo({top: y, behavior: 'smooth'});
+        //             focusId.scrollIntoView();
+        //             document.getElementsByClassName("transcript-visualization-container")[0].scrollTop -= navbar.clientHeight;
+        //         }
+        //     }, 1000);
+        // }
     }
 
     // same logic as in TurnTaking::handleFilterClick

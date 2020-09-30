@@ -15,21 +15,27 @@ class Dashboard extends Component {
         super(props);
 
         this.state = {
-            buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption")
+            buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption"),
+            transcriptLocationHash: localStorage.getItem("transcriptLocationHash") || ""
         };
     }
     componentWillMount() {
         // update ButtonSelector selected option on drilldown
         this.unlisten = this.props.history.listen((location, action) => {
+            // console.log("localStorage", localStorage);
+            // console.log("location", location);
             var buttonSelectorSelectedOption = location.pathname.slice(location.pathname.lastIndexOf("/") + 1);
             var transcriptLocationHash = location.hash || "";
             // debugger;
             // console.log("location", location);
             console.log("buttonSelectorSelectedOption", buttonSelectorSelectedOption);
             console.log("transcriptLocationHash", transcriptLocationHash);
+            // console.log("localStorage.buttonSelectorSelectedOption", localStorage.getItem("buttonSelectorSelectedOption"));
+            // console.log("localStorage.transcriptLocationHash", localStorage.getItem("transcriptLocationHash"));
 
             localStorage.setItem("buttonSelectorSelectedOption", buttonSelectorSelectedOption);
-            localStorage.setItem("transcriptLocationHash", transcriptLocationHash)
+            localStorage.setItem("transcriptLocationHash", transcriptLocationHash);
+
             this.setState({
                 buttonSelectorSelectedOption: buttonSelectorSelectedOption,
                 transcriptLocationHash: transcriptLocationHash
@@ -43,7 +49,10 @@ class Dashboard extends Component {
 
     componentDidMount() {
         // If logged in and user navigates to Register page, should redirect them to dashboard
-        this.props.history.push(`/dashboard/${this.state.buttonSelectorSelectedOption}${this.state.transcriptLocationHash}`);
+        var buttonSelectorSelectedOption = this.state.buttonSelectorSelectedOption,
+            transcriptLocationHash = this.state.transcriptLocationHash || "";
+
+        this.props.history.push(`/dashboard/${buttonSelectorSelectedOption}${transcriptLocationHash}`);
     }
 
     handleClick(value) {
