@@ -47,6 +47,7 @@ export default class TurnTaking extends Component {
     }
 
     toggleExpandedBars = function(value, context) {
+        console.log("TurnTaking::toggleExpandedBars");
         this.setState({ "bars": value });
         localStorage.setItem("bars", value);
     }
@@ -72,6 +73,7 @@ export default class TurnTaking extends Component {
             activeFilters.push(label.value);
         }
 
+        console.log("TurnTaking::handleFilterClick");
         this.setState({
             activeFilters: activeFilters
         });
@@ -82,6 +84,7 @@ export default class TurnTaking extends Component {
             value = {};
         }
 
+        console.log("TurnTaking::handleBarClick");
         this.setState({
             activeTurn: value
         });

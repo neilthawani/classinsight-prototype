@@ -16,6 +16,7 @@ export default class Transcript extends Component {
         // double width - for both left/right side of TurnTakingSmall chart
         this.chartWidth = 2 * Parser.maxNTokens();
 
+        console.log("constructor");
         this.state = {
             activeLabels: [],
             focusBox: {
@@ -39,6 +40,7 @@ export default class Transcript extends Component {
             buttonSelector = buttonSelectorDiv && buttonSelectorDiv[0],
             chartHeight = window.innerHeight - 2.5 * (navbar.clientHeight - buttonSelector.clientHeight); // this is good enough for now; ideally it captures focusBox.height in its sizing of the chart
 
+        console.log("Transcript::componentDidMount");
         this.setState({
             chartOffsetWidth: chartOffsetWidth,
             chartHeight: chartHeight
@@ -55,6 +57,7 @@ export default class Transcript extends Component {
             activeLabels.push(label.value);
         }
 
+        console.log("Transcript::handleClick");
         this.setState({
             activeLabels: activeLabels
         });
@@ -77,6 +80,8 @@ export default class Transcript extends Component {
         // focus the box
         turnTakingBarsSmall.scrollTo(0, topElId * this.barHeight);
 
+        console.log("Transcript::handleScroll");
+        console.log("this", this);
         this.setState({
             focusBox: {
                 topElId: topElId,
