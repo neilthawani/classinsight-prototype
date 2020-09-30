@@ -51,14 +51,17 @@ export default class Transcript extends Component {
             var utteranceId = url.slice(url.indexOf("#") + 1, url.length);
             window.setTimeout(function() {
                 var focusId = document.getElementById(utteranceId);
-                var navbar = document.getElementsByClassName("navbar")[0];
+                var tempTop = focusId.getBoundingClientRect().top;
+                // var navbar = document.getElementsByClassName("navbar")[0];
 
                 // TODO: Start here.
-                if (focusId) {
-                    const y = focusId.getBoundingClientRect().top - navbar.clientHeight;
-                    window.scrollTo({top: y, behavior: 'smooth'});
+                if (focusId && navbar) {
+                    // const y = focusId.getBoundingClientRect().top - navbar.clientHeight;
+                    // window.scrollTo({top: y, behavior: 'smooth'});
+                    focusId.scrollIntoView();
+                    document.getElementsByClassName("transcript-visualization-container")[0].scrollTop -= navbar.clientHeight;
                 }
-            }, 500);
+            }, 1000);
         }
     }
 

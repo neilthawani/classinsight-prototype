@@ -58,11 +58,7 @@ class Login extends Component {
       <div className="form-container">
         <h2 className="text-center">
           Login
-              </h2>
-        <span className="text-with-link">
-          Don't have an account?
-          <Link to="/register" className="link">Register</Link>
-        </span>
+        </h2>
 
         <form noValidate onSubmit={this.onSubmit}>
           <div className="input-field">
@@ -99,6 +95,11 @@ class Login extends Component {
             Login
           </button>
         </form>
+
+        <span className="text-with-link">
+          Don't have an account? &nbsp;
+          <Link to="/register" className="link">Register</Link>
+        </span>
       </div>
     );
   }

@@ -59,12 +59,6 @@ class Register extends Component {
           Register
         </h2>
 
-        <span className="text-with-link">
-          Already have an account?
-          <Link to="/login" className="link">Log in</Link>
-        </span>
-
-
         <form noValidate onSubmit={this.onSubmit}>
           <div className="input-field">
             <label htmlFor="name">Name</label>
@@ -122,14 +116,16 @@ class Register extends Component {
             />
             <span className="input-field-error-text">{errors.password2}</span>
           </div>
-          <button
-            type="submit"
-            className="btn btn-submit"
-          >
+          <button type="submit" className="btn btn-submit">
             Sign up
-              </button>
+          </button>
         </form>
-      </div >
+
+        <span className="text-with-link">
+          Already have an account? &nbsp;
+          <Link to="/login" className="link">Log in</Link>
+        </span>
+      </div>
     );
   }
 }

@@ -22,8 +22,18 @@ class Dashboard extends Component {
         // update ButtonSelector selected option on drilldown
         this.unlisten = this.props.history.listen((location, action) => {
             var buttonSelectorSelectedOption = location.pathname.slice(location.pathname.lastIndexOf("/") + 1);
+            var transcriptLocationHash = location.hash || "";
+            // debugger;
+            // console.log("location", location);
+            console.log("buttonSelectorSelectedOption", buttonSelectorSelectedOption);
+            console.log("transcriptLocationHash", transcriptLocationHash);
+
             localStorage.setItem("buttonSelectorSelectedOption", buttonSelectorSelectedOption);
-            this.setState({buttonSelectorSelectedOption: buttonSelectorSelectedOption});
+            localStorage.setItem("transcriptLocationHash", transcriptLocationHash)
+            this.setState({
+                buttonSelectorSelectedOption: buttonSelectorSelectedOption,
+                transcriptLocationHash: transcriptLocationHash
+            });
         });
     }
 
@@ -33,7 +43,7 @@ class Dashboard extends Component {
 
     componentDidMount() {
         // If logged in and user navigates to Register page, should redirect them to dashboard
-        this.props.history.push(`/dashboard/${this.state.buttonSelectorSelectedOption}`);
+        this.props.history.push(`/dashboard/${this.state.buttonSelectorSelectedOption}${this.state.transcriptLocationHash}`);
     }
 
     handleClick(value) {
