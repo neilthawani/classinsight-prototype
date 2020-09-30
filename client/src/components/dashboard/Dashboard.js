@@ -22,16 +22,8 @@ class Dashboard extends Component {
     componentWillMount() {
         // update ButtonSelector selected option on drilldown
         this.unlisten = this.props.history.listen((location, action) => {
-            // console.log("localStorage", localStorage);
-            // console.log("location", location);
             var buttonSelectorSelectedOption = location.pathname.slice(location.pathname.lastIndexOf("/") + 1);
             var transcriptLocationHash = location.hash || "";
-            // debugger;
-            // console.log("location", location);
-            console.log("buttonSelectorSelectedOption", buttonSelectorSelectedOption);
-            console.log("transcriptLocationHash", transcriptLocationHash);
-            // console.log("localStorage.buttonSelectorSelectedOption", localStorage.getItem("buttonSelectorSelectedOption"));
-            // console.log("localStorage.transcriptLocationHash", localStorage.getItem("transcriptLocationHash"));
 
             localStorage.setItem("buttonSelectorSelectedOption", buttonSelectorSelectedOption);
             localStorage.setItem("transcriptLocationHash", transcriptLocationHash);
