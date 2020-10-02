@@ -20,6 +20,7 @@ class Dashboard extends Component {
         };
     }
     componentWillMount() {
+        // console.log("componentWillMount");
         // update ButtonSelector selected option on drilldown
         this.unlisten = this.props.history.listen((location, action) => {
             var buttonSelectorSelectedOption = location.pathname.slice(location.pathname.lastIndexOf("/") + 1);
@@ -36,16 +37,19 @@ class Dashboard extends Component {
     }
 
     componentWillUnmount() {
+        // console.log("componentWillUnmount");
         this.unlisten();
     }
 
-    componentDidMount() {
-        // If logged in and user navigates to Register page, should redirect them to dashboard
-        var buttonSelectorSelectedOption = this.state.buttonSelectorSelectedOption,
-            transcriptLocationHash = this.state.transcriptLocationHash || "";
-
-        this.props.history.push(`/dashboard/${buttonSelectorSelectedOption}${transcriptLocationHash}`);
-    }
+    // componentDidMount() {
+    //     console.log("componentDidMount");
+    //     // If logged in and user navigates to Register page, should redirect them to dashboard
+    //     var buttonSelectorSelectedOption = this.state.buttonSelectorSelectedOption || localStorage.getItem("buttonSelectorSelectedOption"),
+    //         transcriptLocationHash = this.state.transcriptLocationHash || localStorage.getItem("transcriptLocationHash");
+    //     console.log("buttonSelectorSelectedOption", buttonSelectorSelectedOption, "transcriptLocationHash", transcriptLocationHash);
+    //     console.log("localStorage", localStorage);
+    //     this.props.history.push(`/dashboard/${buttonSelectorSelectedOption}${transcriptLocationHash}`);
+    // }
 
     handleClick(value) {
         localStorage.setItem("buttonSelectorSelectedOption", value);
