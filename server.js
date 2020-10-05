@@ -40,17 +40,17 @@ app.use("/api/users", users);
 const port = process.env.PORT || 5000; // process.env.port is Heroku's port if you choose to deploy the app there
 
 // Google OAuth login/registration
-app.get('/auth/google',
-    passport.authenticate('google', { scope: keys.OAuth.scope });
-);
-
-app.get('/auth/google/callback',
-    passport.authenticate('google', { failureRedirect: '/login' }),
-    function(req, res) {
-        var href = window.location.origin;
-        res.redirect(href);
-    }
-);
+// app.get('/auth/google',
+//     passport.authenticate('google', { scope: keys.oauth.scope });
+// );
+//
+// app.get('/auth/google/callback',
+//     passport.authenticate('google', { failureRedirect: '/login' }),
+//     function(req, res) {
+//         var href = window.location.origin;
+//         res.redirect(href);
+//     }
+// );
 
 app.listen(port, () => {
     console.log(`Server up and running on port ${port}!`);
