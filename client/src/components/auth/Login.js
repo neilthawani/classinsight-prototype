@@ -53,6 +53,14 @@ class Login extends Component {
     this.props.loginUser(userData);
   };
 
+  onSuccess(res) {
+      console.log("onSuccess", res);
+  }
+
+  onFailure(res) {
+      console.log("onFailure", res);
+  }
+
   render() {
     const { errors } = this.state;
 
@@ -109,9 +117,10 @@ class Login extends Component {
             clientId={keys.oauth.clientId}
             buttonText="Sign in with Google"
             theme="dark"
-            onSuccess={() => {}}
-            onFailure={() => {}}
-            cookiePolicy={'single_host_origin'} />
+            onSuccess={this.onSuccess}
+            onFailure={this.onFailure}
+            cookiePolicy={'single_host_origin'}
+            isSignedIn={true} />
         </div>
 
         <span className="text-with-link">

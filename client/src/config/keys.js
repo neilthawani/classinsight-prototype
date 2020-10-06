@@ -1,5 +1,6 @@
 module.exports = {
     oauth: {
-        clientId: 'http://121514957489-c9r3co970umvvo2te9i9sf4h2fg1pshc.apps.googleusercontent.com/'
+        clientSecret: 'PpyqkyVP-MH65fvJdRZb_5zQ',
+        clientId: '302262104197-a1u8tg76brir9v2pq8t17ej7spff4ueg.apps.googleusercontent.com'
     }
 };

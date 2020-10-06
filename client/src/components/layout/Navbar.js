@@ -6,12 +6,18 @@ import { logoutUser } from "../../actions/authActions";
 import ChevronDownIcon from 'mdi-react/ChevronDownIcon';
 import LogoutIcon from 'mdi-react/LogoutIcon';
 import ClassInSightLogo from "../../assets/images/classinsight-logo.png";
+import { GoogleLogout } from 'react-google-login';
+import keys from '../../config/keys';
 
 class Navbar extends Component {
     onLogoutClick = e => {
         e.preventDefault();
         this.props.logoutUser();
     };
+
+    onSuccess(res) {
+        console.log("logout onSuccess", res);
+    }
 
     render() {
         const { user } = this.props.auth;
@@ -40,6 +46,15 @@ class Navbar extends Component {
                     <LogoutIcon className="navbar-dropdown-menu-item-icon" color="#777" size="24" />
                     <span className="navbar-dropdown-menu-item-link" onClick={this.onLogoutClick}>
                        Logout
+                    </span>
+                  </div>
+                  <div className="navbar-dropdown-menu-item">
+                    <LogoutIcon className="navbar-dropdown-menu-item-icon" color="#777" size="24" />
+                    <span className="navbar-dropdown-menu-item-link" onClick={this.onLogoutClick}>
+                       <GoogleLogout
+                          clientId={keys.oauth.clientId}
+                          buttonText="Logout"
+                          onLogoutSuccess={this.onSuccess} />
                     </span>
                   </div>
                 </div>

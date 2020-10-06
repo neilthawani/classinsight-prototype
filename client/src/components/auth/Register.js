@@ -123,7 +123,7 @@ class Register extends Component {
           </button>
         </form>
 
-        <div className="google-form">
+        {/*<div className="google-form">
           <div className="google-form-option">
             <div className="google-form-option-line"></div>
             <span className="google-form-option-or">OR</span>
@@ -137,7 +137,7 @@ class Register extends Component {
             onSuccess={() => {}}
             onFailure={() => {}}
             cookiePolicy={'single_host_origin'} />
-        </div>
+        </div>*/}
 
         <span className="text-with-link">
           Already have an account? &nbsp;
