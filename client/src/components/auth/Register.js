@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions";
 import classnames from "classnames";
+import keys from '../../config/keys';
+import GoogleLogin from 'react-google-login';
 
 class Register extends Component {
   constructor() {
@@ -56,7 +58,7 @@ class Register extends Component {
     return (
       <div className="form-container">
         <h2 className="text-center">
-          Register
+          Sign up
         </h2>
 
         <form noValidate onSubmit={this.onSubmit}>
@@ -117,9 +119,25 @@ class Register extends Component {
             <span className="input-field-error-text">{errors.password2}</span>
           </div>
           <button type="submit" className="btn btn-submit">
-            Sign up
+            Register
           </button>
         </form>
+
+        <div className="google-form">
+          <div className="google-form-option">
+            <div className="google-form-option-line"></div>
+            <span className="google-form-option-or">OR</span>
+            <div className="google-form-option-line"></div>
+          </div>
+
+          <GoogleLogin
+            clientId={keys.oauth.clientId}
+            buttonText="Sign up with Google"
+            theme="dark"
+            onSuccess={() => {}}
+            onFailure={() => {}}
+            cookiePolicy={'single_host_origin'} />
+        </div>
 
         <span className="text-with-link">
           Already have an account? &nbsp;

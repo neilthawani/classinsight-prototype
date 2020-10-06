@@ -15,11 +15,11 @@
 
 // .form-container a.btn,
 .form-container .btn {
-    width: 75%;
+    width: 100%;
     font-size: 18px;
     display: block;
     padding: 5px 10px;
-    margin: 20px auto;
+    margin: 15px auto 10px auto;
     text-align: center;
     cursor: pointer;
     color: white;
@@ -56,4 +56,28 @@
     display: block;
     color: red;
     word-wrap: break-word;
+}
+
+/// OAuth styles
+.google-form {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.google-form-option {
+     display: flex;
+     align-items: center;
+     margin-bottom: 10px;
+     color: $darkGray;
+}
+
+.google-form-option-line {
+    height: 1px;
+    border-top: 1px solid $darkGray;
+    width: 100%;
+    margin: 0 4px;
+}
+
+.google-form-option-or {
+    font-size: 10px;
 }
