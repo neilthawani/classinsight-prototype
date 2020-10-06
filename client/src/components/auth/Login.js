@@ -6,6 +6,7 @@ import { loginUser } from "../../actions/authActions";
 import classnames from "classnames";
 import keys from '../../config/keys';
 import GoogleLogin from 'react-google-login';
+import refreshTokenSetup from '../../utils/refreshToken';
 
 class Login extends Component {
   constructor() {
@@ -55,6 +56,9 @@ class Login extends Component {
 
   onSuccess(res) {
       console.log("onSuccess", res);
+      // dispatch("quick!")
+      debugger;
+      refreshTokenSetup(res);
   }
 
   onFailure(res) {
@@ -117,7 +121,7 @@ class Login extends Component {
             clientId={keys.oauth.clientId}
             buttonText="Sign in with Google"
             theme="dark"
-            onSuccess={this.onSuccess}
+            onSuccess={this.onSuccess.bind(this)}
             onFailure={this.onFailure}
             cookiePolicy={'single_host_origin'}
             isSignedIn={true} />
