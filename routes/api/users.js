@@ -107,3 +107,8 @@ router.post("/login", (req, res) => {
 });
 
 module.exports = router;
+
+// auth with Google
+// router.get("/google", (req, res) => {
+//     // handle with Passport
+// });

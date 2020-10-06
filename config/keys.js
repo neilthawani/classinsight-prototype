@@ -8,14 +8,25 @@
 // nodemon run server
 
 module.exports = {
+    // add mLab URI too
+    mongoDb: {
+        uri: {
+            dev: '',
+            prod: ''
+        }
+    },
     mongoURI: "mongodb://127.0.0.1:27017/?gssapiServiceName=mongodb",
     secretOrKey: "secret",
 
     oauth: {
         clientID: "http://121514957489-c9r3co970umvvo2te9i9sf4h2fg1pshc.apps.googleusercontent.com/",
-        clientOrSecret: "KtRPvF6kickYwTx-sYv6aTy1",
+        clientOrSecret: "KtRPvF6kickYwTx-sYv6aTy1", // rename to clientSecret
         callbackURL: "http://localhost:3001/auth/google/callback",
         scope: ['profile', 'email'], // what to fetch from Google
         passReqToCallback: true
+    },
+
+    session: {
+        cookieKey: 'classinsight_login_cookie',
     }
 };
