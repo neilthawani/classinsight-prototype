@@ -1,11 +1,10 @@
 .form-container {
-  margin: 50px auto;
-  border: 1px solid black;
-  padding: 10px 40px;
-  min-width: 200px;
-  max-width: 400px;
-  width: max-content;
-  border-radius: 10px;
+    margin: 50px auto;
+    border: 1px solid $lightGray;
+    padding: 10px 40px;
+    min-width: 200px;
+    max-width: 400px;
+    width: max-content;
 }
 
 .form-container a.link {
@@ -16,19 +15,21 @@
 
 // .form-container a.btn,
 .form-container .btn {
-  width: 75%;
-  font-size: 18px;
-  background-color: #ccc;
-  display: block;
-  border: 1px solid black;
-  padding: 5px 10px;
-  margin: 20px auto;
-  text-align: center;
-  border-radius: 10px;
+    width: 75%;
+    font-size: 18px;
+    display: block;
+    padding: 5px 10px;
+    margin: 20px auto;
+    text-align: center;
+    cursor: pointer;
+    color: white;
+    border: 1px solid $lightGray;
+    background-color: $blue;
 
-  &:focus {
-      outline: 0;
-  }
+
+    &:focus {
+        outline: 0;
+    }
 }
 
 .input-field {

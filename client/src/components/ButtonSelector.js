@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 export default class ButtonSelector extends Component {
     handleClick(value) {
@@ -35,4 +36,8 @@ export default class ButtonSelector extends Component {
           </div>
         );
     }
+}
+
+ButtonSelector.propTypes = {
+    selectedOption: PropTypes.string.isRequired
 }
