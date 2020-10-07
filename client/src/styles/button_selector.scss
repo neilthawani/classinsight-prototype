@@ -18,6 +18,8 @@
 .button-selector {
     margin: 20px auto;
     width: max-content;
+    display: flex;
+    flex-direction: column;
 }
 
 .button-selector-item {
