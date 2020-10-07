@@ -50,12 +50,12 @@ class Navbar extends Component {
                   </div>
                   <div className="navbar-dropdown-menu-item">
                     <LogoutIcon className="navbar-dropdown-menu-item-icon" color="#777" size="24" />
-                    <span className="navbar-dropdown-menu-item-link" onClick={this.onLogoutClick}>
+                    {/*<span className="navbar-dropdown-menu-item-link" onClick={this.onLogoutClick}>
                        <GoogleLogout
                           clientId={keys.oauth.clientId}
                           buttonText="Logout"
                           onLogoutSuccess={this.onSuccess} />
-                    </span>
+                    </span>*/}
                   </div>
                 </div>
               </div> : ''

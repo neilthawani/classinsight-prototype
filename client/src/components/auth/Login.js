@@ -55,10 +55,11 @@ class Login extends Component {
   };
 
   onSuccess(res) {
-      console.log("onSuccess", res);
+      // console.log("onSuccess", res);
       // dispatch("quick!")
-      debugger;
+      // debugger;
       refreshTokenSetup(res);
+      this.props.handleGoogleLogin(res);
   }
 
   onFailure(res) {

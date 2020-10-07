@@ -17,43 +17,62 @@ import Dashboard from "./components/dashboard/Dashboard";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
-  // Set auth token header auth
-  const token = localStorage.jwtToken;
-  setAuthToken(token);
-  // Decode token and get user info and exp
-  const decoded = jwt_decode(token);
-  // Set user and isAuthenticated
-  store.dispatch(setCurrentUser(decoded));
-  // Check for expired token
-  const currentTime = Date.now() / 1000; // to get in milliseconds
-  if (decoded.exp < currentTime) {
-    // Logout user
-    store.dispatch(logoutUser());
+    const decoded = handleLogin(localStorage.jwtToken);
 
-    // Redirect to login
-    window.location.href = "./login";
-  }
+    // Check for expired token
+    const currentTime = Date.now() / 1000; // to get in milliseconds
+    if (decoded.exp < currentTime) {
+        // Logout user
+        store.dispatch(logoutUser());
+
+        // Redirect to login
+        window.location.href = "./login";
+    }
+}
+
+function handleLogin(token) {
+    // console.log("handleLogin token", token, [token]);
+    // Set auth token header auth
+    setAuthToken(token);
+
+    // Decode token and get user info and exp
+    const decoded = jwt_decode(token);
+
+    // Set user and isAuthenticated
+    store.dispatch(setCurrentUser(decoded));
+
+    return decoded;
 }
 
 class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        {/* Routers can only have one child element */}
-        <Router>
-          <div className="app-container">
-            <Navbar />
+    handleGoogleLogin(res) {
+        // console.log("token", res.tokenId);
+        const decoded = handleLogin(res.tokenId);
+        console.log("decoded", decoded);
+    }
 
-            <Route exact path="/" component={Landing} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
+    render() {
+      return (
+        <Provider store={store}>
+          {/* Routers can only have one child element */}
+          <Router>
+            <div className="app-container">
+              <Navbar />
 
-            <PrivateRoute path="/dashboard" component={Dashboard} />
-          </div>
-        </Router>
-      </Provider>
-    );
-  }
+              <Route exact path="/" component={Landing} />
+              <Route exact path="/register" component={Register} />
+              {/*<Route exact path="/login" component={Login} />*/}
+              {/* https://github.com/ReactTraining/react-router/issues/4105 */}
+              <Route
+                path='/login'
+                render={routeProps => <Login {...routeProps} handleGoogleLogin={this.handleGoogleLogin.bind(this)}/>} />
+
+              <PrivateRoute path="/dashboard" component={Dashboard} />
+            </div>
+          </Router>
+        </Provider>
+      );
+    }
 }
 
 export default App;
