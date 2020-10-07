@@ -11,48 +11,57 @@ import Transcript from '../visualizations/transcript/Transcript';
 import TurnTaking from '../visualizations/turn-taking/TurnTaking';
 
 class Dashboard extends Component {
-    constructor(props) {
-        super(props);
+    // constructor(props) {
+    //     super(props);
+    //
+    //     this.state = {
+    //         selectedOption: localStorage.getItem("buttonSelectorSelectedOption")
+    //     };
+    // }
 
-        this.state = {
-            buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption"),
-            transcriptLocationHash: localStorage.getItem("transcriptLocationHash") || ""
-        };
-    }
-    componentWillMount() {
-        // update ButtonSelector selected option on drilldown
-        this.unlisten = this.props.history.listen((location, action) => {
-            var buttonSelectorSelectedOption = location.pathname.slice(location.pathname.lastIndexOf("/") + 1);
-            var transcriptLocationHash = location.hash || "";
+    // componentDidMount() {
+    //     // If logged in and user navigates to Register page, should redirect them to dashboard
+    //     this.props.history.push(`/dashboard/${this.state.selectedOption}`);
+    // }
+//         this.state = {
+//             buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption"),
+//             transcriptLocationHash: localStorage.getItem("transcriptLocationHash") || ""
+//         };
+//     }
+//     componentWillMount() {
+//         // update ButtonSelector selected option on drilldown
+//         this.unlisten = this.props.history.listen((location, action) => {
+//             var buttonSelectorSelectedOption = location.pathname.slice(location.pathname.lastIndexOf("/") + 1);
+//             var transcriptLocationHash = location.hash || "";
 
-            localStorage.setItem("buttonSelectorSelectedOption", buttonSelectorSelectedOption);
-            localStorage.setItem("transcriptLocationHash", transcriptLocationHash);
+//             localStorage.setItem("buttonSelectorSelectedOption", buttonSelectorSelectedOption);
+//             localStorage.setItem("transcriptLocationHash", transcriptLocationHash);
 
-            this.setState({
-                buttonSelectorSelectedOption: buttonSelectorSelectedOption,
-                transcriptLocationHash: transcriptLocationHash
-            });
-        });
-    }
+//             this.setState({
+//                 buttonSelectorSelectedOption: buttonSelectorSelectedOption,
+//                 transcriptLocationHash: transcriptLocationHash
+//             });
+//         });
+//     }
 
-    componentWillUnmount() {
-        this.unlisten();
-    }
+//     componentWillUnmount() {
+//         this.unlisten();
+//     }
 
-    componentDidMount() {
-        // If logged in and user navigates to Register page, should redirect them to dashboard
-        var buttonSelectorSelectedOption = this.state.buttonSelectorSelectedOption,
-            transcriptLocationHash = this.state.transcriptLocationHash || "";
+//     componentDidMount() {
+//         // If logged in and user navigates to Register page, should redirect them to dashboard
+//         var buttonSelectorSelectedOption = this.state.buttonSelectorSelectedOption,
+//             transcriptLocationHash = this.state.transcriptLocationHash || "";
 
-        this.props.history.push(`/dashboard/${buttonSelectorSelectedOption}${transcriptLocationHash}`);
-    }
+//         this.props.history.push(`/dashboard/${buttonSelectorSelectedOption}${transcriptLocationHash}`);
+//     }
 
-    handleClick(value) {
-        localStorage.setItem("buttonSelectorSelectedOption", value);
-        this.setState({
-            buttonSelectorSelectedOption: value
-        });
-    }
+//     handleClick(value) {
+//         localStorage.setItem("buttonSelectorSelectedOption", value);
+//         this.setState({
+//             buttonSelectorSelectedOption: value
+//         });
+//     }
 
     render() {
         // A <Switch> looks through all its children <Route> elements and
