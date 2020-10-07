@@ -11,6 +11,7 @@ import removeArrayValue from '../../../utils/removeArrayValue';
 
 export default class Transcript extends Component {
     constructor(props) {
+        console.log("super Transcript");
         super(props);
 
         // double width - for both left/right side of TurnTakingSmall chart

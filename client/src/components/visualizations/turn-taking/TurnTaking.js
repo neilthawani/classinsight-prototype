@@ -37,6 +37,7 @@ Each object in the array has this structure:
 
 export default class TurnTaking extends Component {
     constructor(props) {
+        console.log("super TurnTaking");
         super(props);
 
         this.state = {
