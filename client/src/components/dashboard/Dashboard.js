@@ -73,7 +73,7 @@ class Dashboard extends Component {
         return (
           <div className="dashboard-container">
             {/* coarse, medium, and fine-grained visualizations */}
-            <ButtonSelector
+            {/*<ButtonSelector
               selectedOption={this.state.buttonSelectorSelectedOption}
               handleClick={this.handleClick.bind(this)} />
 
@@ -81,7 +81,7 @@ class Dashboard extends Component {
               <PrivateRoute exact path="/dashboard/talk-ratio" component={TalkRatio} />
               <PrivateRoute exact path="/dashboard/turn-taking" component={TurnTaking} />
               <PrivateRoute exact path="/dashboard/transcript" component={Transcript} />
-            </Switch>
+            </Switch>*/}
           </div>
         );
     }

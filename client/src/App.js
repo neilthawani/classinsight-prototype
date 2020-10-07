@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 
@@ -14,6 +14,10 @@ import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
+import ButtonSelector from './components/ButtonSelector';
+import TalkRatio from './components/visualizations/talk-ratio/TalkRatio';
+import Transcript from './components/visualizations/transcript/Transcript';
+import TurnTaking from './components/visualizations/turn-taking/TurnTaking';
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -36,6 +40,21 @@ if (localStorage.jwtToken) {
 }
 
 class App extends Component {
+  constructor(props) {
+      super(props);
+
+      this.state = {
+          selectedOption: localStorage.getItem("buttonSelectorSelectedOption")
+      };
+  }
+
+  handleClick(value) {
+      localStorage.setItem("buttonSelectorSelectedOption", value);
+      this.setState({
+          selectedOption: value
+      });
+  }
+
   render() {
     return (
       <Provider store={store}>
@@ -44,11 +63,25 @@ class App extends Component {
           <div className="app-container">
             <Navbar />
 
+            {/* coarse, medium, and fine-grained visualizations */}
+            <ButtonSelector
+              selectedOption={this.state.selectedOption}
+              handleClick={this.handleClick.bind(this)} />
+
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
 
-            <PrivateRoute path="/dashboard" component={Dashboard} />
+            {/* A <Switch> looks through all its children <Route> elements and
+              renders the first one whose path matches the current URL.
+              Use a <Switch> any time you have multiple routes,
+              but you want only one of them to render at a time. */}
+            <Switch>
+              <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              <PrivateRoute exact path="/dashboard/talk-ratio" component={TalkRatio} />
+              <PrivateRoute exact path="/dashboard/turn-taking" component={TurnTaking} />
+              <PrivateRoute exact path="/dashboard/transcript" component={Transcript} />
+            </Switch>
           </div>
         </Router>
       </Provider>
