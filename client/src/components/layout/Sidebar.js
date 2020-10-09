@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 // import { connect } from "react-redux";
 // import { logoutUser } from "../../actions/authActions";
 
-// import Icon from '@mdi/react';
-// import { mdiChevronDown, mdiLogout } from '@mdi/js';
+import Icon from '@mdi/react';
+import { mdiDatabase } from '@mdi/js';
 
 // import ClassInSightLogo from "../../assets/images/classinsight-logo.png";
 
@@ -21,7 +21,7 @@ class Sidebar extends Component {
 
         return (
           <div className="sidebar">
-          content
+            <Icon path={mdiDatabase} className="sidebar-header-icon" size={2} />
           </div>
         );
     }

@@ -13,7 +13,8 @@
     width: max-content;
     display: flex;
     flex-direction: row;
-    width: 100%;
+    width: calc(100% - #{$sideNavWidth};
+    flex: 1;
     height: $buttonSelectorHeight;
     background-color: $blue;
     font-size: 16px;
@@ -21,6 +22,7 @@
     margin-left: $sideNavWidth;
     // z-index: 999;
     // margin-bottom: 10px;
+    // background-color: $blue;
 }
 
 .button-selector-item {

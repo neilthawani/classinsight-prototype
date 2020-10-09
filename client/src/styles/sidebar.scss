@@ -1,5 +1,5 @@
 .sidebar {
-    background-color: red;
+    // background-color: red;
     border-right: 1px solid $lightGray;
     position: fixed;
     top: 0;
@@ -9,4 +9,10 @@
     height: 100%;
     // width: 300px;
     margin-top: $navbarHeight;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.sidebar-header-icon {
+    color: $darkGray;
 }
