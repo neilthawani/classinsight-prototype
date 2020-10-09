@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
-import ChevronDownIcon from 'mdi-react/ChevronDownIcon';
-import LogoutIcon from 'mdi-react/LogoutIcon';
+
+import Icon from '@mdi/react';
+import { mdiChevronDown, mdiLogout } from '@mdi/js';
+
 import ClassInSightLogo from "../../assets/images/classinsight-logo.png";
 
 class Navbar extends Component {
@@ -33,11 +35,11 @@ class Navbar extends Component {
                     {user.name}
                   </p>
                 </div>
-                <ChevronDownIcon color="#0363f3" size="24" />
+                <Icon path={mdiChevronDown} className="navbar-dropdown-icon" size={1} />
 
                 <div className="navbar-dropdown-menu">
                   <div className="navbar-dropdown-menu-item">
-                    <LogoutIcon className="navbar-dropdown-menu-item-icon" color="#777" size="24" />
+                    <Icon path={mdiLogout} className="navbar-dropdown-menu-item-icon" size={1} />
                     <span className="navbar-dropdown-menu-item-link" onClick={this.onLogoutClick}>
                        Logout
                     </span>

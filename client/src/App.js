@@ -80,9 +80,9 @@ class App extends Component {
                       but you want only one of them to render at a time. */}
                     <Switch>
                       <PrivateRoute exact path="/dashboard" component={Dashboard} />
-                      {/*<PrivateRoute exact path="/dashboard/talk-ratio" component={TalkRatio} />
+                      <PrivateRoute exact path="/dashboard/talk-ratio" component={TalkRatio} />
                       <PrivateRoute exact path="/dashboard/turn-taking" component={TurnTaking} />
-                      <PrivateRoute exact path="/dashboard/transcript" component={Transcript} />*/}
+                      <PrivateRoute exact path="/dashboard/transcript" component={Transcript} />
                     </Switch>
                   </div>
                 </div>

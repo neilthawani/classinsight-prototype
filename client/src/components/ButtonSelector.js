@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-// import ChartGanttIcon from "mdi-react/ChartGanttIcon"
-// import TextSubjectIcon from "mdi-react/TextSubjectIcon"
-// import ViewSplitHorizontalIcon from "mdi-react/ViewSplitHorizontalIcon";
 import Icon from '@mdi/react';
 import { mdiViewDashboardVariantOutline, mdiBarcode, mdiChartGantt, mdiCommentTextMultipleOutline } from '@mdi/js';
 

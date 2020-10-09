@@ -1,85 +1,49 @@
 .button {
     cursor: pointer;
     color: black;
-    // border: 1px solid $blue;
     background-color: $blue;
 
 
     &:focus {
         outline: 0;
     }
-
-    &:hover {
-        // background-color: white;
-        // box-shadow: 1px 1px $blue;
-    }
 }
 
 .button-selector {
-    // margin: 20px auto;
     width: max-content;
     display: flex;
     flex-direction: row;
-    // height: 100%;
     width: 100%;
-    position: fixed;
-    // z-index: 499;
-    // top: 0;
-    // left: 0;
     background-color: $blue;
     font-size: 16px;
     font-weight: 300;
+    margin-bottom: 10px;
 }
 
 .button-selector-item {
-    padding: 5px 10px;// 15px;
-    // margin-left: 10px;
-    // margin-right: 10px;
-    // border-radius: 5px;
+    padding: 5px 10px;
     @extend .button;
-    // border: 1px solid transparent;
     text-align: center;
     display: flex;
     align-items: center;
 }
 
 .button-selector-item.active {
-  // cursor: not-allowed;
-  // border: 1px solid white;;
-  // background-color: $blue;
-  background-color: white;
+    background-color: white;
 
-  // &:hover {
-  //     box-shadow: none;
-  // }
+    .button-selector-item-icon {
+        color: $blue;
+    }
 
-  .button-selector-item-icon {
-      color: $blue;
-  }
-
-  .button-selector-item-text {
-      color: $blue;
-  }
+    .button-selector-item-text {
+        color: $blue;
+    }
 }
-
-  .button-selector-item-icons {
-      svg:first-child {
-          margin-right: -4px;
-      }
-
-      svg:last-child {
-          margin-left: -4px;
-      }
-
-      margin-right: 5px;
-  }
 
 .button-selector-item-icon {
     color: white;
     font-size: 24px;
     margin-right: 5px;
-    // margin: 10px auto;
-    // display: block;
 }
 
 .button-selector-item-text {

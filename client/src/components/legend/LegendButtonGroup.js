@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import LegendButton from './LegendButton';
-import ChevronDownIcon from 'mdi-react/ChevronDownIcon';
-import ChevronUpIcon from 'mdi-react/ChevronUpIcon';
+
+import Icon from '@mdi/react';
+import { mdiChevronDown, mdiChevronUp } from '@mdi/js';
 
 export default class LegendButtonGroup extends Component {
     constructor(props) {
@@ -29,8 +30,8 @@ export default class LegendButtonGroup extends Component {
           <div className={isCollapsed ? "legend-button-dropdown collapsed" : "legend-button-dropdown"} onClick={this.toggleGroup.bind(this, this.state.isCollapsed)}>
             <span className="legend-button-dropdown-text">{labels[0].type}</span>
             {isCollapsed ?
-              <ChevronUpIcon className="legend-button-dropdown-toggle" size="24" /> :
-              <ChevronDownIcon className="legend-button-dropdown-toggle" size="24" /> }
+              <Icon path={mdiChevronUp} className="legend-button-dropdown-toggle" size={1} /> :
+              <Icon path={mdiChevronDown} className="legend-button-dropdown-toggle" size={1} />}
           </div>
           <div className="legend-buttons">
             {labels.map((label, index) => {
