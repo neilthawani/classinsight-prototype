@@ -1,7 +1,13 @@
 @import "./variables.scss";
 @import "./button_selector.scss";
 @import "./forms.scss";
+@import "./hover_box.scss";
+@import "./legend.scss";
 @import "./navbar.scss";
+@import "./talk_ratio.scss";
+@import "./turn_taking.scss";
+@import "./script.scss";
+@import "./transcript.scss";
 
 body {
     margin: 0;
@@ -29,9 +35,5 @@ p {
 .text-with-link {
     display: block;
     margin: 5px 0;
-}
-
-.content-container {
-    margin: auto;
-    width: max-content;
+    font-size: 10px;
 }

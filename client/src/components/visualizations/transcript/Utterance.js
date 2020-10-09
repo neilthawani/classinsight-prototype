@@ -1,65 +1,50 @@
-import Colors from '../../../fixtures/colors';
-import Labels from '../../../fixtures/labels';
+import PropTypes from "prop-types";
 
-const colors = Colors;
-const labels = Labels;
+import React, { Component } from 'react';
+import defineInitialStyle from '../turn-taking/defineInitialStyle';
 
-export default class Utterance {
-    constructor(x, y, content, primaryType, secondaryType, id) {
-        this.c = content;
-        this.t1 = primaryType;
-        this.t2 = secondaryType;
-        this.x = x;
-        this.y = y;
-        this.selected = false;
-        this.outlined = false;
-        this.color = colors[primaryType];
-        this.strokeColor = "#FFF";
-        this.addedToDOM = false;
-        this.id = id;
-
-        const elt = document.createElement("div");
-        const text = document.createTextNode(content);
-        elt.appendChild(text);
-        elt.id = id;
-        this.elt = elt;
-
-        // might need to check this if the secondary type is not a modified type
-        // checked this and it works for when the second type is the main type and first is the modifier
-        if (labels.Technique.includes(primaryType)) {
-            this.strokeColor = colors[primaryType];
-            secondaryType !== undefined ? (this.color = colors[secondaryType]) : (this.color = "#FFF");
-        } else if (secondaryType !== undefined && labels.Technique.includes(secondaryType)) {
-            this.strokeColor = colors[secondaryType];
-        }
+export default class Utterance extends Component {
+    handleUtteranceClick(utteranceId) {
+        this.props.handleUtteranceClick(utteranceId);
     }
 
-    setP5Instance(instance) {
-        this.p5 = instance;
-    }
+    render() {
+        var timeStamp = this.props.timeStamp;
+        var utterance = this.props.utterance;
+        var activeLabels = this.props.activeLabels;
+        var isLineHighlighted = false;
 
-    draw() {
-        if (!this.addedToDOM) {
-            document.getElementById("transcript").appendChild(this.elt);
-            this.addedToDOM = true;
-        }
-        if (this.selected) {
-            this.elt.style.backgroundColor = this.color;
-        } else {
-            this.elt.style.backgroundColor = "transparent";
-        }
-        if (this.outlined) {
-            this.elt.style.border = `2px solid ${this.strokeColor}`;
-        } else {
-            this.elt.style.border = "2px solid transparent";
+        if (activeLabels) {
+            for (var i = 0; i < utterance.utteranceTypes.length; i++) {
+                if (activeLabels.includes(utterance.utteranceTypes[i])) {
+                    isLineHighlighted = true;
+                    break;
+                }
+            }
         }
 
-        if (this.t1 !== undefined) {
-            if (this.selected && this.p5.lightness(this.color) < 60)
-                this.elt.style.color = "#FFF";
-            else this.elt.style.color = "#000";
-        } else {
-            this.elt.style.color = "#999";
-        }
+        return (
+          <tr className="script-turn-utterance" data-attr-utterance-id={utterance.id} id={utterance.id} onClick={this.handleUtteranceClick.bind(this, utterance.id)}>
+            <td className="script-turn-utterance-timestamp">
+              {timeStamp}
+            </td>
+
+            {utterance.speakerUtterances.map((utteranceItem, index, utteranceArray) => {
+              return (
+                <td
+                  key={index}
+                  className={this.props.canInspect ? "script-turn-utterance-text inspectable" : "script-turn-utterance-text"}
+                  style={isLineHighlighted ? defineInitialStyle(utterance) : {}}>
+                  {utteranceItem}
+                </td>
+              );
+            })}
+          </tr>
+        )
     }
+}
+
+Utterance.propTypes = {
+    utterance: PropTypes.object,
+    activeLabels: PropTypes.array,
 }

@@ -1,35 +1,51 @@
+.button {
+    cursor: pointer;
+    color: black;
+    background-color: $blue;
+
+
+    &:focus {
+        outline: 0;
+    }
+}
+
 .button-selector {
-  margin: 20px auto;
-  width: max-content;
+    width: max-content;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: $blue;
+    font-size: 16px;
+    font-weight: 300;
+    margin-bottom: 10px;
 }
 
 .button-selector-item {
-  cursor: pointer;
-  color: black;
-  border: 1px solid $blue;
-  background-color: white;
-  padding: 10px 15px;
-  margin-left: 10px;
-  margin-right: 10px;
-  border-radius: 5px;
-
-  &:focus {
-      outline: 0;
-  }
-
-  &:hover {
-      background-color: $lightGray;
-      box-shadow: 1px 1px $blue;
-  }
+    padding: 5px 10px;
+    @extend .button;
+    text-align: center;
+    display: flex;
+    align-items: center;
 }
 
 .button-selector-item.active {
-  cursor: not-allowed;
-  border: 1px solid white;
-  color: white;
-  background-color: $blue;
+    background-color: white;
 
-  &:hover {
-      box-shadow: none;
-  }
+    .button-selector-item-icon {
+        color: $blue;
+    }
+
+    .button-selector-item-text {
+        color: $blue;
+    }
+}
+
+.button-selector-item-icon {
+    color: white;
+    font-size: 24px;
+    margin-right: 5px;
+}
+
+.button-selector-item-text {
+    color: white;
 }

@@ -58,11 +58,7 @@ class Login extends Component {
       <div className="form-container">
         <h2 className="text-center">
           Login
-              </h2>
-        <span className="text-with-link">
-          Don't have an account?
-          <Link to="/register" className="link">Register</Link>
-        </span>
+        </h2>
 
         <form noValidate onSubmit={this.onSubmit}>
           <div className="input-field">
@@ -73,10 +69,7 @@ class Login extends Component {
               error={errors.email}
               id="email"
               type="email"
-              className={classnames("", {
-                invalid: errors.email || errors.emailnotfound
-              })}
-            />
+              className={classnames("", { invalid: errors.email || errors.emailnotfound })} />
             <span className="input-field-error-text">
               {errors.email}
               {errors.emailnotfound}
@@ -90,10 +83,7 @@ class Login extends Component {
               error={errors.password}
               id="password"
               type="password"
-              className={classnames("", {
-                invalid: errors.password || errors.passwordincorrect
-              })}
-            />
+              className={classnames("", { invalid: errors.password || errors.passwordincorrect })}/>
             <span className="input-field-error-text">
               {errors.password}
               {errors.passwordincorrect}
@@ -101,11 +91,15 @@ class Login extends Component {
           </div>
           <button
             type="submit"
-            className="btn btn-submit"
-          >
+            className="btn btn-submit">
             Login
           </button>
         </form>
+
+        <span className="text-with-link">
+          Don't have an account? &nbsp;
+          <Link to="/register" className="link">Register</Link>
+        </span>
       </div>
     );
   }

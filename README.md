@@ -4,17 +4,17 @@ You can learn more about ClassInSight [here](https://www.hcii.cmu.edu/research/c
 
 ### Guiding Questions:
 
-- What are the visualizations designed to get teachers to wrestle with?
-- How do visualizations help to scaffold productive argumentation pedagogy?
-- How do we create visualizations that help teachers to over time (across years) shift the way in which they are using talk to support kids thinking together?
 - How do we present information in a way that prompts reasoning? How do we use that information to plan and set goals and do something differently? How do we create an infrastructure that opens up this space for teachers to reflect and do better?
+- How do we create visualizations that help teachers to over time (across years) shift the way in which they are using talk to support kids thinking together?
+- How do visualizations help to scaffold productive argumentation pedagogy?
+- What are the visualizations designed to get teachers to wrestle with?
 
 ## Running the App
 
 In Terminal (Linux/MacOS) or PowerShell x86 (Windows), run:
 
 ```
-npm run install
+npm run app_install
 npm run dev
 ```
 
@@ -31,7 +31,8 @@ This project uses the following technologies:
 
 ## Other Tech
 
-- [Material Design Icons](https://github.com/levrik/mdi-react)
+- [Material Design Icons (GitHub Repository)](https://templarian.github.io/@mdi/react/)
+- [Material Design Icons (Examples)](https://github.com/Templarian/MaterialDesign-React)
 
 ## Deployment
 
