@@ -11,13 +11,14 @@ import { connect } from "react-redux";
 // import TurnTaking from '../visualizations/turn-taking/TurnTaking';
 
 class Dashboard extends Component {
-    // constructor(props) {
-    //     super(props);
-    //
-    //     this.state = {
-    //         selectedOption: localStorage.getItem("buttonSelectorSelectedOption")
-    //     };
-    // }
+    constructor(props) {
+        super(props);
+
+        console.log("here");
+        // this.state = {
+        //     selectedOption: localStorage.getItem("buttonSelectorSelectedOption")
+        // };
+    }
 
     // componentDidMount() {
     //     // If logged in and user navigates to Register page, should redirect them to dashboard
