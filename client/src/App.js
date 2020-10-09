@@ -9,6 +9,8 @@ import { Provider } from "react-redux";
 import store from "./store";
 
 import Navbar from "./components/layout/Navbar";
+import Sidebar from "./components/layout/Sidebar";
+
 import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
@@ -64,28 +66,32 @@ class App extends Component {
                 <Navbar />
 
                 {/* coarse, medium, and fine-grained visualizations */}
-                <div className="app-container-menu">
-                  <ButtonSelector
-                    selectedOption={this.state.selectedOption}
-                    handleClick={this.handleClick.bind(this)} />
+                {/* <div className="app-container-menu"> */}
+                <ButtonSelector
+                  selectedOption={this.state.selectedOption}
+                  handleClick={this.handleClick.bind(this)} />
 
                   <div className="app-container-content">
-                    <Route exact path="/" component={Landing} />
-                    <Route exact path="/register" component={Register} />
-                    <Route exact path="/login" component={Login} />
+                    <Sidebar />
 
-                    {/* A <Switch> looks through all its children <Route> elements and
-                      renders the first one whose path matches the current URL.
-                      Use a <Switch> any time you have multiple routes,
-                      but you want only one of them to render at a time. */}
-                    <Switch>
-                      <PrivateRoute exact path="/dashboard" component={Dashboard} />
-                      <PrivateRoute exact path="/dashboard/talk-ratio" component={TalkRatio} />
-                      <PrivateRoute exact path="/dashboard/turn-taking" component={TurnTaking} />
-                      <PrivateRoute exact path="/dashboard/transcript" component={Transcript} />
-                    </Switch>
+                    <div className="app-container-content-visualization">
+                      <Route exact path="/" component={Landing} />
+                      <Route exact path="/register" component={Register} />
+                      <Route exact path="/login" component={Login} />
+
+                      {/* A <Switch> looks through all its children <Route> elements and
+                        renders the first one whose path matches the current URL.
+                        Use a <Switch> any time you have multiple routes,
+                        but you want only one of them to render at a time. */}
+                      <Switch>
+                        <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                        <PrivateRoute exact path="/dashboard/talk-ratio" component={TalkRatio} />
+                        <PrivateRoute exact path="/dashboard/turn-taking" component={TurnTaking} />
+                        <PrivateRoute exact path="/dashboard/transcript" component={Transcript} />
+                      </Switch>
+                    </div>
                   </div>
-                </div>
+                {/* </div> */}
               </div>
             </Router>
           </Provider>

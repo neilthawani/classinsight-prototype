@@ -1,0 +1,12 @@
+.sidebar {
+    // background-color: red;
+    border-right: 1px solid $lightGray;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: $sideNavWidth;
+    // float: left;
+    height: 100%;
+    // width: 300px;
+    margin-top: $navbarHeight;
+}

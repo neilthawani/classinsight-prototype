@@ -17,7 +17,9 @@
     background-color: $blue;
     font-size: 16px;
     font-weight: 300;
-    margin-bottom: 10px;
+    margin-left: $sideNavWidth;
+    // z-index: 999;
+    // margin-bottom: 10px;
 }
 
 .button-selector-item {
