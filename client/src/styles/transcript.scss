@@ -5,7 +5,10 @@
 
 .transcript-visualization-legend {
     position: fixed;
-    left: 0;
+    left: $sideNavWidth;
 }
 
-.transcript-script-container {}
+.transcript-script-container {
+    left: calc(#{$legendButtonWidth} + #{$legendButtonPadding});
+    position: relative;
+}

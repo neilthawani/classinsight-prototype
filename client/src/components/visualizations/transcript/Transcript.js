@@ -32,7 +32,7 @@ export default class Transcript extends Component {
     componentDidMount() {
         // dynamically orient and size TurnTakingSmall chart
         var legendButtonGroup = document.getElementsByClassName("transcript-visualization-legend")[0],
-            chartOffsetWidth = legendButtonGroup.clientWidth,
+            // chartOffsetWidth = legendButtonGroup.clientWidth,
             navbarDiv = document.getElementsByClassName("navbar"),
             navbar = navbarDiv && navbarDiv[0],
             buttonSelectorDiv = document.getElementsByClassName("button-selector"),
@@ -40,7 +40,7 @@ export default class Transcript extends Component {
             chartHeight = window.innerHeight - 2.5 * (navbar.clientHeight - buttonSelector.clientHeight); // this is good enough for now; ideally it captures focusBox.height in its sizing of the chart
 
         this.setState({
-            chartOffsetWidth: chartOffsetWidth,
+            // chartOffsetWidth: chartOffsetWidth,
             chartHeight: chartHeight
         });
     }
@@ -109,7 +109,7 @@ export default class Transcript extends Component {
           </div>
 
           <TurnTakingSmall
-            chartOffsetWidth={this.state.chartOffsetWidth}
+            
             chartWidth={this.chartWidth}
             chartHeight={this.state.chartHeight}
             barHeight={this.barHeight}

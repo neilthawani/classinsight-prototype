@@ -100,6 +100,10 @@
 .turn-taking-bars-small-visualization {
     overflow-y: scroll;
     position: fixed;
+    // position: absolute;
+    // left: calc($sideNavWidth + $legendButtonWidth);
+    // left: calc($sideNavWidth + $legendButtonWidth);
+    left: calc(#{$sideNavWidth} + #{$legendButtonWidth} + #{$legendButtonPadding});
 }
 
 .turn-taking-bar-small {
