@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import { Switch, withRouter } from "react-router-dom";
+import { /*Switch,*/ withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import PrivateRoute from "../private-route/PrivateRoute";
-
-import ButtonSelector from '../ButtonSelector';
-import TalkRatio from '../visualizations/talk-ratio/TalkRatio';
-import Transcript from '../visualizations/transcript/Transcript';
-import TurnTaking from '../visualizations/turn-taking/TurnTaking';
+// import PrivateRoute from "../private-route/PrivateRoute";
+//
+// import ButtonSelector from '../ButtonSelector';
+// import TalkRatio from '../visualizations/talk-ratio/TalkRatio';
+// import Transcript from '../visualizations/transcript/Transcript';
+// import TurnTaking from '../visualizations/turn-taking/TurnTaking';
 
 class Dashboard extends Component {
     // constructor(props) {

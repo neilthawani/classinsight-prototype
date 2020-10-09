@@ -40,57 +40,57 @@ if (localStorage.jwtToken) {
 }
 
 class App extends Component {
-  constructor(props) {
-      super(props);
+    constructor(props) {
+        super(props);
 
-      this.state = {
-          selectedOption: localStorage.getItem("buttonSelectorSelectedOption")
-      };
-  }
+        this.state = {
+            selectedOption: localStorage.getItem("buttonSelectorSelectedOption")
+        };
+    }
 
-  handleClick(value) {
-      localStorage.setItem("buttonSelectorSelectedOption", value);
-      this.setState({
-          selectedOption: value
-      });
-  }
+    handleClick(value) {
+        localStorage.setItem("buttonSelectorSelectedOption", value);
+        this.setState({
+            selectedOption: value
+        });
+    }
 
-  render() {
-    return (
-      <Provider store={store}>
-        {/* Routers can only have one child element */}
-        <Router>
-          <div className="app-container">
-            <Navbar />
+    render() {
+        return (
+          <Provider store={store}>
+            {/* Routers can only have one child element */}
+            <Router>
+              <div className="app-container">
+                <Navbar />
 
-            {/* coarse, medium, and fine-grained visualizations */}
-            <div class="app-container-menu">
-              <ButtonSelector
-                selectedOption={this.state.selectedOption}
-                handleClick={this.handleClick.bind(this)} />
+                {/* coarse, medium, and fine-grained visualizations */}
+                <div className="app-container-menu">
+                  <ButtonSelector
+                    selectedOption={this.state.selectedOption}
+                    handleClick={this.handleClick.bind(this)} />
 
-              <div class="app-container-content">
-                <Route exact path="/" component={Landing} />
-                <Route exact path="/register" component={Register} />
-                <Route exact path="/login" component={Login} />
+                  <div className="app-container-content">
+                    <Route exact path="/" component={Landing} />
+                    <Route exact path="/register" component={Register} />
+                    <Route exact path="/login" component={Login} />
 
-                {/* A <Switch> looks through all its children <Route> elements and
-                  renders the first one whose path matches the current URL.
-                  Use a <Switch> any time you have multiple routes,
-                  but you want only one of them to render at a time. */}
-                <Switch>
-                  <PrivateRoute exact path="/dashboard" component={Dashboard} />
-                  <PrivateRoute exact path="/dashboard/talk-ratio" component={TalkRatio} />
-                  <PrivateRoute exact path="/dashboard/turn-taking" component={TurnTaking} />
-                  <PrivateRoute exact path="/dashboard/transcript" component={Transcript} />
-                </Switch>
+                    {/* A <Switch> looks through all its children <Route> elements and
+                      renders the first one whose path matches the current URL.
+                      Use a <Switch> any time you have multiple routes,
+                      but you want only one of them to render at a time. */}
+                    <Switch>
+                      <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                      {/*<PrivateRoute exact path="/dashboard/talk-ratio" component={TalkRatio} />
+                      <PrivateRoute exact path="/dashboard/turn-taking" component={TurnTaking} />
+                      <PrivateRoute exact path="/dashboard/transcript" component={Transcript} />*/}
+                    </Switch>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </Router>
-      </Provider>
-    );
-  }
+            </Router>
+          </Provider>
+        );
+    }
 }
 
 export default App;
