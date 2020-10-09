@@ -6,8 +6,8 @@ import Bar from './Bar';
 import LegendItemGroup from '../../legend/LegendItemGroup';
 import displayLegendLabels from '../../legend/displayLegendLabels';
 
-import ArrowCollapseVerticalIcon from 'mdi-react/ArrowCollapseVerticalIcon';
-import ArrowExpandVerticalIcon from 'mdi-react/ArrowExpandVerticalIcon';
+import Icon from '@mdi/react';
+import { mdiArrowCollapseVertical, mdiArrowExpandVertical } from '@mdi/js';
 
 import removeArrayValue from '../../../utils/removeArrayValue';
 
@@ -52,14 +52,16 @@ export default class TurnTaking extends Component {
     }
 
     barsStateIcon = {
-        "expanded": <ArrowCollapseVerticalIcon
+        "expanded": <Icon
+          path={mdiArrowCollapseVertical}
           className="turn-taking-visualization-heading-icon"
           onClick={this.toggleExpandedBars.bind(this, "collapsed")}
-          size="24" />,
-        "collapsed": <ArrowExpandVerticalIcon
+          size={1} />,
+        "collapsed": <Icon
+          path={mdiArrowExpandVertical}
           className="turn-taking-visualization-heading-icon"
           onClick={this.toggleExpandedBars.bind(this, "expanded")}
-          size="24" />
+          size={1} />
     }
 
     // same logic as in Transcript::handleClick
