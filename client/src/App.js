@@ -71,10 +71,10 @@ class App extends Component {
                   selectedOption={this.state.selectedOption}
                   handleClick={this.handleClick.bind(this)} />
 
-                  <div className="app-container-content">
+                  {/*<div className="app-container-content">*/}
                     <Sidebar />
 
-                    <div className="app-container-content-visualization">
+                    <div className="app-container-content">
                       <Route exact path="/" component={Landing} />
                       <Route exact path="/register" component={Register} />
                       <Route exact path="/login" component={Login} />
@@ -90,7 +90,7 @@ class App extends Component {
                         <PrivateRoute exact path="/dashboard/transcript" component={Transcript} />
                       </Switch>
                     </div>
-                  </div>
+                  {/* </div> */}
                 {/* </div> */}
               </div>
             </Router>
