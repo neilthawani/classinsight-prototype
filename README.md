@@ -31,7 +31,8 @@ This project uses the following technologies:
 
 ## Other Tech
 
-- [Material Design Icons](https://templarian.github.io/@mdi/react/)
+- [Material Design Icons (GitHub Repository)](https://templarian.github.io/@mdi/react/)
+- [Material Design Icons (Examples)](https://github.com/Templarian/MaterialDesign-React)
 
 ## Deployment
 
