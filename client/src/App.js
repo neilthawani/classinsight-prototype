@@ -21,6 +21,10 @@ import TalkRatio from './components/visualizations/talk-ratio/TalkRatio';
 import Transcript from './components/visualizations/transcript/Transcript';
 import TurnTaking from './components/visualizations/turn-taking/TurnTaking';
 
+import data_tom from './data/data_tom';
+import data_kim from './data/data_kim';
+
+
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
     // Set auth token header auth
@@ -46,14 +50,24 @@ class App extends Component {
         super(props);
 
         this.state = {
-            selectedOption: localStorage.getItem("buttonSelectorSelectedOption")
+            selectedOption: localStorage.getItem("buttonSelectorSelectedOption"),
+            activeDataRow: data_tom[0]
         };
     }
 
-    handleClick(value) {
+    dataRows = [data_tom[0], data_kim[0]];
+
+    handleButtonSelectorClick(value) {
         localStorage.setItem("buttonSelectorSelectedOption", value);
         this.setState({
             selectedOption: value
+        });
+    }
+
+    handleDataRowClick(row) {
+        // console.log("row", row);
+        this.setState({
+            activeDataRow: row
         });
     }
 
@@ -68,9 +82,12 @@ class App extends Component {
                 {/* coarse, medium, and fine-grained visualizations */}
                 <ButtonSelector
                   selectedOption={this.state.selectedOption}
-                  handleClick={this.handleClick.bind(this)} />
+                  handleClick={this.handleButtonSelectorClick.bind(this)} />
 
-                <Sidebar />
+                <Sidebar
+                  dataRows={this.dataRows}
+                  activeDataRowId={this.state.activeDataRow.id}
+                  handleDataRowClick={this.handleDataRowClick.bind(this)}/>
 
                 <div className="app-container-content">
                   <Route exact path="/" component={Landing} />
@@ -82,7 +99,14 @@ class App extends Component {
                     Use a <Switch> any time you have multiple routes,
                     but you want only one of them to render at a time. */}
                   <Switch>
-                    <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                    <PrivateRoute
+                      exact
+                      path="/dashboard"
+                      component={(props) => (
+                        <Dashboard {...props} data={this.state.activeDataRow} />
+                      )}
+                    />
+
                     <PrivateRoute exact path="/dashboard/talk-ratio" component={TalkRatio} />
                     <PrivateRoute exact path="/dashboard/turn-taking" component={TurnTaking} />
                     <PrivateRoute exact path="/dashboard/transcript" component={Transcript} />

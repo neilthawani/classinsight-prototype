@@ -14,7 +14,7 @@ class Dashboard extends Component {
     constructor(props) {
         super(props);
 
-        console.log("here");
+        console.log("here", props);
         // this.state = {
         //     selectedOption: localStorage.getItem("buttonSelectorSelectedOption")
         // };

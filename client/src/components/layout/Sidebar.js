@@ -3,8 +3,6 @@ import React, { Component } from "react";
 // import PropTypes from "prop-types";
 // import { connect } from "react-redux";
 // import { logoutUser } from "../../actions/authActions";
-import data_tom from '../../data/data_tom';
-import data_kim from '../../data/data_kim';
 
 import Icon from '@mdi/react';
 import { mdiDatabase } from '@mdi/js';
@@ -12,6 +10,11 @@ import { mdiDatabase } from '@mdi/js';
 // import ClassInSightLogo from "../../assets/images/classinsight-logo.png";
 
 class Sidebar extends Component {
+    constructor(props) {
+        super(props);
+
+        console.log("props", props);
+    }
     // onLogoutClick = e => {
     //     e.preventDefault();
     //     this.props.logoutUser();
@@ -20,8 +23,6 @@ class Sidebar extends Component {
     handleDataRowClick(row) {
         this.props.handleDataRowClick(row);
     }
-
-    dataRows = [data_tom[0], data_kim[0]];
 
     render() {
         // const { user } = this.props.auth;
@@ -32,24 +33,19 @@ class Sidebar extends Component {
               <Icon path={mdiDatabase} className="sidebar-header-icon" size={2} />
             </div>
             <div className="sidebar-data">
-              {this.dataRows.map((item, index, array) => {
+              {this.props.dataRows.map((item, index, array) => {
                   // if (index > 0) return;
                   var datum = item.data;
                   // console.log("item", item);
+                  // console.log("item.id", item.id, "this.props.activeDataRowId", this.props.activeDataRowId);
                   return (
-                    <div key={index} className="sidebar-data-row">
+                    <div key={index}
+                      className={this.props.activeDataRowId === item.id ? "sidebar-data-row active" : "sidebar-data-row"}
+                      onClick={this.handleDataRowClick.bind(this, item)}>
                       <div className="sidebar-data-row-title">
                         {datum.title}
                       </div>
 
-                      <div className="sidebar-data-row-descriptor">
-                        <span className="sidebar-data-row-descriptor-label">
-                          Teacher:
-                        </span>
-                        <span className="sidebar-data-row-descriptor-value">
-                          {datum.teacher}
-                        </span>
-                      </div>
                       <div className="sidebar-data-row-descriptor">
                         <span className="sidebar-data-row-descriptor-label">
                           Filename:
