@@ -13,7 +13,7 @@
     width: max-content;
     display: flex;
     flex-direction: row;
-    width: calc(100% - #{$sideNavWidth};
+    width: calc(100% - #{$sideNavWidth} - 1px);
     flex: 1;
     height: $buttonSelectorHeight;
     background-color: $blue;

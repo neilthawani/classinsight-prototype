@@ -12,7 +12,7 @@ export default class TurnTakingSmall extends Component {
     }
 
     render() {
-        var chartData = Parser.parsedData().expanded,
+        var chartData = this.props.parser.parsedData().expanded,
             focusBox = this.props.focusBox,
             boxHeight = focusBox.height + this.barHeight,
             boxOffset = this.barHeight * focusBox.topElId;

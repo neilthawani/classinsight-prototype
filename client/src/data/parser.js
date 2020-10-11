@@ -1,12 +1,18 @@
-import data from './data_tom';
 import LegendLabels from '../fixtures/legend_labels';
 
-export default {
-    segments: data[0].data.segments,
+export default class Parser {
+    constructor(data) {
+        // console.log("args", data);
 
-    legendLabelValues: LegendLabels.map((item) => item.value),
+        // this.data = data;
+        this.segments = data.data.segments;
+    }
 
-    transcript: function() {
+    // segments = []//this.data[0].data.segments
+
+    legendLabelValues = LegendLabels.map((item) => item.value)
+
+    transcript = function() {
         var transcript = [];
         var utteranceIndex = 0;
 
@@ -56,9 +62,9 @@ export default {
         });
 
         return transcript;
-    },
+    }
 
-    filteredTranscript: function(options) {
+    filteredTranscript = function(options) {
         var data = this.transcript();
         var activeFilters = options && options.activeFilters;
 
@@ -82,9 +88,9 @@ export default {
         }, []);
 
         return filteredTranscript;
-    },
+    }
 
-    drilldownTranscript: function(options) {
+    drilldownTranscript = function(options) {
         var data = this.transcript(),
             drilldownFilter = options && options.drilldownFilter;
 
@@ -106,9 +112,9 @@ export default {
         }, []);
 
         return drilldownTranscript;
-    },
+    }
 
-    expandedData: function(options) {
+    expandedData = function(options) {
         var activeFilters = options && options.activeFilters;
 
         var transcript = this.filteredTranscript({ activeFilters: activeFilters });
@@ -116,15 +122,15 @@ export default {
         return transcript.reduce((accumulator, turn, index, array) => {
             return accumulator.concat(turn.utterances);
         }, []);
-    },
-    maxNTokens: function(options) {
+    }
+    maxNTokens = function(options) {
         var activeFilters = options && options.activeFilters;
 
         var expandedData = this.expandedData({ activeFilters: activeFilters });
 
         return Math.max.apply(Math, expandedData.map((utterance) => utterance.nTokens));
-    },
-    collapsedData: function(options) {
+    }
+    collapsedData = function(options) {
         var activeFilters = options && options.activeFilters;
         var expandedData = this.expandedData({ activeFilters: activeFilters }),
             collapsedData = [];
@@ -151,9 +157,9 @@ export default {
         });
 
         return collapsedData;
-    },
+    }
 
-    parsedData: function(options) {
+    parsedData = function(options) {
         var activeFilters = options && options.activeFilters;
         var expandedData = this.expandedData({ activeFilters: activeFilters }),
             collapsedData = this.collapsedData({ activeFilters: activeFilters });
@@ -164,9 +170,9 @@ export default {
         };
 
         return parsedData;
-    },
+    }
 
-    talkRatios: function() {
+    talkRatios = function() {
         var expandedData = this.expandedData(), // get array of every utterance in the transcript
             legendLabels = LegendLabels,
             talkRatios = legendLabels.map((labelObj, index, array) => { // set up object to be returned
@@ -208,8 +214,8 @@ export default {
         });
 
         return talkRatios;
-    },
-    initializeSpeakerTotals: function() {
+    }
+    initializeSpeakerTotals = function() {
         var legendLabels = LegendLabels;
         var speakerTotals = legendLabels.reduce((accumulator, labelObj, index, array) => {
             var speakerIsInArray = accumulator.filter((accumObj) => {
@@ -227,8 +233,8 @@ export default {
         }, []);
 
         return speakerTotals;
-    },
-    speakerTalkTotals: function() {
+    }
+    speakerTalkTotals = function() {
         var speakerTotals = this.initializeSpeakerTotals(),
             talkRatios = this.talkRatios();
 

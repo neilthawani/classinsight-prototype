@@ -106,10 +106,27 @@ class App extends Component {
                         <Dashboard {...props} data={this.state.activeDataRow} />
                       )}
                     />
-
-                    <PrivateRoute exact path="/dashboard/talk-ratio" component={TalkRatio} />
-                    <PrivateRoute exact path="/dashboard/turn-taking" component={TurnTaking} />
-                    <PrivateRoute exact path="/dashboard/transcript" component={Transcript} />
+                    <PrivateRoute
+                      exact
+                      path="/dashboard/talk-ratio"
+                      component={(props) => (
+                        <TalkRatio {...props} data={this.state.activeDataRow} />
+                      )}
+                    />
+                    <PrivateRoute
+                      exact
+                      path="/dashboard/turn-taking"
+                      component={(props) => (
+                        <TurnTaking {...props} data={this.state.activeDataRow} />
+                      )}
+                    />
+                    <PrivateRoute
+                      exact
+                      path="/dashboard/transcript"
+                      component={(props) => (
+                        <Transcript {...props} data={this.state.activeDataRow} />
+                      )}
+                    />
                   </Switch>
                 </div>
               </div>

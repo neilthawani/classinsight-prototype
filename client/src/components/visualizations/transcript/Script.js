@@ -7,7 +7,7 @@ import Utterance from './Utterance';
 export default class Script extends Component {
     constructor(props) {
         super(props);
-        this.transcript = this.props.data;
+        this.transcript = this.props.transcript;
     }
 
     componentDidMount() {
@@ -70,7 +70,7 @@ export default class Script extends Component {
 
       // for TalkRatio drilldown
       if (drilldownFilter) {
-          activeTranscript = Parser.drilldownTranscript({ drilldownFilter: drilldownFilter });
+          activeTranscript = this.props.parser.drilldownTranscript({ drilldownFilter: drilldownFilter });
       }
 
       return (
@@ -113,7 +113,7 @@ export default class Script extends Component {
 }
 
 Script.propTypes = {
-    data: PropTypes.array.isRequired,
+    transcript: PropTypes.array.isRequired,
     activeLabels: PropTypes.array,
     focusBox: PropTypes.object,
     handleScroll: PropTypes.func.isRequired

@@ -39,9 +39,15 @@ export default class TurnTaking extends Component {
     constructor(props) {
         super(props);
 
+        var parser = new Parser(props.data),
+            talkRatios = parser.talkRatios(),
+            bars = localStorage.getItem("bars") || "expanded",
+            activeFilters = [];
+
         this.state = {
-            bars: localStorage.getItem("bars") || "expanded",
-            activeFilters: [],
+            talkRatios: talkRatios,
+            bars: bars,
+            activeFilters: activeFilters,
             activeTurn: {}
         };
     }
@@ -94,17 +100,18 @@ export default class TurnTaking extends Component {
     }
 
     render() {
-        var chartData = Parser.parsedData({activeFilters: this.state.activeFilters})[this.state.bars];
+        var parser = new Parser(this.props.data);
+        var chartData = parser.parsedData({activeFilters: this.state.activeFilters})[this.state.bars] || [];
 
         return (
             <div className="turn-taking-visualization-container">
               <div className="turn-taking-legend-teacher">
                 <LegendItemGroup
-                  labels={displayLegendLabels({ type: "Teacher"})}
+                  labels={displayLegendLabels(this.state.talkRatios, { type: "Teacher"})}
                   activeFilters={this.state.activeFilters}
                   handleClick={this.handleFilterClick.bind(this) }/>
                 <LegendItemGroup
-                  labels={displayLegendLabels({ type: "Technique"})}
+                  labels={displayLegendLabels(this.state.talkRatios, { type: "Technique"})}
                   activeFilters={this.state.activeFilters}
                   handleClick={this.handleFilterClick.bind(this) }/>
               </div>
@@ -132,7 +139,7 @@ export default class TurnTaking extends Component {
               </div>
               <div className="turn-taking-legend-student">
                 <LegendItemGroup
-                  labels={displayLegendLabels({ type: "Student" })}
+                  labels={displayLegendLabels(this.state.talkRatios, { type: "Student" })}
                   activeFilters={this.state.activeFilters}
                   handleClick={this.handleFilterClick.bind(this) }/>
               </div>

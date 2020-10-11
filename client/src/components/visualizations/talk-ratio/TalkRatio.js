@@ -37,18 +37,32 @@ export default class TalkRatio extends Component {
     constructor(props) {
         super(props);
 
+        var parser = new Parser(props.data);
+        // console.log("this.parser", this.parser);
+
+        var talkRatios = parser.talkRatios(),
+            teacherTalkRatio = talkRatios.filter((item) => item.type === "Teacher").reverse(),
+            studentTalkRatio = talkRatios.filter((item) => item.type === "Student"),
+            speakerTalkTotals = parser.speakerTalkTotals();
+
         this.state = {
-            drilldownFilter: ""
+            parser: parser,
+            drilldownFilter: "",
+            talkRatios: talkRatios,
+            teacherTalkRatio: teacherTalkRatio,
+            studentTalkRatio: studentTalkRatio,
+            speakerTalkTotals: speakerTalkTotals,
+            transcript: parser.transcript()
         };
     }
 
     calculateSpeakerTotal(type) {
-        var speakerTotalObj = Parser.speakerTalkTotals().filter((item) => item.speakerType === type);
+        var speakerTotalObj = this.state.speakerTalkTotals.filter((item) => item.speakerType === type);
         return speakerTotalObj[0].totalTalkPercentage;
     }
 
-    teacherTalkRatio = Parser.talkRatios().filter((item) => item.type === "Teacher").reverse();
-    studentTalkRatio = Parser.talkRatios().filter((item) => item.type === "Student");
+    // teacherTalkRatio = this.parser.talkRatios().filter((item) => item.type === "Teacher").reverse();
+    // studentTalkRatio = this.parser.talkRatios().filter((item) => item.type === "Student");
 
     handleTalkRatioSectionClick(label) {
         var drilldownFilter = label.value === this.state.drilldownFilter ? "" : label.value;
@@ -75,13 +89,13 @@ export default class TalkRatio extends Component {
               Teacher Talk: {formatPercentage(this.calculateSpeakerTotal("Teacher"), 0)}
             </h3>
             <LegendItemGroup
-              labels={displayLegendLabels({ type: "Teacher"})}
+              labels={displayLegendLabels(this.state.teacherTalkRatio, { type: "Teacher"}).reverse()}
               displayRatio={true}
               handleClick={() => {}} />
           </div>
           <div className="talk-ratio-visualization">
             <div className="talk-ratio-visualization-chart">
-              {this.teacherTalkRatio.map((item, index, array) => {
+              {this.state.teacherTalkRatio.map((item, index, array) => {
                   return (
                     <TalkRatioSection
                       key={index}
@@ -90,7 +104,7 @@ export default class TalkRatio extends Component {
                   );
               })}
               <div className="talk-ratio-visualization-divider"></div>
-              {this.studentTalkRatio.map((item, index, array) => {
+              {this.state.studentTalkRatio.map((item, index, array) => {
                   return (
                     <TalkRatioSection
                       key={index}
@@ -102,7 +116,8 @@ export default class TalkRatio extends Component {
             <div className="talk-ratio-visualization-drilldown">
               {this.state.drilldownFilter ?
                 <Script
-                  data={Parser.transcript()}
+                  parser={this.state.parser}
+                  transcript={this.state.transcript}
                   drilldownFilter={this.state.drilldownFilter}
                   canInspect={true}
                   handleUtteranceClick={this.handleUtteranceClick.bind(this)}
@@ -115,7 +130,7 @@ export default class TalkRatio extends Component {
               Student Talk: {formatPercentage(this.calculateSpeakerTotal("Student"), 0)}
             </h3>
             <LegendItemGroup
-              labels={displayLegendLabels({ type: "Student" })}
+              labels={displayLegendLabels(this.state.studentTalkRatio, { type: "Student" })}
               displayRatio={true}
               handleClick={() => {}} />
           </div>

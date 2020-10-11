@@ -10,11 +10,11 @@ import { mdiDatabase } from '@mdi/js';
 // import ClassInSightLogo from "../../assets/images/classinsight-logo.png";
 
 class Sidebar extends Component {
-    constructor(props) {
-        super(props);
+    // constructor(props) {
+    //     super(props);
 
-        console.log("props", props);
-    }
+        // console.log("props", props);
+    // }
     // onLogoutClick = e => {
     //     e.preventDefault();
     //     this.props.logoutUser();

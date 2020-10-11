@@ -13,10 +13,13 @@ export default class Transcript extends Component {
     constructor(props) {
         super(props);
 
+        var parser = new Parser(props.data);
+
         // double width - for both left/right side of TurnTakingSmall chart
-        this.chartWidth = 2 * Parser.maxNTokens();
+        this.chartWidth = 2 * parser.maxNTokens();
 
         this.state = {
+            parser: parser,
             activeLabels: [],
             focusBox: {
                 topElId: 0,
@@ -25,7 +28,9 @@ export default class Transcript extends Component {
                 height: 0
             },
             chartOffsetWidth: 0,
-            chartHeight: 0
+            chartHeight: 0,
+            talkRatios: parser.talkRatios(),
+            transcript: parser.transcript()
         };
     }
 
@@ -94,23 +99,24 @@ export default class Transcript extends Component {
          {/*style={{ marginLeft: this.state.chartOffsetWidth }}>*/}
           <div className="transcript-visualization-legend">
             <LegendButtonGroup
-              labels={displayLegendLabels({ type: "Teacher"})}
+              labels={displayLegendLabels(this.state.talkRatios, { type: "Teacher"})}
               displayRatio={true}
               activeLabels={this.state.activeLabels}
               handleClick={this.handleClick.bind(this)} />
             <LegendButtonGroup
-              labels={displayLegendLabels({ type: "Student"})}
+              labels={displayLegendLabels(this.state.talkRatios, { type: "Student"})}
               displayRatio={true}
               activeLabels={this.state.activeLabels}
               handleClick={this.handleClick.bind(this)} />
             <LegendButtonGroup
-              labels={displayLegendLabels({ type: "Technique"})}
+              labels={displayLegendLabels(this.state.talkRatios, { type: "Technique"})}
               displayRatio={true}
               activeLabels={this.state.activeLabels}
               handleClick={this.handleClick.bind(this)} />
           </div>
 
           <TurnTakingSmall
+            parser={this.state.parser}
             chartWidth={this.chartWidth}
             chartHeight={this.state.chartHeight}
             barHeight={this.barHeight}
@@ -118,7 +124,7 @@ export default class Transcript extends Component {
 
           <div className="transcript-script-container" style={{ marginLeft: `${this.chartWidth}px` }}>
             <Script
-              data={Parser.transcript()}
+              transcript={this.state.transcript}
               activeLabels={this.state.activeLabels}
               focusBox={this.state.focusBox}
               handleScroll={this.handleScroll.bind(this)}
