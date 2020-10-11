@@ -31,7 +31,7 @@ export default class Transcript extends Component {
 
     componentDidMount() {
         // dynamically orient and size TurnTakingSmall chart
-        var legendButtonGroup = document.getElementsByClassName("transcript-visualization-legend")[0],
+        var // legendButtonGroup = document.getElementsByClassName("transcript-visualization-legend")[0],
             // chartOffsetWidth = legendButtonGroup.clientWidth,
             navbarDiv = document.getElementsByClassName("navbar"),
             navbar = navbarDiv && navbarDiv[0],

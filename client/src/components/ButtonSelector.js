@@ -5,10 +5,10 @@ import Icon from '@mdi/react';
 import { mdiViewDashboardVariantOutline, mdiBarcode, mdiChartGantt, mdiCommentTextMultipleOutline } from '@mdi/js';
 
 export default class ButtonSelector extends Component {
-    constructor(props) {
-        super(props);
-        console.log("props");
-    }
+    // constructor(props) {
+    //     super(props);
+    //     console.log("props");
+    // }
 
     handleClick(value) {
         this.props.handleClick(value);
