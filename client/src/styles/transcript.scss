@@ -4,11 +4,12 @@
 }
 
 .transcript-visualization-legend {
-    position: fixed;  
+    position: fixed;
     left: $sideNavWidth;
 }
 
 .transcript-script-container {
     left: calc(#{$legendButtonWidth} + #{$legendButtonPadding});
     position: relative;
+    width: calc(100% - #{$sideNavWidth} - #{$legendButtonWidth} - #{$legendButtonPadding});
 }

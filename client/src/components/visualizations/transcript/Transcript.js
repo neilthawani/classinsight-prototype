@@ -77,12 +77,14 @@ export default class Transcript extends Component {
         // focus the box
         turnTakingBarsSmall.scrollTo(0, topElId * this.barHeight);
 
+        var focusBox = {
+            topElId: topElId,
+            bottomElId: bottomElId,
+            height: boxHeight,
+        };
+
         this.setState({
-            focusBox: {
-                topElId: topElId,
-                bottomElId: bottomElId,
-                height: boxHeight,
-            }
+            focusBox: focusBox
         });
     }
 
@@ -109,7 +111,6 @@ export default class Transcript extends Component {
           </div>
 
           <TurnTakingSmall
-            
             chartWidth={this.chartWidth}
             chartHeight={this.state.chartHeight}
             barHeight={this.barHeight}
