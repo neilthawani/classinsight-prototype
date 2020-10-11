@@ -3,7 +3,7 @@
 .turn-taking-legend-teacher {
     position: fixed;
     // top: calc($navbarHeight + $buttonSelectorHeight);
-    padding-left: $legendSideBuffer;;
+    padding-left: $legendSideBuffer;
     // left: 2%;
     // left: 0;
 }
@@ -13,6 +13,11 @@
     position: fixed;
     // top: calc($navbarHeight + $buttonSelectorHeight);
     right: $legendSideBuffer;
+}
+
+.turn-taking-legend-teacher,
+.turn-taking-legend-student {
+    margin-top: 65px;
 }
 
 .turn-taking-legend-student .legend-item,
@@ -37,8 +42,8 @@
 .legend-item-key {
     height: 25px;
     width: 25px;
-    margin-right: 6px;
-    margin-left: 6px;
+    // margin-right: 6px;
+    // margin-left: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -51,6 +56,8 @@
 .legend-item-label {
     font-size: 14px;
     cursor: pointer;
+    margin-left: 6px;
+    margin-right: 6px;
 }
 
 // LegendButton.js

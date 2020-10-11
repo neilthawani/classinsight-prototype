@@ -111,7 +111,7 @@ export default class TalkRatio extends Component {
             </div>
           </div>
           <div className="talk-ratio-legend-student">
-            <h3 className="talk-ratio-visualization-heading">
+            <h3 className="talk-ratio-visualization-heading text-right">
               Student Talk: {formatPercentage(this.calculateSpeakerTotal("Student"), 0)}
             </h3>
             <LegendItemGroup
