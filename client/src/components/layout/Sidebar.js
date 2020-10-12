@@ -37,10 +37,10 @@ class Sidebar extends Component {
                   // if (index > 0) return;
                   var datum = item.data;
                   // console.log("item", item);
-                  // console.log("item.id", item.id, "this.props.activeDataRowId", this.props.activeDataRowId);
+                  // console.log("item.id", item.id, "this.props.activeDataRowIndex", this.props.activeDataRowIndex);
                   return (
                     <div key={index}
-                      className={this.props.activeDataRowId === index ? "sidebar-data-row active" : "sidebar-data-row"}
+                      className={this.props.activeDataRowIndex === index ? "sidebar-data-row active" : "sidebar-data-row"}
                       onClick={this.handleDataRowClick.bind(this, index)}>
                       <div className="sidebar-data-row-title">
                         {datum.title}

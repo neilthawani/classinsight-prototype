@@ -4,7 +4,7 @@ export default class Parser {
     constructor(data) {
         // console.log("args", data);
 
-        // this.data = data;
+        this.data = data;
         this.segments = data.data.segments;
     }
 

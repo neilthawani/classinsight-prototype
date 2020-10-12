@@ -52,15 +52,16 @@ class App extends Component {
 
         var dataRows = [data_tom[0], data_kim[0]];
         var dataParsers = dataRows.map((row) => {
-            return new Parser(row);
+            var parser = new Parser(row);
+            return parser;
         });
+        console.log("dataParsers", dataParsers);
 
         this.state = {
             dataParsers: dataParsers,
-            dataRows: dataRows,
+            // dataRows: dataRows,
             selectedOption: localStorage.getItem("buttonSelectorSelectedOption"),
-            // activeDataRow: data_tom[0]
-            activeDataRowId: 0
+            activeDataRowIndex: 0
         };
     }
 
@@ -74,7 +75,7 @@ class App extends Component {
     handleDataRowClick(index) {
         // console.log("row", row);
         this.setState({
-            activeDataRowId: index
+            activeDataRowIndex: index
         });
     }
 
@@ -92,8 +93,12 @@ class App extends Component {
                   handleClick={this.handleButtonSelectorClick.bind(this)} />
 
                 <Sidebar
-                  dataRows={this.state.dataRows}
-                  activeDataRowId={this.state.activeDataRowId}
+                  dataRows={
+                    this.state.dataParsers.map((parser) => {
+                        return parser.data;
+                    })
+                  }
+                  activeDataRowIndex={this.state.activeDataRowIndex}
                   handleDataRowClick={this.handleDataRowClick.bind(this)}/>
 
                 <div className="app-container-content">
@@ -112,7 +117,7 @@ class App extends Component {
                       component={(props) => (
                         <Dashboard {...props}
                         dataParsers={this.state.dataParsers}
-                        data={this.state.dataRows[this.state.activeDataRowId]} />
+                        data={this.state.dataParsers[this.state.activeDataRowIndex].data} />
                       )}
                     />
                     <PrivateRoute
@@ -121,7 +126,7 @@ class App extends Component {
                       component={(props) => (
                         <TalkRatio {...props}
                         dataParsers={this.state.dataParsers}
-                        data={this.state.dataRows[this.state.activeDataRowId]} />
+                        data={this.state.dataParsers[this.state.activeDataRowIndex].data} />
                       )}
                     />
                     <PrivateRoute
@@ -130,7 +135,7 @@ class App extends Component {
                       component={(props) => (
                         <TurnTaking {...props}
                         dataParsers={this.state.dataParsers}
-                        data={this.state.dataRows[this.state.activeDataRowId]} />
+                        data={this.state.dataParsers[this.state.activeDataRowIndex].data} />
                       )}
                     />
                     <PrivateRoute
@@ -139,7 +144,7 @@ class App extends Component {
                       component={(props) => (
                         <Transcript {...props}
                         dataParsers={this.state.dataParsers}
-                        data={this.state.dataRows[this.state.activeDataRowId]} />
+                        data={this.state.dataParsers[this.state.activeDataRowIndex].data} />
                       )}
                     />
                   </Switch>
