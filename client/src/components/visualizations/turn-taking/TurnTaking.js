@@ -45,6 +45,7 @@ export default class TurnTaking extends Component {
             activeFilters = [];
 
         this.state = {
+            dataParsers: props.dataParsers,
             talkRatios: talkRatios,
             bars: bars,
             activeFilters: activeFilters,

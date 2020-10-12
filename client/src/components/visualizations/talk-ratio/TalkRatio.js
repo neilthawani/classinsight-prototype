@@ -46,6 +46,7 @@ export default class TalkRatio extends Component {
             speakerTalkTotals = parser.speakerTalkTotals();
 
         this.state = {
+            dataParsers: props.dataParsers,
             parser: parser,
             drilldownFilter: "",
             talkRatios: talkRatios,

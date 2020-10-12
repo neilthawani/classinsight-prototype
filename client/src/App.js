@@ -21,6 +21,7 @@ import TalkRatio from './components/visualizations/talk-ratio/TalkRatio';
 import Transcript from './components/visualizations/transcript/Transcript';
 import TurnTaking from './components/visualizations/turn-taking/TurnTaking';
 
+import Parser from './data/parser';
 import data_tom from './data/data_tom';
 import data_kim from './data/data_kim';
 
@@ -49,13 +50,19 @@ class App extends Component {
     constructor(props) {
         super(props);
 
+        var dataRows = [data_tom[0], data_kim[0]];
+        var dataParsers = dataRows.map((row) => {
+            return new Parser(row);
+        });
+
         this.state = {
+            dataParsers: dataParsers,
+            dataRows: dataRows,
             selectedOption: localStorage.getItem("buttonSelectorSelectedOption"),
-            activeDataRow: data_tom[0]
+            // activeDataRow: data_tom[0]
+            activeDataRowId: 0
         };
     }
-
-    dataRows = [data_tom[0], data_kim[0]];
 
     handleButtonSelectorClick(value) {
         localStorage.setItem("buttonSelectorSelectedOption", value);
@@ -64,10 +71,10 @@ class App extends Component {
         });
     }
 
-    handleDataRowClick(row) {
+    handleDataRowClick(index) {
         // console.log("row", row);
         this.setState({
-            activeDataRow: row
+            activeDataRowId: index
         });
     }
 
@@ -85,8 +92,8 @@ class App extends Component {
                   handleClick={this.handleButtonSelectorClick.bind(this)} />
 
                 <Sidebar
-                  dataRows={this.dataRows}
-                  activeDataRowId={this.state.activeDataRow.id}
+                  dataRows={this.state.dataRows}
+                  activeDataRowId={this.state.activeDataRowId}
                   handleDataRowClick={this.handleDataRowClick.bind(this)}/>
 
                 <div className="app-container-content">
@@ -103,28 +110,36 @@ class App extends Component {
                       exact
                       path="/dashboard"
                       component={(props) => (
-                        <Dashboard {...props} data={this.state.activeDataRow} />
+                        <Dashboard {...props}
+                        dataParsers={this.state.dataParsers}
+                        data={this.state.dataRows[this.state.activeDataRowId]} />
                       )}
                     />
                     <PrivateRoute
                       exact
                       path="/dashboard/talk-ratio"
                       component={(props) => (
-                        <TalkRatio {...props} data={this.state.activeDataRow} />
+                        <TalkRatio {...props}
+                        dataParsers={this.state.dataParsers}
+                        data={this.state.dataRows[this.state.activeDataRowId]} />
                       )}
                     />
                     <PrivateRoute
                       exact
                       path="/dashboard/turn-taking"
                       component={(props) => (
-                        <TurnTaking {...props} data={this.state.activeDataRow} />
+                        <TurnTaking {...props}
+                        dataParsers={this.state.dataParsers}
+                        data={this.state.dataRows[this.state.activeDataRowId]} />
                       )}
                     />
                     <PrivateRoute
                       exact
                       path="/dashboard/transcript"
                       component={(props) => (
-                        <Transcript {...props} data={this.state.activeDataRow} />
+                        <Transcript {...props}
+                        dataParsers={this.state.dataParsers}
+                        data={this.state.dataRows[this.state.activeDataRowId]} />
                       )}
                     />
                   </Switch>

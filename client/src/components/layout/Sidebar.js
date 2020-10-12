@@ -20,8 +20,8 @@ class Sidebar extends Component {
     //     this.props.logoutUser();
     // };
 
-    handleDataRowClick(row) {
-        this.props.handleDataRowClick(row);
+    handleDataRowClick(index) {
+        this.props.handleDataRowClick(index);
     }
 
     render() {
@@ -40,8 +40,8 @@ class Sidebar extends Component {
                   // console.log("item.id", item.id, "this.props.activeDataRowId", this.props.activeDataRowId);
                   return (
                     <div key={index}
-                      className={this.props.activeDataRowId === item.id ? "sidebar-data-row active" : "sidebar-data-row"}
-                      onClick={this.handleDataRowClick.bind(this, item)}>
+                      className={this.props.activeDataRowId === index ? "sidebar-data-row active" : "sidebar-data-row"}
+                      onClick={this.handleDataRowClick.bind(this, index)}>
                       <div className="sidebar-data-row-title">
                         {datum.title}
                       </div>

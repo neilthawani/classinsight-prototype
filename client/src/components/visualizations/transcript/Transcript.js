@@ -19,6 +19,7 @@ export default class Transcript extends Component {
         this.chartWidth = 2 * parser.maxNTokens();
 
         this.state = {
+            dataParsers: props.dataParsers,
             parser: parser,
             activeLabels: [],
             focusBox: {
