@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import Parser from '../../../data/parser';
-
 import TalkRatioSection from './TalkRatioSection';
 import Script from '../transcript/Script';
 import LegendItemGroup from '../../legend/LegendItemGroup';
@@ -37,17 +35,17 @@ export default class TalkRatio extends Component {
     constructor(props) {
         super(props);
 
-        var parser = new Parser(props.data);
+        // var parser = new Parser(props.data);
         // console.log("this.parser", this.parser);
 
-        var talkRatios = parser.talkRatios(),
+        var parser = props.activeParser,
+            talkRatios = parser.talkRatios(),
             teacherTalkRatios = parser.teacherTalkRatios(),
             studentTalkRatios = parser.studentTalkRatios(),
             speakerTalkTotals = parser.speakerTalkTotals(),
             transcript = parser.transcript();
 
         this.state = {
-            dataParsers: props.dataParsers,
             parser: parser,
             drilldownFilter: "",
             talkRatios: talkRatios,

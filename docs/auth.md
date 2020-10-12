@@ -131,7 +131,7 @@ axios.post('/api/users/register');
 So `client/package.json` has the following under the `scripts` object:
 
 ```
-"proxy": "http://localhost:5000",
+"proxy": "http://localhost:8802",
 ```
 
 ### Dependencies

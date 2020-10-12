@@ -120,8 +120,8 @@ class App extends Component {
                       path="/dashboard"
                       component={(props) => (
                         <Dashboard {...props}
-                        dataParsers={this.state.dataParsers}
-                        data={this.activeParser().data} />
+                          activeParser={this.activeParser()}
+                          data={this.activeParser().data} />
                       )}
                     />
                     <PrivateRoute
@@ -129,8 +129,7 @@ class App extends Component {
                       path="/dashboard/talk-ratio"
                       component={(props) => (
                         <TalkRatio {...props}
-                        dataParsers={this.state.dataParsers}
-                        data={this.state.dataParsers[this.state.activeDataRowIndex].data} />
+                          activeParser={this.activeParser()} />
                       )}
                     />
                     <PrivateRoute
@@ -138,8 +137,8 @@ class App extends Component {
                       path="/dashboard/turn-taking"
                       component={(props) => (
                         <TurnTaking {...props}
-                        dataParsers={this.state.dataParsers}
-                        data={this.state.dataParsers[this.state.activeDataRowIndex].data} />
+                          activeParser={this.activeParser()}
+                          data={this.state.dataParsers[this.state.activeDataRowIndex].data} />
                       )}
                     />
                     <PrivateRoute
@@ -147,8 +146,8 @@ class App extends Component {
                       path="/dashboard/transcript"
                       component={(props) => (
                         <Transcript {...props}
-                        dataParsers={this.state.dataParsers}
-                        data={this.state.dataParsers[this.state.activeDataRowIndex].data} />
+                          activeParser={this.activeParser()}
+                          data={this.state.dataParsers[this.state.activeDataRowIndex].data} />
                       )}
                     />
                   </Switch>
