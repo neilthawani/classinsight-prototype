@@ -55,11 +55,9 @@ class App extends Component {
             var parser = new Parser(row);
             return parser;
         });
-        console.log("dataParsers", dataParsers);
 
         this.state = {
             dataParsers: dataParsers,
-            // dataRows: dataRows,
             selectedOption: localStorage.getItem("buttonSelectorSelectedOption"),
             activeDataRowIndex: 0
         };
@@ -137,8 +135,7 @@ class App extends Component {
                       path="/dashboard/turn-taking"
                       component={(props) => (
                         <TurnTaking {...props}
-                          activeParser={this.activeParser()}
-                          data={this.state.dataParsers[this.state.activeDataRowIndex].data} />
+                          activeParser={this.activeParser()} />
                       )}
                     />
                     <PrivateRoute

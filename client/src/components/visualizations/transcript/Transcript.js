@@ -13,13 +13,12 @@ export default class Transcript extends Component {
     constructor(props) {
         super(props);
 
-        var parser = new Parser(props.data);
-
-        // double width - for both left/right side of TurnTakingSmall chart
-        this.chartWidth = 2 * parser.maxNTokens();
+        var parser = props.activeParser,
+            chartWidth = 2 * parser.maxNTokens(), // double width - for both left/right side of TurnTakingSmall chart
+            talkRatios = parser.talkRatios(),
+            transcript = parser.transcript();
 
         this.state = {
-            dataParsers: props.dataParsers,
             parser: parser,
             activeLabels: [],
             focusBox: {
@@ -29,9 +28,10 @@ export default class Transcript extends Component {
                 height: 0
             },
             chartOffsetWidth: 0,
+            chartWidth: chartWidth,
             chartHeight: 0,
-            talkRatios: parser.talkRatios(),
-            transcript: parser.transcript()
+            talkRatios: talkRatios,
+            transcript: transcript
         };
     }
 
@@ -118,12 +118,12 @@ export default class Transcript extends Component {
 
           <TurnTakingSmall
             parser={this.state.parser}
-            chartWidth={this.chartWidth}
+            chartWidth={this.state.chartWidth}
             chartHeight={this.state.chartHeight}
             barHeight={this.barHeight}
             focusBox={this.state.focusBox} />
 
-          <div className="transcript-script-container" style={{ marginLeft: `${this.chartWidth}px` }}>
+          <div className="transcript-script-container" style={{ marginLeft: `${this.state.chartWidth}px` }}>
             <Script
               transcript={this.state.transcript}
               activeLabels={this.state.activeLabels}
