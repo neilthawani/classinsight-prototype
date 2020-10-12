@@ -215,6 +215,21 @@ export default class Parser {
 
         return talkRatios;
     }
+
+    teacherTalkRatios = function() {
+        var talkRatios = this.talkRatios(),
+            teacherTalkRatios = talkRatios.filter((item) => item.type === "Teacher").reverse();
+
+        return teacherTalkRatios;
+    }
+
+    studentTalkRatios = function() {
+        var talkRatios = this.talkRatios(),
+            studentTalkRatios = talkRatios.filter((item) => item.type === "Student");
+
+        return studentTalkRatios;
+    }
+
     initializeSpeakerTotals = function() {
         var legendLabels = LegendLabels;
         var speakerTotals = legendLabels.reduce((accumulator, labelObj, index, array) => {

@@ -65,6 +65,10 @@ class App extends Component {
         };
     }
 
+    activeParser = function() {
+        return this.state.dataParsers[this.state.activeDataRowIndex];
+    }
+
     handleButtonSelectorClick(value) {
         localStorage.setItem("buttonSelectorSelectedOption", value);
         this.setState({
@@ -117,7 +121,7 @@ class App extends Component {
                       component={(props) => (
                         <Dashboard {...props}
                         dataParsers={this.state.dataParsers}
-                        data={this.state.dataParsers[this.state.activeDataRowIndex].data} />
+                        data={this.activeParser().data} />
                       )}
                     />
                     <PrivateRoute

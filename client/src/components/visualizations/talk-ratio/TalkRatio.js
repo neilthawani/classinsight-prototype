@@ -41,8 +41,8 @@ export default class TalkRatio extends Component {
         // console.log("this.parser", this.parser);
 
         var talkRatios = parser.talkRatios(),
-            teacherTalkRatio = talkRatios.filter((item) => item.type === "Teacher").reverse(),
-            studentTalkRatio = talkRatios.filter((item) => item.type === "Student"),
+            teacherTalkRatio = parser.teacherTalkRatios(),
+            studentTalkRatio = parser.studentTalkRatios(),
             speakerTalkTotals = parser.speakerTalkTotals();
 
         this.state = {
