@@ -1,29 +1,21 @@
 import React, { Component } from "react";
-import { /*Switch,*/ withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-
-// import PrivateRoute from "../private-route/PrivateRoute";
-//
-// import ButtonSelector from '../ButtonSelector';
-// import TalkRatio from '../visualizations/talk-ratio/TalkRatio';
-// import Transcript from '../visualizations/transcript/Transcript';
-// import TurnTaking from '../visualizations/turn-taking/TurnTaking';
 
 class Dashboard extends Component {
     constructor(props) {
         super(props);
 
-        console.log("here", props);
+        // console.log("here", props);
         this.state = {
             buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption")
         };
     }
 
     componentDidMount() {
-        console.log("this.state.buttonSelectorSelectedOption", this.state.buttonSelectorSelectedOption);
+        // console.log("this.state.buttonSelectorSelectedOption", this.state.buttonSelectorSelectedOption);
         // If logged in and user navigates to Register page, should redirect them to dashboard
-
 
         // transcriptLocationHash = this.state.transcriptLocationHash || "";
         //
@@ -53,10 +45,10 @@ class Dashboard extends Component {
             localStorage.setItem("buttonSelectorSelectedOption", buttonSelectorSelectedOption);
             localStorage.setItem("transcriptLocationHash", transcriptLocationHash);
 
-            that.setState({
-                buttonSelectorSelectedOption: buttonSelectorSelectedOption,
-                transcriptLocationHash: transcriptLocationHash
-            });
+            // that.setState({
+            //     buttonSelectorSelectedOption: buttonSelectorSelectedOption,
+            //     transcriptLocationHash: transcriptLocationHash
+            // });
         });
     }
 
