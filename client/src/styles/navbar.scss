@@ -7,14 +7,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 5px 20px;
+    padding: 0 20px;
     color: $darkGray;
     border-bottom: 1px solid $lightGray;
     z-index: 9999;
+    height: $navbarHeight;
 }
 
 .navbar-logo {
-  padding: 5px;
+  padding: 10px 5px;
   text-decoration: none;
 
   &:visited {
@@ -30,7 +31,7 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    padding: 5px;
+    padding: 10px 5px;
 
     .navbar-dropdown-menu {
        display: none;

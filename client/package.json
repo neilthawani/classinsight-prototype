@@ -11,6 +11,7 @@
     "canvas": "^2.6.1",
     "change-case": "^4.1.1",
     "classnames": "^2.2.6",
+    "date-fns": "^2.16.1",
     "jwt-decode": "^2.2.0",
     "node-sass": "^4.14.1",
     "react": "^16.6.3",
@@ -29,7 +30,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:5000",
+  "proxy": "http://localhost:8802",
   "eslintConfig": {
     "extends": "react-app"
   },

@@ -7,6 +7,7 @@
 @import "./talk_ratio.scss";
 @import "./turn_taking.scss";
 @import "./script.scss";
+@import "./sidebar.scss";
 @import "./transcript.scss";
 
 body {
@@ -32,13 +33,21 @@ p {
     text-align: center;
 }
 
+.text-right {
+    text-align: right;
+}
+
 .text-with-link {
     display: block;
     margin: 5px 0;
     font-size: 10px;
 }
 
-// .content-container {
-//     margin: auto;
-//     width: max-content;
-// }
+.app-container {
+
+}
+
+.app-container-content {
+    margin-left: $sidebarWidth;
+    margin-top: 10px;
+}

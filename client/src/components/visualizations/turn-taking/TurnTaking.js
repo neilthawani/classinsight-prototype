@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 
-import Parser from '../../../data/parser';
-
 import Bar from './Bar';
 import LegendItemGroup from '../../legend/LegendItemGroup';
-import displayLegendLabels from '../../legend/displayLegendLabels';
 
 import Icon from '@mdi/react';
 import { mdiArrowCollapseVertical, mdiArrowExpandVertical } from '@mdi/js';
@@ -39,9 +36,16 @@ export default class TurnTaking extends Component {
     constructor(props) {
         super(props);
 
+        var parser = props.activeParser,
+            talkRatios = parser.talkRatios(),
+            bars = localStorage.getItem("bars") || "expanded",
+            activeFilters = [];
+
         this.state = {
-            bars: localStorage.getItem("bars") || "expanded",
-            activeFilters: [],
+            parser: parser,
+            talkRatios: talkRatios,
+            bars: bars,
+            activeFilters: activeFilters,
             activeTurn: {}
         };
     }
@@ -90,21 +94,22 @@ export default class TurnTaking extends Component {
     }
 
     handleTextClick(turnId) {
-        this.props.history.push(`/dashboard/transcript#${turnId}`);
+        this.props.history.push(`/transcript#${turnId}`);
     }
 
     render() {
-        var chartData = Parser.parsedData({activeFilters: this.state.activeFilters})[this.state.bars];
+        var parser = this.state.parser;
+        var chartData = parser.parsedData({activeFilters: this.state.activeFilters})[this.state.bars] || [];
 
         return (
             <div className="turn-taking-visualization-container">
               <div className="turn-taking-legend-teacher">
                 <LegendItemGroup
-                  labels={displayLegendLabels({ type: "Teacher"})}
+                  labels={this.state.parser.legendLabels({ type: "Teacher"})}
                   activeFilters={this.state.activeFilters}
                   handleClick={this.handleFilterClick.bind(this) }/>
                 <LegendItemGroup
-                  labels={displayLegendLabels({ type: "Technique"})}
+                  labels={this.state.parser.legendLabels({ type: "Technique"})}
                   activeFilters={this.state.activeFilters}
                   handleClick={this.handleFilterClick.bind(this) }/>
               </div>
@@ -132,7 +137,7 @@ export default class TurnTaking extends Component {
               </div>
               <div className="turn-taking-legend-student">
                 <LegendItemGroup
-                  labels={displayLegendLabels({ type: "Student" })}
+                  labels={this.state.parser.legendLabels({ type: "Student"})}
                   activeFilters={this.state.activeFilters}
                   handleClick={this.handleFilterClick.bind(this) }/>
               </div>
