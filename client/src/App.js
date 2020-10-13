@@ -43,12 +43,9 @@ class App extends Component {
 
     // If logged in and user navigates to Register page, should redirect them to dashboard
     componentDidMount() {
-        // console.log("componentDidMount");
         var buttonSelectorSelectedOption = localStorage.getItem("buttonSelectorSelectedOption");
-        // var transcriptLocationHash = window.location.hash || "";
         var transcriptLocationHash = localStorage.getItem("transcriptLocationHash");
-        // console.log("transcriptLocationHash", transcriptLocationHash);
-        // console.log("buttonSelectorSelectedOption", buttonSelectorSelectedOption);
+
         this.setState({
             buttonSelectorSelectedOption: buttonSelectorSelectedOption,
             transcriptLocationHash: transcriptLocationHash
@@ -57,7 +54,6 @@ class App extends Component {
         this.props.history.push(`${buttonSelectorSelectedOption}${transcriptLocationHash}`);
     }
     componentWillMount() {
-        console.log("componentWillMount");
         // update ButtonSelector selected option on drilldown
         this.unlisten = this.props.history.listen((location, action) => {
             var buttonSelectorSelectedOption = location.pathname.slice(location.pathname.lastIndexOf("/") + 1);
@@ -75,13 +71,12 @@ class App extends Component {
     }
 
     componentWillUnmount() {
-        console.log("componentWillUnmount");
         this.unlisten();
     }
 
     handleButtonSelectorClick(value) {
         localStorage.setItem("buttonSelectorSelectedOption", value);
-        // console.log("handleButtonSelectorClick", value);
+
         this.setState({
             buttonSelectorSelectedOption: value
         });
