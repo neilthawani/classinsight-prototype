@@ -1,4 +1,3 @@
-          // var transcriptLocationHash = location.hash || "";
 import React, { Component } from "react";
 
 import { Route, Switch } from "react-router-dom";
@@ -33,7 +32,7 @@ class App extends Component {
 
         this.state = {
             dataParsers: dataParsers,
-            selectedOption: localStorage.getItem("buttonSelectorSelectedOption"),
+            buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption"),
             activeDataRowIndex: 0
         };
     }
@@ -46,22 +45,30 @@ class App extends Component {
     componentDidMount() {
         // console.log("componentDidMount");
         var buttonSelectorSelectedOption = localStorage.getItem("buttonSelectorSelectedOption");
+        // var transcriptLocationHash = window.location.hash || "";
+        var transcriptLocationHash = localStorage.getItem("transcriptLocationHash");
+        // console.log("transcriptLocationHash", transcriptLocationHash);
         // console.log("buttonSelectorSelectedOption", buttonSelectorSelectedOption);
         this.setState({
-            selectedOption: buttonSelectorSelectedOption
+            buttonSelectorSelectedOption: buttonSelectorSelectedOption,
+            transcriptLocationHash: transcriptLocationHash
         });
 
-        this.props.history.push(`${buttonSelectorSelectedOption}`);
+        this.props.history.push(`${buttonSelectorSelectedOption}${transcriptLocationHash}`);
     }
     componentWillMount() {
         console.log("componentWillMount");
         // update ButtonSelector selected option on drilldown
         this.unlisten = this.props.history.listen((location, action) => {
             var buttonSelectorSelectedOption = location.pathname.slice(location.pathname.lastIndexOf("/") + 1);
+            var transcriptLocationHash = window.location.hash || "";
 
             localStorage.setItem("buttonSelectorSelectedOption", buttonSelectorSelectedOption);
+            localStorage.setItem("transcriptLocationHash", transcriptLocationHash);
+
             this.setState({
-                selectedOption: buttonSelectorSelectedOption
+                buttonSelectorSelectedOption: buttonSelectorSelectedOption,
+                transcriptLocationHash: transcriptLocationHash
             });
 
         }).bind(this);
@@ -76,7 +83,7 @@ class App extends Component {
         localStorage.setItem("buttonSelectorSelectedOption", value);
         // console.log("handleButtonSelectorClick", value);
         this.setState({
-            selectedOption: value
+            buttonSelectorSelectedOption: value
         });
     }
 
@@ -93,7 +100,7 @@ class App extends Component {
 
             {/* coarse, medium, and fine-grained visualizations */}
             <ButtonSelector
-              selectedOption={this.state.selectedOption}
+              buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
               handleClick={this.handleButtonSelectorClick.bind(this)} />
 
             <Sidebar

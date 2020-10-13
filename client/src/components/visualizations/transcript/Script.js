@@ -17,7 +17,7 @@ export default class Script extends Component {
                 const y = focusId.getBoundingClientRect().top - buffer;
 
                 window.scrollTo({top: y, behavior: 'smooth'});
-            }, 500);
+            }, 1000);
         }
 
         window.addEventListener('scroll', this.handleScroll.bind(this));

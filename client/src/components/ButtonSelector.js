@@ -9,7 +9,7 @@ export default class ButtonSelector extends Component {
     //     super(props);
     //
     //     this.state = {
-    //         selectedOption: props.selectedOption
+    //         buttonSelectorSelectedOption: props.buttonSelectorSelectedOption
     //     };
     // }
 
@@ -21,7 +21,7 @@ export default class ButtonSelector extends Component {
         return (
           <div className="button-selector">
             <Link
-              className={this.props.selectedOption === "dashboard" ? "button-selector-item active" : "button-selector-item"}
+              className={this.props.buttonSelectorSelectedOption === "dashboard" ? "button-selector-item active" : "button-selector-item"}
               data-attr-name="dashboard"
               to="/dashboard"
               onClick={this.handleClick.bind(this, "dashboard")}>
@@ -32,7 +32,7 @@ export default class ButtonSelector extends Component {
             </Link>
 
             <Link
-              className={this.props.selectedOption === "talk-ratio" ? "button-selector-item active" : "button-selector-item"}
+              className={this.props.buttonSelectorSelectedOption === "talk-ratio" ? "button-selector-item active" : "button-selector-item"}
               data-attr-name="talk-ratio"
               to="/talk-ratio"
               onClick={this.handleClick.bind(this, "talk-ratio")}>
@@ -44,7 +44,7 @@ export default class ButtonSelector extends Component {
             </Link>
 
             <Link
-              className={this.props.selectedOption === "turn-taking" ? "button-selector-item active" : "button-selector-item"}
+              className={this.props.buttonSelectorSelectedOption === "turn-taking" ? "button-selector-item active" : "button-selector-item"}
               data-attr-name="turn-taking"
               to="/turn-taking"
               onClick={this.handleClick.bind(this, "turn-taking")}>
@@ -55,7 +55,7 @@ export default class ButtonSelector extends Component {
             </Link>
 
             <Link
-              className={this.props.selectedOption === "transcript" ? "button-selector-item active" : "button-selector-item"}
+              className={this.props.buttonSelectorSelectedOption === "transcript" ? "button-selector-item active" : "button-selector-item"}
               data-attr-name="transcript"
               to="/transcript"
               onClick={this.handleClick.bind(this, "transcript")}>
@@ -70,5 +70,5 @@ export default class ButtonSelector extends Component {
 }
 
 ButtonSelector.propTypes = {
-    selectedOption: PropTypes.string.isRequired
+    buttonSelectorSelectedOption: PropTypes.string.isRequired
 }
