@@ -2,15 +2,14 @@ import LegendLabels from '../fixtures/legend_labels';
 
 export default class Parser {
     constructor(data) {
-        // console.log("args", data);
-
         this.data = data;
         this.segments = data.data.segments;
     }
 
-    // segments = []//this.data[0].data.segments
-
-    legendLabelValues = LegendLabels.map((item) => item.value)
+    legendLabels = function(options) {
+        var legendLabels = this.talkRatios().filter((item) => item.type === options.type);
+        return legendLabels;
+    }
 
     transcript = function() {
         var transcript = [];

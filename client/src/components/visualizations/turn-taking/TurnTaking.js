@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import Bar from './Bar';
 import LegendItemGroup from '../../legend/LegendItemGroup';
-import displayLegendLabels from '../../legend/displayLegendLabels';
 
 import Icon from '@mdi/react';
 import { mdiArrowCollapseVertical, mdiArrowExpandVertical } from '@mdi/js';
@@ -106,11 +105,11 @@ export default class TurnTaking extends Component {
             <div className="turn-taking-visualization-container">
               <div className="turn-taking-legend-teacher">
                 <LegendItemGroup
-                  labels={displayLegendLabels(this.state.talkRatios, { type: "Teacher"})}
+                  labels={this.state.parser.legendLabels({ type: "Teacher"})}
                   activeFilters={this.state.activeFilters}
                   handleClick={this.handleFilterClick.bind(this) }/>
                 <LegendItemGroup
-                  labels={displayLegendLabels(this.state.talkRatios, { type: "Technique"})}
+                  labels={this.state.parser.legendLabels({ type: "Technique"})}
                   activeFilters={this.state.activeFilters}
                   handleClick={this.handleFilterClick.bind(this) }/>
               </div>
@@ -138,7 +137,7 @@ export default class TurnTaking extends Component {
               </div>
               <div className="turn-taking-legend-student">
                 <LegendItemGroup
-                  labels={displayLegendLabels(this.state.talkRatios, { type: "Student" })}
+                  labels={this.state.parser.legendLabels({ type: "Student"})}
                   activeFilters={this.state.activeFilters}
                   handleClick={this.handleFilterClick.bind(this) }/>
               </div>

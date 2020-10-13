@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import LegendButtonGroup from '../../legend/LegendButtonGroup';
 import TurnTakingSmall from '../turn-taking/TurnTakingSmall';
 import Script from '../transcript/Script';
-import displayLegendLabels from '../../legend/displayLegendLabels';
 
 import removeArrayValue from '../../../utils/removeArrayValue';
 
@@ -79,17 +78,17 @@ export default class Transcript extends Component {
         <div className="transcript-visualization-container">
           <div className="transcript-visualization-legend">
             <LegendButtonGroup
-              labels={displayLegendLabels(this.state.talkRatios, { type: "Teacher"})}
+              labels={this.state.parser.legendLabels({ type: "Teacher"})}
               displayRatio={true}
               activeLabels={this.state.activeLabels}
               handleClick={this.handleClick.bind(this)} />
             <LegendButtonGroup
-              labels={displayLegendLabels(this.state.talkRatios, { type: "Student"})}
+              labels={this.state.parser.legendLabels({ type: "Student"})}
               displayRatio={true}
               activeLabels={this.state.activeLabels}
               handleClick={this.handleClick.bind(this)} />
             <LegendButtonGroup
-              labels={displayLegendLabels(this.state.talkRatios, { type: "Technique"})}
+              labels={this.state.parser.legendLabels({ type: "Technique"})}
               displayRatio={true}
               activeLabels={this.state.activeLabels}
               handleClick={this.handleClick.bind(this)} />

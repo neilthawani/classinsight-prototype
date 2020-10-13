@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import TalkRatioSection from './TalkRatioSection';
 import Script from '../transcript/Script';
 import LegendItemGroup from '../../legend/LegendItemGroup';
-import displayLegendLabels from '../../legend/displayLegendLabels';
 
 import formatPercentage from '../../../utils/formatPercentage';
 
@@ -86,7 +85,7 @@ export default class TalkRatio extends Component {
               Teacher Talk: {formatPercentage(this.calculateSpeakerTotal("Teacher"), 0)}
             </h3>
             <LegendItemGroup
-              labels={displayLegendLabels(this.state.teacherTalkRatios, { type: "Teacher"}).reverse()}
+              labels={this.state.parser.legendLabels({ type: "Teacher"})}
               displayRatio={true}
               handleClick={() => {}} />
           </div>
@@ -127,7 +126,7 @@ export default class TalkRatio extends Component {
               Student Talk: {formatPercentage(this.calculateSpeakerTotal("Student"), 0)}
             </h3>
             <LegendItemGroup
-              labels={displayLegendLabels(this.state.studentTalkRatios, { type: "Student" })}
+              labels={this.state.parser.legendLabels({ type: "Student"})}
               displayRatio={true}
               handleClick={() => {}} />
           </div>
