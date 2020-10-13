@@ -2,16 +2,12 @@
 .talk-ratio-legend-teacher,
 .turn-taking-legend-teacher {
     position: fixed;
-    // top: calc($navbarHeight + $buttonSelectorHeight);
     padding-left: $legendSideBuffer;
-    // left: 2%;
-    // left: 0;
 }
 
 .talk-ratio-legend-student,
 .turn-taking-legend-student {
     position: fixed;
-    // top: calc($navbarHeight + $buttonSelectorHeight);
     right: $legendSideBuffer;
 }
 

@@ -1,16 +1,10 @@
 .sidebar {
-    // background-color: red;
-    // border-right: 1px solid $lightGray;
     position: fixed;
     top: 0;
     left: 0;
     width: $sideNavWidth;
-    // float: left;
     height: 100%;
-    // width: 300px;
     margin-top: $navbarHeight;
-    // text-align: center;
-    // padding-top: 20px;
     z-index: 999;
     background-color: $blue;
     color: white;
@@ -35,11 +29,6 @@
 .sidebar-data-row {
     padding: 10px 10px;
     cursor: pointer;
-
-    // &:hover {
-    //     background-color: $lightestGray;
-    //     cursor: pointer;
-    // }
 }
 
 .sidebar-data-row.active {
@@ -48,15 +37,6 @@
     border-right: white;
 }
 
-// .sidebar-data-row:first-child {
-//     border-top: 1px solid $lightGray;
-//     border-bottom: 1px solid $lightGray;
-// }
-//
-// .sidebar-data-row:not(:first-child) {
-//     border-bottom: 1px solid $lightGray;
-// }
-
 .sidebar-data-row-title {
     font-size: 18px;
     margin-bottom: 5px;
@@ -64,8 +44,6 @@
 }
 
 .sidebar-data-row-descriptor {
-    // overflow-x: hidden;
-    // text-overflow: ellipsis;
     word-wrap: break-word;
 }
 

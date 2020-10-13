@@ -34,9 +34,6 @@ export default class TalkRatio extends Component {
     constructor(props) {
         super(props);
 
-        // var parser = new Parser(props.data);
-        // console.log("this.parser", this.parser);
-
         var parser = props.activeParser,
             talkRatios = parser.talkRatios(),
             teacherTalkRatios = parser.teacherTalkRatios(),

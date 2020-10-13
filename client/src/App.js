@@ -75,7 +75,6 @@ class App extends Component {
     }
 
     handleDataRowClick(index) {
-        // console.log("row", row);
         this.setState({
             activeDataRowIndex: index
         });

@@ -5,11 +5,6 @@ import Icon from '@mdi/react';
 import { mdiViewDashboardVariantOutline, mdiBarcode, mdiChartGantt, mdiCommentTextMultipleOutline } from '@mdi/js';
 
 export default class ButtonSelector extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     console.log("props");
-    // }
-
     handleClick(value) {
         this.props.handleClick(value);
     }
@@ -33,8 +28,6 @@ export default class ButtonSelector extends Component {
               data-attr-name="talk-ratio"
               to="/dashboard/talk-ratio"
               onClick={this.handleClick.bind(this, "talk-ratio")}>
-              {/*<ViewSplitHorizontalIcon className="button-selector-item-icon mdi-rotate-90" />
-              <ViewSplitHorizontalIcon className="button-selector-item-icon mdi-rotate-270" />*/}
               <Icon path={mdiBarcode} className="button-selector-item-icon" size={1.5} />
 
               <span className="button-selector-item-text">

@@ -1,32 +1,14 @@
 import React, { Component } from "react";
-// import { Link } from "react-router-dom";
-// import PropTypes from "prop-types";
-// import { connect } from "react-redux";
-// import { logoutUser } from "../../actions/authActions";
 
 import Icon from '@mdi/react';
 import { mdiDatabase } from '@mdi/js';
 
-// import ClassInSightLogo from "../../assets/images/classinsight-logo.png";
-
 class Sidebar extends Component {
-    // constructor(props) {
-    //     super(props);
-
-        // console.log("props", props);
-    // }
-    // onLogoutClick = e => {
-    //     e.preventDefault();
-    //     this.props.logoutUser();
-    // };
-
     handleDataRowClick(index) {
         this.props.handleDataRowClick(index);
     }
 
     render() {
-        // const { user } = this.props.auth;
-        // var isLoggedIn = Object.keys(user).length !== 0 ? true : false;
         return (
           <div className="sidebar">
             <div className="sidebar-header">
@@ -34,10 +16,8 @@ class Sidebar extends Component {
             </div>
             <div className="sidebar-data">
               {this.props.dataRows.map((item, index, array) => {
-                  // if (index > 0) return;
                   var datum = item.data;
-                  // console.log("item", item);
-                  // console.log("item.id", item.id, "this.props.activeDataRowIndex", this.props.activeDataRowIndex);
+
                   return (
                     <div key={index}
                       className={this.props.activeDataRowIndex === index ? "sidebar-data-row active" : "sidebar-data-row"}
@@ -71,17 +51,4 @@ class Sidebar extends Component {
     }
 }
 
-// Navbar.propTypes = {
-//     logoutUser: PropTypes.func.isRequired,
-//     auth: PropTypes.object.isRequired
-// };
-
-// const mapStateToProps = state => ({
-//     auth: state.auth
-// });
-
-// export default connect(
-//     mapStateToProps,
-//     { logoutUser }
-// )(Navbar);
 export default Sidebar;
