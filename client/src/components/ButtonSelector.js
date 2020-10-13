@@ -5,14 +5,6 @@ import Icon from '@mdi/react';
 import { mdiViewDashboardVariantOutline, mdiBarcode, mdiChartGantt, mdiCommentTextMultipleOutline } from '@mdi/js';
 
 export default class ButtonSelector extends Component {
-    // constructor(props) {
-    //     super(props);
-    //
-    //     this.state = {
-    //         buttonSelectorSelectedOption: props.buttonSelectorSelectedOption
-    //     };
-    // }
-
     handleClick(value) {
         this.props.handleClick(value);
     }

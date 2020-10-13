@@ -7,6 +7,11 @@ export default [
             "end_time":"0:58:00",
             "initial_time":"0:00:00",
             "original_csv":"Copy of 20200219_Kim_Pd4_Mixed_Katherine_DeletedColumns.csv",
+            "metadata": {
+                "topic": "Physical Science",
+                "period": 4,
+                "date": "2020-02-19"
+            },
             "py/object":"__main__.Period",
             "segments":[
                 {
