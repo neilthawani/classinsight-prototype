@@ -4,11 +4,6 @@ import PropTypes from "prop-types";
 import Utterance from './Utterance';
 
 export default class Script extends Component {
-    constructor(props) {
-        super(props);
-        this.transcript = this.props.transcript;
-    }
-
     componentDidMount() {
         window.addEventListener('scroll', this.handleScroll.bind(this));
         this.handleScroll();
@@ -65,7 +60,7 @@ export default class Script extends Component {
 
     render() {
       var drilldownFilter = this.props.drilldownFilter,
-          activeTranscript = this.transcript;
+          activeTranscript = this.props.transcript;
 
       // for TalkRatio drilldown
       if (drilldownFilter) {
