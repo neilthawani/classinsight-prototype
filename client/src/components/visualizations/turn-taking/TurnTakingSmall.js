@@ -6,14 +6,13 @@ export default class TurnTakingSmall extends Component {
     render() {
         var chartData = this.props.parser.parsedData().expanded,
             chartWidth = this.props.chartWidth,
-            chartHeight = this.props.chartHeight,
             barHeight = this.props.barHeight,
             focusBox = this.props.focusBox,
             boxHeight = focusBox.height + barHeight,
             boxOffset = barHeight * focusBox.topElId;
 
         return (
-            <div className="turn-taking-bars-small-visualization" style={{ minWidth: `${chartWidth}px`, height: `${chartHeight}px`}}>
+            <div className="turn-taking-bars-small-visualization" style={{ minWidth: `${chartWidth}px` }}>
               {chartData.map((item, index) => {
                   var { teacherStyle, studentStyle } = drawBarStyles(item, true);
 
