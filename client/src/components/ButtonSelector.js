@@ -5,6 +5,14 @@ import Icon from '@mdi/react';
 import { mdiViewDashboardVariantOutline, mdiBarcode, mdiChartGantt, mdiCommentTextMultipleOutline } from '@mdi/js';
 
 export default class ButtonSelector extends Component {
+    // constructor(props) {
+    //     super(props);
+    //
+    //     this.state = {
+    //         selectedOption: props.selectedOption
+    //     };
+    // }
+
     handleClick(value) {
         this.props.handleClick(value);
     }
@@ -26,7 +34,7 @@ export default class ButtonSelector extends Component {
             <Link
               className={this.props.selectedOption === "talk-ratio" ? "button-selector-item active" : "button-selector-item"}
               data-attr-name="talk-ratio"
-              to="/dashboard/talk-ratio"
+              to="/talk-ratio"
               onClick={this.handleClick.bind(this, "talk-ratio")}>
               <Icon path={mdiBarcode} className="button-selector-item-icon" size={1.5} />
 
@@ -38,7 +46,7 @@ export default class ButtonSelector extends Component {
             <Link
               className={this.props.selectedOption === "turn-taking" ? "button-selector-item active" : "button-selector-item"}
               data-attr-name="turn-taking"
-              to="/dashboard/turn-taking"
+              to="/turn-taking"
               onClick={this.handleClick.bind(this, "turn-taking")}>
               <Icon path={mdiChartGantt} className="button-selector-item-icon" size={1} />
               <span className="button-selector-item-text">
@@ -49,7 +57,7 @@ export default class ButtonSelector extends Component {
             <Link
               className={this.props.selectedOption === "transcript" ? "button-selector-item active" : "button-selector-item"}
               data-attr-name="transcript"
-              to="/dashboard/transcript"
+              to="/transcript"
               onClick={this.handleClick.bind(this, "transcript")}>
               <Icon path={mdiCommentTextMultipleOutline} className="button-selector-item-icon" size={1} />
               <span className="button-selector-item-text">

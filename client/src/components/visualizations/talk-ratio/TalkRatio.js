@@ -70,7 +70,7 @@ export default class TalkRatio extends Component {
     }
 
     handleUtteranceClick(utteranceId) {
-        this.props.history.push(`/dashboard/transcript#${utteranceId}`);
+        this.props.history.push(`/transcript#${utteranceId}`);
         localStorage.setItem("buttonSelectorSelectedOption", "transcript");
     }
 

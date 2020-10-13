@@ -94,7 +94,7 @@ export default class TurnTaking extends Component {
     }
 
     handleTextClick(turnId) {
-        this.props.history.push(`/dashboard/transcript#${turnId}`);
+        this.props.history.push(`/transcript#${turnId}`);
     }
 
     render() {
