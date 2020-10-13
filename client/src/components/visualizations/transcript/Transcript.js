@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import Parser from '../../../data/parser';
-
 import LegendButtonGroup from '../../legend/LegendButtonGroup';
 import TurnTakingSmall from '../turn-taking/TurnTakingSmall';
 import Script from '../transcript/Script';
@@ -27,7 +25,6 @@ export default class Transcript extends Component {
                 y: 0,
                 height: 0
             },
-            chartOffsetWidth: 0,
             chartWidth: chartWidth,
             chartHeight: 0,
             talkRatios: talkRatios,
@@ -37,16 +34,13 @@ export default class Transcript extends Component {
 
     componentDidMount() {
         // dynamically orient and size TurnTakingSmall chart
-        var // legendButtonGroup = document.getElementsByClassName("transcript-visualization-legend")[0],
-            // chartOffsetWidth = legendButtonGroup.clientWidth,
-            navbarDiv = document.getElementsByClassName("navbar"),
+        var navbarDiv = document.getElementsByClassName("navbar"),
             navbar = navbarDiv && navbarDiv[0],
             buttonSelectorDiv = document.getElementsByClassName("button-selector"),
             buttonSelector = buttonSelectorDiv && buttonSelectorDiv[0],
             chartHeight = window.innerHeight - 2.5 * (navbar.clientHeight - buttonSelector.clientHeight); // this is good enough for now; ideally it captures focusBox.height in its sizing of the chart
 
         this.setState({
-            // chartOffsetWidth: chartOffsetWidth,
             chartHeight: chartHeight
         });
     }
@@ -97,7 +91,6 @@ export default class Transcript extends Component {
     render() {
       return (
         <div className="transcript-visualization-container">
-         {/*style={{ marginLeft: this.state.chartOffsetWidth }}>*/}
           <div className="transcript-visualization-legend">
             <LegendButtonGroup
               labels={displayLegendLabels(this.state.talkRatios, { type: "Teacher"})}

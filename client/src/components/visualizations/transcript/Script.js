@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
 
-import Parser from '../../../data/parser';
 import Utterance from './Utterance';
 
 export default class Script extends Component {
