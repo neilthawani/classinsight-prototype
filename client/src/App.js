@@ -143,8 +143,7 @@ class App extends Component {
                       path="/dashboard/transcript"
                       component={(props) => (
                         <Transcript {...props}
-                          activeParser={this.activeParser()}
-                          data={this.state.dataParsers[this.state.activeDataRowIndex].data} />
+                          activeParser={this.activeParser()} />
                       )}
                     />
                   </Switch>

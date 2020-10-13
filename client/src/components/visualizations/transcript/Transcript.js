@@ -26,7 +26,6 @@ export default class Transcript extends Component {
                 height: 0
             },
             chartWidth: chartWidth,
-            // chartHeight: 0,
             talkRatios: talkRatios,
             transcript: transcript
         };
