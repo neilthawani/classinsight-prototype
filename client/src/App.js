@@ -113,7 +113,7 @@ class App extends Component {
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
               <PrivateRoute exact path="/admin" component={(props) => (
-                  <AdminPanel {...props} users={null} />
+                  <AdminPanel {...props} />
               )} />
 
               {/* A <Switch> looks through all its children <Route> elements and
