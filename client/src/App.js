@@ -12,6 +12,7 @@ import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
 import ButtonSelector from './components/ButtonSelector';
+import AdminPanel from './components/AdminPanel';
 import TalkRatio from './components/visualizations/talk-ratio/TalkRatio';
 import Transcript from './components/visualizations/transcript/Transcript';
 import TurnTaking from './components/visualizations/turn-taking/TurnTaking';
@@ -111,6 +112,9 @@ class App extends Component {
               <Route exact path="/" component={Landing} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
+              <PrivateRoute exact path="/admin" component={(props) => (
+                  <AdminPanel {...props} users={null} />
+              )} />
 
               {/* A <Switch> looks through all its children <Route> elements and
                 renders the first one whose path matches the current URL.
@@ -122,8 +126,7 @@ class App extends Component {
                   path="/dashboard"
                   component={(props) => (
                     <Dashboard {...props}
-                      activeParser={this.activeParser()}
-                      data={this.activeParser().data} />
+                      activeParser={this.activeParser()} />
                   )}
                 />
                 <PrivateRoute
