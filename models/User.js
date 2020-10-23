@@ -18,7 +18,16 @@ const UserSchema = new Schema({
   date: {
     type: Date,
     default: Date.now
+  },
+  userType: {
+    type: Number,
+    default: 50
   }
 });
+
+// userType definitions:
+// project researchers - 100
+// teachers - 50
+// external researchers - 75
 
 module.exports = User = mongoose.model("users", UserSchema);
