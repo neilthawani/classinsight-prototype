@@ -17,6 +17,7 @@ const User = require("../../models/User");
 // @access Public
 router.get('/list', function(req, res) {
     User.find({}, function(error, users) {
+        console.log("users", users);
         res.send(users);
     });
 });

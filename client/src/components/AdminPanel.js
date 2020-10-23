@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import axios from 'axios';
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { listUsers } from '../actions/adminActions';
 
-export default class AdminPanel extends Component {
+class AdminPanel extends Component {
     constructor(props) {
         super(props);
 
@@ -12,18 +14,10 @@ export default class AdminPanel extends Component {
     }
 
     componentDidMount() {
-        var that = this;
-
-        axios.get("/api/users/list")
-            .then(res => {
-                that.setState({
-                    users: res && res.data,
-                    isLoaded: true
-                });
-            }).catch(err => {
-                // console.error('error', err);
-                // that.hasError = true;
-        });
+        // var that = this;
+        // console.log("listUsers", listUsers);
+        var a = listUsers(this);
+        // console.log("a", a);
     }
 
     render() {
@@ -42,3 +36,18 @@ export default class AdminPanel extends Component {
         }
     }
 }
+
+const mapStateToProps = state => ({
+    // auth: state.auth,
+    // errors: state.errors
+});
+
+export default connect(
+    mapStateToProps,
+    { listUsers }
+)(withRouter(AdminPanel));
+
+// export default connect(
+//   mapStateToProps,
+//   { registerUser }
+// )(withRouter(Register));
