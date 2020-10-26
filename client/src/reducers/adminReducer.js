@@ -1,3 +1,13 @@
+import { LIST_USERS } from '../actions/types';
+
+export default function adminReducer(state = [], action) {
+    switch(action.type) {
+        case LIST_USERS:
+        default:
+            return state;
+    }
+}
+
 // import { SET_CURRENT_USER, USER_LOADING } from "../actions/types";
 //
 // const isEmpty = require("is-empty");
