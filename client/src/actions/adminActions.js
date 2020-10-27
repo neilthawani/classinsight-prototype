@@ -2,12 +2,16 @@ import axios from "axios";
 
 import { GET_ERRORS, LIST_USERS } from './types';
 
-export const listUsers = users => ({
-    type: LIST_USERS,
-    payload: {
-        users
-    }
-});
+export const listUsers = () => dispatch => {
+    axios.get("/api/users/list")
+        .then(res => {
+            console.log("adminActions res", res);
+            dispatch({
+                type: LIST_USERS,
+                payload: res && res.data
+            })
+    });
+};
 
 // export const listUsers = () => dispatch => {
 //     axios.get("/api/users/list")
