@@ -1,5 +1,6 @@
 {
   "name": "classinsight-frontend",
+  "homepage": "https://app.classinsight.io",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
