@@ -98,7 +98,9 @@ checkBrowsers(paths.appPath, isInteractive)
         clearConsole();
       }
       console.log(chalk.cyan('Starting the development server...\n'));
-      openBrowser(urls.localUrlForBrowser);
+
+      // this will open the browser to the start page you want for the sub path.
+      openBrowser(`${urls.localUrlForBrowser}${paths.servedPath.slice(1)}`);
     });
 
     ['SIGINT', 'SIGTERM'].forEach(function(sig) {
