@@ -6,6 +6,7 @@ const noopServiceWorkerMiddleware = require('react-dev-utils/noopServiceWorkerMi
 const ignoredFiles = require('react-dev-utils/ignoredFiles');
 const config = require('./webpack.config.dev');
 const paths = require('./paths');
+const express = require('express');
 const fs = require('fs');
 
 const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
@@ -80,6 +81,7 @@ module.exports = function(proxy, allowedHost) {
       // Paths with dots should still use the history fallback.
       // See https://github.com/facebook/create-react-app/issues/387.
       disableDotRule: true,
+      index: config.output.publicPath
     },
     public: allowedHost,
     proxy,
@@ -100,6 +102,9 @@ module.exports = function(proxy, allowedHost) {
       // it used the same host and port.
       // https://github.com/facebook/create-react-app/issues/2272#issuecomment-302832432
       app.use(noopServiceWorkerMiddleware());
+
+      // This goes in the before hook, and proxies the vendor files and what not with the same pattern we put in public url in the first config file.
+      app.use(`${config.output.publicPath.slice(0, -1)}/assets`, express.static(paths.appPublic));
     },
   };
 };
