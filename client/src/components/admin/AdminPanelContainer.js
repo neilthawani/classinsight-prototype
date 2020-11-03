@@ -1,27 +1,28 @@
 import React, { Component } from "react";
 import AdminPanel from './AdminPanel';
-import axios from "axios";
+// import axios from "axios";
 // import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { listUsers } from '../../actions/adminActions';
+import { fetchUsers } from '../../actions/adminActions';
 
 class AdminPanelContainer extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            users: []
+            admin: {}
         };
     }
 
     componentDidMount() {
         // var that = this;
         // console.log("listUsers", listUsers);
-        var users = listUsers();
-        console.log("users", users);
-        this.setState({
-            users: users
-        });
+        // var users = fetchUsers();
+        // this.props.admin.dispatch(fetchUsers());
+        // console.log("users", a);
+        // this.setState({
+        //     users: users
+        // });
         // console.log("a", a);
     }
 
@@ -31,27 +32,27 @@ class AdminPanelContainer extends Component {
         //         <div>No</div>
         //     );
         // } else {
+        // console.log("admin", this.props.admin);
             return (
                 <div className="admin-container">
-                  <AdminPanel users={this.state.users} />
+                  <AdminPanel users={this.props.users} />
                 </div>
             );
         // }
     }
 }
 
-// const mapStateToProps = state => ({
-    // auth: state.auth,
-    // errors: state.errors
-// });
+function mapStateToProps(state) {
+    return {
+        admin: state.admin
+        // users: state.users,
+        // errors: state.errors
+    }
+};
 
-export default AdminPanelContainer;
 // export default connect(
 //     mapStateToProps,
-//     { listUsers }
-// )(AdminPanel);
+//     { fetchUsers }
+// )(AdminPanelContainer);
 
-// export default connect(
-//   mapStateToProps,
-//   { registerUser }
-// )(withRouter(Register));
+export default connect(mapStateToProps)(AdminPanelContainer);

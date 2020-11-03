@@ -30,6 +30,8 @@ class Sidebar extends Component {
                           case 2:
                               prev["date"] = parseInt(item, 10);
                               break;
+                          default:
+                              break;
                       }
 
                       return prev;
