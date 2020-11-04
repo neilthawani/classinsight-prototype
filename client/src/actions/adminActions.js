@@ -12,14 +12,29 @@ import axios from 'axios';
 //     // }
 // }
 
+// export const fetchUsers = () => {
+//     return (dispatch) => {
+//         return axios.get("/api/users/list")
+//             .then(data  => {
+//                 dispatch(listUsers(data));
+//         });
+//     }
+// }
+
 export const fetchUsers = () => {
     return (dispatch) => {
         return axios.get("/api/users/list")
-            .then(data  => {
+            .then(response => {
+                return response;
+            })
+            .then(data => {
                 dispatch(listUsers(data));
-        });
-    }
-}
+            })
+            .catch(error => {
+                throw (error);
+            });
+    };
+};
 
 export const listUsers = users => {
     // console.log("listUsers", users);
