@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 
 class AdminPanel extends Component {
-    constructor(props) {
-        super(props);
-        console.log("props", props);
-    }
+    // constructor(props) {
+    //     super(props);
+    //     console.log("props", props);
+    // }
 
     render() {
+        // console.log("adminpanel props", this.props);
         return (
             <div className="admin-panel">
-              {(this.props.users || []).map((user) => {
+              {/*this.props.users.map((user) => {
                   console.log("user", user);
                   return (
                     <div key={user._id} className="admin-user">
@@ -18,7 +19,7 @@ class AdminPanel extends Component {
                       {user.userType}
                     </div>
                   );
-              })}
+              })*/}
             </div>
         )
     }

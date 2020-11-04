@@ -7,29 +7,17 @@ import { connect } from "react-redux";
 import { fetchUsers } from '../../actions/adminActions';
 
 class AdminPanelContainer extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            admin: {}
-        };
-    }
+    // constructor(props) {
+    //     super(props);
+    // }
 
     componentDidMount() {
         this.props.fetchUsers();
         console.log("this.props.admin", this.props.admin);
-        // var that = this;
-        // console.log("listUsers", listUsers);
-        // var users = fetchUsers();
-        // this.props.admin.dispatch(fetchUsers());
-        // console.log("users", a);
-        // this.setState({
-        //     users: users
-        // });
-        // console.log("a", a);
     }
 
     render() {
+        // console.log("this.props render", this.props.admin.users);
         // if (!this.state.isLoaded) {
         //     return (
         //         <div>No</div>
@@ -38,7 +26,7 @@ class AdminPanelContainer extends Component {
         // console.log("admin", this.props.admin);
             return (
                 <div className="admin-container">
-                  <AdminPanel users={this.props.users} />
+                  <AdminPanel users={this.props.admin.users} />
                 </div>
             );
         // }
@@ -47,7 +35,7 @@ class AdminPanelContainer extends Component {
 
 AdminPanelContainer.propTypes = {
     fetchUsers: PropTypes.func.isRequired,
-    admin: PropTypes.array.isRequired
+    admin: PropTypes.object.isRequired
 }
 
 function mapStateToProps(state) {

@@ -4,25 +4,30 @@ var validateNewUser = function() {}
 var deleteUserById = function() {}
 
 export default function(state = [], action) {
-    var users = [];
+    // var users = [];
 
     switch (action.type) {
         case LIST_USERS:
-            users = [...state, action.users];
-            console.log("LIST_USERS users", users);
-            return users;
+            console.log("LIST_USERS", action.payload.data);
+            var users = {
+                ...state,
+                users: action.payload.data
+            };
+            // console.log("LIST_USERS users", users);
+            // return [...action.payload];
             // debugger;
             // return action.users;
+            return users;
         case CREATE_USER:
             var isValid = validateNewUser(action.data);
             if (isValid) {
-                users = [...state, action.data];
+                var users = [...state, action.data];
             } else {
 
             }
             return users;
         case DELETE_USER:
-            users = deleteUserById(state, action.id);
+            var users = deleteUserById(state, action.id);
             return users;
         case ADD_USER_TO_USERS_LIST:
             return [...state, action.payload];
@@ -39,7 +44,7 @@ export default function(state = [], action) {
         //         loading: true
         //     };
         default:
-            return state;
+            return { ...state };
     }
 }
 
