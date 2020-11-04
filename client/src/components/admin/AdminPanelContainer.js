@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import AdminPanel from './AdminPanel';
+import PropTypes from "prop-types";
 // import axios from "axios";
 // import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
@@ -15,6 +16,8 @@ class AdminPanelContainer extends Component {
     }
 
     componentDidMount() {
+        this.props.fetchUsers();
+        console.log("this.props.admin", this.props.admin);
         // var that = this;
         // console.log("listUsers", listUsers);
         // var users = fetchUsers();
@@ -42,6 +45,11 @@ class AdminPanelContainer extends Component {
     }
 }
 
+AdminPanelContainer.propTypes = {
+    fetchUsers: PropTypes.func.isRequired,
+    admin: PropTypes.array.isRequired
+}
+
 function mapStateToProps(state) {
     return {
         admin: state.admin
@@ -55,4 +63,12 @@ function mapStateToProps(state) {
 //     { fetchUsers }
 // )(AdminPanelContainer);
 
-export default connect(mapStateToProps)(AdminPanelContainer);
+export default connect(
+  mapStateToProps,
+  { fetchUsers}
+)(AdminPanelContainer);
+
+// export default connect(
+//   mapStateToProps,
+//   { loginUser }
+// )(Login);

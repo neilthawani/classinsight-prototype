@@ -1,14 +1,25 @@
 import { LIST_USERS, CREATE_USER, EDIT_USER, DELETE_USER } from './types';
 import axios from 'axios';
 
-export const fetchUsers = () => {
+export async function fetchUsers() {
+    var result = await axios.get("/api/users/list");
+    console.log("result", result);
+    // return await (dispatch) => {
     return (dispatch) => {
-        return axios.get("/api/users/list")
-            .then(({ data }) => {
-                dispatch(listUsers(data));
-        });
+        dispatch(listUsers(result));
     }
+
+    // }
 }
+
+// export const fetchUsers = () => {
+//     return (dispatch) => {
+//         return axios.get("/api/users/list")
+//             .then(data  => {
+//                 dispatch(listUsers(data));
+//         });
+//     }
+// }
 
 export const listUsers = users => {
     return {
@@ -16,7 +27,6 @@ export const listUsers = users => {
         users
     }
 };
-
 
 export const addUser = userObj => {
     return {

@@ -9,7 +9,7 @@ export default function(state = [], action) {
     switch (action.type) {
         case LIST_USERS:
             users = [...state, action.users];
-            console.log("LIST_USERS users", action);
+            console.log("LIST_USERS users", users);
             return users;
             // debugger;
             // return action.users;
@@ -67,9 +67,3 @@ export default function(state = [], action) {
 // };
 //
 //
-// export const listUsers = users => ({
-//     type: LIST_USERS,
-//     payload: {
-//         users
-//     }
-// })
