@@ -1,26 +1,6 @@
 import { LIST_USERS, CREATE_USER, EDIT_USER, DELETE_USER } from './types';
 import axios from 'axios';
 
-// export async function fetchUsers() {
-//     var result = await axios.get("/api/users/list");
-//     console.log("result", result);
-//     // return await (dispatch) => {
-//     return (dispatch) => {
-//         dispatch(listUsers(result.data));
-//     }
-//
-//     // }
-// }
-
-// export const fetchUsers = () => {
-//     return (dispatch) => {
-//         return axios.get("/api/users/list")
-//             .then(data  => {
-//                 dispatch(listUsers(data));
-//         });
-//     }
-// }
-
 export const fetchUsers = () => {
     return (dispatch) => {
         return axios.get("/api/users/list")
@@ -37,7 +17,6 @@ export const fetchUsers = () => {
 };
 
 export const listUsers = users => {
-    // console.log("listUsers", users);
     return {
         type: LIST_USERS,
         payload: users
@@ -68,42 +47,3 @@ export const editUser = userId => {
         userId
     }
 };
-
-// });
-    //   .then(data => {
-    //       dispatch({
-    //           type: ADD_USER_TO_USERS_LIST,
-    //           payload: data
-    //       });
-    //   }).catch(err => {
-    //       dispatch({
-    //         type: GET_ERRORS,
-    //         payload: err.response.data
-    //     });
-    // });
-
-
-    // import axios from "axios";
-    //
-    // import { GET_ERRORS, LIST_USERS } from './types';
-    //
-    // export const listUsers = () => dispatch => {
-    //     axios.get("/api/users/list")
-    //         .then(res => {
-    //             console.log("adminActions res", res);
-    //             dispatch({
-    //                 type: LIST_USERS,
-    //                 payload: res && res.data
-    //             })
-    //     });
-    // };
-
-
-
-    // action creator
-
-
-    // export const LIST_USERS = "LIST_USERS";
-    // export const CREATE_USER = "CREATE_USER";
-    // export const EDIT_USER = "EDIT_USER";
-    // export const DELETE_USER = "DELETE_USER";

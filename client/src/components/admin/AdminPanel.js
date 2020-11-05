@@ -1,23 +1,30 @@
 import React, { Component } from "react";
+import AdminPanel from './AdminPanel';
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { fetchUsers } from '../../actions/adminActions';
 
-class AdminPanel extends Component {
+class AdminPanelContainer extends Component {
     constructor(props) {
         super(props);
-        console.log("AdminPanel props", props);
+
+        this.state = {
+            showUsers: false
+        }
+    }
+
+    componentDidMount() {
+        this.props.fetchUsers();
+        // console.log("this.props.admin", this.props.admin);
     }
 
     render() {
-        var { users } = this.props;
-        // if (users && users.length === 0) {
-        //     return (
-        //       <div></div>
-        //     )
-        // } else {
-        //     console.log("adminpanel props", users);
+        console.log("this.props render", this.props.admin.users);
+        var { users } = this.props.admin;
             return (
-                <div className="admin-panel">
-                  {/*this.props.users.map((user) => {
+                <div className="admin-container">
+
+                  {(users || []).map((user) => {
                       console.log("user", user);
                       return (
                         <div key={user._id} className="admin-user">
@@ -26,15 +33,24 @@ class AdminPanel extends Component {
                           {user.userType}
                         </div>
                       );
-                  })*/}
+                  })}
                 </div>
-            )
-        // }
+            );
     }
 }
 
-// AdminPanel.propTypes = {
-//     users: PropTypes.array.isRequired
-// }
+AdminPanelContainer.propTypes = {
+    fetchUsers: PropTypes.func.isRequired,
+    admin: PropTypes.object.isRequired
+}
 
-export default AdminPanel;
+function mapStateToProps(state) {
+    return {
+        admin: state.admin
+    }
+};
+
+export default connect(
+  mapStateToProps,
+  { fetchUsers}
+)(AdminPanelContainer);

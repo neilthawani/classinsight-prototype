@@ -4,19 +4,13 @@ var validateNewUser = function() {}
 var deleteUserById = function() {}
 
 export default function(state = [], action) {
-    // var users = [];
-
     switch (action.type) {
         case LIST_USERS:
-            // console.log("LIST_USERS", action.payload.data);
             var users = {
                 ...state,
                 users: action.payload.data
             };
-            // console.log("LIST_USERS users", users);
-            // return [...action.payload];
-            // debugger;
-            // return action.users;
+
             return users;
         case CREATE_USER:
             var isValid = validateNewUser(action.data);
