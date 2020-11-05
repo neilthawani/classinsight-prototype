@@ -117,38 +117,35 @@ class App extends Component {
             <Navbar />
 
             {this.dashboardRoutePaths().includes(window.location.pathname) ?
-              <DashboardMenus
-              buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
-              dataParsers={this.state.dataParsers}
-              activeDataRowIndex={this.state.activeDataRowIndex}
-              handleButtonSelectorClick={this.handleButtonSelectorClick.bind(this)}
-              handleSidebarRowClick={this.handleSidebarRowClick.bind(this)} /> : ""}
+            <DashboardMenus
+            buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
+            dataParsers={this.state.dataParsers}
+            activeDataRowIndex={this.state.activeDataRowIndex}
+            handleButtonSelectorClick={this.handleButtonSelectorClick.bind(this)}
+            handleSidebarRowClick={this.handleSidebarRowClick.bind(this)} /> : ""}
+
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+            <PrivateRoute
+              exact
+              path="/admin"
+              component={(props) => (
+                <AdminPanel {...props} />
+              )}
+            />
 
             <div className="dashboard-content">
-              <Route exact path="/" component={Landing} />
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/login" component={Login} />
-              {/* <PrivateRoute exact path="/admin" component={(props) => (
-                  <AdminPanel {...props} />
-              )} /> */}
-
               {/* A <Switch> looks through all its children <Route> elements and
                 renders the first one whose path matches the current URL.
                 Use a <Switch> any time you have multiple routes,
                 but you want only one of them to render at a time. */}
               <Switch>
-                <PrivateRoute
-                  exact
-                  path="/admin"
-                  component={(props) => (
-                    <AdminPanel {...props} />
-                  )}
-                />
-
-                {this.dashboardRoutes().map((routeObj) => {
+                {this.dashboardRoutes().map((routeObj, index) => {
                     return (
                         <PrivateRoute
                           exact
+                          key={index}
                           path={routeObj.path}
                           component={routeObj.component}
                         />
