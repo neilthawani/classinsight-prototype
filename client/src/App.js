@@ -12,7 +12,7 @@ import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
 import ButtonSelector from './components/ButtonSelector';
-import AdminPanelContainer from './components/admin/AdminPanelContainer';
+import AdminPanel from './components/admin/AdminPanel';
 import TalkRatio from './components/visualizations/talk-ratio/TalkRatio';
 import Transcript from './components/visualizations/transcript/Transcript';
 import TurnTaking from './components/visualizations/turn-taking/TurnTaking';
@@ -113,7 +113,7 @@ class App extends Component {
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
               <PrivateRoute exact path="/admin" component={(props) => (
-                  <AdminPanelContainer {...props} />
+                  <AdminPanel {...props} />
               )} />
 
               {/* A <Switch> looks through all its children <Route> elements and

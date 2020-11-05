@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import AdminPanel from './AdminPanel';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { fetchUsers } from '../../actions/adminActions';
 
-class AdminPanelContainer extends Component {
+class AdminPanel extends Component {
     constructor(props) {
         super(props);
 
@@ -39,7 +38,7 @@ class AdminPanelContainer extends Component {
     }
 }
 
-AdminPanelContainer.propTypes = {
+AdminPanel.propTypes = {
     fetchUsers: PropTypes.func.isRequired,
     admin: PropTypes.object.isRequired
 }
@@ -53,4 +52,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   { fetchUsers}
-)(AdminPanelContainer);
+)(AdminPanel);
