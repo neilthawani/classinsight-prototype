@@ -15,27 +15,32 @@ class AdminPanel extends Component {
 
     componentDidMount() {
         this.props.fetchUsers();
-        // console.log("this.props.admin", this.props.admin);
     }
 
     render() {
-        // console.log("this.props render", this.props.admin.users);
         var { users } = this.props.admin;
-        console.log("users", users);
-        return (
-            <div className="admin-container">
 
-              {(users || []).map((user) => {
-                  // console.log("user", user);
-                  return (
-                    <div key={user._id} className="admin-user">
-                      {user.email}
-                      {user.username}
-                      {user.userType}
-                    </div>
-                  );
-              })}
-            </div>
+        return (
+            <table className="admin-container">
+              <thead>
+                <tr>
+                  <th>Email</th>
+                  <th>Username</th>
+                  <th>User Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                {(users || []).map((user) => {
+                    return (
+                      <tr key={user._id}>
+                        <td>{user.email}</td>
+                        <td>{user.username}</td>
+                        <td className="text-center">{user.userType}</td>
+                      </tr>
+                    );
+                })}
+              </tbody>
+            </table>
         );
     }
 }

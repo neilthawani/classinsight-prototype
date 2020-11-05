@@ -1,0 +1,19 @@
+.admin-container {
+    margin: 40px auto;
+    display: table;
+    border: 1px solid black;
+}
+
+.admin-container tbody tr:nth-child(2n+1) {
+    background-color: $lightGray;
+}
+
+.admin-container th {
+    font-size: 18px;
+    padding: 10px 20px;
+    text-decoration: underline;
+}
+
+.admin-container tr td {
+    padding: 10px 20px;
+}
