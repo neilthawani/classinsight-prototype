@@ -1,19 +1,25 @@
 .admin-container {
+    width: 75%;
     margin: 40px auto;
-    display: table;
-    border: 1px solid black;
 }
 
-.admin-container tbody tr:nth-child(2n+1) {
+.admin-panel-table {
+    // margin: 40px auto;
+    display: table;
+    border: 1px solid black;
+    width: 100%;
+}
+
+.admin-panel-table tbody tr:nth-child(2n+1) {
     background-color: $lightGray;
 }
 
-.admin-container th {
+.admin-panel-table th {
     font-size: 18px;
     padding: 10px 20px;
     text-decoration: underline;
 }
 
-.admin-container tr td {
+.admin-panel-table tr td {
     padding: 10px 20px;
 }

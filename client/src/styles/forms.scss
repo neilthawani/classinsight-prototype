@@ -13,9 +13,8 @@
     font-size: 12px;
 }
 
-// .form-container a.btn,
-.form-container .btn {
-    width: 75%;
+.btn {
+    width: max-content;
     font-size: 18px;
     display: block;
     padding: 5px 10px;
@@ -30,6 +29,12 @@
     &:focus {
         outline: 0;
     }
+}
+
+// .form-container a.btn,
+.form-container .btn {
+    width: 75%;
+    @extend .btn;
 }
 
 .input-field {
