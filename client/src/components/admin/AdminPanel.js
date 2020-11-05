@@ -5,6 +5,7 @@ import { fetchUsers } from '../../actions/adminActions';
 
 class AdminPanel extends Component {
     constructor(props) {
+        console.log("adminpanel constructor");
         super(props);
 
         this.state = {
@@ -18,23 +19,24 @@ class AdminPanel extends Component {
     }
 
     render() {
-        console.log("this.props render", this.props.admin.users);
+        // console.log("this.props render", this.props.admin.users);
         var { users } = this.props.admin;
-            return (
-                <div className="admin-container">
+        console.log("users", users);
+        return (
+            <div className="admin-container">
 
-                  {(users || []).map((user) => {
-                      console.log("user", user);
-                      return (
-                        <div key={user._id} className="admin-user">
-                          {user.email}
-                          {user.username}
-                          {user.userType}
-                        </div>
-                      );
-                  })}
-                </div>
-            );
+              {(users || []).map((user) => {
+                  // console.log("user", user);
+                  return (
+                    <div key={user._id} className="admin-user">
+                      {user.email}
+                      {user.username}
+                      {user.userType}
+                    </div>
+                  );
+              })}
+            </div>
+        );
     }
 }
 

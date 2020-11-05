@@ -4,14 +4,14 @@ import { Route, Switch } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 
 import Navbar from "./components/layout/Navbar";
-import Sidebar from "./components/layout/Sidebar";
 
 import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
-import ButtonSelector from './components/ButtonSelector';
+import DashboardMenus from './DashboardMenus';
+
 import AdminPanel from './components/admin/AdminPanel';
 import TalkRatio from './components/visualizations/talk-ratio/TalkRatio';
 import Transcript from './components/visualizations/transcript/Transcript';
@@ -83,38 +83,54 @@ class App extends Component {
         });
     }
 
-    handleDataRowClick(index) {
+    handleSidebarRowClick(index) {
         this.setState({
             activeDataRowIndex: index
         });
     }
 
+    dashboardRoutes() {
+        return [{
+            path: "/dashboard",
+            component: (props) => ( <Dashboard {...props} activeParser={this.activeParser()} /> )
+        }, {
+            path: "/talk-ratio",
+            component: (props) => ( <TalkRatio {...props} activeParser={this.activeParser()} /> )
+        }, {
+            path: "/turn-taking",
+            component: (props) => ( <TurnTaking {...props} activeParser={this.activeParser()} /> )
+        }, {
+            path: "/transcript",
+            component: (props) => ( <Transcript {...props} activeParser={this.activeParser()} /> )
+        }]
+    }
+
+    dashboardRoutePaths() {
+        return this.dashboardRoutes().map((routeObj) => {
+            return routeObj.path;
+        });
+    }
+
     render() {
         return (
-          <div className="app-container">
+          <div className="app">
             <Navbar />
 
-            {/* coarse, medium, and fine-grained visualizations */}
-            <ButtonSelector
+            {this.dashboardRoutePaths().includes(window.location.pathname) ?
+              <DashboardMenus
               buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
-              handleClick={this.handleButtonSelectorClick.bind(this)} />
-
-            <Sidebar
-              dataRows={
-                this.state.dataParsers.map((parser) => {
-                    return parser.data;
-                })
-              }
+              dataParsers={this.state.dataParsers}
               activeDataRowIndex={this.state.activeDataRowIndex}
-              handleDataRowClick={this.handleDataRowClick.bind(this)}/>
+              handleButtonSelectorClick={this.handleButtonSelectorClick.bind(this)}
+              handleSidebarRowClick={this.handleSidebarRowClick.bind(this)} /> : ""}
 
-            <div className="app-container-content">
+            <div className="dashboard-content">
               <Route exact path="/" component={Landing} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
-              <PrivateRoute exact path="/admin" component={(props) => (
+              {/* <PrivateRoute exact path="/admin" component={(props) => (
                   <AdminPanel {...props} />
-              )} />
+              )} /> */}
 
               {/* A <Switch> looks through all its children <Route> elements and
                 renders the first one whose path matches the current URL.
@@ -123,36 +139,21 @@ class App extends Component {
               <Switch>
                 <PrivateRoute
                   exact
-                  path="/dashboard"
+                  path="/admin"
                   component={(props) => (
-                    <Dashboard {...props}
-                      activeParser={this.activeParser()} />
+                    <AdminPanel {...props} />
                   )}
                 />
-                <PrivateRoute
-                  exact
-                  path="/talk-ratio"
-                  component={(props) => (
-                    <TalkRatio {...props}
-                      activeParser={this.activeParser()} />
-                  )}
-                />
-                <PrivateRoute
-                  exact
-                  path="/turn-taking"
-                  component={(props) => (
-                    <TurnTaking {...props}
-                      activeParser={this.activeParser()} />
-                  )}
-                />
-                <PrivateRoute
-                  exact
-                  path="/transcript"
-                  component={(props) => (
-                    <Transcript {...props}
-                      activeParser={this.activeParser()} />
-                  )}
-                />
+
+                {this.dashboardRoutes().map((routeObj) => {
+                    return (
+                        <PrivateRoute
+                          exact
+                          path={routeObj.path}
+                          component={routeObj.component}
+                        />
+                    )
+                })}
               </Switch>
             </div>
           </div>
