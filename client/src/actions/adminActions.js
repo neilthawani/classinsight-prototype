@@ -1,4 +1,4 @@
-import { LIST_USERS, CREATE_USER, EDIT_USER, DELETE_USER } from './types';
+import { LIST_USERS, CREATE_USER, EDIT_USER, DELETE_USER, GET_ERRORS } from './types';
 import axios from 'axios';
 
 export const fetchUsers = () => {
@@ -21,6 +21,19 @@ export const listUsers = users => {
         type: LIST_USERS,
         payload: users
     }
+};
+
+export const createUser = (userData) => dispatch => {
+  axios
+    .post("/api/users/register", userData)
+    .then(res => console.log("Success. Added user: ", res))
+    .catch(err => {
+      console.log('err', err);
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    });
 };
 
 export const addUser = userObj => {

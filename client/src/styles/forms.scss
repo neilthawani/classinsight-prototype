@@ -1,5 +1,6 @@
 .form-container {
-    margin: 50px auto;
+    margin-left: auto;
+    margin-right: auto;
     border: 1px solid $lightGray;
     padding: 10px 40px;
     min-width: 200px;
@@ -18,7 +19,7 @@
     font-size: 18px;
     display: block;
     padding: 5px 10px;
-    margin: 20px auto;
+    margin-bottom: 20px;
     text-align: center;
     cursor: pointer;
     color: white;
@@ -34,6 +35,7 @@
 // .form-container a.btn,
 .form-container .btn {
     width: 75%;
+    margin: 20px auto;
     @extend .btn;
 }
 

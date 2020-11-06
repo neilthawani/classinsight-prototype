@@ -1,25 +1,29 @@
-.admin-container {
+.admin {
     width: 75%;
     margin: 40px auto;
 }
 
-.admin-panel-table {
-    // margin: 40px auto;
-    display: table;
-    border: 1px solid black;
-    width: 100%;
+.admin-header > .btn {
+    float: right;
 }
 
-.admin-panel-table tbody tr:nth-child(2n+1) {
+.admin-table {
+    display: table;
+    // border: 1px solid black;
+    width: 100%;
+    margin: 40px 0;
+}
+
+.admin-table tbody tr:nth-child(2n+1) {
     background-color: $lightGray;
 }
 
-.admin-panel-table th {
-    font-size: 18px;
+.admin-table th {
+    font-size: 24px;
     padding: 10px 20px;
-    text-decoration: underline;
+    // text-decoration: underline;
 }
 
-.admin-panel-table tr td {
+.admin-table tr td {
     padding: 10px 20px;
 }

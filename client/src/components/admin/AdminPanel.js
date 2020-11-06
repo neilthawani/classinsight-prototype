@@ -2,31 +2,65 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { fetchUsers } from '../../actions/adminActions';
+import CreateUserForm from './CreateUserForm';
 
 class AdminPanel extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            showUsers: false
-        }
+            isCreatingUser: false,
+        };
     }
 
     componentDidMount() {
         this.props.fetchUsers();
     }
 
+    toggleCreateUser() {
+        this.setState({
+            isCreatingUser: !this.state.isCreatingUser
+        });
+    }
+
+    userTypeAsWords(type) {
+        var userTypeAsWords = "Teacher";
+
+        switch (type) {
+            case 100:
+                userTypeAsWords = "ClassInSight Researcher";
+                break;
+            case 75:
+                userTypeAsWords = "External Researcher";
+                break;
+            case 50:
+            default:
+                userTypeAsWords = "Teacher";
+                break;
+        }
+
+        return userTypeAsWords;
+    }
+
     render() {
         var { users } = this.props.admin;
 
         return (
-          <div className="admin-container">
-            <div className="btn text-right">Create new user</div>
-            <table className="admin-panel-table">
+          <div className="admin">
+            <div className="admin-header">
+              <span className="btn" onClick={this.toggleCreateUser.bind(this)}>
+                {this.state.isCreatingUser ? "Cancel" : "Create new user"}
+              </span>
+
+              {this.state.isCreatingUser ?
+                <CreateUserForm />
+              : ""}
+            </div>
+            <table className="admin-table">
               <thead>
                 <tr>
+                  <th>Name</th>
                   <th>Email</th>
-                  <th>Username</th>
                   <th>User Type</th>
                   <th>Actions</th>
                 </tr>
@@ -35,12 +69,14 @@ class AdminPanel extends Component {
                 {(users || []).map((user) => {
                     return (
                       <tr key={user._id}>
-                        <td>{user.email}</td>
                         <td>{user.username}</td>
-                        <td className="text-center">{user.userType}</td>
+                        <td>{user.email}</td>
+                        <td className="text-center">
+                          {this.userTypeAsWords(user.userType)}
+                        </td>
                         <td>
-                        Edit
-                        Delete
+                          Edit
+                          Delete
                         </td>
                       </tr>
                     );
