@@ -1,43 +1,42 @@
-import { LIST_USERS, ADD_USER_TO_USERS_LIST, CREATE_USER, DELETE_USER } from '../actions/types';
+import { GET_ERRORS, LIST_USERS, ADD_USER_TO_USERS_LIST, CREATE_USER, DELETE_USER } from '../actions/types';
+
+// var initialState = {
+//     name: "",
+//     email: "",
+//     password: "",
+//     password2: "",
+//     errors: {}
+// };
 
 var validateNewUser = function() {}
 var deleteUserById = function() {}
 
-export default function(state = [], action) {
+export default function(state, action) {
     switch (action.type) {
         case LIST_USERS:
-            var users = {
+            return {
                 ...state,
                 users: action.payload.data
             };
-
-            return users;
         case CREATE_USER:
-            var isValid = validateNewUser(action.data);
+            console.log("CREATE_USER")
+            var isValid = validateNewUser(action.data),
+                users = null;
             if (isValid) {
                 var users = [...state, action.data];
-            } else {
-
             }
             return users;
         case DELETE_USER:
-            var users = deleteUserById(state, action.id);
-            return users;
+            return deleteUserById(state, action.id);
         case ADD_USER_TO_USERS_LIST:
             return [...state, action.payload];
-
-        // case SET_CURRENT_USER:
-        //     return {
-        //         ...state,
-        //         isAuthenticated: !isEmpty(action.payload),
-        //         user: action.payload
-        //     };
-        // case USER_LOADING:
-        //     return {
-        //         ...state,
-        //         loading: true
-        //     };
+        case GET_ERRORS:
+            return {
+                ...state,
+                errors: action.payload
+            }
         default:
+            // console.log("action", action);
             return { ...state };
     }
 }
@@ -66,3 +65,17 @@ export default function(state = [], action) {
 // };
 //
 //
+
+
+
+// case SET_CURRENT_USER:
+//     return {
+//         ...state,
+//         isAuthenticated: !isEmpty(action.payload),
+//         user: action.payload
+//     };
+// case USER_LOADING:
+//     return {
+//         ...state,
+//         loading: true
+//     };

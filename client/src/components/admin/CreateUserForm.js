@@ -19,6 +19,16 @@ class CreateUserForm extends Component {
         };
     }
 
+    // npx react-codemod rename-unsafe-lifecycles
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        console.log("nextProps", nextProps);
+        if (nextProps.errors) {
+            this.setState({
+                errors: nextProps.errors
+            });
+        }
+    }
+
     onChange = e => {
         this.setState({ [e.target.id]: e.target.value });
     }

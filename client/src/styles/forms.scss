@@ -62,5 +62,6 @@
 .input-field-error-text {
     display: block;
     color: red;
-    word-wrap: break-word;
+    // word-wrap: break-word;
+    max-width: fit-content;
 }

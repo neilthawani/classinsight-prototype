@@ -26,23 +26,23 @@ export const listUsers = users => {
 export const createUser = (userData) => dispatch => {
   axios
     .post("/api/users/register", userData)
-    .then(res => console.log("Success. Added user: ", res))
-    .catch(err => {
-      console.log('err', err);
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
+    .then(res => {
+        console.log("Success. Added user: ", res)
+        dispatch({
+            type: CREATE_USER, // 'admin/userAdded',
+            payload: {
+                user: res.data
+            }
+        })
+    })
+    .catch(error => {
+        console.log('Error:', error, error.response && error.response.data);
+        // console.log('response data', err.response.data);
+        dispatch({
+            type: GET_ERRORS,
+            payload: error.response && error.response.data
+        })
     });
-};
-
-export const addUser = userObj => {
-    return {
-        type: CREATE_USER, // 'admin/userAdded',
-        payload: {
-            user: userObj
-        }
-    }
 };
 
 export const deleteUser = userId => {
