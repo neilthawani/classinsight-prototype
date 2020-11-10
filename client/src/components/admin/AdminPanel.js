@@ -91,6 +91,7 @@ class AdminPanel extends Component {
 }
 
 AdminPanel.propTypes = {
+    auth: PropTypes.object.isRequired,
     fetchUsers: PropTypes.func.isRequired,
     deleteUserById: PropTypes.func.isRequired,
     admin: PropTypes.object.isRequired
@@ -98,6 +99,7 @@ AdminPanel.propTypes = {
 
 function mapStateToProps(state) {
     return {
+        auth: state.auth,
         admin: state.admin
     }
 };
