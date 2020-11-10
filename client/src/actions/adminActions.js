@@ -23,6 +23,29 @@ export const listUsers = users => {
     }
 };
 
+export const deleteUserById = function(userId) {
+    console.log("adminActions::deleteUserById");
+    axios.post("/api/users/admin/delete", { id: userId })
+            .then(response => {
+                console.log("response", response);
+            })
+            .then(data => {
+                console.log("data", data);
+                // dispatch({
+                //     type: DELETE_USER,
+                //     payload: {
+                //         // userId
+                //     }
+                // })
+            })
+            .catch(error => {
+                throw error;
+            })
+    // }
+};
+
+
+
 export const createUser = (userData) => dispatch => {
   axios
     .post("/api/users/register", userData)
@@ -43,15 +66,6 @@ export const createUser = (userData) => dispatch => {
             payload: error.response && error.response.data
         })
     });
-};
-
-export const deleteUser = userId => {
-    return {
-        type: DELETE_USER,
-        payload: {
-            userId
-        }
-    }
 };
 
 export const editUser = userId => {

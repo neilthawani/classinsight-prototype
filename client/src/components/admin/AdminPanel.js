@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { fetchUsers } from '../../actions/adminActions';
+import { fetchUsers, deleteUserById } from '../../actions/adminActions';
+import AdminPanelTableRow from './AdminPanelTableRow';
 import CreateUserForm from './CreateUserForm';
 
 class AdminPanel extends Component {
@@ -10,6 +11,8 @@ class AdminPanel extends Component {
 
         this.state = {
             isCreatingUser: false,
+            isDeletingUser: false,
+            userToDelete: {}
         };
     }
 
@@ -23,23 +26,28 @@ class AdminPanel extends Component {
         });
     }
 
-    userTypeAsWords(type) {
-        var userTypeAsWords = "Teacher";
-
-        switch (type) {
-            case 100:
-                userTypeAsWords = "ClassInSight Researcher";
-                break;
-            case 75:
-                userTypeAsWords = "External Researcher";
-                break;
-            case 50:
-            default:
-                userTypeAsWords = "Teacher";
-                break;
+    deleteUser(user, confirmation = false) {
+        // console.log("deleteUser base", user, confirmation);//, this.state.userToDelete);
+        // explicit true because context is sent in place of 'confirmation' value
+        // on initial "Delete" button" click
+        if (confirmation) {
+            console.log("delete");
+            deleteUserById(user._id);
+            this.setState({
+                userToDelete: {}
+            });
         }
 
-        return userTypeAsWords;
+        if (user._id === this.state.userToDelete._id && !confirmation) { // remove confirmation message
+            console.log("don't delete");
+            this.setState({
+                userToDelete: {}
+            });
+        } else if (Object.entries(this.state.userToDelete).length === 0) { // set confirmation message
+            this.setState({
+                userToDelete: user
+            });
+        }
     }
 
     render() {
@@ -68,17 +76,11 @@ class AdminPanel extends Component {
               <tbody>
                 {(users || []).map((user) => {
                     return (
-                      <tr key={user._id}>
-                        <td>{user.username}</td>
-                        <td>{user.email}</td>
-                        <td className="text-center">
-                          {this.userTypeAsWords(user.userType)}
-                        </td>
-                        <td>
-                          Edit
-                          Delete
-                        </td>
-                      </tr>
+                      <AdminPanelTableRow
+                        key={user._id}
+                        user={user}
+                        isDeletingUser={this.state.userToDelete._id === user._id}
+                        deleteUser={this.deleteUser.bind(this)} />
                     );
                 })}
               </tbody>
@@ -90,6 +92,7 @@ class AdminPanel extends Component {
 
 AdminPanel.propTypes = {
     fetchUsers: PropTypes.func.isRequired,
+    deleteUserById: PropTypes.func.isRequired,
     admin: PropTypes.object.isRequired
 }
 
@@ -101,5 +104,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { fetchUsers}
+  { fetchUsers, deleteUserById }
 )(AdminPanel);

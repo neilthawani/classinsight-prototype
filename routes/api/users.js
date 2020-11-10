@@ -60,6 +60,18 @@ router.post("/register", (req, res) => {
   });
 });
 
+// @route POST api/users/admin/delete
+// @desc Delete user from Users table
+// @access Public
+router.post('/admin/delete', (req, res) => {
+    console.log("req", req, "res", res);
+    const email = req.body.email;
+
+    // User.findOneAndDelete({ email: req.body.email }).then(user => {
+    //
+    // });
+});
+
 // @route POST api/users/login
 // @desc Login user and return JWT token
 // @access Public

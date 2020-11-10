@@ -23,10 +23,11 @@ export default function(state, action) {
             var isValid = validateNewUser(action.data),
                 users = null;
             if (isValid) {
-                var users = [...state, action.data];
+                users = [...state, action.data];
             }
             return users;
         case DELETE_USER:
+            console.log("DELETE_USER in adminReducer");
             return deleteUserById(state, action.id);
         case ADD_USER_TO_USERS_LIST:
             return [...state, action.payload];

@@ -1,17 +1,17 @@
 .admin {
     width: 75%;
-    margin: 40px auto;
+    margin: 20px auto 0 auto;
 }
 
-.admin-header > .btn {
-    float: right;
+.admin-header {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row-reverse;
 }
 
 .admin-table {
-    display: table;
-    // border: 1px solid black;
     width: 100%;
-    margin: 40px 0;
+    table-layout: fixed;
 }
 
 .admin-table tbody tr:nth-child(2n+1) {
@@ -21,9 +21,49 @@
 .admin-table th {
     font-size: 24px;
     padding: 10px 20px;
-    // text-decoration: underline;
+
+
+    // &:nth-of-type(1),
+    // &:nth-of-type(3) {
+    //     width: 16.67%;
+    // }
+    //
+    // &:nth-of-type(2),
+    // &:nth-of-type(4) {
+    //     width: 33.33%;
+    // }
 }
 
 .admin-table tr td {
     padding: 10px 20px;
+
+    // &:nth-of-type(1),
+    // &:nth-of-type(3) {
+    //     width: 16.67%;
+    // }
+    //
+    // &:nth-of-type(2),
+    // &:nth-of-type(4) {
+    //     width: 33.33%;
+    // }
+}
+
+.admin-table-actions, // td
+.admin-table-actions-confirm-buttons { //div
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.admin-table-actions-confirm {
+    text-align: center;
+}
+
+.admin-table-actions-confirm-text {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.admin-table-actions-confirm-buttons { //div
+    margin-top: 10px;
 }
