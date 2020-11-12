@@ -41,7 +41,7 @@ class Navbar extends Component {
                   <Link to="/admin">
                     <div className="navbar-dropdown-menu-item">
                       <Icon path={mdiBadgeAccountHorizontalOutline} className="navbar-dropdown-menu-item-icon" size={1} />
-                      <span className="navbar-dropdown-menu-item-link" onClick={this.onLogoutClick}>
+                      <span className="navbar-dropdown-menu-item-link">
                          Manage Users
                       </span>
                     </div>
