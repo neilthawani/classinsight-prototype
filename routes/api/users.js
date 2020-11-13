@@ -12,6 +12,26 @@ const validateLoginInput = require("../../validation/login");
 // Load User model
 const User = require("../../models/User");
 
+// @route POST api/users/delete
+// @desc Delete user from Users table
+// @access Public
+router.post('/delete', (req, res) => {
+    console.log("req", req, "res", res);
+    // const email = req.body.email;
+    const id = req.body.user._id;
+    console.log("id", id);
+    // const
+    // return res.status(300);
+    User.deleteOne({ _id: id })
+    .then(user => {
+        if (user) {
+            return res.status(200).json({ message: "User deleted", user: req.body.user });
+        } else {
+            return res.status(400).json({ nouser: `There is no user with id: ${req.body.user._id}` });
+        }
+    });
+});
+
 // @route GET api/users/list
 // @desc List all users
 // @access Public
@@ -58,18 +78,6 @@ router.post("/register", (req, res) => {
       });
     }
   });
-});
-
-// @route POST api/users/admin/delete
-// @desc Delete user from Users table
-// @access Public
-router.post('/admin/delete', (req, res) => {
-    console.log("req", req, "res", res);
-    const email = req.body.email;
-
-    // User.findOneAndDelete({ email: req.body.email }).then(user => {
-    //
-    // });
 });
 
 // @route POST api/users/login

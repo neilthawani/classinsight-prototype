@@ -1,50 +1,37 @@
-import { LIST_USERS, CREATE_USER, EDIT_USER, DELETE_USER, GET_ERRORS } from './types';
+import { LIST_USERS, CREATE_USER, DELETE_USER, EDIT_USER, GET_ERRORS } from './types';
 import axios from 'axios';
 
 export const fetchUsers = () => {
     return (dispatch) => {
         return axios.get("/api/users/list")
-            .then(response => {
-                return response;
-            })
-            .then(data => {
-                dispatch(listUsers(data));
-            })
-            .catch(error => {
-                throw (error);
+        .then(response => {
+            return response;
+        })
+        .then(response => {
+            dispatch({
+                type: LIST_USERS,
+                payload: response // users
             });
+        })
+        .catch(error => {
+            throw (error);
+        });
     };
 };
 
-export const listUsers = users => {
-    return {
-        type: LIST_USERS,
-        payload: users
-    }
-};
-
-export const deleteUserById = function(userId) {
-    console.log("adminActions::deleteUserById");
-    axios.post("/api/users/admin/delete", { id: userId })
-            .then(response => {
-                console.log("response", response);
+export const deleteUserById = (user) => dispatch => {
+    console.log("here");
+    axios.post("/api/users/delete", { user: user })
+        .then(response => {
+            dispatch({
+                type: DELETE_USER,
+                payload: response // user
             })
-            .then(data => {
-                console.log("data", data);
-                // dispatch({
-                //     type: DELETE_USER,
-                //     payload: {
-                //         // userId
-                //     }
-                // })
-            })
-            .catch(error => {
-                throw error;
-            })
-    // }
-};
-
-
+    })
+    .catch(error => {
+        console.log(error);
+    });
+}
 
 export const createUser = (userData) => dispatch => {
   axios

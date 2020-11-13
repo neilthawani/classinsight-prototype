@@ -1,5 +1,5 @@
 import { GET_ERRORS, LIST_USERS, ADD_USER_TO_USERS_LIST, CREATE_USER, DELETE_USER } from '../actions/types';
-
+import removeArrayValue from '../utils/removeArrayValue';
 // var initialState = {
 //     name: "",
 //     email: "",
@@ -9,11 +9,12 @@ import { GET_ERRORS, LIST_USERS, ADD_USER_TO_USERS_LIST, CREATE_USER, DELETE_USE
 // };
 
 // var validateNewUser = function() {}
-var deleteUserById = function() {}
+// var deleteUserById = function() {}
 
 export default function(state, action) {
     switch (action.type) {
         case LIST_USERS:
+            console.log("LIST_USERS", action.payload.data);
             return {
                 ...state,
                 users: action.payload.data
@@ -24,17 +25,25 @@ export default function(state, action) {
             // var isValid = validateNewUser(action.payload),
                 // users = null;
             // if (isValid) {
-            debugger;
+            // debugger;
             state.users.push(action.payload);
             var users = {
                 ...state
             };
             // }
-            debugger;
+            // debugger;
             return users;
         case DELETE_USER:
-            console.log("DELETE_USER in adminReducer");
-            return deleteUserById(state, action.id);
+            // debugger;
+            // console.log("DELETE_USER", action.payload.data.user, state.users);
+            // debugger;
+            var users = state.users.filter(user => user._id !== action.payload.data.user._id);
+            // var users = removeArrayValue(action.payload.data.user, state.users);
+            // console.log("users", users);
+            return { users: users };
+            // debugger;
+            // console.log("users", users);
+            // return users;
         case ADD_USER_TO_USERS_LIST:
             return [...state, action.payload];
         case GET_ERRORS:

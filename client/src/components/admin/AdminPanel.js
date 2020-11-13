@@ -29,6 +29,16 @@ class AdminPanel extends Component {
         }
     }
 
+    // npx react-codemod rename-unsafe-lifecycles
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        // console.log("nextProps", nextProps);
+        if (nextProps.users) {
+            this.setState({
+                users: nextProps.users
+            });
+        }
+    }
+
     toggleCreateUser() {
         this.setState({
             isCreatingUser: !this.state.isCreatingUser
@@ -36,23 +46,27 @@ class AdminPanel extends Component {
     }
 
     deleteUser(user, confirmation = false) {
+        // console.log("user", user, "user._id", user._id);
         // console.log("deleteUser base", user, confirmation);//, this.state.userToDelete);
         // explicit true because context is sent in place of 'confirmation' value
         // on initial "Delete" button" click
         if (confirmation) {
-            console.log("delete");
-            deleteUserById(user._id);
+            console.log("delete", user);
+            this.props.deleteUserById(user);
             this.setState({
                 userToDelete: {}
             });
         }
 
+        // console.log("ok");
+
         if (user._id === this.state.userToDelete._id && !confirmation) { // remove confirmation message
-            console.log("don't delete");
+            // console.log("remove confirmation message");
             this.setState({
                 userToDelete: {}
             });
         } else if (Object.entries(this.state.userToDelete).length === 0) { // set confirmation message
+            // console.log("set confirmation message");
             this.setState({
                 userToDelete: user
             });
