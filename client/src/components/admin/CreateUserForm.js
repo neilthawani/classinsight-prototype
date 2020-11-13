@@ -9,6 +9,7 @@ import Nouns from '../../fixtures/nouns';
 import Icon from '@mdi/react';
 import { mdiGooglePlus } from '@mdi/js';
 import generateRandomNumber from '../../utils/generateRandomNumber';
+import UserTypes from '../../fixtures/user_types';
 
 const CREATE_GOOGLE_ACCOUNT_URL = 'https://accounts.google.com/signup/v2/webcreateaccount?continue=https%3A%2F%2Faccounts.google.com%2FManageAccount%3Fnc%3D1&dsh=S2114698834%3A1605300939529596&gmb=exp&biz=false&flowName=GlifWebSignIn&flowEntry=SignUp&nogm=true';
 
@@ -19,6 +20,7 @@ class CreateUserForm extends Component {
         this.state = {
             name: "",
             email: "",
+            userType: 50,
             password: "",
             password2: "",
             errors: {},
@@ -37,6 +39,8 @@ class CreateUserForm extends Component {
     }
 
     onChange = e => {
+        // console.log('e.target', e.target, 'e.target.value', e.target.value);
+        // this.setState({[e.target]: e.target.value})
         this.setState({ [e.target.id]: e.target.value });
     }
 
@@ -59,14 +63,11 @@ class CreateUserForm extends Component {
         var number = generateRandomNumber(100, 999);
         var username = `${adjective}${noun}${number}`;
 
+        navigator.clipboard.writeText(username);
+
         this.setState({
             name: username,
-            email: `${username}@gmail.com`
-        });
-
-        var promise = navigator.clipboard.writeText(username);
-
-        this.setState({
+            email: `${username}@gmail.com`,
             emailCopied: true
         });
     }
@@ -126,6 +127,22 @@ class CreateUserForm extends Component {
                 />
                 <span className="input-field-error-text">{errors.email}</span>
               </div>
+
+              <div className="input-field">
+                <label htmlFor="userType">User Type</label>
+                <select
+                  name="userType"
+                  onChange={this.onChange}
+                  value={this.state.userType}>
+
+                  {UserTypes.map((type, index) => {
+                      return (
+                        <option key={index} name={type.value} id={type.value} value={type.value}>{type.label}</option>
+                      )
+                  })}
+                </select>
+              </div>
+
               <div className="input-field">
                 <label htmlFor="password">Password</label>
                 <input

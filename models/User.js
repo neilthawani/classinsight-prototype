@@ -25,9 +25,4 @@ const UserSchema = new Schema({
   }
 });
 
-// userType definitions:
-// project researchers - 100
-// teachers - 50
-// external researchers - 75
-
 module.exports = User = mongoose.model("users", UserSchema);
