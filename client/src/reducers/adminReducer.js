@@ -14,14 +14,14 @@ import removeArrayValue from '../utils/removeArrayValue';
 export default function(state, action) {
     switch (action.type) {
         case LIST_USERS:
-            console.log("LIST_USERS", action.payload.data);
+            // console.log("LIST_USERS", action.payload.data);
             return {
                 ...state,
                 users: action.payload.data
             };
         case CREATE_USER:
             // debugger;
-            console.log("CREATE_USER")
+            // console.log("CREATE_USER")
             // var isValid = validateNewUser(action.payload),
                 // users = null;
             // if (isValid) {

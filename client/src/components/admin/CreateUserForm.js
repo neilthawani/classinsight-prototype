@@ -1,10 +1,16 @@
 import React, { Component } from "react";
 import classnames from "classnames";
-import { /*Link,*/ withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-// import { registerUser } from "../../actions/authActions";
 import { createUser } from '../../actions/adminActions';
+import Adjectives from '../../fixtures/adjectives';
+import Nouns from '../../fixtures/nouns';
+import Icon from '@mdi/react';
+import { mdiGooglePlus } from '@mdi/js';
+import generateRandomNumber from '../../utils/generateRandomNumber';
+
+const CREATE_GOOGLE_ACCOUNT_URL = 'https://accounts.google.com/signup/v2/webcreateaccount?continue=https%3A%2F%2Faccounts.google.com%2FManageAccount%3Fnc%3D1&dsh=S2114698834%3A1605300939529596&gmb=exp&biz=false&flowName=GlifWebSignIn&flowEntry=SignUp&nogm=true';
 
 class CreateUserForm extends Component {
     constructor(props) {
@@ -15,7 +21,8 @@ class CreateUserForm extends Component {
             email: "",
             password: "",
             password2: "",
-            errors: {}
+            errors: {},
+            emailCopied: false
         };
     }
 
@@ -46,14 +53,49 @@ class CreateUserForm extends Component {
         this.props.createUser(newUser, this.props.history);
     };
 
+    generateGmailUsername() {
+        var adjective = Adjectives[Math.floor(Math.random() * Adjectives.length)];
+        var noun = Nouns[Math.floor(Math.random() * Nouns.length)];
+        var number = generateRandomNumber(100, 999);
+        var username = `${adjective}${noun}${number}`;
+
+        this.setState({
+            name: username,
+            email: `${username}@gmail.com`
+        });
+
+        var promise = navigator.clipboard.writeText(username);
+
+        this.setState({
+            emailCopied: true
+        });
+    }
+
     render() {
         const { errors } = this.state;
 
         return (
           <div className="form-container">
-            <h2 className="text-center">
-              Create new user
-            </h2>
+            <div className="form-header">
+              <h2>
+                Create new user
+              </h2>
+              <Icon
+                className="icon"
+                path={mdiGooglePlus}
+                title="Create Gmail account"
+                size={1.5}
+                color={"#0363f3"}
+                onClick={this.generateGmailUsername.bind(this)} />
+            </div>
+
+            {this.state.emailCopied ?
+              <span className="form-confirmation">
+                <a href={CREATE_GOOGLE_ACCOUNT_URL} target="_blank" rel="noopener noreferrer">
+                  Username copied to clipboard. Click here to create a Google account.
+                </a>
+              </span>
+            : ''}
 
             <form noValidate onSubmit={this.onSubmit}>
               <div className="input-field">
@@ -92,6 +134,7 @@ class CreateUserForm extends Component {
                   error={errors.password}
                   id="password"
                   type="password"
+                  autoComplete="new-password"
                   className={classnames("", {
                     invalid: errors.password
                   })}
@@ -106,6 +149,7 @@ class CreateUserForm extends Component {
                   error={errors.password2}
                   id="password2"
                   type="password"
+                  autoComplete="new-password"
                   className={classnames("", {
                     invalid: errors.password2
                   })}
