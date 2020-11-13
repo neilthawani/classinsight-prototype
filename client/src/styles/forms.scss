@@ -52,7 +52,12 @@ $formMinWidth: 225px;
     }
 }
 
-// .form-container a.btn,
+select {
+    font-size: 18px;
+    padding: 4px 4px 2px 4px;
+    color: black;
+}
+
 .form-container .btn {
     width: 75%;
     margin: 20px auto;
