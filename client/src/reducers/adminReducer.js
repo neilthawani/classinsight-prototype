@@ -8,7 +8,7 @@ import { GET_ERRORS, LIST_USERS, ADD_USER_TO_USERS_LIST, CREATE_USER, DELETE_USE
 //     errors: {}
 // };
 
-var validateNewUser = function() {}
+// var validateNewUser = function() {}
 var deleteUserById = function() {}
 
 export default function(state, action) {
@@ -19,12 +19,18 @@ export default function(state, action) {
                 users: action.payload.data
             };
         case CREATE_USER:
+            // debugger;
             console.log("CREATE_USER")
-            var isValid = validateNewUser(action.data),
-                users = null;
-            if (isValid) {
-                users = [...state, action.data];
-            }
+            // var isValid = validateNewUser(action.payload),
+                // users = null;
+            // if (isValid) {
+            debugger;
+            state.users.push(action.payload);
+            var users = {
+                ...state
+            };
+            // }
+            debugger;
             return users;
         case DELETE_USER:
             console.log("DELETE_USER in adminReducer");

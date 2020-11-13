@@ -20,6 +20,15 @@ class AdminPanel extends Component {
         this.props.fetchUsers();
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        // console.log("prevProps", prevProps, "prevState", prevState, "snapshot", snapshot);
+        if (prevState.isCreatingUser) {
+            this.setState({
+                isCreatingUser: false
+            });
+        }
+    }
+
     toggleCreateUser() {
         this.setState({
             isCreatingUser: !this.state.isCreatingUser
