@@ -132,6 +132,7 @@ class CreateUserForm extends Component {
                 <label htmlFor="userType">User Type</label>
                 <select
                   name="userType"
+                  id="userType"
                   onChange={this.onChange}
                   value={this.state.userType}>
 

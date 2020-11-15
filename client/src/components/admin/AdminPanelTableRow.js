@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import classnames from "classnames";
 import { connect } from "react-redux";
 import { editUser } from "../../actions/adminActions";
+import UserTypes from '../../fixtures/user_types';
 
 class AdminPanelTableRow extends Component {
     constructor(props) {
@@ -16,30 +17,15 @@ class AdminPanelTableRow extends Component {
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
-      if (nextProps.errors) {
-        this.setState({
-          errors: nextProps.errors
-        });
-      }      
+        if (nextProps.errors) {
+            this.setState({
+                errors: nextProps.errors
+            });
+        }
     }
 
     userTypeAsWords(type) {
-        var userTypeAsWords = "Teacher";
-
-        switch (type) {
-            case 100:
-                userTypeAsWords = "ClassInSight Researcher";
-                break;
-            case 75:
-                userTypeAsWords = "External Researcher";
-                break;
-            case 50:
-            default:
-                userTypeAsWords = "Teacher";
-                break;
-        }
-
-        return userTypeAsWords;
+        return UserTypes.filter(obj => obj.value === type)[0].label;
     }
 
     onChange = e => {
@@ -63,9 +49,9 @@ class AdminPanelTableRow extends Component {
     }
 
     render() {
-        var { user, isEditingUser, isDeletingUser } = this.props;
+        var { user, isDeletingUser } = this.props;
         var { name, email } = user;
-        const { errors } = this.state;
+        const { isEditingUser, errors } = this.state;
 
         if (isEditingUser) {
             return (
@@ -95,7 +81,18 @@ class AdminPanelTableRow extends Component {
                   />
                 </td>
                 <td className="text-center">
-                  {this.userTypeAsWords(user.userType)}
+                  <select
+                    name="userType"
+                    id="userType"
+                    onChange={this.onChange}
+                    value={this.state.userType}>
+
+                    {UserTypes.map((type, index) => {
+                        return (
+                          <option key={index} name={type.value} id={type.value} value={type.value}>{type.label}</option>
+                        )
+                    })}
+                  </select>
                 </td>
                 <td className="admin-table-actions">
                   <span className="btn" onClick={this.toggleEditingUser.bind(this, null)}>
