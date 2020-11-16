@@ -20,7 +20,7 @@ export const fetchUsers = () => {
 };
 
 export const deleteUserById = (user) => dispatch => {
-    console.log("here");
+    // console.log("here");
     axios.post("/api/users/delete", { user: user })
         .then(response => {
             dispatch({
@@ -29,7 +29,7 @@ export const deleteUserById = (user) => dispatch => {
             })
     })
     .catch(error => {
-        console.log(error);
+        console.log("Error deleting user:", error);
     });
 }
 

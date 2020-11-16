@@ -28,14 +28,15 @@ class CreateUserForm extends Component {
         };
     }
 
-    // npx react-codemod rename-unsafe-lifecycles
-    UNSAFE_componentWillReceiveProps(nextProps) {
-        console.log("nextProps", nextProps);
+    static getDerivedStateFromProps(nextProps, prevState) {
+        // console.log("nextProps", nextProps);
         if (nextProps.errors) {
-            this.setState({
+            return ({
                 errors: nextProps.errors
             });
         }
+
+        return null;
     }
 
     onChange = e => {
@@ -50,6 +51,7 @@ class CreateUserForm extends Component {
         const newUser = {
             name: this.state.name,
             email: this.state.email,
+            userType: this.state.userType,
             password: this.state.password,
             password2: this.state.password2
         };

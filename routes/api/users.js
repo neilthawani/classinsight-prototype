@@ -16,10 +16,10 @@ const User = require("../../models/User");
 // @desc Delete user from Users table
 // @access Public
 router.post('/delete', (req, res) => {
-    console.log("req", req, "res", res);
+    // console.log("req", req, "res", res);
     // const email = req.body.email;
     const id = req.body.user._id;
-    console.log("id", id);
+    // console.log("id", id);
     // const
     // return res.status(300);
     User.deleteOne({ _id: id })
@@ -37,7 +37,7 @@ router.post('/delete', (req, res) => {
 // @access Public
 router.get('/list', function(req, res) {
     User.find({}, function(error, users) {
-        console.log("users", users);
+        // console.log("users", users);
         res.send(users);
     });
 });
@@ -62,6 +62,7 @@ router.post("/register", (req, res) => {
       const newUser = new User({
         name: req.body.name,
         email: req.body.email,
+        userType: req.body.userType,
         password: req.body.password
       });
 

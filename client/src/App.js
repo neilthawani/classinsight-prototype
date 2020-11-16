@@ -53,8 +53,8 @@ class App extends Component {
         });
 
         this.props.history.push(`${buttonSelectorSelectedOption}${transcriptLocationHash}`);
-    }
-    componentWillMount() {
+    // }
+    // UNSAFE_componentWillMount() {
         // update ButtonSelector selected option on drilldown
         this.unlisten = this.props.history.listen((location, action) => {
             var buttonSelectorSelectedOption = location.pathname.slice(location.pathname.lastIndexOf("/") + 1);
@@ -63,10 +63,10 @@ class App extends Component {
             localStorage.setItem("buttonSelectorSelectedOption", buttonSelectorSelectedOption);
             localStorage.setItem("transcriptLocationHash", transcriptLocationHash);
 
-            this.setState({
-                buttonSelectorSelectedOption: buttonSelectorSelectedOption,
-                transcriptLocationHash: transcriptLocationHash
-            });
+            // this.setState({
+            //     buttonSelectorSelectedOption: buttonSelectorSelectedOption,
+            //     transcriptLocationHash: transcriptLocationHash
+            // });
 
         }).bind(this);
     }

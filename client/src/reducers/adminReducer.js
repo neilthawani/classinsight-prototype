@@ -1,5 +1,5 @@
-import { GET_ERRORS, LIST_USERS, ADD_USER_TO_USERS_LIST, CREATE_USER, DELETE_USER } from '../actions/types';
-import removeArrayValue from '../utils/removeArrayValue';
+import { GET_ERRORS, LIST_USERS, /*ADD_USER_TO_USERS_LIST,*/ CREATE_USER, DELETE_USER } from '../actions/types';
+// import removeArrayValue from '../utils/removeArrayValue';
 // var initialState = {
 //     name: "",
 //     email: "",
@@ -26,13 +26,16 @@ export default function(state, action) {
                 // users = null;
             // if (isValid) {
             // debugger;
-            state.users.push(action.payload);
-            var users = {
-                ...state
+            // state.users.push(action.payload);
+            return {
+                users: state.users.concat(action.payload)
             };
+            //     []
+            // };
+            // console.log("users", users);
             // }
             // debugger;
-            return users;
+            // return users;
         case DELETE_USER:
             // debugger;
             // console.log("DELETE_USER", action.payload.data.user, state.users);
@@ -44,8 +47,8 @@ export default function(state, action) {
             // debugger;
             // console.log("users", users);
             // return users;
-        case ADD_USER_TO_USERS_LIST:
-            return [...state, action.payload];
+        // case ADD_USER_TO_USERS_LIST:
+        //     return [...state, action.payload];
         case GET_ERRORS:
             return {
                 ...state,

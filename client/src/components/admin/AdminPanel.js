@@ -29,14 +29,17 @@ class AdminPanel extends Component {
         }
     }
 
-    // npx react-codemod rename-unsafe-lifecycles
-    UNSAFE_componentWillReceiveProps(nextProps) {
+    static getDerivedStateFromProps(nextProps) {
         // console.log("nextProps", nextProps);
         if (nextProps.users) {
-            this.setState({
-                users: nextProps.users
+            return ({
+                users: nextProps.admin.users,
+                // isCreatingUser: false,
+                isDeletingUser: false
             });
         }
+
+        return null;
     }
 
     toggleCreateUser() {
@@ -51,7 +54,7 @@ class AdminPanel extends Component {
         // explicit true because context is sent in place of 'confirmation' value
         // on initial "Delete" button" click
         if (confirmation) {
-            console.log("delete", user);
+            // console.log("delete", user);
             this.props.deleteUserById(user);
             this.setState({
                 userToDelete: {}
@@ -75,6 +78,7 @@ class AdminPanel extends Component {
 
     render() {
         var { users } = this.props.admin;
+        // console.log("users", users);
 
         return (
           <div className="admin">
@@ -98,11 +102,12 @@ class AdminPanel extends Component {
               </thead>
               <tbody>
                 {(users || []).map((user) => {
+                    // console.log("isDeletingUser", user._id && (this.state.userToDelete._id === user._id), this.state.userToDelete._id, user._id, "user", user);
                     return (
                       <AdminPanelTableRow
                         key={user._id}
                         user={user}
-                        isDeletingUser={this.state.userToDelete._id === user._id}
+                        isDeletingUser={user._id && (this.state.userToDelete._id === user._id)}
                         deleteUser={this.deleteUser.bind(this)} />
                     );
                 })}

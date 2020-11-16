@@ -16,16 +16,20 @@ class AdminPanelTableRow extends Component {
         };
     }
 
-    UNSAFE_componentWillReceiveProps(nextProps) {
+    static getDerivedStateFromProps(nextProps) {
         if (nextProps.errors) {
-            this.setState({
+            return ({
                 errors: nextProps.errors
             });
         }
+
+        return null;
     }
 
     userTypeAsWords(type) {
-        return UserTypes.filter(obj => obj.value === type)[0].label;
+        // console.log("userTypeAsWords type", type);
+        return UserTypes.filter(obj => obj.value === type)[0] &&
+                UserTypes.filter(obj => obj.value === type)[0].label;
     }
 
     onChange = e => {
@@ -33,7 +37,7 @@ class AdminPanelTableRow extends Component {
     }
 
     toggleEditingUser(user) {
-        console.log("toggleEditingUser", user);
+        // console.log("toggleEditingUser", user);
         this.setState({
             isEditingUser: user ? true : false
         });
@@ -45,7 +49,7 @@ class AdminPanelTableRow extends Component {
     }
 
     editUser(user) {
-        console.log('action');
+        // console.log('editUser action');
     }
 
     render() {
@@ -53,6 +57,7 @@ class AdminPanelTableRow extends Component {
         var { name, email } = user;
         const { isEditingUser, errors } = this.state;
 
+        // console.log("user", user);
         if (isEditingUser) {
             return (
               <tr>

@@ -24,13 +24,14 @@ class Register extends Component {
     }
   }
 
-  // npx react-codemod rename-unsafe-lifecycles
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
-      this.setState({
-        errors: nextProps.errors
-      });
-    }
+  static getDerivedStateFromProps(nextProps) {
+      if (nextProps.errors) {
+          return ({
+              errors: nextProps.errors
+          });
+      }
+
+      return null;
   }
 
   onChange = e => {
