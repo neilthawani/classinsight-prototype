@@ -12,7 +12,10 @@ class AdminPanelTableRow extends Component {
 
         this.state = {
             isEditingUser: false,
-            errors: {}
+            errors: {},
+            name: props.user.name,
+            email: props.user.email,
+            userType: props.user.userType
         };
     }
 
@@ -33,7 +36,7 @@ class AdminPanelTableRow extends Component {
     }
 
     onChange = e => {
-      this.setState({ [e.target.id]: e.target.value });
+        this.setState({ [e.target.id]: e.target.value });
     }
 
     toggleEditingUser(user) {
@@ -49,12 +52,12 @@ class AdminPanelTableRow extends Component {
     }
 
     editUser(user) {
-        // console.log('editUser action');
+        this.props.editUser(user);
     }
 
     render() {
-        var { user, isDeletingUser } = this.props;
-        var { name, email } = user;
+        var { isDeletingUser, user } = this.props;
+        var { name, email, userType } = this.state;
         const { isEditingUser, errors } = this.state;
 
         // console.log("user", user);
@@ -90,7 +93,7 @@ class AdminPanelTableRow extends Component {
                     name="userType"
                     id="userType"
                     onChange={this.onChange}
-                    value={this.state.userType}>
+                    value={userType}>
 
                     {UserTypes.map((type, index) => {
                         return (
@@ -112,10 +115,10 @@ class AdminPanelTableRow extends Component {
         } else if (isDeletingUser) {
             return (
               <tr>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
+                <td>{name}</td>
+                <td>{email}</td>
                 <td className="text-center">
-                  {this.userTypeAsWords(user.userType)}
+                  {this.userTypeAsWords(userType)}
                 </td>
                 <td className="admin-table-actions-confirm">
                   <span className="admin-table-actions-confirm-text">

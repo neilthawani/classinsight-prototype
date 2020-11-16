@@ -8,9 +8,41 @@ const passport = require("passport");
 // Load input validation
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
+const validateEditUser = require("../../validation/edit");
 
 // Load User model
 const User = require("../../models/User");
+
+router.post('/edit', (req, res) => {
+    // const id = req.body.user._id;
+    // console.log("edit", "req", req, "res", res);
+    // User.update({ _id: id })
+    // return res.status(200).json({ message: "User edited" })
+    const { errors, isValid } = validateEditUser(req.body.user);
+
+    if (!isValid) {
+        return res.status(400).json(errors);
+    }
+    //  else {
+    //     return res.status(200).json({"message": "User edited", "user": req.body.user});
+    // }
+
+    const _id = req.body.user._id;
+    User.findOne({ _id }).then(user => {
+        if (user) {
+            let update = {'name': req.body.user.name, 'email': req.body.user.email, 'userType': req.body.user.userType};
+            User.update({ _id: _id}, {$set: update}, function(err, result) {
+                if (err) {
+                    return res.status(400).json({ message: 'Unable to update user.' });
+                } else {
+                    return res.status(200).json({ message: 'User updated successfully. Refreshing data...', success: true });
+                }
+            });
+        } else {
+            return res.status(400).json({ message: 'No user found to update.' });
+        }
+    });
+});
 
 // @route POST api/users/delete
 // @desc Delete user from Users table

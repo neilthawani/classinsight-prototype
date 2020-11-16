@@ -123,6 +123,7 @@ class CreateUserForm extends Component {
                   error={errors.email}
                   id="email"
                   type="email"
+                  autoComplete="username"
                   className={classnames("", {
                     invalid: errors.email
                   })}

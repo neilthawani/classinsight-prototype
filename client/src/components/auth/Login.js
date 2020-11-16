@@ -70,6 +70,7 @@ class Login extends Component {
               error={errors.email}
               id="email"
               type="email"
+              autoComplete="username"
               className={classnames("", { invalid: errors.email || errors.emailnotfound })} />
             <span className="input-field-error-text">
               {errors.email}

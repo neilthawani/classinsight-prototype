@@ -1,4 +1,4 @@
-import { LIST_USERS, CREATE_USER, DELETE_USER, EDIT_USER, GET_ERRORS } from './types';
+import { LIST_USERS, CREATE_USER, DELETE_USER, /*EDIT_USER,*/ GET_ERRORS } from './types';
 import axios from 'axios';
 
 export const fetchUsers = () => {
@@ -55,9 +55,23 @@ export const createUser = (userData) => dispatch => {
     });
 };
 
-export const editUser = userId => {
-    return {
-        type: EDIT_USER,
-        userId
-    }
+export const editUser = (userData) => dispatch => {
+    console.log("editUser", userData);
+    var that = this;
+    axios.post("/api/users/edit", { user: userData })
+    .then(res => {
+        console.log("Success. Edited user: ", res)
+        // console.log("res", res.data);
+        // debugger;
+        fetchUsers();
+
+    })
+    .catch(error => {
+        console.log('Error:', error);//, error.response && error.response.data);
+        // console.log('response data', err.response.data);
+        dispatch({
+            type: GET_ERRORS,
+            payload: error.response && error.response.data
+        })
+    });
 };

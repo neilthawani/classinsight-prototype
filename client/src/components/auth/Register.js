@@ -69,6 +69,7 @@ class Register extends Component {
               error={errors.name}
               id="name"
               type="text"
+              autoComplete="username"
               className={classnames("", {
                 invalid: errors.name
               })}

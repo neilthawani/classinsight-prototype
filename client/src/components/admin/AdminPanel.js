@@ -21,6 +21,7 @@ class AdminPanel extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log("componentDidUpdate");
         // console.log("prevProps", prevProps, "prevState", prevState, "snapshot", snapshot);
         if (prevState.isCreatingUser) {
             this.setState({
@@ -30,6 +31,7 @@ class AdminPanel extends Component {
     }
 
     static getDerivedStateFromProps(nextProps) {
+        console.log("getDerivedStateFromProps");
         // console.log("nextProps", nextProps);
         if (nextProps.users) {
             return ({
