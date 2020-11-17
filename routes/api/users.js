@@ -17,8 +17,8 @@ const User = require("../../models/User");
 // @desc Edit user in Users table
 // @access Public
 router.post('/edit', (req, res) => {
-    // const id = req.body.user._id;
-    // console.log("edit", "req", req, "res", res);
+    const id = req.body.user._id;
+    // console.log("req.body.user", req.body.user);
     // User.update({ _id: id })
     // return res.status(200).json({ message: "User edited" })
     const { errors, isValid } = validateEditUser(req.body.user);

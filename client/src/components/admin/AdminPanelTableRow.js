@@ -13,15 +13,16 @@ class AdminPanelTableRow extends Component {
         this.state = {
             isEditingUser: false,
             errors: {},
-            user: {
+            // user: {
                 name: props.user.name,
                 email: props.user.email,
                 userType: props.user.userType
-            }
+            // }
         };
     }
 
     static getDerivedStateFromProps(nextProps) {
+        // console.log("getDerivedStateFromProps", nextProps);
         if (nextProps.errors) {
             return ({
                 errors: nextProps.errors
@@ -53,14 +54,21 @@ class AdminPanelTableRow extends Component {
         this.props.deleteUser(user, confirmation);
     }
 
-    editUser(user) {
-        console.log("user", this.state.user);
-        this.props.editUser(this.state.user);
+    editUser(id) {
+        // console.log("user", this.state.user);
+        var user = {
+          _id: id,
+          name: this.state.name,
+          email: this.state.email,
+          userType: this.state.userType
+        }
+        console.log("user", user);
+        this.props.editUser(user);//{ user: user });
     }
 
     render() {
         var { isDeletingUser, user } = this.props;
-        var { name, email, userType } = this.state.user;
+        var { name, email, userType } = this.state;
         const { isEditingUser, errors } = this.state;
 
         // console.log("user", user);
@@ -70,7 +78,7 @@ class AdminPanelTableRow extends Component {
                 <td>
                   <input
                     onChange={this.onChange}
-                    value={this.state.user.name}
+                    value={name}
                     error={errors.name}
                     id="name"
                     type="text"
@@ -82,7 +90,7 @@ class AdminPanelTableRow extends Component {
                 <td>
                   <input
                     onChange={this.onChange}
-                    value={this.state.user.email}
+                    value={email}
                     error={errors.email}
                     id="email"
                     type="email"
@@ -96,7 +104,7 @@ class AdminPanelTableRow extends Component {
                     name="userType"
                     id="userType"
                     onChange={this.onChange}
-                    value={this.state.user.userType}>
+                    value={userType}>
 
                     {UserTypes.map((type, index) => {
                         return (
@@ -109,7 +117,7 @@ class AdminPanelTableRow extends Component {
                   <span className="btn" onClick={this.toggleEditingUser.bind(this, null)}>
                     Cancel
                   </span>
-                  <span className="btn" onClick={this.editUser.bind(this, this.state.user)}>
+                  <span className="btn" onClick={this.editUser.bind(this, user._id)}>
                     Save user
                   </span>
                 </td>
