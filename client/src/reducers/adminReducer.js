@@ -27,9 +27,14 @@ export default function(state, action) {
             // if (isValid) {
             // debugger;
             // state.users.push(action.payload);
+            // console.log("CREATE_USER action.payload", action.payload);
             return {
-                users: state.users.concat(action.payload)
+                users: state.users.concat(action.payload.user)
             };
+
+            // console.log("ret", ret);
+
+            // return ret;
             //     []
             // };
             // console.log("users", users);
