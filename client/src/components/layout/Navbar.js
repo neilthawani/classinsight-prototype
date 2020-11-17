@@ -17,6 +17,8 @@ class Navbar extends Component {
 
     render() {
         const { user } = this.props.auth;
+        var isAdmin = user.userType === 100;
+        console.log("user", user);
         var isLoggedIn = Object.keys(user).length !== 0 ? true : false;
 
         return (
@@ -38,6 +40,7 @@ class Navbar extends Component {
                 <Icon path={mdiChevronDown} className="navbar-dropdown-icon" size={1} />
 
                 <div className="navbar-dropdown-menu">
+                  {isAdmin ?
                   <Link to="/admin">
                     <div className="navbar-dropdown-menu-item">
                       <Icon path={mdiBadgeAccountHorizontalOutline} className="navbar-dropdown-menu-item-icon" size={1} />
@@ -45,7 +48,7 @@ class Navbar extends Component {
                          Manage Users
                       </span>
                     </div>
-                  </Link>
+                  </Link> : ""}
                   <div className="navbar-dropdown-menu-item">
                     <Icon path={mdiLogout} className="navbar-dropdown-menu-item-icon" size={1} />
                     <span className="navbar-dropdown-menu-item-link" onClick={this.onLogoutClick}>
