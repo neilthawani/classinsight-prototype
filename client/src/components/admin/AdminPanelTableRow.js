@@ -64,6 +64,9 @@ class AdminPanelTableRow extends Component {
         }
         console.log("user", user);
         this.props.editUser(user);//{ user: user });
+        this.setState({
+            isEditingUser: false
+        })
     }
 
     render() {
