@@ -18,7 +18,6 @@ class Navbar extends Component {
     render() {
         const { user } = this.props.auth;
         var isAdmin = user.userType === 100;
-        console.log("user", user);
         var isLoggedIn = Object.keys(user).length !== 0 ? true : false;
 
         return (

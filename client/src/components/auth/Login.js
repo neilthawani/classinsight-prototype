@@ -23,7 +23,6 @@ class Login extends Component {
   }
 
   static getDerivedStateFromProps(nextProps) {
-      console.log("nextProps", nextProps);
       if (nextProps.auth.isAuthenticated) {
           nextProps.history.push("/dashboard"); // push user to dashboard when they login
       }

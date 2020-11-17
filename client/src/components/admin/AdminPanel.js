@@ -66,7 +66,7 @@ class AdminPanel extends Component {
 
     render() {
         var { users } = this.state;
-        
+
         return (
           <div className="admin">
             <div className="admin-header">
@@ -89,11 +89,15 @@ class AdminPanel extends Component {
               </thead>
               <tbody>
                 {(users || []).map((user) => {
+                    var isCurrentUser = this.props.auth.user.id === user._id,
+                        isDeletingUser = user._id && (this.state.userToDelete._id === user._id);
+
                     return (
                       <AdminPanelTableRow
                         key={user._id}
                         user={user}
-                        isDeletingUser={user._id && (this.state.userToDelete._id === user._id)}
+                        isCurrentUser={isCurrentUser}
+                        isDeletingUser={isDeletingUser}
                         deleteUser={this.deleteUser.bind(this)} />
                     );
                 })}

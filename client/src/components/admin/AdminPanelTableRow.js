@@ -64,7 +64,7 @@ class AdminPanelTableRow extends Component {
     }
 
     render() {
-        var { isDeletingUser, user } = this.props;
+        var { isCurrentUser, isDeletingUser, user } = this.props;
         var { name, email, userType } = this.state;
         const { isEditingUser, errors } = this.state;
 
@@ -122,7 +122,9 @@ class AdminPanelTableRow extends Component {
         } else if (isDeletingUser) {
             return (
               <tr>
-                <td>{name}</td>
+                <td>
+                  {name}
+                </td>
                 <td>{email}</td>
                 <td className="text-center">
                   {this.userTypeAsWords(userType)}
@@ -154,9 +156,11 @@ class AdminPanelTableRow extends Component {
                   <span className="btn" onClick={this.toggleEditingUser.bind(this, user)}>
                     Edit
                   </span>
-                  <span className="btn" onClick={this.deleteUser.bind(this, user, false)}>
-                    Delete
-                  </span>
+                  {!isCurrentUser ?
+                    <span className="btn" onClick={this.deleteUser.bind(this, user, false)}>
+                      Delete
+                    </span>
+                  : ""}
                 </td>
               </tr>
             )
