@@ -22,9 +22,10 @@ class Login extends Component {
       }
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
+  static getDerivedStateFromProps(nextProps) {
+      console.log("nextProps", nextProps);
       if (nextProps.auth.isAuthenticated) {
-          this.props.history.push("/dashboard"); // push user to dashboard when they login
+          nextProps.history.push("/dashboard"); // push user to dashboard when they login
       }
 
       if (nextProps.errors) {
