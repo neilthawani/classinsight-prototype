@@ -13,16 +13,13 @@ class AdminPanelTableRow extends Component {
         this.state = {
             isEditingUser: false,
             errors: {},
-            // user: {
-                name: props.user.name,
-                email: props.user.email,
-                userType: props.user.userType
-            // }
+            name: props.user.name,
+            email: props.user.email,
+            userType: props.user.userType
         };
     }
 
     static getDerivedStateFromProps(nextProps) {
-        // console.log("getDerivedStateFromProps", nextProps);
         if (nextProps.errors) {
             return ({
                 errors: nextProps.errors
@@ -33,7 +30,6 @@ class AdminPanelTableRow extends Component {
     }
 
     userTypeAsWords(type) {
-        // console.log("userTypeAsWords type", type);
         return UserTypes.filter(obj => obj.value === type)[0] &&
                 UserTypes.filter(obj => obj.value === type)[0].label;
     }
@@ -43,19 +39,16 @@ class AdminPanelTableRow extends Component {
     }
 
     toggleEditingUser(user) {
-        // console.log("toggleEditingUser", user);
         this.setState({
             isEditingUser: user ? true : false
         });
     }
 
     deleteUser(user, confirmation) {
-        // console.log("deleteUser props", user, confirmation);
         this.props.deleteUser(user, confirmation);
     }
 
     editUser(id) {
-        // console.log("user", this.state.user);
         var user = {
           _id: id,
           name: this.state.name,
@@ -63,7 +56,7 @@ class AdminPanelTableRow extends Component {
           userType: this.state.userType
         }
         console.log("user", user);
-        this.props.editUser(user);//{ user: user });
+        this.props.editUser(user);
         this.setState({
             isEditingUser: false
         })
@@ -74,7 +67,6 @@ class AdminPanelTableRow extends Component {
         var { name, email, userType } = this.state;
         const { isEditingUser, errors } = this.state;
 
-        // console.log("user", user);
         if (isEditingUser) {
             return (
               <tr>

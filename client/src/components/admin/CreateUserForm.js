@@ -29,7 +29,6 @@ class CreateUserForm extends Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        // console.log("nextProps", nextProps);
         if (nextProps.errors) {
             return ({
                 errors: nextProps.errors
@@ -40,8 +39,6 @@ class CreateUserForm extends Component {
     }
 
     onChange = e => {
-        // console.log('e.target', e.target, 'e.target.value', e.target.value);
-        // this.setState({[e.target]: e.target.value})
         this.setState({ [e.target.id]: e.target.value });
     }
 

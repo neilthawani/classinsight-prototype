@@ -18,39 +18,23 @@ const User = require("../../models/User");
 // @access Public
 router.post('/edit', (req, res) => {
     const id = req.body.user._id;
-    // console.log("req.body.user", req.body.user);
-    // User.update({ _id: id })
-    // return res.status(200).json({ message: "User edited" })
     const { errors, isValid } = validateEditUser(req.body.user);
 
     if (!isValid) {
         return res.status(400).json(errors);
     }
-    //  else {
-    //     return res.status(200).json({"message": "User edited", "user": req.body.user});
-    // }
 
     const _id = req.body.user._id;
-    // console.log("req.body.user", req.body.user);
-    // console.log("_id query", _id);
-    var byQuery = {_id: _id };
-    let toUpdate = {'name': req.body.user.name, 'email': req.body.user.email, 'userType': req.body.user.userType};
-    var options = {returnNewDocument: true, useFindAndModify: false};
-    User.findOneAndUpdate(byQuery, {$set: toUpdate}, options, function(err, result) {
-        // console.log("user", user);
-        // if (user) {
+    var byQuery = { _id: _id };
+    let toUpdate = { 'name': req.body.user.name, 'email': req.body.user.email, 'userType': req.body.user.userType };
+    var options = { returnNewDocument: true, useFindAndModify: false };
 
-            // User.updateOne({ _id: _id}, {$set: update}, function(err, result) {
-                // console.log("result", result);
-                if (err) {
-                    return res.status(400).json({ message: 'Unable to update user.' });
-                } else {
-                    return res.status(200).json({ message: 'User updated successfully. Refreshing data...', user: result });
-                }
-            // });
-        // } else {
-        //     return res.status(400).json({ message: 'No user found to update.' });
-        // }
+    User.findOneAndUpdate(byQuery, {$set: toUpdate}, options, function(err, result) {
+        if (err) {
+            return res.status(400).json({ message: 'Unable to update user.' });
+        } else {
+            return res.status(200).json({ message: 'User updated successfully. Refreshing data...', user: result });
+        }
     });
 });
 
@@ -58,14 +42,8 @@ router.post('/edit', (req, res) => {
 // @desc Delete user from Users table
 // @access Public
 router.post('/delete', (req, res) => {
-    // console.log("req", req, "res", res);
-    // const email = req.body.email;
     const id = req.body.user._id;
-    // console.log("id", id);
-    // const
-    // return res.status(300);
-    User.deleteOne({ _id: id })
-    .then(user => {
+    User.deleteOne({ _id: id }).then(user => {
         if (user) {
             return res.status(200).json({ message: "User deleted", user: req.body.user });
         } else {
@@ -79,7 +57,6 @@ router.post('/delete', (req, res) => {
 // @access Public
 router.get('/list', function(req, res) {
     User.find({}, function(error, users) {
-        // console.log("users", users);
         res.send(users);
     });
 });
@@ -89,7 +66,6 @@ router.get('/list', function(req, res) {
 // @access Public
 router.post("/register", (req, res) => {
   // Form validation
-
   const { errors, isValid } = validateRegisterInput(req.body);
 
   // Check validation
