@@ -57,7 +57,15 @@ router.post('/delete', (req, res) => {
 // @access Public
 router.get('/list', function(req, res) {
     User.find({}, function(error, users) {
-        res.send(users);
+        var parsedUsers = users.map((user) => {
+            return {
+                _id: user._id,
+                userType: user.userType,
+                name: user.name,
+                email: user.email
+            }
+        })
+        res.send(parsedUsers);
     });
 });
 

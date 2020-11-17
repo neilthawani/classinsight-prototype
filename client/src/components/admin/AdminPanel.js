@@ -29,7 +29,8 @@ class AdminPanel extends Component {
     }
 
     static getDerivedStateFromProps(nextProps) {
-        if (nextProps.users) {
+        // console.log("getDerivedStateFromProps", nextProps.admin.users, nextProps.admin.users && nextProps.admin.users[3]);
+        if (nextProps.admin.users) {
             return ({
                 users: nextProps.admin.users,
                 isDeletingUser: false
@@ -65,7 +66,8 @@ class AdminPanel extends Component {
     }
 
     render() {
-        var { users } = this.props.admin;
+        var { users } = this.state;//this.props.admin;
+        // console.log("state", this.state);
 
         return (
           <div className="admin">

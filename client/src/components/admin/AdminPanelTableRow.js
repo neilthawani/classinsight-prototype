@@ -50,17 +50,17 @@ class AdminPanelTableRow extends Component {
 
     editUser(id) {
         var user = {
-          _id: id,
-          name: this.state.name,
-          email: this.state.email,
-          userType: this.state.userType
+            _id: id,
+            name: this.state.name,
+            email: this.state.email,
+            userType: parseInt(this.state.userType, 10)
         }
 
-        this.props.editUser(user);
+        this.props.editUser({ user: user });
 
         this.setState({
             isEditingUser: false
-        })
+        });
     }
 
     render() {
