@@ -56,8 +56,8 @@ export const createUser = (userData) => dispatch => {
 };
 
 export const editUser = (userData) => dispatch => {
-    console.log("editUser", userData);
-    var that = this;
+    // console.log("editUser", userData);
+    // var that = this;
     axios.post("/api/users/edit", { user: userData })
     .then(res => {
         console.log("Success. Edited user: ", res)

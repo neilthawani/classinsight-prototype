@@ -13,9 +13,11 @@ class AdminPanelTableRow extends Component {
         this.state = {
             isEditingUser: false,
             errors: {},
-            name: props.user.name,
-            email: props.user.email,
-            userType: props.user.userType
+            user: {
+                name: props.user.name,
+                email: props.user.email,
+                userType: props.user.userType
+            }
         };
     }
 
@@ -52,12 +54,13 @@ class AdminPanelTableRow extends Component {
     }
 
     editUser(user) {
-        this.props.editUser(user);
+        console.log("user", this.state.user);
+        this.props.editUser(this.state.user);
     }
 
     render() {
         var { isDeletingUser, user } = this.props;
-        var { name, email, userType } = this.state;
+        var { name, email, userType } = this.state.user;
         const { isEditingUser, errors } = this.state;
 
         // console.log("user", user);
@@ -67,7 +70,7 @@ class AdminPanelTableRow extends Component {
                 <td>
                   <input
                     onChange={this.onChange}
-                    value={name}
+                    value={this.state.user.name}
                     error={errors.name}
                     id="name"
                     type="text"
@@ -79,7 +82,7 @@ class AdminPanelTableRow extends Component {
                 <td>
                   <input
                     onChange={this.onChange}
-                    value={email}
+                    value={this.state.user.email}
                     error={errors.email}
                     id="email"
                     type="email"
@@ -93,7 +96,7 @@ class AdminPanelTableRow extends Component {
                     name="userType"
                     id="userType"
                     onChange={this.onChange}
-                    value={userType}>
+                    value={this.state.user.userType}>
 
                     {UserTypes.map((type, index) => {
                         return (
@@ -106,7 +109,7 @@ class AdminPanelTableRow extends Component {
                   <span className="btn" onClick={this.toggleEditingUser.bind(this, null)}>
                     Cancel
                   </span>
-                  <span className="btn" onClick={this.editUser.bind(this, user)}>
+                  <span className="btn" onClick={this.editUser.bind(this, this.state.user)}>
                     Save user
                   </span>
                 </td>
