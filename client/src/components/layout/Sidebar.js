@@ -6,8 +6,8 @@ import { mdiDatabase } from '@mdi/js';
 import { format } from 'date-fns';
 
 class Sidebar extends Component {
-    handleDataRowClick(index) {
-        this.props.handleDataRowClick(index);
+    handleSidebarRowClick(index) {
+        this.props.handleSidebarRowClick(index);
     }
 
     render() {
@@ -30,6 +30,8 @@ class Sidebar extends Component {
                           case 2:
                               prev["date"] = parseInt(item, 10);
                               break;
+                          default:
+                              break;
                       }
 
                       return prev;
@@ -42,7 +44,7 @@ class Sidebar extends Component {
                   return (
                     <div key={index}
                       className={this.props.activeDataRowIndex === index ? "sidebar-data-row active" : "sidebar-data-row"}
-                      onClick={this.handleDataRowClick.bind(this, index)}>
+                      onClick={this.handleSidebarRowClick.bind(this, index)}>
                       <div className="sidebar-data-row-title">
                         {datum.metadata.topic}
                       </div>

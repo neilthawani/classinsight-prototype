@@ -4,14 +4,15 @@ import { Route, Switch } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 
 import Navbar from "./components/layout/Navbar";
-import Sidebar from "./components/layout/Sidebar";
 
 import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
-import ButtonSelector from './components/ButtonSelector';
+import DashboardMenus from './DashboardMenus';
+
+import AdminPanel from './components/admin/AdminPanel';
 import TalkRatio from './components/visualizations/talk-ratio/TalkRatio';
 import Transcript from './components/visualizations/transcript/Transcript';
 import TurnTaking from './components/visualizations/turn-taking/TurnTaking';
@@ -52,21 +53,13 @@ class App extends Component {
         });
 
         this.props.history.push(`${buttonSelectorSelectedOption}${transcriptLocationHash}`);
-    }
-    componentWillMount() {
-        // update ButtonSelector selected option on drilldown
+
         this.unlisten = this.props.history.listen((location, action) => {
             var buttonSelectorSelectedOption = location.pathname.slice(location.pathname.lastIndexOf("/") + 1);
             var transcriptLocationHash = window.location.hash || "";
 
             localStorage.setItem("buttonSelectorSelectedOption", buttonSelectorSelectedOption);
             localStorage.setItem("transcriptLocationHash", transcriptLocationHash);
-
-            this.setState({
-                buttonSelectorSelectedOption: buttonSelectorSelectedOption,
-                transcriptLocationHash: transcriptLocationHash
-            });
-
         }).bind(this);
     }
 
@@ -82,74 +75,74 @@ class App extends Component {
         });
     }
 
-    handleDataRowClick(index) {
+    handleSidebarRowClick(index) {
         this.setState({
             activeDataRowIndex: index
         });
     }
 
+    dashboardRoutes() {
+        return [{
+            path: "/dashboard",
+            component: (props) => ( <Dashboard {...props} activeParser={this.activeParser()} /> )
+        }, {
+            path: "/talk-ratio",
+            component: (props) => ( <TalkRatio {...props} activeParser={this.activeParser()} /> )
+        }, {
+            path: "/turn-taking",
+            component: (props) => ( <TurnTaking {...props} activeParser={this.activeParser()} /> )
+        }, {
+            path: "/transcript",
+            component: (props) => ( <Transcript {...props} activeParser={this.activeParser()} /> )
+        }]
+    }
+
+    dashboardRoutePaths() {
+        return this.dashboardRoutes().map((routeObj) => {
+            return routeObj.path;
+        });
+    }
+
     render() {
         return (
-          <div className="app-container">
+          <div className="app">
             <Navbar />
 
-            {/* coarse, medium, and fine-grained visualizations */}
-            <ButtonSelector
-              buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
-              handleClick={this.handleButtonSelectorClick.bind(this)} />
+            {this.dashboardRoutePaths().includes(window.location.pathname) ?
+            <DashboardMenus
+            buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
+            dataParsers={this.state.dataParsers}
+            activeDataRowIndex={this.state.activeDataRowIndex}
+            handleButtonSelectorClick={this.handleButtonSelectorClick.bind(this)}
+            handleSidebarRowClick={this.handleSidebarRowClick.bind(this)} /> : ""}
 
-            <Sidebar
-              dataRows={
-                this.state.dataParsers.map((parser) => {
-                    return parser.data;
-                })
-              }
-              activeDataRowIndex={this.state.activeDataRowIndex}
-              handleDataRowClick={this.handleDataRowClick.bind(this)}/>
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+            <PrivateRoute
+              exact
+              path="/admin"
+              component={(props) => (
+                <AdminPanel {...props} />
+              )}
+            />
 
-            <div className="app-container-content">
-              <Route exact path="/" component={Landing} />
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/login" component={Login} />
-
+            <div className="dashboard-content">
               {/* A <Switch> looks through all its children <Route> elements and
                 renders the first one whose path matches the current URL.
                 Use a <Switch> any time you have multiple routes,
                 but you want only one of them to render at a time. */}
               <Switch>
-                <PrivateRoute
-                  exact
-                  path="/dashboard"
-                  component={(props) => (
-                    <Dashboard {...props}
-                      activeParser={this.activeParser()}
-                      data={this.activeParser().data} />
-                  )}
-                />
-                <PrivateRoute
-                  exact
-                  path="/talk-ratio"
-                  component={(props) => (
-                    <TalkRatio {...props}
-                      activeParser={this.activeParser()} />
-                  )}
-                />
-                <PrivateRoute
-                  exact
-                  path="/turn-taking"
-                  component={(props) => (
-                    <TurnTaking {...props}
-                      activeParser={this.activeParser()} />
-                  )}
-                />
-                <PrivateRoute
-                  exact
-                  path="/transcript"
-                  component={(props) => (
-                    <Transcript {...props}
-                      activeParser={this.activeParser()} />
-                  )}
-                />
+                {this.dashboardRoutes().map((routeObj, index) => {
+                    return (
+                        <PrivateRoute
+                          exact
+                          key={index}
+                          path={routeObj.path}
+                          component={routeObj.component}
+                        />
+                    )
+                })}
               </Switch>
             </div>
           </div>

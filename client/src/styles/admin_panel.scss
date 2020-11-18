@@ -1,0 +1,53 @@
+.admin {
+    width: 75%;
+    margin: 0 auto;
+}
+
+.admin-header {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.admin-table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.admin-table tbody tr:nth-child(2n+1) {
+    background-color: $lightGray;
+}
+
+.admin-table th {
+    font-size: 24px;
+    padding: 10px 20px;
+}
+
+.admin-table tr td {
+    padding: 10px 20px;
+
+    input {
+        font-size: 16px;
+        width: 100%;
+    }
+}
+
+.admin-table-actions, // td
+.admin-table-actions-confirm-buttons { //div
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.admin-table-actions-confirm {
+    text-align: center;
+}
+
+.admin-table-actions-confirm-text {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.admin-table-actions-confirm-buttons { //div
+    margin-top: 10px;
+}

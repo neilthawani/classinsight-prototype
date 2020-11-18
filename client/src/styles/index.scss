@@ -1,4 +1,6 @@
 @import "./variables.scss";
+
+@import "./admin_panel.scss";
 @import "./button_selector.scss";
 @import "./forms.scss";
 @import "./hover_box.scss";
@@ -43,11 +45,11 @@ p {
     font-size: 10px;
 }
 
-.app-container {
+.app {}
 
-}
+.app-container {}
 
-.app-container-content {
+.dashboard-content {
     margin-left: $sidebarWidth;
     margin-top: 10px;
 }
