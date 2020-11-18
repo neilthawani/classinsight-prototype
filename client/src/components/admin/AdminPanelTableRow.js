@@ -19,8 +19,10 @@ class AdminPanelTableRow extends Component {
         };
     }
 
-    static getDerivedStateFromProps(nextProps) {
-        if (nextProps.errors) {
+    static getDerivedStateFromProps(nextProps, state) {
+        var hasErrors = Object.keys(nextProps.errors).length > 0;
+
+        if (state.isEditingUser && hasErrors) {
             return ({
                 errors: nextProps.errors
             });
@@ -58,9 +60,7 @@ class AdminPanelTableRow extends Component {
 
         this.props.editUser({ user: user });
 
-        this.setState({
-            isEditingUser: false
-        });
+        this.toggleEditingUser();
     }
 
     render() {
@@ -82,6 +82,7 @@ class AdminPanelTableRow extends Component {
                       invalid: errors.name
                     })}
                   />
+                  <span className="input-field-error-text">{errors.name}</span>
                 </td>
                 <td>
                   <input
@@ -94,6 +95,7 @@ class AdminPanelTableRow extends Component {
                       invalid: errors.email
                     })}
                   />
+                  <span className="input-field-error-text">{errors.email}</span>
                 </td>
                 <td className="text-center">
                   <select

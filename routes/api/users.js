@@ -28,7 +28,7 @@ router.post('/edit', (req, res) => {
     var byQuery = { _id: _id };
     let toUpdate = { 'name': req.body.user.name, 'email': req.body.user.email, 'userType': req.body.user.userType };
     var options = { returnNewDocument: true, useFindAndModify: false };
-
+    
     User.findOneAndUpdate(byQuery, {$set: toUpdate}, options, function(err, result) {
         if (err) {
             return res.status(400).json({ message: 'Unable to update user.' });

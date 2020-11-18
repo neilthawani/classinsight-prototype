@@ -63,7 +63,7 @@ export const editUser = (userData) => dispatch => {
             payload: {
                 userData
             }
-        })
+        });
     })
     .catch(error => {
         console.log('Error:', error);
