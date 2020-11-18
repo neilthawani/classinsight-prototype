@@ -53,7 +53,7 @@ class CreateUserForm extends Component {
             password2: this.state.password2
         };
 
-        this.props.createUser(newUser, this.props.history);
+        this.props.createUser(newUser);
     };
 
     generateGmailUsername() {
