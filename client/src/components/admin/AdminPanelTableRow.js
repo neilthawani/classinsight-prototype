@@ -22,9 +22,10 @@ class AdminPanelTableRow extends Component {
     static getDerivedStateFromProps(nextProps, state) {
         var hasErrors = Object.keys(nextProps.errors).length > 0;
 
-        if (state.isEditingUser && hasErrors) {
+        if (hasErrors && state.email !== nextProps.user.email) {
             return ({
-                errors: nextProps.errors
+                errors: nextProps.errors,
+                isEditingUser: true
             });
         }
 
@@ -42,7 +43,7 @@ class AdminPanelTableRow extends Component {
 
     toggleEditingUser(user) {
         this.setState({
-            isEditingUser: user ? true : false
+            isEditingUser: user ? user : false
         });
     }
 
