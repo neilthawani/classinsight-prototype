@@ -112,6 +112,7 @@ class AdminPanelTableRow extends Component {
                     })}
                   </select>
                 </td>
+                <td>Data</td>
                 <td className="admin-table-actions">
                   <span className="btn" onClick={this.toggleEditingUser.bind(this, null)}>
                     Cancel
@@ -132,6 +133,7 @@ class AdminPanelTableRow extends Component {
                 <td className="text-center">
                   {this.userTypeAsWords(userType)}
                 </td>
+                <td>Data</td>
                 <td className="admin-table-actions-confirm">
                   <span className="admin-table-actions-confirm-text">
                     Are you sure?
@@ -155,6 +157,7 @@ class AdminPanelTableRow extends Component {
                 <td className="text-center">
                   {this.userTypeAsWords(user.userType)}
                 </td>
+                <td>Data</td>
                 <td className="admin-table-actions">
                   <span className="btn" onClick={this.toggleEditingUser.bind(this, user)}>
                     Edit
