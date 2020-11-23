@@ -26,14 +26,6 @@
     width: 16.67%;
 }
 
-// .admin-table tbody tr,
-// .admin-table tbody tr:nth-child(2n+1) {
-//     &:hover {
-//         cursor: pointer;
-//         background-color: $darkGray;
-//     }
-// }
-
 .admin-table tbody tr:nth-child(2n+1) {
     background-color: $lightGray;
 }
@@ -51,12 +43,6 @@
         width: 100%;
     }
 }
-
-// .admin-table-action {
-//     display: flex;
-//     justify-content: space-between;
-//     align-items: center;
-// }
 
 .admin-table-actions, // td
 .admin-table-actions-confirm-buttons { //div
@@ -76,4 +62,23 @@
 
 .admin-table-actions-confirm-buttons { //div
     margin-top: 10px;
+}
+
+.admin-user {
+    span {
+        display: block;
+        text-align: center;
+    }
+}
+
+.admin-user-name {
+    font-size: 36px;
+}
+
+.admin-user-email {
+    font-size: 18px;
+}
+
+.admin-user-type {
+    font-size: 18px;
 }

@@ -5,6 +5,7 @@ import classnames from "classnames";
 import { connect } from "react-redux";
 import { editUser } from "../../actions/adminActions";
 import UserTypes from '../../fixtures/user_types';
+import UserDetailsPage from './UserDetailsPage';
 
 class AdminPanelTableRow extends Component {
     constructor(props) {
