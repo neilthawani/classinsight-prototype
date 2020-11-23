@@ -9,11 +9,14 @@ class UserDetailsPage extends Component {
         super(props);
         // debugger;
 
-        console.log("user", props.location.state.user);
-
+        // console.log("user", props.location.state.user);
+        // console.log("props", props);
+        // debugger;
+        var user = props.location.state.user;
+        // var userId = user._id || props.location.pathname.slice(props.location.pathname.lastIndexOf("/") + 1);
         this.state = {
             isUploadingData: false,
-            user: props.location.state.user
+            user: user
         };
     }
 
