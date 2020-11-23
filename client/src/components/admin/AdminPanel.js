@@ -84,7 +84,6 @@ class AdminPanel extends Component {
                   <th>Name</th>
                   <th>Email</th>
                   <th>User Type</th>
-                  <th>Datasets</th>
                   <th>Actions</th>
                 </tr>
               </thead>
