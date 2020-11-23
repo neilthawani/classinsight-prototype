@@ -65,9 +65,9 @@ class App extends Component {
     //     }).bind(this);
     // }
 
-    componentWillUnmount() {
-        this.unlisten();
-    }
+    // componentWillUnmount() {
+    //     this.unlisten();
+    // }
 
     handleButtonSelectorClick(value) {
         localStorage.setItem("buttonSelectorSelectedOption", value);
