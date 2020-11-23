@@ -13,6 +13,8 @@ import Dashboard from "./components/dashboard/Dashboard";
 import DashboardMenus from './DashboardMenus';
 
 import AdminPanel from './components/admin/AdminPanel';
+import UserDetailsPage from './components/admin/UserDetailsPage';
+
 import TalkRatio from './components/visualizations/talk-ratio/TalkRatio';
 import Transcript from './components/visualizations/transcript/Transcript';
 import TurnTaking from './components/visualizations/turn-taking/TurnTaking';
@@ -43,25 +45,25 @@ class App extends Component {
     }
 
     // If logged in and user navigates to Register page, should redirect them to dashboard
-    componentDidMount() {
-        var buttonSelectorSelectedOption = localStorage.getItem("buttonSelectorSelectedOption");
-        var transcriptLocationHash = localStorage.getItem("transcriptLocationHash");
-
-        this.setState({
-            buttonSelectorSelectedOption: buttonSelectorSelectedOption,
-            transcriptLocationHash: transcriptLocationHash
-        });
-
-        this.props.history.push(`${buttonSelectorSelectedOption}${transcriptLocationHash}`);
-
-        this.unlisten = this.props.history.listen((location, action) => {
-            var buttonSelectorSelectedOption = location.pathname.slice(location.pathname.lastIndexOf("/") + 1);
-            var transcriptLocationHash = window.location.hash || "";
-
-            localStorage.setItem("buttonSelectorSelectedOption", buttonSelectorSelectedOption);
-            localStorage.setItem("transcriptLocationHash", transcriptLocationHash);
-        }).bind(this);
-    }
+    // componentDidMount() {
+    //     var buttonSelectorSelectedOption = localStorage.getItem("buttonSelectorSelectedOption");
+    //     var transcriptLocationHash = localStorage.getItem("transcriptLocationHash");
+    //
+    //     this.setState({
+    //         buttonSelectorSelectedOption: buttonSelectorSelectedOption,
+    //         transcriptLocationHash: transcriptLocationHash
+    //     });
+    //
+    //     this.props.history.push(`${buttonSelectorSelectedOption}${transcriptLocationHash}`);
+    //
+    //     this.unlisten = this.props.history.listen((location, action) => {
+    //         var buttonSelectorSelectedOption = location.pathname.slice(location.pathname.lastIndexOf("/") + 1);
+    //         var transcriptLocationHash = window.location.hash || "";
+    //
+    //         localStorage.setItem("buttonSelectorSelectedOption", buttonSelectorSelectedOption);
+    //         localStorage.setItem("transcriptLocationHash", transcriptLocationHash);
+    //     }).bind(this);
+    // }
 
     componentWillUnmount() {
         this.unlisten();
@@ -126,6 +128,7 @@ class App extends Component {
                 <AdminPanel {...props} />
               )}
             />
+            <PrivateRoute path='/admin/user/:id' component={UserDetailsPage} />
 
             <div className="dashboard-content">
               {/* A <Switch> looks through all its children <Route> elements and

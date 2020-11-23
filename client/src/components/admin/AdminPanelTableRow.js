@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import { connect } from "react-redux";
@@ -62,6 +62,10 @@ class AdminPanelTableRow extends Component {
         this.props.editUser({ user: user });
 
         this.toggleEditingUser();
+    }
+
+    goToUserDetailsPage(id) {
+        debugger;
     }
 
     render() {
@@ -148,12 +152,22 @@ class AdminPanelTableRow extends Component {
         } else {
             return (
               <tr>
-                <td>{user.name}</td>
+                <td>
+                  {user.name}
+                </td>
                 <td>{user.email}</td>
                 <td className="text-center">
                   {this.userTypeAsWords(user.userType)}
                 </td>
                 <td className="admin-table-actions">
+                  <Link to={{
+                    pathname: `/admin/user/${user._id}`,
+                    state: {
+                        user: user
+                    }
+                  }}>
+                    <span className="btn">View</span>
+                  </Link>
                   <span className="btn" onClick={this.toggleEditingUser.bind(this, user)}>
                     Edit
                   </span>
@@ -184,7 +198,3 @@ export default connect(
   mapStateToProps,
   { editUser }
 )(withRouter(AdminPanelTableRow));
-
-var TableRows = function(props) {
-
-}

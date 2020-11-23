@@ -1,11 +1,32 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 class UserDetailsPage extends Component {
-  render() {
-    return (
-      <div></div>
-    )
-  }
+    constructor(props) {
+        // debugger;
+    }
+
+    // componentWillRender
+
+    render() {
+        return (
+          <div></div>
+        )
+    }
 }
 
-export default UserDetailsPage;
+UserDetailsPage.propTypes = {
+    auth: PropTypes.object.isRequired
+}
+
+function mapStateToProps(state) {
+    return {
+        auth: state.auth
+    }
+};
+
+export default connect(
+  mapStateToProps,
+  {}
+)(UserDetailsPage);

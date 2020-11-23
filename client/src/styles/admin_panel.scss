@@ -14,13 +14,25 @@
     table-layout: fixed;
 }
 
-.admin-table tbody tr,
-.admin-table tbody tr:nth-child(2n+1) {
-    &:hover {
-        cursor: pointer;
-        background-color: $darkGray;
-    }
+.admin-table thead th:nth-child(1) {
+    width: 20%;
 }
+
+.admin-table thead th:nth-child(2) {
+    width: 25%;
+}
+
+.admin-table thead th:nth-child(3) {
+    width: 16.67%;
+}
+
+// .admin-table tbody tr,
+// .admin-table tbody tr:nth-child(2n+1) {
+//     &:hover {
+//         cursor: pointer;
+//         background-color: $darkGray;
+//     }
+// }
 
 .admin-table tbody tr:nth-child(2n+1) {
     background-color: $lightGray;
@@ -39,6 +51,12 @@
         width: 100%;
     }
 }
+
+// .admin-table-action {
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+// }
 
 .admin-table-actions, // td
 .admin-table-actions-confirm-buttons { //div
