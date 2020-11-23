@@ -128,7 +128,13 @@ class App extends Component {
                 <AdminPanel {...props} />
               )}
             />
-            <PrivateRoute path='/admin/user/:id' component={UserDetailsPage} />
+            <PrivateRoute
+              exact
+              path='/admin/user/:id'
+              component={(props) => (
+                <UserDetailsPage {...props} />
+              )}
+            />
 
             <div className="dashboard-content">
               {/* A <Switch> looks through all its children <Route> elements and
