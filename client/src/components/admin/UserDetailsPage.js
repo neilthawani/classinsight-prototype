@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
+import { getUser } from "../../actions/adminActions";
 import UserTypes from '../../fixtures/user_types';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -10,10 +12,17 @@ class UserDetailsPage extends Component {
         // debugger;
 
         // console.log("user", props.location.state.user);
-        // console.log("props", props);
+        console.log("props", props);
         // debugger;
-        var user = props.location.state.user;
-        // var userId = user._id || props.location.pathname.slice(props.location.pathname.lastIndexOf("/") + 1);
+        // var user = props.location.state && props.location.state.user;
+        var userId = props.match.params.id;
+        var user = props.getUser(userId);
+        //
+        // if (!user) {
+        //     user = {};
+        // }
+
+
         this.state = {
             isUploadingData: false,
             user: user
@@ -42,7 +51,8 @@ class UserDetailsPage extends Component {
               </span>
 
               {this.state.isUploadingData ?
-                <UploadDataForm />
+                <UploadDataForm
+                  userId={user._id} />
               : ""}
             </div>
             <span className="admin-user-name">
@@ -60,7 +70,8 @@ class UserDetailsPage extends Component {
 }
 
 UserDetailsPage.propTypes = {
-    auth: PropTypes.object.isRequired
+    auth: PropTypes.object.isRequired,
+    getUser: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
@@ -71,5 +82,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  {}
-)(UserDetailsPage);
+  { getUser }
+)(withRouter(UserDetailsPage));

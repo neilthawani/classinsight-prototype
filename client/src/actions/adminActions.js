@@ -1,6 +1,15 @@
 import { LIST_USERS, EDIT_USER, CREATE_USER, DELETE_USER, GET_ERRORS } from './types';
 import axios from 'axios';
 
+export const getUser = (userId) => {
+    return (dispatch) => {
+        return {
+            name: "no",
+            email: "yes"
+        }
+    };
+};
+
 export const fetchUsers = () => {
     return (dispatch) => {
         return axios.get("/api/users/list")

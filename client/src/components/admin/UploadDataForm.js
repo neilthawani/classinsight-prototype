@@ -7,138 +7,144 @@ import { connect } from "react-redux";
 class UploadDataForm extends Component {
     constructor(props) {
         super(props);
-
+        // console.log("props", props);
         this.state = {
-            filename: "",
-            topic: "",
-            date: "",
-            period: 0,
-            jsonData: "",
-            errors: {}
+            errors: {},
+            userId: props.userId,
+            class_topic: "",
+            isUploaded: false,
+            isValid: false
         };
     }
 
-    static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.errors) {
-            return ({
-                errors: nextProps.errors
-            });
-        }
+    // static getDerivedStateFromProps(nextProps, prevState) {
+    //     if (nextProps.errors) {
+    //         return ({
+    //             errors: nextProps.errors
+    //         });
+    //     }
+    //
+    //     return null;
+    // }
 
-        return null;
-    }
+    // onChange = e => {
+    //     this.setState({ [e.target.id]: e.target.value });
+    // }
+    //
+    // onSubmit = e => {
+    //     e.preventDefault();
+    //
+    //     const newUser = {
+    //         filename: this.state.filename,
+    //         topic: this.state.name,
+    //         date: this.state.email,
+    //         period: this.state.userType,
+    //         jsonData: this.state.jsonData
+    //     };
+    //
+    //     this.props.createUser(newUser);
+    // };
+    parseFile = async (evt) => {
+        var userId = this.state.userId;
+        evt.preventDefault()
+        const reader = new FileReader();
 
-    onChange = e => {
-        this.setState({ [e.target.id]: e.target.value });
-    }
+        reader.readAsText(evt.target.files[0]);
 
-    onSubmit = e => {
-        e.preventDefault();
+        reader.onload = async (e) => {
+            // console.log("e.target", e.target, "e", e);
+            const text = e.target.result;
+            // console.log("filename", e.target.fileName);
+            // console.log(text)
+            var jsonData = JSON.parse(text);
+            console.log("jsonData", jsonData);
+            // alert(text)
+            // console.loge.target.files[0]
+            var el = document.getElementById("data-upload");
+            var fileName = el.value.split("\\")[2];
+            console.log("fileName", fileName);
 
-        const newUser = {
-            filename: this.state.filename,
-            topic: this.state.name,
-            date: this.state.email,
-            period: this.state.userType,
-            jsonData: this.state.jsonData
+            var fileMetadata = fileName.split("_");
+            var class_date = fileMetadata[1];
+            var class_period = fileMetadata[2];
+
+            // this.setState({
+            //     fileData: {
+            //         user_id: props.userId,
+            //         filename: "",
+            //         class_topic: "",
+            //         class_date: "",
+            //         class_period: [],
+            //         jsonData: {}
+            //     }
+            // })
         };
 
-        this.props.createUser(newUser);
-    };
+        // reader.onloadend = (file) => {
+        //     console.log("e onloaded", file.target.fileName);
+        // }
+
+
+        // console.log("evt", evt);
+        // debugger;
+
+    }
 
     render() {
         const { errors } = this.state;
 
         return (
           <div className="form-container">
-            <div className="form-header">
-              <h2>
+            <div>
+              <h2 className="text-center">
                 Upload data
               </h2>
             </div>
 
-            {/*<form noValidate onSubmit={this.onSubmit}>
-              <div className="input-field">
-                <label htmlFor="name">Name</label>
-                <input
-                  onChange={this.onChange}
-                  value={this.state.name}
-                  error={errors.name}
-                  id="name"
-                  type="text"
-                  className={classnames("", {
-                    invalid: errors.name
-                  })}
-                />
-                <span className="input-field-error-text">{errors.name}</span>
-              </div>
-              <div className="input-field">
-                <label htmlFor="email">Email</label>
-                <input
-                  onChange={this.onChange}
-                  value={this.state.email}
-                  error={errors.email}
-                  id="email"
-                  type="email"
-                  autoComplete="username"
-                  className={classnames("", {
-                    invalid: errors.email
-                  })}
-                />
-                <span className="input-field-error-text">{errors.email}</span>
-              </div>
+            <form noValidate>
+              <input id="data-upload" type="file" onChange={(e) => this.parseFile(e)} />
 
-              <div className="input-field">
-                <label htmlFor="userType">User Type</label>
-                <select
-                  name="userType"
-                  id="userType"
-                  onChange={this.onChange}
-                  value={this.state.userType}>
+              {this.state.isUploaded ?
+                <div className="file-metadata">
+                  <div className="input-field">
+                    <label htmlFor="name">Name</label>
+                    <input
+                      onChange={this.onChange}
+                      value={this.state.name}
+                      error={errors.name}
+                      id="name"
+                      type="text"
+                      className={classnames("", {
+                        invalid: errors.name
+                      })}
+                    />
+                    <span className="input-field-error-text">{errors.name}</span>
+                  </div>
 
-                  {UserTypes.map((type, index) => {
-                      return (
-                        <option key={index} name={type.value} id={type.value} value={type.value}>{type.label}</option>
-                      )
-                  })}
-                </select>
-              </div>
+                  <div className="input-field">
+                    <label htmlFor="email">Email</label>
+                    <input
+                      onChange={this.onChange}
+                      value={this.state.email}
+                      error={errors.email}
+                      id="email"
+                      type="email"
+                      autoComplete="username"
+                      className={classnames("", {
+                        invalid: errors.email
+                      })}
+                    />
+                    <span className="input-field-error-text">{errors.email}</span>
+                  </div>
+                </div>
+              : ""}
 
-              <div className="input-field">
-                <label htmlFor="password">Password</label>
-                <input
-                  onChange={this.onChange}
-                  value={this.state.password}
-                  error={errors.password}
-                  id="password"
-                  type="password"
-                  autoComplete="new-password"
-                  className={classnames("", {
-                    invalid: errors.password
-                  })}
-                />
-                <span className="input-field-error-text">{errors.password}</span>
-              </div>
-              <div className="input-field">
-                <label htmlFor="password2">Confirm Password</label>
-                <input
-                  onChange={this.onChange}
-                  value={this.state.password2}
-                  error={errors.password2}
-                  id="password2"
-                  type="password"
-                  autoComplete="new-password"
-                  className={classnames("", {
-                    invalid: errors.password2
-                  })}
-                />
-                <span className="input-field-error-text">{errors.password2}</span>
-              </div>
-
-              <button type="submit" className="btn btn-submit">
-                Create user
-              </button>
-            </form>*/}
+              {this.state.isValid ?
+                <button type="submit" className="btn btn-submit">
+                  Create user
+                </button>
+              : ""}
+            </form>
           </div>
         )
     }
