@@ -3,10 +3,16 @@ import axios from 'axios';
 
 export const getUser = (userId) => {
     return (dispatch) => {
-        return {
-            name: "no",
-            email: "yes"
-        }
+        console.log("userId is", userId);
+        return axios.get("/api/users/show", { params: { userId: userId }})
+        .then(response => {
+            // console.log("response", response);
+            return response && response.data.user;
+        })
+        .catch(error => {
+            console.error(error);
+            return error;
+        });
     };
 };
 

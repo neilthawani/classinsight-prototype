@@ -13,6 +13,25 @@ const validateEditUser = require("../../validation/edit");
 // Load User model
 const User = require("../../models/User");
 
+// @route GET api/users/show
+// @desc Retrieve user from Users table
+// @access Public
+router.get('/show', (req, res) => {
+    // console.log("req", req, "res", res);
+    // console.log("res res", res);
+    // console.log("req.body body", req.body);
+    const id = req.query.userId;
+    // console.log("getgetget id", id);
+    User.find({ _id: id }).then(user => {
+        // console.log("then user", user);
+        if (user) {
+            return res.status(200).json({ message: "User found", user: user && user[0] });
+        } else {
+            return res.status(400).json({ nouser: `There is no user with id: ${req.body.userId}` });
+        }
+    });
+});
+
 // @route POST api/users/edit
 // @desc Edit user in Users table
 // @access Public
@@ -28,7 +47,7 @@ router.post('/edit', (req, res) => {
     var byQuery = { _id: _id };
     let toUpdate = { 'name': req.body.user.name, 'email': req.body.user.email, 'userType': req.body.user.userType };
     var options = { returnNewDocument: true, useFindAndModify: false };
-    
+
     User.findOneAndUpdate(byQuery, {$set: toUpdate}, options, function(err, result) {
         if (err) {
             return res.status(400).json({ message: 'Unable to update user.' });

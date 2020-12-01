@@ -16,7 +16,6 @@ class UserDetailsPage extends Component {
         // debugger;
         // var user = props.location.state && props.location.state.user;
         var userId = props.match.params.id;
-        var user = props.getUser(userId);
         //
         // if (!user) {
         //     user = {};
@@ -25,8 +24,13 @@ class UserDetailsPage extends Component {
 
         this.state = {
             isUploadingData: false,
-            user: user
+            userId: userId
         };
+    }
+
+    componentDidMount() {
+        var user = this.props.getUser(this.state.userId);
+        console.log("user", user);
     }
 
     userTypeAsWords(type) {
@@ -42,6 +46,8 @@ class UserDetailsPage extends Component {
 
     render() {
         var user = this.state.user;
+
+        if (!user) return (<div></div>);
 
         return (
           <div className="admin-user">
