@@ -1,4 +1,4 @@
-import { GET_ERRORS, LIST_USERS, EDIT_USER, CREATE_USER, DELETE_USER } from '../actions/types';
+import { GET_ERRORS, LIST_USERS, EDIT_USER, CREATE_USER, DELETE_USER, SHOW_USER } from '../actions/types';
 
 export default function(state, action) {
     switch (action.type) {
@@ -30,6 +30,12 @@ export default function(state, action) {
             return {
                 ...state,
                 errors: action.payload
+            }
+        case SHOW_USER:
+            // console.log("action", action.payload);
+            return {
+                ...state,
+                user: action.payload
             }
         default:
             return { ...state };

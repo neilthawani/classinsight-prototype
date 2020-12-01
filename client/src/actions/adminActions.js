@@ -1,13 +1,17 @@
-import { LIST_USERS, EDIT_USER, CREATE_USER, DELETE_USER, GET_ERRORS } from './types';
+import { LIST_USERS, EDIT_USER, CREATE_USER, DELETE_USER, GET_ERRORS, SHOW_USER } from './types';
 import axios from 'axios';
 
-export const getUser = (userId) => {
+export const showUserDetails = (userId) => {
     return (dispatch) => {
-        console.log("userId is", userId);
+        // console.log("userId is", userId);
         return axios.get("/api/users/show", { params: { userId: userId }})
         .then(response => {
             // console.log("response", response);
-            return response && response.data.user;
+            // return response && response.data.user;
+            dispatch({
+                type: SHOW_USER,
+                payload: response && response.data.user
+            })
         })
         .catch(error => {
             console.error(error);

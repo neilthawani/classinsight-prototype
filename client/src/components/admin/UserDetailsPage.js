@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import { getUser } from "../../actions/adminActions";
+import { showUserDetails } from "../../actions/adminActions";
 import UserTypes from '../../fixtures/user_types';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -17,20 +17,31 @@ class UserDetailsPage extends Component {
         // var user = props.location.state && props.location.state.user;
         var userId = props.match.params.id;
         //
+        // console.log("props", props);
         // if (!user) {
         //     user = {};
         // }
 
-
         this.state = {
             isUploadingData: false,
-            userId: userId
+            userId: userId,
+            user: {},
+            isLoaded: false
         };
     }
 
     componentDidMount() {
-        var user = this.props.getUser(this.state.userId);
-        console.log("user", user);
+        // var user =
+        this.props.showUserDetails(this.state.userId);
+        // console.log("user", this.state.user);
+        //
+        // this.setState({
+        //     user: user
+        // });
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log("componentDidUpdate", prevProps, prevState, snapshot);
     }
 
     userTypeAsWords(type) {
@@ -45,9 +56,9 @@ class UserDetailsPage extends Component {
     }
 
     render() {
-        var user = this.state.user;
-
-        if (!user) return (<div></div>);
+        var user = this.state.user;// || {};
+        // console.log("this.state", this.state, this.props);
+        // if (!user) return (<div></div>);
 
         return (
           <div className="admin-user">
@@ -77,16 +88,17 @@ class UserDetailsPage extends Component {
 
 UserDetailsPage.propTypes = {
     auth: PropTypes.object.isRequired,
-    getUser: PropTypes.func.isRequired
+    showUserDetails: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
     return {
-        auth: state.auth
+        auth: state.auth,
+        user: state.user
     }
 };
 
 export default connect(
   mapStateToProps,
-  { getUser }
+  { showUserDetails }
 )(withRouter(UserDetailsPage));
