@@ -25,14 +25,16 @@ class UserDetailsPage extends Component {
         this.state = {
             isUploadingData: false,
             userId: userId,
-            user: {},
+            // user: {},
             isLoaded: false
         };
     }
 
     componentDidMount() {
-        // var user =
         this.props.showUserDetails(this.state.userId);
+
+        // var user =
+
         // console.log("user", this.state.user);
         //
         // this.setState({
@@ -40,8 +42,20 @@ class UserDetailsPage extends Component {
         // });
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log("componentDidUpdate", prevProps, prevState, snapshot);
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    //     console.log("componentDidUpdate", prevProps, prevState, snapshot);
+    // }
+
+    static getDerivedStateFromProps(nextProps) {
+        console.log("nextProps", nextProps);
+        if (nextProps.admin.user) {
+            return ({
+                user: nextProps.admin.user,
+                // isDeletingUser: false
+            });
+        }
+
+        return null;
     }
 
     userTypeAsWords(type) {
@@ -56,7 +70,10 @@ class UserDetailsPage extends Component {
     }
 
     render() {
-        var user = this.state.user;// || {};
+        // console.log("state", this.state);
+        // var user = this.state.user || this.props.user || {};
+        var user = this.state.user || {};
+        // console.log("user", user);
         // console.log("this.state", this.state, this.props);
         // if (!user) return (<div></div>);
 
@@ -72,6 +89,7 @@ class UserDetailsPage extends Component {
                   userId={user._id} />
               : ""}
             </div>
+
             <span className="admin-user-name">
               {user.name}
             </span>
@@ -79,7 +97,7 @@ class UserDetailsPage extends Component {
               {user.email}
             </span>
             <span className="admin-user-type">
-              {this.userTypeAsWords(user.userType)}
+              {userTypeAsWords(user.userType)}
             </span>
           </div>
         )
@@ -88,13 +106,17 @@ class UserDetailsPage extends Component {
 
 UserDetailsPage.propTypes = {
     auth: PropTypes.object.isRequired,
-    showUserDetails: PropTypes.func.isRequired
+    showUserDetails: PropTypes.func.isRequired,
+    // user: PropTypes.object.isRequired
+    admin: PropTypes.object.isRequired
 }
 
 function mapStateToProps(state) {
     return {
         auth: state.auth,
-        user: state.user
+        // user: state.user,
+        admin: state.admin
+
     }
 };
 
@@ -102,3 +124,14 @@ export default connect(
   mapStateToProps,
   { showUserDetails }
 )(withRouter(UserDetailsPage));
+
+// function UserInfo(props) {
+//     var user = props.user;
+//
+//     return (
+//         <div>
+//         </div>
+//     )
+// }
+
+// var
