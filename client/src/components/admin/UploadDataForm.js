@@ -27,9 +27,10 @@ class UploadDataForm extends Component {
     //     return null;
     // }
 
-    // onChange = e => {
-    //     this.setState({ [e.target.id]: e.target.value });
-    // }
+    onChange = e => {
+        console.log("e.target.value", e.target.value);
+        this.setState({ [e.target.id]: e.target.value });
+    }
     //
     // onSubmit = e => {
     //     e.preventDefault();
@@ -70,20 +71,22 @@ class UploadDataForm extends Component {
             // console.loge.target.files[0]
             var el = document.getElementById("data-upload-input");
             var fileName = el.value.split("\\")[2];
-            console.log("fileName", fileName);
+            // console.log("fileName", fileName);
 
             var fileMetadata = fileName.split("_");
-            var class_date = fileMetadata[1];
-            var class_period = fileMetadata[2];
+            var class_date = fileMetadata[1],
+                classDate = class_date.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
+            var class_period = fileMetadata[2].replace("Per", "").replace(".json", "").replace("_", ", ");
+            console.log("classPeriod", class_period);
 
             this.setState({
                 isUploaded: true,
                 fileData: {
-            //         user_id: props.userId,
-            //         filename: "",
+                    user_id: userId,
+                    filename: fileName,
             //         class_topic: "",
-            //         class_date: "",
-            //         class_period: [],
+                    class_date: classDate,
+                    class_period: class_period,
                     jsonData: jsonData
                 }
             })
@@ -118,7 +121,7 @@ class UploadDataForm extends Component {
                     {this.state.isUploaded ?
                     <div className="data-upload-metadata">
                       <div className="input-field">
-                        <label htmlFor="name">Name</label>
+                        <label htmlFor="name">Class Topic</label>
                         <input
                           onChange={this.onChange}
                           value={this.state.name}
@@ -133,19 +136,23 @@ class UploadDataForm extends Component {
                       </div>
 
                       <div className="input-field">
-                        <label htmlFor="email">Email</label>
+                        <label htmlFor="date">Date</label>
                         <input
                           onChange={this.onChange}
-                          value={this.state.email}
-                          error={errors.email}
-                          id="email"
-                          type="email"
-                          autoComplete="username"
-                          className={classnames("", {
-                            invalid: errors.email
-                          })}
+                          value={this.state.fileData.class_date}
+                          id="class-date"
+                          type="date"
                         />
-                        <span className="input-field-error-text">{errors.email}</span>
+                      </div>
+
+                      <div className="input-field">
+                        <label htmlFor="period">Period(s), comma-separated</label>
+                        <input
+                          onChange={this.onChange}
+                          value={this.state.fileData.class_period}
+                          id="period"
+                          type="text"
+                        />
                       </div>
                     </div>
                     : ""}
