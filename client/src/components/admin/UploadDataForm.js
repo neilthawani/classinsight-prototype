@@ -66,7 +66,7 @@ class UploadDataForm extends Component {
             // console.log("filename", e.target.fileName);
             // console.log(text)
             var jsonData = JSON.parse(text);
-            console.log("jsonData", jsonData);
+            // console.log("jsonData", jsonData);
             // alert(text)
             // console.loge.target.files[0]
             var el = document.getElementById("data-upload-input");
@@ -77,14 +77,14 @@ class UploadDataForm extends Component {
             var class_date = fileMetadata[1],
                 classDate = class_date.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
             var class_period = fileMetadata[2].replace("Per", "").replace(".json", "").replace("_", ", ");
-            console.log("classPeriod", class_period);
+            // console.log("classPeriod", class_period);
 
             this.setState({
                 isUploaded: true,
                 fileData: {
                     user_id: userId,
                     filename: fileName,
-            //         class_topic: "",
+                    class_topic: "",
                     class_date: classDate,
                     class_period: class_period,
                     jsonData: jsonData
@@ -114,63 +114,58 @@ class UploadDataForm extends Component {
             </div>
 
             <form noValidate>
-                <div className="even-columns-2">
-                  <div className="even-column">
-                    <input id="data-upload-input" type="file" onChange={(e) => this.parseFile(e)} />
+              <div className="even-columns-2">
+                <div className="even-column">
+                  <input id="data-upload-input" type="file" onChange={(e) => this.parseFile(e)} />
 
-                    {this.state.isUploaded ?
-                    <div className="data-upload-metadata">
-                      <div className="input-field">
-                        <label htmlFor="name">Class Topic</label>
-                        <input
-                          onChange={this.onChange}
-                          value={this.state.name}
-                          error={errors.name}
-                          id="name"
-                          type="text"
-                          className={classnames("", {
-                            invalid: errors.name
-                          })}
-                        />
-                        <span className="input-field-error-text">{errors.name}</span>
-                      </div>
-
-                      <div className="input-field">
-                        <label htmlFor="date">Date</label>
-                        <input
-                          onChange={this.onChange}
-                          value={this.state.fileData.class_date}
-                          id="class-date"
-                          type="date"
-                        />
-                      </div>
-
-                      <div className="input-field">
-                        <label htmlFor="period">Period(s), comma-separated</label>
-                        <input
-                          onChange={this.onChange}
-                          value={this.state.fileData.class_period}
-                          id="period"
-                          type="text"
-                        />
-                      </div>
-                    </div>
-                    : ""}
-                  </div>
-                  <div className="even-column">
-                    {this.state.isUploaded ?
+                  {this.state.isUploaded ?
+                    <div>
+                      <span className="data-upload-label">Preview</span>
                       <pre className="data-upload-json">
                         {JSON.stringify(this.state.fileData.jsonData, null, 2)}
                       </pre>
-                    : ""}
-                  </div>
+                    </div>
+                  : ""}
                 </div>
 
-              {this.state.isValid ?
-                <button type="submit" className="btn btn-submit">
-                  Create user
-                </button>
-              : ""}
+                {this.state.isUploaded ?
+                <div className="even-column data-upload-metadata">
+                  <div className="input-field">
+                    <label htmlFor="topic">Class Topic</label>
+                    <input
+                      onChange={this.onChange}
+                      value={this.state.fileData.class_topic}
+                      id="class-topic"
+                      type="text"
+                    />
+                  </div>
+
+                  <div className="input-field">
+                    <label htmlFor="date">Date</label>
+                    <input
+                      onChange={this.onChange}
+                      value={this.state.fileData.class_date}
+                      id="class-date"
+                      type="date"
+                    />
+                  </div>
+
+                  <div className="input-field">
+                    <label htmlFor="period">Period(s), comma-separated</label>
+                    <input
+                      onChange={this.onChange}
+                      value={this.state.fileData.class_period}
+                      id="period"
+                      type="text"
+                    />
+                  </div>
+
+                  <button type="submit" className="btn btn-submit">
+                    Create user
+                  </button>
+                </div>
+                : ""}
+              </div>
             </form>
           </div>
         )

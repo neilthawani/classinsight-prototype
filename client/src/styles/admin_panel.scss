@@ -68,7 +68,10 @@
     width: 75%;
     margin: 0 auto;
 
-    span {
+    // span {
+    .admin-user-name,
+    .admin-user-email,
+    .admin-user-type {
         display: block;
         text-align: center;
     }
@@ -87,19 +90,33 @@
 }
 
 #data-upload-input {
+    margin-bottom: 10px;
     &:focus {
         outline: $blue;
     }
 }
 
-.data-upload-metadata {
-    margin-top: 10px;
+.even-columns-2 .even-column.data-upload-metadata {
+    // margin-top: 10px;
+    padding: 0 40px;//10px 20px 0 20px;
+
+    .input-field,
+    label {
+        max-width: max-content;
+    }
+
+}
+
+.data-upload-label {
+    color: $gray;
+    font-size: 14px;
 }
 
 .data-upload-json {
     border: 1px solid $lightGray;
-    height: 400px;
+    height: 300px;
     overflow: scroll;
-    // overflow-x: hidden;
     margin: 0;
+    // overflow-x: hidden;
+    // margin: 0 0 10px 0;
 }
