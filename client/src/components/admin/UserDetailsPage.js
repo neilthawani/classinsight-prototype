@@ -47,7 +47,7 @@ class UserDetailsPage extends Component {
     // }
 
     static getDerivedStateFromProps(nextProps) {
-        console.log("nextProps", nextProps);
+        // console.log("nextProps", nextProps);
         if (nextProps.admin.user) {
             return ({
                 user: nextProps.admin.user,
@@ -83,12 +83,12 @@ class UserDetailsPage extends Component {
               <span className="btn" onClick={this.toggleUploadData.bind(this)}>
                 {this.state.isUploadingData ? "Cancel" : "Upload data"}
               </span>
-
-              {this.state.isUploadingData ?
-                <UploadDataForm
-                  userId={user._id} />
-              : ""}
             </div>
+
+            {this.state.isUploadingData ?
+              <UploadDataForm
+                userId={user._id} />
+            : ""}
 
             <span className="admin-user-name">
               {user.name}
@@ -97,7 +97,7 @@ class UserDetailsPage extends Component {
               {user.email}
             </span>
             <span className="admin-user-type">
-              {userTypeAsWords(user.userType)}
+              {this.userTypeAsWords(user.userType)}
             </span>
           </div>
         )

@@ -49,7 +49,15 @@ class UploadDataForm extends Component {
         evt.preventDefault()
         const reader = new FileReader();
 
-        reader.readAsText(evt.target.files[0]);
+        try {
+            reader.readAsText(evt.target.files[0]);
+        } catch(e) {
+            console.error(e);
+            this.setState({
+                isUploaded: false,
+                fileData: {}
+            });
+        }
 
         reader.onload = async (e) => {
             // console.log("e.target", e.target, "e", e);
@@ -60,7 +68,7 @@ class UploadDataForm extends Component {
             console.log("jsonData", jsonData);
             // alert(text)
             // console.loge.target.files[0]
-            var el = document.getElementById("data-upload");
+            var el = document.getElementById("data-upload-input");
             var fileName = el.value.split("\\")[2];
             console.log("fileName", fileName);
 
@@ -68,16 +76,17 @@ class UploadDataForm extends Component {
             var class_date = fileMetadata[1];
             var class_period = fileMetadata[2];
 
-            // this.setState({
-            //     fileData: {
+            this.setState({
+                isUploaded: true,
+                fileData: {
             //         user_id: props.userId,
             //         filename: "",
             //         class_topic: "",
             //         class_date: "",
             //         class_period: [],
-            //         jsonData: {}
-            //     }
-            // })
+                    jsonData: jsonData
+                }
+            })
         };
 
         // reader.onloadend = (file) => {
@@ -94,7 +103,7 @@ class UploadDataForm extends Component {
         const { errors } = this.state;
 
         return (
-          <div className="form-container">
+          <div className="form-container wide">
             <div>
               <h2 className="text-center">
                 Upload data
@@ -102,42 +111,53 @@ class UploadDataForm extends Component {
             </div>
 
             <form noValidate>
-              <input id="data-upload" type="file" onChange={(e) => this.parseFile(e)} />
+                <div className="even-columns-2">
+                  <div className="even-column">
+                    <input id="data-upload-input" type="file" onChange={(e) => this.parseFile(e)} />
 
-              {this.state.isUploaded ?
-                <div className="file-metadata">
-                  <div className="input-field">
-                    <label htmlFor="name">Name</label>
-                    <input
-                      onChange={this.onChange}
-                      value={this.state.name}
-                      error={errors.name}
-                      id="name"
-                      type="text"
-                      className={classnames("", {
-                        invalid: errors.name
-                      })}
-                    />
-                    <span className="input-field-error-text">{errors.name}</span>
+                    {this.state.isUploaded ?
+                    <div className="data-upload-metadata">
+                      <div className="input-field">
+                        <label htmlFor="name">Name</label>
+                        <input
+                          onChange={this.onChange}
+                          value={this.state.name}
+                          error={errors.name}
+                          id="name"
+                          type="text"
+                          className={classnames("", {
+                            invalid: errors.name
+                          })}
+                        />
+                        <span className="input-field-error-text">{errors.name}</span>
+                      </div>
+
+                      <div className="input-field">
+                        <label htmlFor="email">Email</label>
+                        <input
+                          onChange={this.onChange}
+                          value={this.state.email}
+                          error={errors.email}
+                          id="email"
+                          type="email"
+                          autoComplete="username"
+                          className={classnames("", {
+                            invalid: errors.email
+                          })}
+                        />
+                        <span className="input-field-error-text">{errors.email}</span>
+                      </div>
+                    </div>
+                    : ""}
                   </div>
-
-                  <div className="input-field">
-                    <label htmlFor="email">Email</label>
-                    <input
-                      onChange={this.onChange}
-                      value={this.state.email}
-                      error={errors.email}
-                      id="email"
-                      type="email"
-                      autoComplete="username"
-                      className={classnames("", {
-                        invalid: errors.email
-                      })}
-                    />
-                    <span className="input-field-error-text">{errors.email}</span>
+                  <div className="even-column">
+                    {this.state.isUploaded ?
+                      <pre className="data-upload-json">
+                        {JSON.stringify(this.state.fileData.jsonData, null, 2)}
+                      </pre>
+                    : ""}
                   </div>
                 </div>
-              : ""}
 
               {this.state.isValid ?
                 <button type="submit" className="btn btn-submit">

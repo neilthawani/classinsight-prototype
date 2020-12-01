@@ -67,7 +67,7 @@
 .admin-user {
     width: 75%;
     margin: 0 auto;
-    
+
     span {
         display: block;
         text-align: center;
@@ -84,4 +84,22 @@
 
 .admin-user-type {
     font-size: 18px;
+}
+
+#data-upload-input {
+    &:focus {
+        outline: $blue;
+    }
+}
+
+.data-upload-metadata {
+    margin-top: 10px;
+}
+
+.data-upload-json {
+    border: 1px solid $lightGray;
+    height: 400px;
+    overflow: scroll;
+    // overflow-x: hidden;
+    margin: 0;
 }

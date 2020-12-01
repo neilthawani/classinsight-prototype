@@ -10,6 +10,12 @@ $formMinWidth: 225px;
     width: max-content;
 }
 
+.form-container.wide {
+    width: 75%;
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+
 .form-header {
     display: flex;
     align-items: baseline;
