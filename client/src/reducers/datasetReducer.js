@@ -1,41 +1,42 @@
-import { GET_ERRORS, LIST_USERS, EDIT_USER, CREATE_USER, DELETE_USER, SHOW_USER } from '../actions/types';
+// import { GET_ERRORS, LIST_USERS, EDIT_USER, CREATE_USER, DELETE_USER, SHOW_USER } from '../actions/types';
+import { LIST_DATASETS, DELETE_DATASET, EDIT_DATASET, UPLOAD_DATASET, SHOW_DATASET } from './types';
 
 export default function(state, action) {
     switch (action.type) {
-        case LIST_USERS:
-            var users = {
+        case LIST_DATASETS:
+            var datasets = {
                 ...state,
-                users: action.payload.data
+                datasets: action.payload.data
             };
 
-            return users;
-        case EDIT_USER:
-            return { users:
-                state.users.map((user) => {
-                    if (user._id === action.payload.userData.user._id) {
-                        return action.payload.userData.user;
+            return datasets;
+        case EDIT_DATASET:
+            return { datasets:
+                state.datasets.map((dataset) => {
+                    if (dataset._id === action.payload.dataset.id) { // might not be correct
+                        return action.payload.dataset;
                     }
-                    return user;
+                    return dataset;
                 })
             };
-        case CREATE_USER:
+        case UPLOAD_DATASET:
             return {
-                users: state.users.concat(action.payload.user)
+                datasets: state.datasets.concat(action.payload.dataset)
             };
-        case DELETE_USER:
-            return { users:
-                state.users.filter(user => user._id !== action.payload.data.user._id)
+        case DELETE_DATASET:
+            return { datasets:
+                state.datasets.filter(dataset => dataset._id !== action.payload.data.dataset._id)
             };
-        case GET_ERRORS:
-            return {
-                ...state,
-                errors: action.payload
-            }
-        case SHOW_USER:
+        // case GET_ERRORS:
+        //     return {
+        //         ...state,
+        //         errors: action.payload
+        //     }
+        case SHOW_DATASET:
             // console.log("action", action.payload);
             return {
                 ...state,
-                user: action.payload
+                dataset: action.payload
             }
         default:
             return { ...state };
