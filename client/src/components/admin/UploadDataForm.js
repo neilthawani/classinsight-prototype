@@ -114,10 +114,9 @@ class UploadDataForm extends Component {
             </div>
 
             <form noValidate>
+              <input id="data-upload-input" type="file" onChange={(e) => this.parseFile(e)} />
               <div className="even-columns-2">
                 <div className="even-column">
-                  <input id="data-upload-input" type="file" onChange={(e) => this.parseFile(e)} />
-
                   {this.state.isUploaded ?
                     <div>
                       <span className="data-upload-label">Preview</span>
@@ -130,38 +129,40 @@ class UploadDataForm extends Component {
 
                 {this.state.isUploaded ?
                 <div className="even-column data-upload-metadata">
-                  <div className="input-field">
-                    <label htmlFor="topic">Class Topic</label>
-                    <input
-                      onChange={this.onChange}
-                      value={this.state.fileData.class_topic}
-                      id="class-topic"
-                      type="text"
-                    />
-                  </div>
+                  <div className="data-upload-metadata-fields">
+                    <div className="input-field">
+                      <label htmlFor="topic">Class Topic</label>
+                      <input
+                        onChange={this.onChange}
+                        value={this.state.fileData.class_topic}
+                        id="class-topic"
+                        type="text"
+                      />
+                    </div>
 
-                  <div className="input-field">
-                    <label htmlFor="date">Date</label>
-                    <input
-                      onChange={this.onChange}
-                      value={this.state.fileData.class_date}
-                      id="class-date"
-                      type="date"
-                    />
-                  </div>
+                    <div className="input-field">
+                      <label htmlFor="date">Date</label>
+                      <input
+                        onChange={this.onChange}
+                        value={this.state.fileData.class_date}
+                        id="class-date"
+                        type="date"
+                      />
+                    </div>
 
-                  <div className="input-field">
-                    <label htmlFor="period">Period(s), comma-separated</label>
-                    <input
-                      onChange={this.onChange}
-                      value={this.state.fileData.class_period}
-                      id="period"
-                      type="text"
-                    />
+                    <div className="input-field">
+                      <label htmlFor="period">Period(s), comma-separated</label>
+                      <input
+                        onChange={this.onChange}
+                        value={this.state.fileData.class_period}
+                        id="period"
+                        type="text"
+                      />
+                    </div>
                   </div>
 
                   <button type="submit" className="btn btn-submit">
-                    Create user
+                    Upload
                   </button>
                 </div>
                 : ""}

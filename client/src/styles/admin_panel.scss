@@ -91,20 +91,33 @@
 
 #data-upload-input {
     margin-bottom: 10px;
+    width: 100%;
     &:focus {
         outline: $blue;
     }
 }
 
-.even-columns-2 .even-column.data-upload-metadata {
-    // margin-top: 10px;
-    padding: 0 40px;//10px 20px 0 20px;
+.data-upload-metadata {
+    // padding: 38px 40px 0 60px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    margin-top: 2px;
+    // .input-field,
+    // label {
+    //     max-width: max-content;
+    // }
+    //
+    // .input-field {
+    //     margin-left: 25px;
+    // }
+}
 
-    .input-field,
-    label {
-        max-width: max-content;
-    }
-
+.data-upload-metadata-fields {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // justify-content: center;
 }
 
 .data-upload-label {
@@ -116,7 +129,7 @@
     border: 1px solid $lightGray;
     height: 300px;
     overflow: scroll;
-    margin: 0;
+    // margin: 0;
     // overflow-x: hidden;
-    // margin: 0 0 10px 0;
+    margin: 0 0 10px 0;
 }
