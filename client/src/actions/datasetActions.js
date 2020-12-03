@@ -60,7 +60,7 @@ export const listDatasets = () => {
 };
 
 export const deleteDataset = (dataset) => dispatch => {
-    axios.post("/api/datasets/delete", { dataset: dataset })
+    axios.post("/api/datasets/edit", { dataset: { ...dataset, isDeleted: true } })
         .then(response => {
             dispatch({
                 type: DELETE_DATASET,

@@ -1,5 +1,5 @@
 // import { GET_ERRORS, LIST_USERS, EDIT_USER, CREATE_USER, DELETE_USER, SHOW_USER } from '../actions/types';
-import { LIST_DATASETS, DELETE_DATASET, EDIT_DATASET, UPLOAD_DATASET, SHOW_DATASET } from './types';
+import { LIST_DATASETS, DELETE_DATASET, EDIT_DATASET, UPLOAD_DATASET, SHOW_DATASET } from '../actions/types';
 
 export default function(state, action) {
     switch (action.type) {

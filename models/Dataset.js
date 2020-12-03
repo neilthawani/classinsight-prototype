@@ -39,6 +39,11 @@ const DatasetSchema = new Schema({
     type: Boolean,
     required: true,
     default: true
+  },
+  isDeleted: {
+    type: Boolean,
+    required: true,
+    default: false
   }
 });
 
