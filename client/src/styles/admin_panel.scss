@@ -91,7 +91,10 @@
 
 #data-upload-input {
     margin-bottom: 10px;
-    width: 100%;
+    width: max-content;
+    cursor: pointer;
+    font-size: 14px;
+
     &:focus {
         outline: $blue;
     }

@@ -25,12 +25,18 @@ class UploadDataForm extends Component {
             });
         }
 
+        console.log("nextProps", nextProps);
+
+        if (nextProps.datasets) {
+            console.log("heh");
+        }
+
         return null;
     }
 
     onChange = e => {
-        console.log("e.target.value", e.target.value);
-        console.log("e.target.id", e.target.id);
+        // console.log("e.target.value", e.target.value);
+        // console.log("e.target.id", e.target.id);
         // var id = [e.target.id];
         this.setState({
             fileData: {
@@ -55,7 +61,7 @@ class UploadDataForm extends Component {
     // };
     parseFile = async (evt) => {
         var userId = this.state.userId;
-        evt.preventDefault()
+        evt.preventDefault();
         const reader = new FileReader();
 
         try {
@@ -111,15 +117,15 @@ class UploadDataForm extends Component {
     // https://www.baeldung.com/mongodb-bson
     onSubmit = e => {
         e.preventDefault();
-        console.log("here");
-        var fileData = // this.state.fileData;
-        {
-            jsonData: JSON.stringify(this.state.fileData.jsonData.segments),
-            ...this.state.fileData
-        };
+        // console.log("here");
+        // debugger;
+        var fileData = this.state.fileData;
+        fileData['jsonData'] = JSON.stringify(this.state.fileData.jsonData);
+        //     ...this.state.fileData
+        // };
 
         // console.log("fileData", fileData);
-
+        // console.log("type of jsonData", typeof fileData.jsonData);
 
         this.props.uploadDataset(fileData);
     };
@@ -206,7 +212,7 @@ UploadDataForm.propTypes = {
     // createUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
-    // datasets: PropTypes.object..datasets
+    // datasets: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({

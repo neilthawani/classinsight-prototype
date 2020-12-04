@@ -21,10 +21,15 @@ export default function(state, action) {
             };
         case UPLOAD_DATASET:
             // console.log("state", state);
+            // console.log("action.payload", action.payload);
+            // debugger;
+            // datasets: action.payload.dataset
             return {
-                // ...state,
-                datasets: state.datasets.concat(action.payload.dataset)
+                ...state,
+                datasets: (state.datasets && state.datasets.concat(action.payload.dataset)) || action.payload.dataset
             };
+            // console.log("ret", ret);
+            // return ret;
         case DELETE_DATASET:
             return { datasets:
                 state.datasets.filter(dataset => dataset._id !== action.payload.data.dataset._id)

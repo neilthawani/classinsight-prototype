@@ -80,7 +80,7 @@ export const uploadDataset = (dataset) => dispatch => {
         dispatch({
             type: UPLOAD_DATASET,
             payload: {
-                user: res.data
+                dataset: res.data
             }
         })
     })

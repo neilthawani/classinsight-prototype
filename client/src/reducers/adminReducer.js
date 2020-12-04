@@ -20,7 +20,7 @@ export default function(state, action) {
             };
         case CREATE_USER:
             return {
-                users: state.users.concat(action.payload.user)
+                users: (state.users && state.users.concat(action.payload.user)) || action.payload.user
             };
         case DELETE_USER:
             return { users:

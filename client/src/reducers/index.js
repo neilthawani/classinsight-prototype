@@ -6,7 +6,7 @@ import errorReducer from "./errorReducer";
 
 export default combineReducers({
     admin: adminReducer,
-    dataset: datasetReducer,
+    datasets: datasetReducer,
     auth: authReducer,
     errors: errorReducer
 });

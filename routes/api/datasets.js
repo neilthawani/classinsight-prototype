@@ -99,8 +99,10 @@ router.post("/upload", (req, res) => {
         jsonData: req.body.jsonData
       });
 
+      // console.log("jsonData", typeof req.body.jsonData);
+      // debugger;
       // Hash password before saving in database
-      dataset
+      newDataset
         .save()
         .then(dataset => res.json(dataset))
         .catch(err => console.log(err));
