@@ -1,4 +1,4 @@
-import { LIST_DATASETS, DELETE_DATASET, EDIT_DATASET, UPLOAD_DATASET, SHOW_DATASET } from './types';
+import { GET_ERRORS, LIST_DATASETS, DELETE_DATASET, EDIT_DATASET, UPLOAD_DATASET, SHOW_DATASET } from './types';
 import axios from 'axios';
 
 export const editDataset = (dataset) => dispatch => {
@@ -85,11 +85,17 @@ export const uploadDataset = (dataset) => dispatch => {
         })
     })
     .catch(error => {
-        console.error('Error:', error, error.response && error.response.data);
+        // console.log("error", error);
+        // debugger;
+        console.error(error);
+        console.error(error.response && error.response.data);
 
-        // dispatch({
-        //     type: GET_ERRORS,
-        //     payload: error.response && error.response.data
-        // })
+        dispatch({
+            type: GET_ERRORS,
+            payload: //{
+              // errors:
+              error.response && error.response.data
+            // }
+        })
     });
 };

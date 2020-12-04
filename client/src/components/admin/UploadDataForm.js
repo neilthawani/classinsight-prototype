@@ -18,15 +18,15 @@ class UploadDataForm extends Component {
         };
     }
 
-    // static getDerivedStateFromProps(nextProps, prevState) {
-    //     if (nextProps.errors) {
-    //         return ({
-    //             errors: nextProps.errors
-    //         });
-    //     }
-    //
-    //     return null;
-    // }
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.errors) {
+            return ({
+                errors: nextProps.errors
+            });
+        }
+
+        return null;
+    }
 
     onChange = e => {
         console.log("e.target.value", e.target.value);
@@ -115,10 +115,10 @@ class UploadDataForm extends Component {
         var fileData = // this.state.fileData;
         {
             jsonData: JSON.stringify(this.state.fileData.jsonData.segments),
-            // ...this.state.fileData
+            ...this.state.fileData
         };
 
-        console.log("fileData", fileData);
+        // console.log("fileData", fileData);
 
 
         this.props.uploadDataset(fileData);
@@ -205,12 +205,14 @@ class UploadDataForm extends Component {
 UploadDataForm.propTypes = {
     // createUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
-    errors: PropTypes.object.isRequired
+    errors: PropTypes.object.isRequired,
+    // datasets: PropTypes.object..datasets
 };
 
 const mapStateToProps = state => ({
     auth: state.auth,
     errors: state.errors,
+    datasets: state.datasets
 });
 
 export default connect(

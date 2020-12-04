@@ -79,9 +79,11 @@ router.get('/list', function(req, res) {
 // @desc Upload dataset
 // @access Public
 router.post("/upload", (req, res) => {
+  // console.log("req.body", req.body.jsonData.segments);
   // Form validation
   const { errors, isValid } = validateDatasetInput(req.body);
 
+  // console.log("errors", errors);
   // Check validation
   if (!isValid) {
     return res.status(400).json(errors);

@@ -10,11 +10,11 @@ module.exports = function validateDatasetInput(data) {
 
   // Empty checks
   if (Validator.isEmpty(data.class_topic)) {
-    errors.class_topic = "Class topic is required";
+    errors.class_topic = "Class topic missing";
   }
 
   if (Validator.isEmpty(data.class_period)) {
-    errors.class_period = "Class period(s) is required";
+    errors.class_period = "Class period missing";
   }
 
   return {
