@@ -10,6 +10,9 @@ const passport = require("passport");
 // Load Dataset model
 const Dataset = require("../../models/Dataset");
 
+// Load input validation
+const validateDatasetInput = require("../../validation/data_upload");
+
 // @route GET api/datasets/show
 // @desc Retrieve user from Datasets table
 // @access Public
@@ -76,6 +79,14 @@ router.get('/list', function(req, res) {
 // @desc Upload dataset
 // @access Public
 router.post("/upload", (req, res) => {
+  // Form validation
+  const { errors, isValid } = validateDatasetInput(req.body);
+
+  // Check validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   Dataset.findOne({ _id: req.body._id }).then(dataset => {
       const newDataset = new Dataset({
         user_id: req.body.user_id,
