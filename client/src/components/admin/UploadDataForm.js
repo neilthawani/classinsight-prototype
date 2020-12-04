@@ -108,13 +108,20 @@ class UploadDataForm extends Component {
         // console.log("evt", evt);
         // debugger;
     }
-
+    // https://www.baeldung.com/mongodb-bson
     onSubmit = e => {
         e.preventDefault();
         console.log("here");
+        var fileData = // this.state.fileData;
+        {
+            jsonData: JSON.stringify(this.state.fileData.jsonData.segments),
+            // ...this.state.fileData
+        };
+
+        console.log("fileData", fileData);
 
 
-        // this.props.uploadDataset(this.state.fileData);
+        this.props.uploadDataset(fileData);
     };
 
     render() {
