@@ -3,6 +3,7 @@ import classnames from "classnames";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { uploadDataset } from '../../actions/datasetActions';
 
 class UploadDataForm extends Component {
     constructor(props) {
@@ -99,8 +100,15 @@ class UploadDataForm extends Component {
 
         // console.log("evt", evt);
         // debugger;
-
     }
+
+    onSubmit = e => {
+        e.preventDefault();
+        console.log("here");
+
+
+        // this.props.uploadDataset(this.state.fileData);
+    };
 
     render() {
         const { errors } = this.state;
@@ -113,7 +121,7 @@ class UploadDataForm extends Component {
               </h2>
             </div>
 
-            <form noValidate>
+            <form noValidate onSubmit={this.onSubmit}>
               <input id="data-upload-input" type="file" onChange={(e) => this.parseFile(e)} />
               <div className="even-columns-2">
                 <div className="even-column">
@@ -186,5 +194,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {  }
+  { uploadDataset }
 )(withRouter(UploadDataForm));
