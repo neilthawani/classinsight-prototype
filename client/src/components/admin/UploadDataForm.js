@@ -19,19 +19,26 @@ class UploadDataForm extends Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.errors) {
+        console.log("nextProps", nextProps, "prevState", prevState);
+
+        if (Object.keys(nextProps.errors).length > 0) {
             return ({
                 errors: nextProps.errors
             });
         }
 
-        console.log("nextProps", nextProps);
+        // console.log("nextProps", nextProps, "prevState", prevState);
 
-        if (nextProps.datasets) {
+        if (Object.keys(nextProps.datasets).length > 0) {
             console.log("heh");
+            this.appendDataset(nextProps.datasets);
         }
 
         return null;
+    }
+
+    appendDataset(dataset) {
+        this.props.appendDataset(dataset);
     }
 
     onChange = e => {
@@ -209,17 +216,21 @@ class UploadDataForm extends Component {
 }
 
 UploadDataForm.propTypes = {
-    // createUser: PropTypes.func.isRequired,
+    uploadDataset: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
-    // datasets: PropTypes.object.isRequired
+    datasets: PropTypes.object.isRequired
+    // admin: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
-    auth: state.auth,
-    errors: state.errors,
-    datasets: state.datasets
-});
+function mapStateToProps(state) {
+    return {
+        auth: state.auth,
+        errors: state.errors,
+        datasets: state.datasets,
+        admin: state.admin
+    }
+};
 
 export default connect(
   mapStateToProps,

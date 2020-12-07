@@ -4,12 +4,18 @@ import { GET_ERRORS, LIST_DATASETS, DELETE_DATASET, EDIT_DATASET, UPLOAD_DATASET
 export default function(state, action) {
     switch (action.type) {
         case LIST_DATASETS:
-            var datasets = {
-                ...state,
-                datasets: action.payload.data
-            };
+            // console.log("LIST_DATSETS state", state);
+            console.log("LIST_DATSETS action", action.payload);
+            // var datasets = {
+                // ...state,
+                // ...[action.payload][0]
+                // action.payload
+            // };
 
-            return datasets;
+            // console.log("LIST_DATASETS datasetsReducer", datasets);
+
+            return action.payload;
+            // datasets;
         case EDIT_DATASET:
             return { datasets:
                 state.datasets.map((dataset) => {
@@ -20,14 +26,15 @@ export default function(state, action) {
                 })
             };
         case UPLOAD_DATASET:
-            // console.log("state", state);
-            // console.log("action.payload", action.payload);
+            console.log("state", state);
+            console.log("action.payload", action.payload);
             // debugger;
             // datasets: action.payload.dataset
-            return {
-                ...state,
-                datasets: (state.datasets && state.datasets.concat(action.payload.dataset)) || action.payload.dataset
-            };
+            // var ret = {
+                // ...state,
+                // datasets:
+                return (state.datasets && state.datasets.concat(action.payload.dataset)) || action.payload.dataset;
+            // };
             // console.log("ret", ret);
             // return ret;
         case DELETE_DATASET:
@@ -46,6 +53,7 @@ export default function(state, action) {
                 dataset: action.payload
             }
         default:
-            return { ...state };
+            // console.log("state || []", state || []);
+            return state || [];
     }
 }

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { showUserDetails } from "../../actions/adminActions";
+import { listDatasets } from "../../actions/datasetActions";
 import UserTypes from '../../fixtures/user_types';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -12,7 +13,7 @@ class UserDetailsPage extends Component {
         // debugger;
 
         // console.log("user", props.location.state.user);
-        console.log("props", props);
+        // console.log("props", props);
         // debugger;
         // var user = props.location.state && props.location.state.user;
         var userId = props.match.params.id;
@@ -25,6 +26,7 @@ class UserDetailsPage extends Component {
         this.state = {
             isUploadingData: false,
             userId: userId,
+            datasets: [],
             // user: {},
             isLoaded: false
         };
@@ -32,7 +34,7 @@ class UserDetailsPage extends Component {
 
     componentDidMount() {
         this.props.showUserDetails(this.state.userId);
-
+        this.props.listDatasets();
         // var user =
 
         // console.log("user", this.state.user);
@@ -43,17 +45,29 @@ class UserDetailsPage extends Component {
     }
 
     // componentDidUpdate(prevProps, prevState, snapshot) {
-    //     console.log("componentDidUpdate", prevProps, prevState, snapshot);
+    //     console.log("componentDidUpdate");
+    //     console.log("prevProps", prevProps);
+    //     console.log("prevState", prevState);
+    //     console.log("snapshot", snapshot);
+    //     console.log("/componentDidUpdate");
     // }
 
     static getDerivedStateFromProps(nextProps) {
-        // console.log("nextProps", nextProps);
         if (nextProps.admin.user) {
             return ({
                 user: nextProps.admin.user,
                 // isDeletingUser: false
             });
         }
+
+        // if (nextProps.datasets) {
+        //     console.log("nextProps.datasets", nextProps.datasets);
+        //     return ({
+        //         datasets: nextProps.datasets
+        //     })
+        // }
+
+        // console.log("nextProps", nextProps);
 
         return null;
     }
@@ -69,6 +83,12 @@ class UserDetailsPage extends Component {
         })
     }
 
+    appendDataset(dataset) {
+        this.setState({
+            datasets: this.state.datasets.push(dataset)
+        });
+    }
+
     render() {
         // console.log("state", this.state);
         // var user = this.state.user || this.props.user || {};
@@ -76,6 +96,9 @@ class UserDetailsPage extends Component {
         // console.log("user", user);
         // console.log("this.state", this.state, this.props);
         // if (!user) return (<div></div>);
+        // var datasets = this.state.datasets || [];
+        // console.log("UserDetailsPage datasets", datasets);
+        console.log("UserDetailsPage props.datasets", this.props.datasets);
 
         return (
           <div className="admin-user">
@@ -107,14 +130,14 @@ class UserDetailsPage extends Component {
 UserDetailsPage.propTypes = {
     auth: PropTypes.object.isRequired,
     showUserDetails: PropTypes.func.isRequired,
-    // user: PropTypes.object.isRequired
+    datasets: PropTypes.array.isRequired,
     admin: PropTypes.object.isRequired
 }
 
 function mapStateToProps(state) {
     return {
         auth: state.auth,
-        // user: state.user,
+        datasets: state.datasets,
         admin: state.admin
 
     }
@@ -122,7 +145,7 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { showUserDetails }
+  { showUserDetails, listDatasets }
 )(withRouter(UserDetailsPage));
 
 // function UserInfo(props) {

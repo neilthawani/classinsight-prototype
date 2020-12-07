@@ -45,12 +45,14 @@ export const listDatasets = () => {
     return (dispatch) => {
         return axios.get("/api/datasets/list")
         .then(response => {
-            return response;
+            // console.log("response", response);
+            return response && response.data;
         })
-        .then(response => {
+        .then(ret => {
+            // console.log("ret", ret);
             dispatch({
                 type: LIST_DATASETS,
-                payload: response // datasets
+                payload: ret // datasets
             });
         })
         .catch(error => {
