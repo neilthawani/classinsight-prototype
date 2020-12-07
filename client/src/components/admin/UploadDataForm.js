@@ -19,7 +19,7 @@ class UploadDataForm extends Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        console.log("nextProps", nextProps, "prevState", prevState);
+        // console.log("nextProps", nextProps, "prevState", prevState);
 
         if (Object.keys(nextProps.errors).length > 0) {
             return ({
@@ -29,16 +29,34 @@ class UploadDataForm extends Component {
 
         // console.log("nextProps", nextProps, "prevState", prevState);
 
-        if (Object.keys(nextProps.datasets).length > 0) {
-            console.log("heh");
-            this.appendDataset(nextProps.datasets);
-        }
+        // if (Object.keys(nextProps.datasets).length > 0) {
+        //     console.log("heh");
+            // this.appendDataset(nextProps.datasets);
+        // }
 
         return null;
     }
 
-    appendDataset(dataset) {
-        this.props.appendDataset(dataset);
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    //     console.log("componentDidUpdate");
+    //     console.log("prevProps", prevProps);
+    //     console.log("prevState", prevState);
+    //     console.log("snapshot", snapshot);
+    //     console.log("/componentDidUpdate");
+    // }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        // console.log("shouldComponentUpdate");//, nextProps, nextState);
+        // console.log("nextProps.datasets.isValid", nextProps.datasets.isValid)
+        if (nextProps.datasets.isValid) {
+            this.dismountForm();
+        }
+
+        return true;
+    }
+
+    dismountForm() {
+        this.props.dismountForm();
     }
 
     onChange = e => {
@@ -121,13 +139,13 @@ class UploadDataForm extends Component {
         // console.log("evt", evt);
         // debugger;
     }
-    // https://www.baeldung.com/mongodb-bson
+
     onSubmit = e => {
         e.preventDefault();
         // console.log("here");
         // debugger;
         var fileData = this.state.fileData;
-        fileData['jsonData'] = JSON.stringify(this.state.fileData.jsonData);
+        // fileData['jsonData'] = JSON.stringify(this.state.fileData.jsonData);
         //     ...this.state.fileData
         // };
 

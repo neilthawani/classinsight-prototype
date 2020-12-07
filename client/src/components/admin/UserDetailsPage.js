@@ -83,9 +83,15 @@ class UserDetailsPage extends Component {
         })
     }
 
-    appendDataset(dataset) {
+    // appendDataset(dataset) {
+    //     this.setState({
+    //         datasets: this.state.datasets.push(dataset)
+    //     });
+    // }
+
+    dismountForm() {
         this.setState({
-            datasets: this.state.datasets.push(dataset)
+            isUploadingData: false
         });
     }
 
@@ -96,9 +102,9 @@ class UserDetailsPage extends Component {
         // console.log("user", user);
         // console.log("this.state", this.state, this.props);
         // if (!user) return (<div></div>);
-        // var datasets = this.state.datasets || [];
+        var datasets = this.props.datasets.datasets || [];
         // console.log("UserDetailsPage datasets", datasets);
-        console.log("UserDetailsPage props.datasets", this.props.datasets);
+        // console.log("UserDetailsPage props.datasets", datasets);
 
         return (
           <div className="admin-user">
@@ -110,18 +116,21 @@ class UserDetailsPage extends Component {
 
             {this.state.isUploadingData ?
               <UploadDataForm
-                userId={user._id} />
+                userId={user._id}
+                dismountForm={this.dismountForm.bind(this)} />
             : ""}
 
-            <span className="admin-user-name">
-              {user.name}
-            </span>
-            <span className="admin-user-email">
-              {user.email}
-            </span>
-            <span className="admin-user-type">
-              {this.userTypeAsWords(user.userType)}
-            </span>
+            <div className="admin-user-info">
+              <span className="admin-user-info-name">
+                {user.name}
+              </span>
+              <span className="admin-user-info-email">
+                {user.email}
+              </span>
+              <span className="admin-user-info-type">
+                {this.userTypeAsWords(user.userType)}
+              </span>
+            </div>
           </div>
         )
     }
@@ -130,7 +139,7 @@ class UserDetailsPage extends Component {
 UserDetailsPage.propTypes = {
     auth: PropTypes.object.isRequired,
     showUserDetails: PropTypes.func.isRequired,
-    datasets: PropTypes.array.isRequired,
+    datasets: PropTypes.object.isRequired,
     admin: PropTypes.object.isRequired
 }
 

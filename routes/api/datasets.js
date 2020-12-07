@@ -96,7 +96,7 @@ router.post("/upload", (req, res) => {
         class_topic: req.body.class_topic,
         class_date: req.body.class_date,
         class_period: req.body.class_period,
-        jsonData: req.body.jsonData
+        jsonData: JSON.stringify(req.body.jsonData)
       });
 
       // console.log("jsonData", typeof req.body.jsonData);

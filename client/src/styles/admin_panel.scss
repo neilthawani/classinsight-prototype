@@ -69,23 +69,23 @@
     margin: 0 auto;
 
     // span {
-    .admin-user-name,
-    .admin-user-email,
-    .admin-user-type {
+    .admin-user-info-name,
+    .admin-user-info-email,
+    .admin-user-info-type {
         display: block;
         text-align: center;
     }
 }
 
-.admin-user-name {
+.admin-user-info-name {
     font-size: 36px;
 }
 
-.admin-user-email {
+.admin-user-info-email {
     font-size: 18px;
 }
 
-.admin-user-type {
+.admin-user-info-type {
     font-size: 18px;
 }
 

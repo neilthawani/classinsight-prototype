@@ -5,7 +5,7 @@ export default function(state, action) {
     switch (action.type) {
         case LIST_DATASETS:
             // console.log("LIST_DATSETS state", state);
-            console.log("LIST_DATSETS action", action.payload);
+            // console.log("LIST_DATSETS action", action.payload);
             // var datasets = {
                 // ...state,
                 // ...[action.payload][0]
@@ -14,7 +14,10 @@ export default function(state, action) {
 
             // console.log("LIST_DATASETS datasetsReducer", datasets);
 
-            return action.payload;
+            return {
+                ...state,
+                datasets: action.payload
+            }
             // datasets;
         case EDIT_DATASET:
             return { datasets:
@@ -26,14 +29,19 @@ export default function(state, action) {
                 })
             };
         case UPLOAD_DATASET:
-            console.log("state", state);
-            console.log("action.payload", action.payload);
+            // console.log("state", state);
+            // console.log("action.payload", action.payload);
             // debugger;
             // datasets: action.payload.dataset
             // var ret = {
                 // ...state,
                 // datasets:
-                return (state.datasets && state.datasets.concat(action.payload.dataset)) || action.payload.dataset;
+                // return (state.datasets && state.datasets.concat(action.payload.dataset)) || [action.payload.dataset];
+                return {
+                    datasets: (state && state.datasets && state.datasets.push(action.payload.dataset)) || [action.payload.dataset],
+                    uploadedDataset: action.payload.dataset,
+                    isValid: true
+                }
             // };
             // console.log("ret", ret);
             // return ret;
@@ -54,6 +62,6 @@ export default function(state, action) {
             }
         default:
             // console.log("state || []", state || []);
-            return state || [];
+            return state || {};
     }
 }
