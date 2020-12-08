@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useLayoutEffect } from "react";
+import React, { Component, useState, useEffect, useLayoutEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { showUserDetails } from "../../actions/adminActions";
 import { listDatasets } from "../../actions/datasetActions";
@@ -44,37 +44,19 @@ class UserDetailsPage extends Component {
         //     user: user
         // });
 
-        setTimeout(() => {
-           // window.addEventListener("resize", this.toggleLoader.bind(this));
-           // this.toggleLoader();
-           window.requestAnimationFrame(() => {
-              this.toggleLoader();
-           });
-        }, 0);
         // setTimeout(() => {
         //     console.log("componentDidMount here");
         // }, 0)
     }
 
-    useEffect(() => {
-        console.log("useEffect");
-    }, [])
-
-    useLayoutEffect(() => {
-        console.log("useLayoutEffect");
-    })
-
-    toggleLoader() {
-        console.log("componentDidMount here");
-    }
-
-    // componentDidUpdate(prevProps, prevState, snapshot) {
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log("dom", document.getElementsByClassName("admin-table-json"));
     //     console.log("componentDidUpdate");
     //     console.log("prevProps", prevProps);
     //     console.log("prevState", prevState);
     //     console.log("snapshot", snapshot);
     //     console.log("/componentDidUpdate");
-    // }
+    }
 
     static getDerivedStateFromProps(nextProps) {
         if (nextProps.admin.user) {
@@ -234,5 +216,3 @@ export default connect(
 //         </div>
 //     )
 // }
-
-// var
