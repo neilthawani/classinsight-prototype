@@ -98,6 +98,7 @@ class UserDetailsPage extends Component {
 
     deleteDataset(dataset, confirmation = false) {
         if (confirmation) {
+            // console.log("dataset to be deleted", dataset);
             this.props.deleteDatasetById(dataset);
             this.setState({
                 datasetToDelete: {}
@@ -172,7 +173,8 @@ class UserDetailsPage extends Component {
                 </tr>
               </thead>
               <tbody>
-                {(datasets || []).map((dataset) => {
+                {(datasets || []).map((dataset, index, array) => {
+                  // console.log("dataset mapped", dataset, index, array);
                   var isDeletingDataset = dataset._id && (this.state.datasetToDelete._id === dataset._id);
                     // <AdminPanelTableRow
                     //   key={user._id}

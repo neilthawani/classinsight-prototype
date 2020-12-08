@@ -13,7 +13,7 @@ export default function(state, action) {
             // };
 
             // console.log("LIST_DATASETS datasetsReducer", datasets);
-
+            // console.log("state", state, action.payload);
             return {
                 ...state,
                 datasets: action.payload
@@ -52,8 +52,9 @@ export default function(state, action) {
             // console.log("ret", ret);
             // return ret;
         case DELETE_DATASET:
+            // debugger;
             return { datasets:
-                state.datasets.filter(dataset => dataset._id !== action.payload.data.dataset._id)
+                state.datasets.filter(dataset => dataset._id !== action.payload.dataset._id)
             };
         // case GET_ERRORS:
         //     return {

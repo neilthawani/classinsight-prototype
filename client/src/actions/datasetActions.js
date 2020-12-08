@@ -20,6 +20,20 @@ export const editDataset = (dataset) => dispatch => {
     });
 };
 
+export const deleteDatasetById = (dataset) => dispatch => {
+    axios.post("/api/datasets/edit", { dataset: { ...dataset, isDeleted: true } })
+        .then(response => {
+            // debugger;
+            dispatch({
+                type: DELETE_DATASET,
+                payload: response && response.data // dataset
+            })
+    })
+    .catch(error => {
+        console.log("Error deleting dataset:", error);
+    });
+}
+
 export const showDataset = (datasetId) => {
     return (dispatch) => {
         // console.log("userId is", userId);
@@ -58,19 +72,6 @@ export const listDatasets = () => {
         });
     };
 };
-
-export const deleteDatasetById = (dataset) => dispatch => {
-    axios.post("/api/datasets/edit", { dataset: { ...dataset, isDeleted: true } })
-        .then(response => {
-            dispatch({
-                type: DELETE_DATASET,
-                payload: response // dataset
-            })
-    })
-    .catch(error => {
-        console.log("Error deleting dataset:", error);
-    });
-}
 
 export const uploadDataset = (dataset) => dispatch => {
   axios

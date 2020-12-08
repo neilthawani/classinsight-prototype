@@ -60,9 +60,11 @@ router.post('/edit', (req, res) => {
 // @access Public
 router.get('/list', function(req, res) {
     Dataset.find({}, function(error, datasets) {
-        var parsedDatasets = datasets.map((dataset) => {
+        var parsedDatasets = [];
+        datasets.forEach((dataset) => {
             if (!dataset.isDeleted) {
-                return {
+                // console.log("dataset.isDeleted", dataset.isDeleted);
+                parsedDatasets.push({
                     _id: dataset._id,
                     isActive: dataset.isActive,
                     isDeleted: dataset.isDeleted,
@@ -70,9 +72,10 @@ router.get('/list', function(req, res) {
                     class_date: dataset.class_date,
                     class_period: dataset.class_period,
                     jsonData: dataset.jsonData
-                }
+                });
             }
         })
+        // console.log("parsedDatasets", parsedDatasets);
         res.send(parsedDatasets);
     });
 });
