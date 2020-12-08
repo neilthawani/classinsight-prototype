@@ -22,12 +22,13 @@ import TurnTaking from './components/visualizations/turn-taking/TurnTaking';
 import Parser from './data/parser';
 import data_tom from './data/data_tom';
 import data_kim from './data/data_kim';
+import data_bill from './data/data_bill';
 
 class App extends Component {
     constructor(props) {
         super(props);
 
-        var dataRows = [data_tom[0], data_kim[0]];
+        var dataRows = [data_tom[0], data_kim[0], data_bill[0]];
         var dataParsers = dataRows.map((row) => {
             var parser = new Parser(row);
             return parser;
