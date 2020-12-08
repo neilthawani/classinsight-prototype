@@ -44,7 +44,7 @@ router.post('/edit', (req, res) => {
       'isActive': req.body.dataset.isActive,
       'isDeleted': req.body.dataset.isDeleted
     };
-    var options = { returnNewDocument: true, useFindAndModify: false };
+    var options = { returnNewDocument: true, useFindAndModify: true };
 
     Dataset.findOneAndUpdate(byQuery, {$set: toUpdate}, options, function(err, result) {
         if (err) {
