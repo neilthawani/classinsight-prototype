@@ -20,11 +20,17 @@ export default function(state, action) {
             }
             // datasets;
         case EDIT_DATASET:
+            // debugger;
+            // return {
+            //     ...state.datasets,
+            //     action.payload.dataset
+            // }
             return { datasets:
                 state.datasets.map((dataset) => {
-                    if (dataset._id === action.payload.dataset.id) { // might not be correct
+                    if (dataset._id === action.payload.dataset._id) {
                         return action.payload.dataset;
                     }
+
                     return dataset;
                 })
             };

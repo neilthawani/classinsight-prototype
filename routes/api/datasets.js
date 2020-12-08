@@ -37,8 +37,8 @@ router.get('/show', (req, res) => {
 // @access Public
 router.post('/edit', (req, res) => {
     const id = req.body.dataset._id;
-
     var byQuery = { _id: id };
+
     let toUpdate = {
       'last_updated_date': Date.now(),
       'isActive': req.body.dataset.isActive,
@@ -46,7 +46,7 @@ router.post('/edit', (req, res) => {
     };
     var options = { returnNewDocument: true, useFindAndModify: false };
 
-    User.findOneAndUpdate(byQuery, {$set: toUpdate}, options, function(err, result) {
+    Dataset.findOneAndUpdate(byQuery, {$set: toUpdate}, options, function(err, result) {
         if (err) {
             return res.status(400).json({ message: 'Unable to update dataset.' });
         } else {
@@ -61,9 +61,11 @@ router.post('/edit', (req, res) => {
 router.get('/list', function(req, res) {
     Dataset.find({}, function(error, datasets) {
         var parsedDatasets = datasets.map((dataset) => {
-            if (dataset.isActive && !dataset.isDeleted) {
+            if (!dataset.isDeleted) {
                 return {
                     _id: dataset._id,
+                    isActive: dataset.isActive,
+                    isDeleted: dataset.isDeleted,
                     class_topic: dataset.class_topic,
                     class_date: dataset.class_date,
                     class_period: dataset.class_period,

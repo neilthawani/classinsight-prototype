@@ -3,7 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import { connect } from "react-redux";
-// import { editDataset } from "../../actions/datasetActions";
+import { editDataset } from "../../actions/datasetActions";
 // import UserTypes from '../../fixtures/user_types';
 // import UserDetailsPage from './UserDetailsPage';
 import formatDate from '../../utils/formatDate';
@@ -77,11 +77,23 @@ class AdminPanelTableRow extends Component {
     //     debugger;
     // }
 
+    toggleActive(dataset) {
+        var newDataset = {
+            ...dataset,
+            isActive: !dataset.isActive
+        }
+
+        this.props.editDataset({dataset: newDataset});
+        this.setState({dataset: newDataset});
+    }
+
     render() {
         var { isDeletingDataset, dataset } = this.props;
         // var { name, email, userType } = this.state;
         // const { errors } = this.state;
         var parsedJson = JSON.stringify(JSON.parse(dataset.jsonData), null, 2);
+
+        // console.log("dataset", dataset);
 
         if (isDeletingDataset) {
             return (
@@ -134,6 +146,9 @@ class AdminPanelTableRow extends Component {
                   <span className="btn" onClick={this.expandJsonData.bind(this)}>
                     {this.state.isJsonDataExpanded ? "Hide Data" : "View Data"}
                   </span>
+                  <span className="btn" onClick={this.toggleActive.bind(this, dataset)}>
+                    {dataset.isActive ? "Mark inactive" : "Mark active"}
+                  </span>
                   <span className="btn" onClick={this.deleteDataset.bind(this, dataset, false)}>
                     Delete
                   </span>
@@ -165,5 +180,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { }
+  { editDataset }
 )(withRouter(AdminPanelTableRow));

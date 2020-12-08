@@ -1,26 +1,24 @@
 import { GET_ERRORS, LIST_DATASETS, DELETE_DATASET, EDIT_DATASET, UPLOAD_DATASET, SHOW_DATASET } from './types';
 import axios from 'axios';
 
-// export const editDataset = (dataset) => dispatch => {
-//     axios.post("/api/datasets/edit", dataset)
-//     .then(res => {
-//         console.log("Success. Edited dataset:", dataset);
-//         dispatch({
-//             type: EDIT_DATASET,
-//             payload: {
-//                 dataset
-//             }
-//         });
-//     })
-//     .catch(error => {
-//         console.error('Error:', error);
-//
-//         // dispatch({
-//         //     type: GET_ERRORS,
-//         //     payload: error.response && error.response.data
-//         // })
-//     });
-// };
+export const editDataset = (dataset) => dispatch => {
+    axios.post("/api/datasets/edit", dataset)
+    .then(res => {
+        console.log("Success. Edited dataset:", dataset.dataset);
+        dispatch({
+            type: EDIT_DATASET,
+            payload: dataset
+        });
+    })
+    .catch(error => {
+        console.error(error);
+
+        // dispatch({
+        //     type: GET_ERRORS,
+        //     payload: error.response && error.response.data
+        // })
+    });
+};
 
 export const showDataset = (datasetId) => {
     return (dispatch) => {
