@@ -29,13 +29,13 @@
 .admin-table tbody tr:nth-child(2n+1) {
     background-color: $lightGray;
 
-    td pre.admin-table-json {
+    pre.admin-table-json {
         background-color: $lightGray;
     }
 }
 
 .admin-table-json {
-    max-height: 150px;
+    max-height: 300px;
     overflow: scroll;
 }
 
@@ -52,6 +52,10 @@
         width: 100%;
     }
 }
+
+// .admin-table tr > td > .admin-table-json {
+//     width: 100%;
+// }
 
 .admin-table-actions, // td
 .admin-table-actions-confirm-buttons { //div

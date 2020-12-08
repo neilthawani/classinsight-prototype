@@ -1,12 +1,12 @@
-import React, { Component, useState, useEffect, useLayoutEffect } from "react";
+import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { showUserDetails } from "../../actions/adminActions";
-import { listDatasets } from "../../actions/datasetActions";
+import { listDatasets, deleteDatasetById } from "../../actions/datasetActions";
 import UserTypes from '../../fixtures/user_types';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import UploadDataForm from './UploadDataForm';
-import formatDate from '../../utils/formatDate';
+import UserDatasetTableRow from './UserDatasetTableRow';
 
 class UserDetailsPage extends Component {
     constructor(props) {
@@ -29,6 +29,7 @@ class UserDetailsPage extends Component {
             userId: userId,
             datasets: [],
             // user: {},
+            datasetToDelete: {},
             isLoaded: false
         };
     }
@@ -49,14 +50,14 @@ class UserDetailsPage extends Component {
         // }, 0)
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log("dom", document.getElementsByClassName("admin-table-json"));
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    //     console.log("dom", document.getElementsByClassName("admin-table-json"));
     //     console.log("componentDidUpdate");
     //     console.log("prevProps", prevProps);
     //     console.log("prevState", prevState);
     //     console.log("snapshot", snapshot);
     //     console.log("/componentDidUpdate");
-    }
+    // }
 
     static getDerivedStateFromProps(nextProps) {
         if (nextProps.admin.user) {
@@ -95,6 +96,25 @@ class UserDetailsPage extends Component {
     //     });
     // }
 
+    deleteDataset(dataset, confirmation = false) {
+        if (confirmation) {
+            this.props.deleteDatasetById(dataset);
+            this.setState({
+                datasetToDelete: {}
+            });
+        }
+
+        if (dataset._id === this.state.datasetToDelete._id && !confirmation) { // remove confirmation message
+            this.setState({
+                datasetToDelete: {}
+            });
+        } else if (Object.entries(this.state.datasetToDelete).length === 0) { // set confirmation message
+            this.setState({
+                datasetToDelete: dataset
+            });
+        }
+    }
+
     dismountForm() {
         this.setState({
             isUploadingData: false
@@ -109,9 +129,9 @@ class UserDetailsPage extends Component {
         // console.log("this.state", this.state, this.props);
         // if (!user) return (<div></div>);
         var datasets = this.props.datasets.datasets || [];
-        var isLoading = datasets.length === 0;
-        console.log("UserDetailsPage datasets", datasets);
-        console.log("isLoading", isLoading);
+        // var isLoading = datasets.length === 0;
+        // console.log("UserDetailsPage datasets", datasets);
+        // console.log("isLoading", isLoading);
 
         // console.log("UserDetailsPage props.datasets", datasets);
 
@@ -147,38 +167,26 @@ class UserDetailsPage extends Component {
                   <th>Class Topic</th>
                   <th>Date</th>
                   <th>Period</th>
-                  <th>Data</th>
+                  {/*<th>Data</th>*/}
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {(datasets || []).map((dataset) => {
-                    var parsedJson = JSON.stringify(JSON.parse(dataset.jsonData), null, 2);
-
+                  var isDeletingDataset = dataset._id && (this.state.datasetToDelete._id === dataset._id);
                     // <AdminPanelTableRow
                     //   key={user._id}
                     //   user={user}
                     //   isCurrentUser={isCurrentUser}
                     //   isDeletingUser={isDeletingUser}
                     //   deleteUser={this.deleteUser.bind(this)} />
-
-                    return (
-                      <tr key={dataset._id}>
-                        <td>
-                          {dataset.class_topic}
-                        </td>
-                        <td>
-                          {formatDate(dataset.class_date)}
-                        </td>
-                        <td>
-                          {dataset.class_period}
-                        </td>
-                        <td>
-                          <pre className="admin-table-json">
-                            {parsedJson}
-                          </pre>
-                        </td>
-                      </tr>
-                    )
+                  return (
+                    <UserDatasetTableRow
+                      key={dataset._id}
+                      dataset={dataset}
+                      isDeletingDataset={isDeletingDataset}
+                      deleteDataset={this.deleteDataset.bind(this)} />
+                  );
                 })}
               </tbody>
             </table>
@@ -191,7 +199,8 @@ UserDetailsPage.propTypes = {
     auth: PropTypes.object.isRequired,
     showUserDetails: PropTypes.func.isRequired,
     datasets: PropTypes.object.isRequired,
-    admin: PropTypes.object.isRequired
+    admin: PropTypes.object.isRequired,
+    deleteDatasetById: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
@@ -199,13 +208,12 @@ function mapStateToProps(state) {
         auth: state.auth,
         datasets: state.datasets,
         admin: state.admin
-
     }
 };
 
 export default connect(
   mapStateToProps,
-  { showUserDetails, listDatasets }
+  { showUserDetails, listDatasets, deleteDatasetById }
 )(withRouter(UserDetailsPage));
 
 // function UserInfo(props) {

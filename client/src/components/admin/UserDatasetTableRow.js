@@ -3,147 +3,110 @@ import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import { connect } from "react-redux";
-import { editUser } from "../../actions/adminActions";
-import UserTypes from '../../fixtures/user_types';
+// import { editDataset } from "../../actions/datasetActions";
+// import UserTypes from '../../fixtures/user_types';
 // import UserDetailsPage from './UserDetailsPage';
+import formatDate from '../../utils/formatDate';
 
 class AdminPanelTableRow extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            isEditingUser: false,
-            errors: {},
-            name: props.user.name,
-            email: props.user.email,
-            userType: props.user.userType
+            isJsonDataExpanded: false,
+            // isEditingDataset: false,
+            // errors: {},
+            // name: props.user.name,
+            // email: props.user.email,
+            // userType: props.user.userType
         };
     }
 
-    static getDerivedStateFromProps(nextProps, state) {
-        var hasErrors = Object.keys(nextProps.errors).length > 0;
+    // static getDerivedStateFromProps(nextProps, state) {
+    //     var hasErrors = Object.keys(nextProps.errors).length > 0;
+    //
+    //     if (hasErrors && state.email !== nextProps.user.email) {
+    //         return ({
+    //             errors: nextProps.errors,
+    //             isEditingUser: true
+    //         });
+    //     }
+    //
+    //     return null;
+    // }
 
-        if (hasErrors && state.email !== nextProps.user.email) {
-            return ({
-                errors: nextProps.errors,
-                isEditingUser: true
-            });
-        }
+    // userTypeAsWords(type) {
+    //     return UserTypes.filter(obj => obj.value === type)[0] &&
+    //             UserTypes.filter(obj => obj.value === type)[0].label;
+    // }
 
-        return null;
+    // onChange = e => {
+    //     this.setState({ [e.target.id]: e.target.value });
+    // }
+
+    // toggleEditingUser(user) {
+    //     this.setState({
+    //         isEditingUser: user ? user : false
+    //     });
+    // }
+
+    deleteDataset(dataset, confirmation) {
+        this.props.deleteDataset(dataset, confirmation);
     }
 
-    userTypeAsWords(type) {
-        return UserTypes.filter(obj => obj.value === type)[0] &&
-                UserTypes.filter(obj => obj.value === type)[0].label;
-    }
-
-    onChange = e => {
-        this.setState({ [e.target.id]: e.target.value });
-    }
-
-    toggleEditingUser(user) {
+    expandJsonData() {
         this.setState({
-            isEditingUser: user ? user : false
+            isJsonDataExpanded: !this.state.isJsonDataExpanded
         });
     }
 
-    deleteUser(user, confirmation) {
-        this.props.deleteUser(user, confirmation);
-    }
+    // editUser(id) {
+    //     var user = {
+    //         _id: id,
+    //         name: this.state.name,
+    //         email: this.state.email,
+    //         userType: parseInt(this.state.userType, 10)
+    //     }
+    //
+    //     this.props.editUser({ user: user });
+    //
+    //     this.toggleEditingUser();
+    // }
 
-    editUser(id) {
-        var user = {
-            _id: id,
-            name: this.state.name,
-            email: this.state.email,
-            userType: parseInt(this.state.userType, 10)
-        }
-
-        this.props.editUser({ user: user });
-
-        this.toggleEditingUser();
-    }
-
-    goToUserDetailsPage(id) {
-        debugger;
-    }
+    // goToUserDetailsPage(id) {
+    //     debugger;
+    // }
 
     render() {
-        var { isCurrentUser, isDeletingUser, user } = this.props;
-        var { name, email, userType } = this.state;
-        const { isEditingUser, errors } = this.state;
+        var { isDeletingDataset, dataset } = this.props;
+        // var { name, email, userType } = this.state;
+        // const { errors } = this.state;
+        var parsedJson = JSON.stringify(JSON.parse(dataset.jsonData), null, 2);
 
-        if (isEditingUser) {
+        if (isDeletingDataset) {
             return (
               <tr>
-                <td>
-                  <input
-                    onChange={this.onChange}
-                    value={name}
-                    error={errors.name}
-                    id="name"
-                    type="text"
-                    className={classnames("", {
-                      invalid: errors.name
-                    })}
-                  />
-                  <span className="input-field-error-text">{errors.name}</span>
-                </td>
-                <td>
-                  <input
-                    onChange={this.onChange}
-                    value={email}
-                    error={errors.email}
-                    id="email"
-                    type="email"
-                    className={classnames("", {
-                      invalid: errors.email
-                    })}
-                  />
-                  <span className="input-field-error-text">{errors.email}</span>
+                <td>{dataset.class_topic}</td>
+                <td className="text-center">
+                  {formatDate(dataset.class_date)}
                 </td>
                 <td className="text-center">
-                  <select
-                    name="userType"
-                    id="userType"
-                    onChange={this.onChange}
-                    value={userType}>
-
-                    {UserTypes.map((type, index) => {
-                        return (
-                          <option key={index} name={type.value} id={type.value} value={type.value}>{type.label}</option>
-                        )
-                    })}
-                  </select>
+                  {dataset.class_period}
                 </td>
-                <td className="admin-table-actions">
-                  <span className="btn" onClick={this.toggleEditingUser.bind(this, null)}>
-                    Cancel
-                  </span>
-                  <span className="btn" onClick={this.editUser.bind(this, user._id)}>
-                    Save user
-                  </span>
-                </td>
-              </tr>
-            )
-        } else if (isDeletingUser) {
-            return (
-              <tr>
-                <td>{name}</td>
-                <td>{email}</td>
-                <td className="text-center">
-                  {this.userTypeAsWords(userType)}
-                </td>
+                {/*<td>
+                  <pre className="admin-table-json">
+                    {parsedJson}
+                  </pre>
+                </td>*/}
                 <td className="admin-table-actions-confirm">
                   <span className="admin-table-actions-confirm-text">
                     Are you sure?
                   </span>
                   <div className="admin-table-actions-confirm-buttons">
-                    <span className="btn" onClick={this.deleteUser.bind(this, user, true)}>
+                    <span className="btn" onClick={this.deleteDataset.bind(this, dataset, true)}>
                       Yes, delete
                     </span>
-                    <span className="btn" onClick={this.deleteUser.bind(this, user, false)}>
+                    <span className="btn" onClick={this.deleteDataset.bind(this, dataset, false)}>
                       No, cancel
                     </span>
                   </div>
@@ -151,41 +114,46 @@ class AdminPanelTableRow extends Component {
               </tr>
             )
         } else {
-            return (
-              <tr>
+            return [
+              <tr key={dataset._id}>
                 <td>
-                  {user.name}
+                  {dataset.class_topic}
                 </td>
-                <td>{user.email}</td>
                 <td className="text-center">
-                  {this.userTypeAsWords(user.userType)}
+                  {formatDate(dataset.class_date)}
                 </td>
+                <td className="text-center">
+                  {dataset.class_period}
+                </td>
+                {/*<td>
+                  <pre className="admin-table-json">
+                    {parsedJson}
+                  </pre>
+                </td>*/}
                 <td className="admin-table-actions">
-                  <Link to={{
-                    pathname: `/admin/user/${user._id}`,
-                    state: {
-                        user: user
-                    }
-                  }}>
-                    <span className="btn">View</span>
-                  </Link>
-                  <span className="btn" onClick={this.toggleEditingUser.bind(this, user)}>
-                    Edit
+                  <span className="btn" onClick={this.expandJsonData.bind(this)}>
+                    {this.state.isJsonDataExpanded ? "Hide Data" : "View Data"}
                   </span>
-                  {!isCurrentUser ?
-                    <span className="btn" onClick={this.deleteUser.bind(this, user, false)}>
-                      Delete
-                    </span>
-                  : ""}
+                  <span className="btn" onClick={this.deleteDataset.bind(this, dataset, false)}>
+                    Delete
+                  </span>
                 </td>
               </tr>
-            )
+            , this.state.isJsonDataExpanded &&
+              <tr key={`${dataset._id}-data`}>
+                <td colSpan="4">
+                  <pre className="admin-table-json">
+                    {parsedJson}
+                  </pre>
+                </td>
+              </tr>
+            ]
         }
     }
 }
 
 AdminPanelTableRow.propTypes = {
-    editUser: PropTypes.func.isRequired,
+    // editUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
 };
@@ -197,5 +165,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { editUser }
+  { }
 )(withRouter(AdminPanelTableRow));
