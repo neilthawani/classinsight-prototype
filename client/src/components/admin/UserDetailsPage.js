@@ -143,7 +143,7 @@ class UserDetailsPage extends Component {
               </thead>
               <tbody>
                 {(datasets || []).map((dataset) => {
-                    // var isDeletingDataset = dataset._id && (this.state.datasetToDelete._id === dataset._id);
+                    var parsedJson = JSON.stringify(JSON.parse(dataset.jsonData), null, 2);
 
                     // <AdminPanelTableRow
                     //   key={user._id}
@@ -164,7 +164,9 @@ class UserDetailsPage extends Component {
                           {dataset.class_period}
                         </td>
                         <td>
-                          {/*dataset.jsonData*/}
+                          <pre className="admin-table-json">
+                            {parsedJson}
+                          </pre>
                         </td>
                       </tr>
                     )

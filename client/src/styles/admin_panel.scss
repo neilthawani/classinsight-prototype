@@ -28,6 +28,15 @@
 
 .admin-table tbody tr:nth-child(2n+1) {
     background-color: $lightGray;
+
+    td pre.admin-table-json {
+        background-color: $lightGray;
+    }
+}
+
+.admin-table-json {
+    max-height: 200px;
+    overflow: scroll;
 }
 
 .admin-table th {
