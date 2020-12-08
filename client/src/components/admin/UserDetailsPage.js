@@ -131,6 +131,46 @@ class UserDetailsPage extends Component {
                 {this.userTypeAsWords(user.userType)}
               </span>
             </div>
+
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th>Class Topic</th>
+                  <th>Date</th>
+                  <th>Period</th>
+                  <th>Data</th>
+                </tr>
+              </thead>
+              <tbody>
+                {(datasets || []).map((dataset) => {
+                    // var isDeletingDataset = dataset._id && (this.state.datasetToDelete._id === dataset._id);
+
+                    // <AdminPanelTableRow
+                    //   key={user._id}
+                    //   user={user}
+                    //   isCurrentUser={isCurrentUser}
+                    //   isDeletingUser={isDeletingUser}
+                    //   deleteUser={this.deleteUser.bind(this)} />
+
+                    return (
+                      <tr key={dataset._id}>
+                        <td>
+                          {dataset.class_topic}
+                        </td>
+                        <td>
+                          {dataset.class_date}
+                        </td>
+                        <td>
+                          {dataset.class_period}
+                        </td>
+                        <td>
+                          {/*dataset.jsonData*/}
+                        </td>
+                      </tr>
+                    )
+                })}
+              </tbody>
+            </table>
           </div>
         )
     }
