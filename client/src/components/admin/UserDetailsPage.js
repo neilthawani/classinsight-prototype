@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useLayoutEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { showUserDetails } from "../../actions/adminActions";
 import { listDatasets } from "../../actions/datasetActions";
@@ -6,6 +6,7 @@ import UserTypes from '../../fixtures/user_types';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import UploadDataForm from './UploadDataForm';
+import formatDate from '../../utils/formatDate';
 
 class UserDetailsPage extends Component {
     constructor(props) {
@@ -42,6 +43,29 @@ class UserDetailsPage extends Component {
         // this.setState({
         //     user: user
         // });
+
+        setTimeout(() => {
+           // window.addEventListener("resize", this.toggleLoader.bind(this));
+           // this.toggleLoader();
+           window.requestAnimationFrame(() => {
+              this.toggleLoader();
+           });
+        }, 0);
+        // setTimeout(() => {
+        //     console.log("componentDidMount here");
+        // }, 0)
+    }
+
+    useEffect(() => {
+        console.log("useEffect");
+    }, [])
+
+    useLayoutEffect(() => {
+        console.log("useLayoutEffect");
+    })
+
+    toggleLoader() {
+        console.log("componentDidMount here");
     }
 
     // componentDidUpdate(prevProps, prevState, snapshot) {
@@ -103,7 +127,10 @@ class UserDetailsPage extends Component {
         // console.log("this.state", this.state, this.props);
         // if (!user) return (<div></div>);
         var datasets = this.props.datasets.datasets || [];
-        // console.log("UserDetailsPage datasets", datasets);
+        var isLoading = datasets.length === 0;
+        console.log("UserDetailsPage datasets", datasets);
+        console.log("isLoading", isLoading);
+
         // console.log("UserDetailsPage props.datasets", datasets);
 
         return (
@@ -158,7 +185,7 @@ class UserDetailsPage extends Component {
                           {dataset.class_topic}
                         </td>
                         <td>
-                          {dataset.class_date}
+                          {formatDate(dataset.class_date)}
                         </td>
                         <td>
                           {dataset.class_period}
