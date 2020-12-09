@@ -10,6 +10,7 @@ export const CREATE_USER = "CREATE_USER";
 export const DELETE_USER = "DELETE_USER";
 export const EDIT_USER = "EDIT_USER";
 export const SHOW_USER = "SHOW_USER";
+export const RESET_PASSWORD = "RESET_PASSWORD";
 
 // datasetActions
 export const LIST_DATASETS = "LIST_DATASETS";

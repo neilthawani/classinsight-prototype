@@ -6,87 +6,103 @@ import { resetUserPassword } from "../../actions/adminActions";
 import classnames from "classnames";
 
 class ResetPasswordForm extends Component {
-  constructor(props) {
-    super();
+    constructor(props) {
+      super();
 
-    this.state = {
-      userId: props.userId,
-      password: "",
-      password2: "",
-      errors: {}
+      this.state = {
+        userId: props.userId,
+        password: "",
+        password2: "",
+        errors: {}
+      };
+    }
+
+    static getDerivedStateFromProps(nextProps) {
+        if (nextProps.errors) {
+            return ({
+                errors: nextProps.errors
+            });
+        }
+
+        return null;
+    }
+
+
+    shouldComponentUpdate(nextProps, nextState) {
+        // console.log("shouldComponentUpdate");//, nextProps, nextState);
+        // console.log("nextProps.datasets.isValid", nextProps.datasets.isValid)
+        if (nextProps.datasets.isValid) {
+            this.dismountForm();
+        }
+
+        return true;
+    }
+
+    dismountForm() {
+        this.props.dismountForm();
+    }
+
+    onChange = e => {
+      this.setState({ [e.target.id]: e.target.value });
     };
-  }
 
-  static getDerivedStateFromProps(nextProps) {
-      if (nextProps.errors) {
-          return ({
-              errors: nextProps.errors
-          });
-      }
+    onSubmit = e => {
+      e.preventDefault();
+      console.log("onSubmit");
+      const userData = {
+          userId: this.state.userId,
+          password: this.state.password,
+          password2: this.state.password2
+      };
 
-      return null;
-  }
+      this.props.resetUserPassword(userData);
+    };
 
-  onChange = e => {
-    this.setState({ [e.target.id]: e.target.value });
-  };
+    render() {
+        const { errors } = this.state;
 
-  onSubmit = e => {
-    e.preventDefault();
-    console.log("onSubmit");
-    // const newPassword = {
-    //   password: this.state.password,
-    //   password2: this.state.password2
-    // };
-    //
-    // this.props.resetUserPassword(newPassword);
-  };
+        return (
+          <div className="form-container">
+            <h2 className="text-center">
+              Reset Password
+            </h2>
 
-  render() {
-    const { errors } = this.state;
-
-    return (
-      <div className="form-container">
-        <h2 className="text-center">
-          Reset Password
-        </h2>
-
-        <form noValidate onSubmit={this.onSubmit}>
-          <div className="input-field">
-            <label htmlFor="password">Password</label>
-            <input
-              onChange={this.onChange}
-              value={this.state.password}
-              error={errors.password}
-              id="password"
-              type="password"
-              className={classnames("", {
-                invalid: errors.password
-              })}
-            />
-            <span className="input-field-error-text">{errors.password}</span>
+            <form noValidate onSubmit={this.onSubmit}>
+              <div className="input-field">
+                <label htmlFor="password">Password</label>
+                <input
+                  onChange={this.onChange}
+                  value={this.state.password}
+                  error={errors.password}
+                  id="password"
+                  type="password"
+                  className={classnames("", {
+                    invalid: errors.password
+                  })}
+                />
+                <span className="input-field-error-text">{errors.password}</span>
+              </div>
+              <div className="input-field">
+                <label htmlFor="password2">Confirm Password</label>
+                <input
+                  onChange={this.onChange}
+                  value={this.state.password2}
+                  error={errors.password2}
+                  id="password2"
+                  type="password"
+                  className={classnames("", {
+                    invalid: errors.password2
+                  })}
+                />
+                <span className="input-field-error-text">{errors.password2}</span>
+              </div>
+              <button type="submit" className="btn btn-submit">
+                Submit
+              </button>
+            </form>
           </div>
-          <div className="input-field">
-            <label htmlFor="password2">Confirm Password</label>
-            <input
-              onChange={this.onChange}
-              value={this.state.password2}
-              error={errors.password2}
-              id="password2"
-              type="password"
-              className={classnames("", {
-                invalid: errors.password2
-              })}
-            />
-            <span className="input-field-error-text">{errors.password2}</span>
-          </div>
-          <button type="submit" className="btn btn-submit">
-            Submit
-          </button>
-        </form>
-      </div>
-    );
-  }
+        );
+    }
 }
 
 ResetPasswordForm.propTypes = {

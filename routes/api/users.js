@@ -9,9 +9,82 @@ const passport = require("passport");
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 const validateEditUser = require("../../validation/edit");
+const validatePasswordInput = require("../../validation/reset-password");
 
 // Load User model
 const User = require("../../models/User");
+
+// @route POST api/users/reset-password
+// @desc Reset user password
+// @access Public
+router.post("/reset-password", (req, res) => {
+  // Form validation
+  const { errors, isValid } = validatePasswordInput(req.body);
+
+  // Check validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
+  // Hash password before saving in database
+  bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(req.body.user.password, salt, (err, hash) => {
+          if (err) throw err;
+          var newPassword = hash;
+
+          const _id = req.body.user._id;
+          var byQuery = { _id: _id };
+          let toUpdate = { 'password': newPassword };
+
+          var options = { returnNewDocument: true, useFindAndModify: false };
+          User.findOneAndUpdate(byQuery, {$set: toUpdate}, options, function(err, result) {
+              if (err) {
+                  return res.status(400).json({ message: 'Unable to update user.' });
+              } else {
+                  return res.status(200).json({ message: 'User updated successfully. Refreshing data...', user: result });
+              }
+          });
+      });
+  });
+});
+
+// @route POST api/users/register
+// @desc Register user
+// @access Public
+router.post("/register", (req, res) => {
+  // Form validation
+  const { errors, isValid } = validateRegisterInput(req.body);
+
+  // Check validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
+  User.findOne({ email: req.body.email }).then(user => {
+    if (user) {
+      return res.status(400).json({ email: "Email already exists" });
+    } else {
+      const newUser = new User({
+        name: req.body.name,
+        email: req.body.email,
+        userType: req.body.userType,
+        password: req.body.password
+      });
+
+      // Hash password before saving in database
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newUser.password, salt, (err, hash) => {
+          if (err) throw err;
+          newUser.password = hash;
+          newUser
+            .save()
+            .then(user => res.json(user))
+            .catch(err => console.log(err));
+        });
+      });
+    }
+  });
+});
 
 // @route GET api/users/show
 // @desc Retrieve user from Users table
@@ -86,44 +159,6 @@ router.get('/list', function(req, res) {
         })
         res.send(parsedUsers);
     });
-});
-
-// @route POST api/users/register
-// @desc Register user
-// @access Public
-router.post("/register", (req, res) => {
-  // Form validation
-  const { errors, isValid } = validateRegisterInput(req.body);
-
-  // Check validation
-  if (!isValid) {
-    return res.status(400).json(errors);
-  }
-
-  User.findOne({ email: req.body.email }).then(user => {
-    if (user) {
-      return res.status(400).json({ email: "Email already exists" });
-    } else {
-      const newUser = new User({
-        name: req.body.name,
-        email: req.body.email,
-        userType: req.body.userType,
-        password: req.body.password
-      });
-
-      // Hash password before saving in database
-      bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(newUser.password, salt, (err, hash) => {
-          if (err) throw err;
-          newUser.password = hash;
-          newUser
-            .save()
-            .then(user => res.json(user))
-            .catch(err => console.log(err));
-        });
-      });
-    }
-  });
 });
 
 // @route POST api/users/login

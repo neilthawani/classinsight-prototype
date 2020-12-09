@@ -169,7 +169,8 @@ class UserDetailsPage extends Component {
 
             {this.state.isResettingPassword ?
               <ResetPasswordForm
-                userId={user._id} />
+                userId={user._id}
+                dismountForm={this.dismountForm.bind(this)} />
             : ""}
 
             <div className="admin-user-info">

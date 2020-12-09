@@ -1,7 +1,12 @@
-import { GET_ERRORS, LIST_USERS, EDIT_USER, CREATE_USER, DELETE_USER, SHOW_USER } from '../actions/types';
+import { GET_ERRORS, LIST_USERS, EDIT_USER, CREATE_USER, DELETE_USER, SHOW_USER, RESET_PASSWORD } from '../actions/types';
 
 export default function(state, action) {
     switch (action.type) {
+        case RESET_PASSWORD:
+            return {
+                ...state,
+                passwordResetSuccessful: action.payload.passwordResetSuccessful
+            };
         case LIST_USERS:
             var users = {
                 ...state,
