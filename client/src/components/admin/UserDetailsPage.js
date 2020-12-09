@@ -36,7 +36,7 @@ class UserDetailsPage extends Component {
 
     componentDidMount() {
         this.props.showUserDetails(this.state.userId);
-        this.props.listDatasets();
+        this.props.listDatasets(this.state.userId);
         // var user =
 
         // console.log("user", this.state.user);

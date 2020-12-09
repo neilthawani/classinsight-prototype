@@ -53,9 +53,9 @@ export const showDataset = (datasetId) => {
     };
 };
 
-export const listDatasets = () => {
+export const listDatasets = (userId) => {
     return (dispatch) => {
-        return axios.get("/api/datasets/list")
+        return axios.get("/api/datasets/list", {params: {user_id: userId}})
         .then(response => {
             // console.log("response", response);
             return response && response.data;

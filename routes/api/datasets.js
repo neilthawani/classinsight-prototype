@@ -59,11 +59,17 @@ router.post('/edit', (req, res) => {
 // @desc List all datasets
 // @access Public
 router.get('/list', function(req, res) {
+    // console.log("req.body", req.query.user_id);
     Dataset.find({}, function(error, datasets) {
         var parsedDatasets = [];
+        // console.log("datasets", datasets[0].user_id)
+
         datasets.forEach((dataset) => {
-            if (!dataset.isDeleted) {
-                // console.log("dataset.isDeleted", dataset.isDeleted);
+            // console.log("dataset.user_id", dataset.user_id, "req.query.user_id", req.query.user_id);
+            // console.log("equals?", dataset.user_id.toString() === req.query.user_id);
+            // console.log('types', typeof dataset.user_id, typeof req.query.user_id);
+            if (!dataset.isDeleted && dataset.user_id.toString() === req.query.user_id) {
+                // console.log("dataset.user_id", dataset.user_id);
                 parsedDatasets.push({
                     _id: dataset._id,
                     isActive: dataset.isActive,
