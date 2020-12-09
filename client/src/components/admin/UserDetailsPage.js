@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import UploadDataForm from './UploadDataForm';
 import UserDatasetTableRow from './UserDatasetTableRow';
+import ResetPasswordForm from './ResetPasswordForm';
 
 class UserDetailsPage extends Component {
     constructor(props) {
@@ -26,6 +27,7 @@ class UserDetailsPage extends Component {
 
         this.state = {
             isUploadingData: false,
+            isResettingPassword: false,
             userId: userId,
             datasets: [],
             // user: {},
@@ -79,6 +81,7 @@ class UserDetailsPage extends Component {
         return null;
     }
 
+    // TODO: put this into a util function?
     userTypeAsWords(type) {
         return UserTypes.filter(obj => obj.value === type)[0] &&
                 UserTypes.filter(obj => obj.value === type)[0].label;
@@ -87,7 +90,13 @@ class UserDetailsPage extends Component {
     toggleUploadData() {
         this.setState({
             isUploadingData: !this.state.isUploadingData
-        })
+        });
+    }
+
+    toggleResetPassword() {
+        this.setState({
+            isResettingPassword: !this.state.isResettingPassword
+        });
     }
 
     // appendDataset(dataset) {
@@ -118,7 +127,8 @@ class UserDetailsPage extends Component {
 
     dismountForm() {
         this.setState({
-            isUploadingData: false
+            isUploadingData: false,
+            isResettingPassword: false
         });
     }
 
@@ -139,8 +149,15 @@ class UserDetailsPage extends Component {
         return (
           <div className="admin-user">
             <div className="admin-header">
-              <span className="btn" onClick={this.toggleUploadData.bind(this)}>
-                {this.state.isUploadingData ? "Cancel" : "Upload data"}
+              <span
+                className={(this.state.isUploadingData || this.state.isUploadingData) ? "hidden" : "btn"}
+                onClick={this.toggleUploadData.bind(this)}>
+                {(this.state.isUploadingData || this.state.isUploadingData) ? "Cancel" : "Upload data"}
+              </span>
+              <span
+                className={(this.state.isUploadingData || this.state.isUploadingData) ? "hidden" : "btn"}
+                onClick={this.toggleResetPassword.bind(this)}>
+                {(this.state.isUploadingData || this.state.isUploadingData) ? "Cancel" : "Reset password"}
               </span>
             </div>
 
@@ -148,6 +165,11 @@ class UserDetailsPage extends Component {
               <UploadDataForm
                 userId={user._id}
                 dismountForm={this.dismountForm.bind(this)} />
+            : ""}
+
+            {this.state.isResettingPassword ?
+              <ResetPasswordForm
+                userId={user._id} />
             : ""}
 
             <div className="admin-user-info">

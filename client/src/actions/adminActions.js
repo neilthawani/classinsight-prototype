@@ -1,6 +1,19 @@
 import { LIST_USERS, EDIT_USER, CREATE_USER, DELETE_USER, GET_ERRORS, SHOW_USER } from './types';
 import axios from 'axios';
 
+// reset user password
+export const resetUserPassword = (userData) => dispatch => {
+  axios
+    .post("/api/users/password-reset", userData)
+    .then(res => res)
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
 export const showUserDetails = (userId) => {
     return (dispatch) => {
         // console.log("userId is", userId);
