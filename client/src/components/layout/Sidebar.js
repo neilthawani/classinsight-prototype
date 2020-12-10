@@ -2,8 +2,7 @@ import React, { Component } from "react";
 
 import Icon from '@mdi/react';
 import { mdiDatabase } from '@mdi/js';
-
-import { format } from 'date-fns';
+import formatDate from '../../utils/formatDate';
 
 class Sidebar extends Component {
     handleSidebarRowClick(index) {
@@ -19,27 +18,6 @@ class Sidebar extends Component {
             <div className="sidebar-data">
               {this.props.dataRows.map((item, index, array) => {
                   var datum = item.data;
-                  var dateObj = datum.metadata.date.split("-").reduce((prev, item, index) => {
-                      switch(index) {
-                          case 0:
-                              prev["year"] = parseInt(item, 10);
-                              break;
-                          case 1:
-                              prev["month"] = parseInt(item, 10) - 1;
-                              break;
-                          case 2:
-                              prev["date"] = parseInt(item, 10);
-                              break;
-                          default:
-                              break;
-                      }
-
-                      return prev;
-                  }, {
-                      year: 0,
-                      month: 0,
-                      date: 0
-                  });
 
                   return (
                     <div key={index}
@@ -54,7 +32,7 @@ class Sidebar extends Component {
                           Date:
                         </span>
                         <span className="sidebar-data-row-descriptor-value">
-                          {format(new Date(dateObj['year'], dateObj['month'], dateObj['date']), 'PPP')}
+                          {formatDate(datum.metadata.date)}
                         </span>
                       </div>
                       <div className="sidebar-data-row-descriptor">

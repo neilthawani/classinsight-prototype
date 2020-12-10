@@ -7,6 +7,10 @@
     margin-bottom: 20px;
     display: flex;
     flex-direction: row-reverse;
+
+    .btn {
+        margin: 0 10px;
+    }
 }
 
 .admin-table {
@@ -14,8 +18,29 @@
     table-layout: fixed;
 }
 
+.admin-table thead th:nth-child(1) {
+    width: 20%;
+}
+
+.admin-table thead th:nth-child(2) {
+    width: 25%;
+}
+
+.admin-table thead th:nth-child(3) {
+    width: 16.67%;
+}
+
 .admin-table tbody tr:nth-child(2n+1) {
     background-color: $lightGray;
+
+    pre.admin-table-json {
+        background-color: $lightGray;
+    }
+}
+
+.admin-table-json {
+    max-height: 300px;
+    overflow: scroll;
 }
 
 .admin-table th {
@@ -50,4 +75,83 @@
 
 .admin-table-actions-confirm-buttons { //div
     margin-top: 10px;
+}
+
+.admin-user {
+    width: 75%;
+    margin: 0 auto;
+
+    // span {
+    .admin-user-info-name,
+    .admin-user-info-email,
+    .admin-user-info-type {
+        display: block;
+        text-align: center;
+    }
+}
+
+.admin-confirmation-message {
+    border: 1px solid $lightGray;
+    background-color: $green;
+    color: white;
+    margin-bottom: 10px;
+    padding: 15px 10px;
+    text-align: center;
+    font-size: 22px;
+}
+
+.admin-user-info {
+    margin-bottom: 20px;
+}
+
+.admin-user .form-container {
+    margin-bottom: 20px;
+}
+
+.admin-user-info-name {
+    font-size: 36px;
+}
+
+.admin-user-info-email {
+    font-size: 18px;
+}
+
+.admin-user-info-type {
+    font-size: 18px;
+}
+
+#data-upload-input {
+    margin-bottom: 10px;
+    width: max-content;
+    cursor: pointer;
+    font-size: 14px;
+
+    &:focus {
+        outline: $blue;
+    }
+}
+
+.data-upload-metadata {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    margin-top: 2px;
+}
+
+.data-upload-metadata-fields {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.data-upload-label {
+    color: $gray;
+    font-size: 14px;
+}
+
+.data-upload-json {
+    border: 1px solid $lightGray;
+    height: 300px;
+    overflow: scroll;
+    margin: 0 0 10px 0;
 }

@@ -1,4 +1,5 @@
 @import "./variables.scss";
+@import "./grid.scss";
 
 @import "./admin_panel.scss";
 @import "./button_selector.scss";
@@ -31,6 +32,10 @@ p {
     margin-inline-end: 0;
 }
 
+.text-left {
+    text-align: left;
+}
+
 .text-center {
     text-align: center;
 }
@@ -43,6 +48,10 @@ p {
     display: block;
     margin: 5px 0;
     font-size: 10px;
+}
+
+.hidden {
+    display: none;
 }
 
 .app {}

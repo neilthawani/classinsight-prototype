@@ -43,12 +43,14 @@
 
 .turn-taking-bar-timestamp-time {
     @extend .turn-taking-bar-timestamp;
-    left: -45px;
+    right: 100%;
+    z-index: -1;
 }
 
 .turn-taking-bar-timestamp-range {
     @extend .turn-taking-bar-timestamp;
-    left: -95px;
+    right: 100%;
+    z-index: -1;
 }
 
 .turn-taking-bar {

@@ -13,6 +13,8 @@ import Dashboard from "./components/dashboard/Dashboard";
 import DashboardMenus from './DashboardMenus';
 
 import AdminPanel from './components/admin/AdminPanel';
+import UserDetailsPage from './components/admin/UserDetailsPage';
+
 import TalkRatio from './components/visualizations/talk-ratio/TalkRatio';
 import Transcript from './components/visualizations/transcript/Transcript';
 import TurnTaking from './components/visualizations/turn-taking/TurnTaking';
@@ -20,12 +22,13 @@ import TurnTaking from './components/visualizations/turn-taking/TurnTaking';
 import Parser from './data/parser';
 import data_tom from './data/data_tom';
 import data_kim from './data/data_kim';
+import data_bill from './data/data_bill';
 
 class App extends Component {
     constructor(props) {
         super(props);
 
-        var dataRows = [data_tom[0], data_kim[0]];
+        var dataRows = [data_tom[0], data_kim[0], data_bill[0]];
         var dataParsers = dataRows.map((row) => {
             var parser = new Parser(row);
             return parser;
@@ -43,29 +46,29 @@ class App extends Component {
     }
 
     // If logged in and user navigates to Register page, should redirect them to dashboard
-    componentDidMount() {
-        var buttonSelectorSelectedOption = localStorage.getItem("buttonSelectorSelectedOption");
-        var transcriptLocationHash = localStorage.getItem("transcriptLocationHash");
+    // componentDidMount() {
+    //     var buttonSelectorSelectedOption = localStorage.getItem("buttonSelectorSelectedOption");
+    //     var transcriptLocationHash = localStorage.getItem("transcriptLocationHash");
+    //
+    //     this.setState({
+    //         buttonSelectorSelectedOption: buttonSelectorSelectedOption,
+    //         transcriptLocationHash: transcriptLocationHash
+    //     });
+    //
+    //     this.props.history.push(`${buttonSelectorSelectedOption}${transcriptLocationHash}`);
+    //
+    //     this.unlisten = this.props.history.listen((location, action) => {
+    //         var buttonSelectorSelectedOption = location.pathname.slice(location.pathname.lastIndexOf("/") + 1);
+    //         var transcriptLocationHash = window.location.hash || "";
+    //
+    //         localStorage.setItem("buttonSelectorSelectedOption", buttonSelectorSelectedOption);
+    //         localStorage.setItem("transcriptLocationHash", transcriptLocationHash);
+    //     }).bind(this);
+    // }
 
-        this.setState({
-            buttonSelectorSelectedOption: buttonSelectorSelectedOption,
-            transcriptLocationHash: transcriptLocationHash
-        });
-
-        this.props.history.push(`${buttonSelectorSelectedOption}${transcriptLocationHash}`);
-
-        this.unlisten = this.props.history.listen((location, action) => {
-            var buttonSelectorSelectedOption = location.pathname.slice(location.pathname.lastIndexOf("/") + 1);
-            var transcriptLocationHash = window.location.hash || "";
-
-            localStorage.setItem("buttonSelectorSelectedOption", buttonSelectorSelectedOption);
-            localStorage.setItem("transcriptLocationHash", transcriptLocationHash);
-        }).bind(this);
-    }
-
-    componentWillUnmount() {
-        this.unlisten();
-    }
+    // componentWillUnmount() {
+    //     this.unlisten();
+    // }
 
     handleButtonSelectorClick(value) {
         localStorage.setItem("buttonSelectorSelectedOption", value);
@@ -124,6 +127,13 @@ class App extends Component {
               path="/admin"
               component={(props) => (
                 <AdminPanel {...props} />
+              )}
+            />
+            <PrivateRoute
+              exact
+              path='/admin/user/:id'
+              component={(props) => (
+                <UserDetailsPage {...props} />
               )}
             />
 

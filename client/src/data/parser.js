@@ -33,11 +33,12 @@ export default class Parser {
                                 (speakingTurn.speaker_pseudonym.includes("Class") ||
                                 speakingTurn.speaker_pseudonym.includes("Student")),
                             unclassifiedTeacherTalk = utterance.utterance_type.length === 0 &&
-                                speakingTurn.speaker_pseudonym.includes("Teacher"),
+                                (speakingTurn.speaker_pseudonym.includes("Teacher") || speakingTurn.speaker_pseudonym.includes("Video")),
+                            speakerPseudonym = speakingTurn.speaker_pseudonym.includes("Video") ? "Teacher (Video)" : speakingTurn.speaker_pseudonym,
                             dataRow = {
                                 id: utteranceIndex++,
                                 timestamp: [],
-                                speakerPseudonym: speakingTurn.speaker_pseudonym,
+                                speakerPseudonym: speakerPseudonym,
                                 speakerUtterances: [utterance.utterance],
                                 nTokens: utterance.n_tokens
                             };
