@@ -12,11 +12,6 @@ app.use(express.json({limit: '25mb'}));
 app.use(express.urlencoded({extended: true, limit: '25mb'}));
 
 // Bodyparser middleware
-// app.use(
-//   bodyParser.urlencoded({
-//     extended: true
-//   })
-// );
 app.use(bodyParser.json());
 
 // DB Config

@@ -3,8 +3,6 @@ import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { editDataset } from "../../actions/datasetActions";
-// import UserTypes from '../../fixtures/user_types';
-// import UserDetailsPage from './UserDetailsPage';
 import formatDate from '../../utils/formatDate';
 
 class AdminPanelTableRow extends Component {

@@ -2,8 +2,6 @@ import React, { Component } from "react";
 
 import Icon from '@mdi/react';
 import { mdiDatabase } from '@mdi/js';
-
-// import { format } from 'date-fns';
 import formatDate from '../../utils/formatDate';
 
 class Sidebar extends Component {
