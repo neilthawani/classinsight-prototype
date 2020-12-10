@@ -18,34 +18,51 @@ const User = require("../../models/User");
 // @desc Reset user password
 // @access Public
 router.post("/reset-password", (req, res) => {
-  // Form validation
-  const { errors, isValid } = validatePasswordInput(req.body);
+    // Form validation
+    const {
+        errors,
+        isValid
+    } = validatePasswordInput(req.body);
 
-  // Check validation
-  if (!isValid) {
-    return res.status(400).json(errors);
-  }
+    // Check validation
+    if (!isValid) {
+        return res.status(400).json(errors);
+    }
 
-  // Hash password before saving in database
-  bcrypt.genSalt(10, (err, salt) => {
-      bcrypt.hash(req.body.password, salt, (err, hash) => {
-          if (err) throw err;
-          var newPassword = hash;
+    // Hash password before saving in database
+    bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(req.body.password, salt, (err, hash) => {
+            if (err) throw err;
+            var newPassword = hash;
 
-          const _id = req.body.userId;
-          var byQuery = { _id: _id };
-          let toUpdate = { 'password': newPassword };
+            const _id = req.body.userId;
+            var byQuery = {
+                _id: _id
+            };
+            let toUpdate = {
+                'password': newPassword
+            };
 
-          var options = { returnNewDocument: true, useFindAndModify: false };
-          User.findOneAndUpdate(byQuery, {$set: toUpdate}, options, function(err, result) {
-              if (err) {
-                  return res.status(400).json({ message: 'Unable to update user.' });
-              } else {
-                  return res.status(200).json({ message: 'User updated successfully. Refreshing data...', user: result });
-              }
-          });
-      });
-  });
+            var options = {
+                returnNewDocument: true,
+                useFindAndModify: false
+            };
+            User.findOneAndUpdate(byQuery, {
+                $set: toUpdate
+            }, options, function(err, result) {
+                if (err) {
+                    return res.status(400).json({
+                        message: 'Unable to update user.'
+                    });
+                } else {
+                    return res.status(200).json({
+                        message: 'User updated successfully. Refreshing data...',
+                        user: result
+                    });
+                }
+            });
+        });
+    });
 });
 
 // @route POST api/users/register
@@ -53,36 +70,43 @@ router.post("/reset-password", (req, res) => {
 // @access Public
 router.post("/register", (req, res) => {
     // Form validation
-    const { errors, isValid } = validateRegisterInput(req.body);
+    const {
+        errors,
+        isValid
+    } = validateRegisterInput(req.body);
 
     // Check validation
     if (!isValid) {
-      return res.status(400).json(errors);
+        return res.status(400).json(errors);
     }
 
-    User.findOne({ email: req.body.email }).then(user => {
-      if (user) {
-        return res.status(400).json({ email: "Email already exists" });
-      } else {
-        const newUser = new User({
-          name: req.body.name,
-          email: req.body.email,
-          userType: req.body.userType,
-          password: req.body.password
-        });
+    User.findOne({
+        email: req.body.email
+    }).then(user => {
+        if (user) {
+            return res.status(400).json({
+                email: "Email already exists"
+            });
+        } else {
+            const newUser = new User({
+                name: req.body.name,
+                email: req.body.email,
+                userType: req.body.userType,
+                password: req.body.password
+            });
 
-        // Hash password before saving in database
-        bcrypt.genSalt(10, (err, salt) => {
-          bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if (err) throw err;
-            newUser.password = hash;
-            newUser
-              .save()
-              .then(user => res.json(user))
-              .catch(err => console.log(err));
-          });
-        });
-      }
+            // Hash password before saving in database
+            bcrypt.genSalt(10, (err, salt) => {
+                bcrypt.hash(newUser.password, salt, (err, hash) => {
+                    if (err) throw err;
+                    newUser.password = hash;
+                    newUser
+                        .save()
+                        .then(user => res.json(user))
+                        .catch(err => console.log(err));
+                });
+            });
+        }
     });
 });
 
@@ -92,11 +116,18 @@ router.post("/register", (req, res) => {
 router.get('/show', (req, res) => {
     const id = req.query.userId;
 
-    User.find({ _id: id }).then(user => {
+    User.find({
+        _id: id
+    }).then(user => {
         if (user) {
-            return res.status(200).json({ message: "User found", user: user && user[0] });
+            return res.status(200).json({
+                message: "User found",
+                user: user && user[0]
+            });
         } else {
-            return res.status(400).json({ nouser: `There is no user with id: ${req.body.userId}` });
+            return res.status(400).json({
+                nouser: `There is no user with id: ${req.body.userId}`
+            });
         }
     });
 });
@@ -106,22 +137,41 @@ router.get('/show', (req, res) => {
 // @access Public
 router.post('/edit', (req, res) => {
     const id = req.body.user._id;
-    const { errors, isValid } = validateEditUser(req.body.user);
+    const {
+        errors,
+        isValid
+    } = validateEditUser(req.body.user);
 
     if (!isValid) {
         return res.status(400).json(errors);
     }
 
     const _id = req.body.user._id;
-    var byQuery = { _id: _id };
-    let toUpdate = { 'name': req.body.user.name, 'email': req.body.user.email, 'userType': req.body.user.userType };
-    var options = { returnNewDocument: true, useFindAndModify: false };
+    var byQuery = {
+        _id: _id
+    };
+    let toUpdate = {
+        'name': req.body.user.name,
+        'email': req.body.user.email,
+        'userType': req.body.user.userType
+    };
+    var options = {
+        returnNewDocument: true,
+        useFindAndModify: false
+    };
 
-    User.findOneAndUpdate(byQuery, {$set: toUpdate}, options, function(err, result) {
+    User.findOneAndUpdate(byQuery, {
+        $set: toUpdate
+    }, options, function(err, result) {
         if (err) {
-            return res.status(400).json({ message: 'Unable to update user.' });
+            return res.status(400).json({
+                message: 'Unable to update user.'
+            });
         } else {
-            return res.status(200).json({ message: 'User updated successfully. Refreshing data...', user: result });
+            return res.status(200).json({
+                message: 'User updated successfully. Refreshing data...',
+                user: result
+            });
         }
     });
 });
@@ -131,11 +181,18 @@ router.post('/edit', (req, res) => {
 // @access Public
 router.post('/delete', (req, res) => {
     const id = req.body.user._id;
-    User.deleteOne({ _id: id }).then(user => {
+    User.deleteOne({
+        _id: id
+    }).then(user => {
         if (user) {
-            return res.status(200).json({ message: "User deleted", user: req.body.user });
+            return res.status(200).json({
+                message: "User deleted",
+                user: req.body.user
+            });
         } else {
-            return res.status(400).json({ nouser: `There is no user with id: ${req.body.user._id}` });
+            return res.status(400).json({
+                nouser: `There is no user with id: ${req.body.user._id}`
+            });
         }
     });
 });
@@ -162,55 +219,63 @@ router.get('/list', function(req, res) {
 // @access Public
 router.post("/login", (req, res) => {
     // Form validation
-    const { errors, isValid } = validateLoginInput(req.body);
+    const {
+        errors,
+        isValid
+    } = validateLoginInput(req.body);
 
     // Check validation
     if (!isValid) {
-      return res.status(400).json(errors);
+        return res.status(400).json(errors);
     }
 
     const email = req.body.email;
     const password = req.body.password;
 
     // Find user by email
-    User.findOne({ email }).then(user => {
-      // Check if user exists
-      if (!user) {
-        return res.status(404).json({ emailnotfound: "Email not found" });
-      }
-
-      // Check password
-      bcrypt.compare(password, user.password).then(isMatch => {
-        if (isMatch) {
-          // User matched
-          // Create JWT Payload
-          const payload = {
-              id: user.id,
-              name: user.name,
-              email: user.email,
-              userType: user.userType
-          };
-
-          // Sign token
-          jwt.sign(
-            payload,
-            keys.secretOrKey,
-            {
-              expiresIn: 31556926 // 1 year in seconds
-            },
-            (err, token) => {
-              res.json({
-                success: true,
-                token: "Bearer " + token
-              });
-            }
-          );
-        } else {
-          return res
-            .status(400)
-            .json({ passwordincorrect: "Password incorrect" });
+    User.findOne({
+        email
+    }).then(user => {
+        // Check if user exists
+        if (!user) {
+            return res.status(404).json({
+                emailnotfound: "Email not found"
+            });
         }
-      });
+
+        // Check password
+        bcrypt.compare(password, user.password).then(isMatch => {
+            if (isMatch) {
+                // User matched
+                // Create JWT Payload
+                const payload = {
+                    id: user.id,
+                    name: user.name,
+                    email: user.email,
+                    userType: user.userType
+                };
+
+                // Sign token
+                jwt.sign(
+                    payload,
+                    keys.secretOrKey, {
+                        expiresIn: 31556926 // 1 year in seconds
+                    },
+                    (err, token) => {
+                        res.json({
+                            success: true,
+                            token: "Bearer " + token
+                        });
+                    }
+                );
+            } else {
+                return res
+                    .status(400)
+                    .json({
+                        passwordincorrect: "Password incorrect"
+                    });
+            }
+        });
     });
 });
 
