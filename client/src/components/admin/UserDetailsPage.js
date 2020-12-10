@@ -150,14 +150,14 @@ class UserDetailsPage extends Component {
           <div className="admin-user">
             <div className="admin-header">
               <span
-                className={(this.state.isUploadingData || this.state.isUploadingData) ? "hidden" : "btn"}
+                className="btn"
                 onClick={this.toggleUploadData.bind(this)}>
-                {(this.state.isUploadingData || this.state.isUploadingData) ? "Cancel" : "Upload data"}
+                {this.state.isUploadingData ? "Cancel" : "Upload data"}
               </span>
               <span
-                className={(this.state.isUploadingData || this.state.isUploadingData) ? "hidden" : "btn"}
+                className="btn"
                 onClick={this.toggleResetPassword.bind(this)}>
-                {(this.state.isUploadingData || this.state.isUploadingData) ? "Cancel" : "Reset password"}
+                {this.state.isResettingPassword ? "Cancel" : "Reset password"}
               </span>
             </div>
 

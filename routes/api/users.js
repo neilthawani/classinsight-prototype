@@ -28,11 +28,11 @@ router.post("/reset-password", (req, res) => {
 
   // Hash password before saving in database
   bcrypt.genSalt(10, (err, salt) => {
-      bcrypt.hash(req.body.user.password, salt, (err, hash) => {
+      bcrypt.hash(req.body.password, salt, (err, hash) => {
           if (err) throw err;
           var newPassword = hash;
 
-          const _id = req.body.user._id;
+          const _id = req.body.userId;
           var byQuery = { _id: _id };
           let toUpdate = { 'password': newPassword };
 

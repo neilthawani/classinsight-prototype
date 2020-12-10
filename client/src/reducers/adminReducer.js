@@ -3,10 +3,13 @@ import { GET_ERRORS, LIST_USERS, EDIT_USER, CREATE_USER, DELETE_USER, SHOW_USER,
 export default function(state, action) {
     switch (action.type) {
         case RESET_PASSWORD:
-            return {
+            // debugger;
+            var ret = {
                 ...state,
                 passwordResetSuccessful: action.payload.passwordResetSuccessful
             };
+            debugger;
+            return ret;
         case LIST_USERS:
             var users = {
                 ...state,

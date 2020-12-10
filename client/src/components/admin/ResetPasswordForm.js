@@ -29,9 +29,10 @@ class ResetPasswordForm extends Component {
 
 
     shouldComponentUpdate(nextProps, nextState) {
-        // console.log("shouldComponentUpdate");//, nextProps, nextState);
+        // console.log("shouldComponentUpdate", nextProps, nextState);
         // console.log("nextProps.datasets.isValid", nextProps.datasets.isValid)
-        if (nextProps.datasets.isValid) {
+        // console.log("nextProps.admin && nextProps.admin.passwordResetSuccessful", nextProps.admin && nextProps.admin.passwordResetSuccessful);
+        if (nextProps.admin.passwordResetSuccessful) {
             this.dismountForm();
         }
 
@@ -76,6 +77,7 @@ class ResetPasswordForm extends Component {
                   error={errors.password}
                   id="password"
                   type="password"
+                  autoComplete="new-password"
                   className={classnames("", {
                     invalid: errors.password
                   })}
@@ -90,6 +92,7 @@ class ResetPasswordForm extends Component {
                   error={errors.password2}
                   id="password2"
                   type="password"
+                  autoComplete="new-password"
                   className={classnames("", {
                     invalid: errors.password2
                   })}
@@ -108,12 +111,16 @@ class ResetPasswordForm extends Component {
 ResetPasswordForm.propTypes = {
   resetUserPassword: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
+  admin: PropTypes.object.isRequired,
+  datasets: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  errors: state.errors
+  errors: state.errors,
+  admin: state.admin,
+  datasets: state.datasets
 });
 
 export default connect(
