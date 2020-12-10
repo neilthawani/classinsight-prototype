@@ -12,42 +12,9 @@ class AdminPanelTableRow extends Component {
         super(props);
 
         this.state = {
-            isJsonDataExpanded: false,
-            // isEditingDataset: false,
-            // errors: {},
-            // name: props.user.name,
-            // email: props.user.email,
-            // userType: props.user.userType
+            isJsonDataExpanded: false
         };
     }
-
-    // static getDerivedStateFromProps(nextProps, state) {
-    //     var hasErrors = Object.keys(nextProps.errors).length > 0;
-    //
-    //     if (hasErrors && state.email !== nextProps.user.email) {
-    //         return ({
-    //             errors: nextProps.errors,
-    //             isEditingUser: true
-    //         });
-    //     }
-    //
-    //     return null;
-    // }
-
-    // userTypeAsWords(type) {
-    //     return UserTypes.filter(obj => obj.value === type)[0] &&
-    //             UserTypes.filter(obj => obj.value === type)[0].label;
-    // }
-
-    // onChange = e => {
-    //     this.setState({ [e.target.id]: e.target.value });
-    // }
-
-    // toggleEditingUser(user) {
-    //     this.setState({
-    //         isEditingUser: user ? user : false
-    //     });
-    // }
 
     deleteDataset(dataset, confirmation) {
         this.props.deleteDataset(dataset, confirmation);
@@ -58,23 +25,6 @@ class AdminPanelTableRow extends Component {
             isJsonDataExpanded: !this.state.isJsonDataExpanded
         });
     }
-
-    // editUser(id) {
-    //     var user = {
-    //         _id: id,
-    //         name: this.state.name,
-    //         email: this.state.email,
-    //         userType: parseInt(this.state.userType, 10)
-    //     }
-    //
-    //     this.props.editUser({ user: user });
-    //
-    //     this.toggleEditingUser();
-    // }
-
-    // goToUserDetailsPage(id) {
-    //     debugger;
-    // }
 
     toggleActive(dataset) {
         var newDataset = {
@@ -88,11 +38,8 @@ class AdminPanelTableRow extends Component {
 
     render() {
         var { isDeletingDataset, dataset } = this.props;
-        // var { name, email, userType } = this.state;
-        // const { errors } = this.state;
-        var parsedJson = JSON.stringify(JSON.parse(dataset.jsonData), null, 2);
 
-        // console.log("dataset", dataset);
+        var parsedJson = JSON.stringify(JSON.parse(dataset.jsonData), null, 2);
 
         if (isDeletingDataset) {
             return (
@@ -104,11 +51,6 @@ class AdminPanelTableRow extends Component {
                 <td className="text-center">
                   {dataset.class_period}
                 </td>
-                {/*<td>
-                  <pre className="admin-table-json">
-                    {parsedJson}
-                  </pre>
-                </td>*/}
                 <td className="admin-table-actions-confirm">
                   <span className="admin-table-actions-confirm-text">
                     Are you sure?
@@ -136,11 +78,6 @@ class AdminPanelTableRow extends Component {
                 <td className="text-center">
                   {dataset.class_period}
                 </td>
-                {/*<td>
-                  <pre className="admin-table-json">
-                    {parsedJson}
-                  </pre>
-                </td>*/}
                 <td className="admin-table-actions">
                   <span className="btn" onClick={this.expandJsonData.bind(this)}>
                     {this.state.isJsonDataExpanded ? "Hide Data" : "View Data"}
@@ -167,9 +104,9 @@ class AdminPanelTableRow extends Component {
 }
 
 AdminPanelTableRow.propTypes = {
-    // editUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
-    errors: PropTypes.object.isRequired
+    errors: PropTypes.object.isRequired,
+    editDataset: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({

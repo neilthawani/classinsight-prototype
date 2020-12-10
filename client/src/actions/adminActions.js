@@ -21,11 +21,8 @@ export const resetUserPassword = (userData) => dispatch => {
 
 export const showUserDetails = (userId) => {
     return (dispatch) => {
-        // console.log("userId is", userId);
         return axios.get("/api/users/show", { params: { userId: userId }})
         .then(response => {
-            // console.log("response", response);
-            // return response && response.data.user;
             dispatch({
                 type: SHOW_USER,
                 payload: response && response.data.user

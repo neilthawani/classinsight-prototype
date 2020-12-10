@@ -3,7 +3,6 @@ import { GET_ERRORS } from "../actions/types";
 const initialState = {};
 
 export default function(state = initialState, action) {
-    // console.log("Eerrorredurcers)", state, action);
     switch (action.type) {
         case GET_ERRORS:
             console.log("action.payload", action.payload);

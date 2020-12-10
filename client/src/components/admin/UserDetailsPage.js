@@ -12,25 +12,14 @@ import ResetPasswordForm from './ResetPasswordForm';
 class UserDetailsPage extends Component {
     constructor(props) {
         super(props);
-        // debugger;
 
-        // console.log("user", props.location.state.user);
-        // console.log("props", props);
-        // debugger;
-        // var user = props.location.state && props.location.state.user;
         var userId = props.match.params.id;
-        //
-        // console.log("props", props);
-        // if (!user) {
-        //     user = {};
-        // }
 
         this.state = {
             isUploadingData: false,
             isResettingPassword: false,
             userId: userId,
             datasets: [],
-            // user: {},
             datasetToDelete: {},
             isLoaded: false,
             showMessage: false,
@@ -114,20 +103,8 @@ class UserDetailsPage extends Component {
     }
 
     render() {
-        // console.log("state", this.state);
-        // var user = this.state.user || this.props.user || {};
         var user = this.state.user || {};
-        // console.log("user", user);
-        // console.log("this.state", this.state, this.props);
-        // if (!user) return (<div></div>);
-        // debugger;
         var datasets = this.props.datasets.datasets || [];
-
-        // var isLoading = datasets.length === 0;
-        // console.log("UserDetailsPage datasets", datasets);
-        // console.log("isLoading", isLoading);
-
-        // console.log("UserDetailsPage props.datasets", datasets);
 
         return (
           <div className="admin-user">
@@ -182,7 +159,6 @@ class UserDetailsPage extends Component {
                   <th>Class Topic</th>
                   <th>Date</th>
                   <th>Period</th>
-                  {/*<th>Data</th>*/}
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -194,14 +170,8 @@ class UserDetailsPage extends Component {
                   </td>
                 </tr> :
                 (datasets || []).map((dataset, index, array) => {
-                  // console.log("dataset mapped", dataset, index, array);
                   var isDeletingDataset = dataset._id && (this.state.datasetToDelete._id === dataset._id);
-                    // <AdminPanelTableRow
-                    //   key={user._id}
-                    //   user={user}
-                    //   isCurrentUser={isCurrentUser}
-                    //   isDeletingUser={isDeletingUser}
-                    //   deleteUser={this.deleteUser.bind(this)} />
+
                   return (
                     <UserDatasetTableRow
                       key={dataset._id}
@@ -237,12 +207,3 @@ export default connect(
   mapStateToProps,
   { showUserDetails, listDatasets, deleteDatasetById }
 )(withRouter(UserDetailsPage));
-
-// function UserInfo(props) {
-//     var user = props.user;
-//
-//     return (
-//         <div>
-//         </div>
-//     )
-// }

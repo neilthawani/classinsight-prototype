@@ -36,11 +36,8 @@ export const deleteDatasetById = (dataset) => dispatch => {
 
 export const showDataset = (datasetId) => {
     return (dispatch) => {
-        // console.log("userId is", userId);
         return axios.get("/api/datasets/show", { params: { id: datasetId }})
         .then(response => {
-            // console.log("response", response);
-            // return response && response.data.user;
             dispatch({
                 type: SHOW_DATASET,
                 payload: response && response.data.dataset
@@ -57,11 +54,9 @@ export const listDatasets = (userId) => {
     return (dispatch) => {
         return axios.get("/api/datasets/list", {params: {user_id: userId}})
         .then(response => {
-            // console.log("response", response);
             return response && response.data;
         })
         .then(ret => {
-            // console.log("ret", ret);
             dispatch({
                 type: LIST_DATASETS,
                 payload: ret // datasets
@@ -77,7 +72,8 @@ export const uploadDataset = (dataset) => dispatch => {
   axios
     .post("/api/datasets/upload", dataset)
     .then(res => {
-        console.log("Success. Added dataset:", res)
+        console.log("Success. Added dataset:", res);
+
         dispatch({
             type: UPLOAD_DATASET,
             payload: {
@@ -86,11 +82,9 @@ export const uploadDataset = (dataset) => dispatch => {
         })
     })
     .catch(error => {
-        // console.log("error", error);
-        // debugger;
         console.error(error);
         console.error(error.response && error.response.data);
-        debugger;
+
         dispatch({
             type: GET_ERRORS,
             payload: //{

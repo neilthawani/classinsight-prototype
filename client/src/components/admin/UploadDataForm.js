@@ -8,7 +8,7 @@ import { uploadDataset } from '../../actions/datasetActions';
 class UploadDataForm extends Component {
     constructor(props) {
         super(props);
-        // console.log("props", props);
+
         this.state = {
             errors: {},
             userId: props.userId,
@@ -19,35 +19,16 @@ class UploadDataForm extends Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        // console.log("nextProps", nextProps, "prevState", prevState);
-
         if (Object.keys(nextProps.errors).length > 0) {
             return ({
                 errors: nextProps.errors
             });
         }
 
-        // console.log("nextProps", nextProps, "prevState", prevState);
-
-        // if (Object.keys(nextProps.datasets).length > 0) {
-        //     console.log("heh");
-            // this.appendDataset(nextProps.datasets);
-        // }
-
         return null;
     }
 
-    // componentDidUpdate(prevProps, prevState, snapshot) {
-    //     console.log("componentDidUpdate");
-    //     console.log("prevProps", prevProps);
-    //     console.log("prevState", prevState);
-    //     console.log("snapshot", snapshot);
-    //     console.log("/componentDidUpdate");
-    // }
-
     shouldComponentUpdate(nextProps, nextState) {
-        // console.log("shouldComponentUpdate");//, nextProps, nextState);
-        // console.log("nextProps.datasets.isValid", nextProps.datasets.isValid)
         if (nextProps.datasets.isValid) {
             this.dismountForm();
         }
@@ -60,9 +41,6 @@ class UploadDataForm extends Component {
     }
 
     onChange = e => {
-        // console.log("e.target.value", e.target.value);
-        // console.log("e.target.id", e.target.id);
-        // var id = [e.target.id];
         this.setState({
             fileData: {
                 ...this.state.fileData,
@@ -70,20 +48,7 @@ class UploadDataForm extends Component {
             }
         });
     }
-    //
-    // onSubmit = e => {
-    //     e.preventDefault();
-    //
-    //     const newUser = {
-    //         filename: this.state.filename,
-    //         topic: this.state.name,
-    //         date: this.state.email,
-    //         period: this.state.userType,
-    //         jsonData: this.state.jsonData
-    //     };
-    //
-    //     this.props.createUser(newUser);
-    // };
+
     parseFile = async (evt) => {
         var userId = this.state.userId;
         evt.preventDefault();
@@ -100,23 +65,16 @@ class UploadDataForm extends Component {
         }
 
         reader.onload = async (e) => {
-            // console.log("e.target", e.target, "e", e);
             const text = e.target.result;
-            // console.log("filename", e.target.fileName);
-            // console.log(text)
             var jsonData = JSON.parse(text);
-            // console.log("jsonData", jsonData);
-            // alert(text)
-            // console.loge.target.files[0]
+
             var el = document.getElementById("data-upload-input");
             var fileName = el.value.split("\\")[2];
-            // console.log("fileName", fileName);
 
             var fileMetadata = fileName.split("_");
             var class_date = fileMetadata[1],
                 classDate = class_date.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
             var class_period = fileMetadata[2].replace("Per", "").replace(".json", "").replace("_", ", ");
-            // console.log("classPeriod", class_period);
 
             this.setState({
                 isUploaded: true,
@@ -130,27 +88,12 @@ class UploadDataForm extends Component {
                 }
             })
         };
-
-        // reader.onloadend = (file) => {
-        //     console.log("e onloaded", file.target.fileName);
-        // }
-
-
-        // console.log("evt", evt);
-        // debugger;
     }
 
     onSubmit = e => {
         e.preventDefault();
-        // console.log("here");
-        // debugger;
-        var fileData = this.state.fileData;
-        // fileData['jsonData'] = JSON.stringify(this.state.fileData.jsonData);
-        //     ...this.state.fileData
-        // };
 
-        // console.log("fileData", fileData);
-        // console.log("type of jsonData", typeof fileData.jsonData);
+        var fileData = this.state.fileData;
 
         this.props.uploadDataset(fileData);
     };
@@ -238,7 +181,6 @@ UploadDataForm.propTypes = {
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
     datasets: PropTypes.object.isRequired
-    // admin: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {

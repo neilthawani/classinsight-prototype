@@ -29,9 +29,6 @@ class ResetPasswordForm extends Component {
 
 
     shouldComponentUpdate(nextProps, nextState) {
-        // console.log("shouldComponentUpdate", nextProps, nextState);
-        // console.log("nextProps.datasets.isValid", nextProps.datasets.isValid)
-        // console.log("nextProps.admin && nextProps.admin.passwordResetSuccessful", nextProps.admin && nextProps.admin.passwordResetSuccessful);
         if (nextProps.admin.passwordResetSuccessful) {
             this.dismountForm({
                 message: `Password reset successfully: ${this.state.password}`
