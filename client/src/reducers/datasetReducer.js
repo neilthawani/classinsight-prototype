@@ -35,7 +35,7 @@ export default function(state, action) {
                 })
             };
         case UPLOAD_DATASET:
-            // console.log("state", state);
+            // console.log("UPLOAD_DATASET state", state);
             // console.log("action.payload", action.payload);
             // debugger;
             // datasets: action.payload.dataset
@@ -43,11 +43,23 @@ export default function(state, action) {
                 // ...state,
                 // datasets:
                 // return (state.datasets && state.datasets.concat(action.payload.dataset)) || [action.payload.dataset];
+            if (!state.datasets.length) {
                 return {
-                    datasets: (state && state.datasets && state.datasets.push(action.payload.dataset)) || [action.payload.dataset],
-                    uploadedDataset: action.payload.dataset,
+                    datasets: [action.payload.dataset],
                     isValid: true
                 }
+            }
+
+            var newState = state.datasets.concat(action.payload.dataset);
+            return {
+                datasets: newState,
+                isValid: true
+            }
+                // return {
+                //     datasets: (state && state.datasets && state.datasets.push(action.payload.dataset)) || [action.payload.dataset],
+                //     // uploadedDataset: action.payload.dataset,
+                //     isValid: true
+                // }
             // };
             // console.log("ret", ret);
             // return ret;

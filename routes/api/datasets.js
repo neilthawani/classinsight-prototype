@@ -115,8 +115,14 @@ router.post("/upload", (req, res) => {
       // Hash password before saving in database
       newDataset
         .save()
-        .then(dataset => res.json(dataset))
-        .catch(err => console.log(err));
+        .then((dataset) => {
+            // console.log("then", dataset);
+            return res.json(dataset)
+        })
+        .catch((err) => {
+            // console.log("err", err);
+            return console.log(err)
+        });
   });
 });
 

@@ -8,7 +8,7 @@ import { uploadDataset } from '../../actions/datasetActions';
 class UploadDataForm extends Component {
     constructor(props) {
         super(props);
-        console.log("props", props);
+        // console.log("props", props);
         this.state = {
             errors: {},
             userId: props.userId,

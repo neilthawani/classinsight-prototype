@@ -139,7 +139,9 @@ class UserDetailsPage extends Component {
         // console.log("user", user);
         // console.log("this.state", this.state, this.props);
         // if (!user) return (<div></div>);
+        // debugger;
         var datasets = this.props.datasets.datasets || [];
+
         // var isLoading = datasets.length === 0;
         // console.log("UserDetailsPage datasets", datasets);
         // console.log("isLoading", isLoading);
@@ -196,7 +198,13 @@ class UserDetailsPage extends Component {
                 </tr>
               </thead>
               <tbody>
-                {(datasets || []).map((dataset, index, array) => {
+                {datasets.length === 0 ?
+                <tr>
+                  <td colSpan="4" className="text-center">
+                    This user doesn't have any datasets.
+                  </td>
+                </tr> :
+                (datasets || []).map((dataset, index, array) => {
                   // console.log("dataset mapped", dataset, index, array);
                   var isDeletingDataset = dataset._id && (this.state.datasetToDelete._id === dataset._id);
                     // <AdminPanelTableRow
