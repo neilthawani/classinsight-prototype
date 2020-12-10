@@ -94,6 +94,16 @@
     }
 }
 
+.admin-confirmation-message {
+    border: 1px solid $lightGray;
+    background-color: $green;
+    color: white;
+    margin-bottom: 10px;
+    padding: 15px 10px;
+    text-align: center;
+    font-size: 22px;
+}
+
 .admin-user-info {
     margin-bottom: 20px;
 }

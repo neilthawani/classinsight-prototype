@@ -32,51 +32,23 @@ class UserDetailsPage extends Component {
             datasets: [],
             // user: {},
             datasetToDelete: {},
-            isLoaded: false
+            isLoaded: false,
+            showMessage: false,
+            message: ""
         };
     }
 
     componentDidMount() {
         this.props.showUserDetails(this.state.userId);
         this.props.listDatasets(this.state.userId);
-        // var user =
-
-        // console.log("user", this.state.user);
-        //
-        // this.setState({
-        //     user: user
-        // });
-
-        // setTimeout(() => {
-        //     console.log("componentDidMount here");
-        // }, 0)
     }
-
-    // componentDidUpdate(prevProps, prevState, snapshot) {
-    //     console.log("dom", document.getElementsByClassName("admin-table-json"));
-    //     console.log("componentDidUpdate");
-    //     console.log("prevProps", prevProps);
-    //     console.log("prevState", prevState);
-    //     console.log("snapshot", snapshot);
-    //     console.log("/componentDidUpdate");
-    // }
 
     static getDerivedStateFromProps(nextProps) {
         if (nextProps.admin.user) {
             return ({
-                user: nextProps.admin.user,
-                // isDeletingUser: false
+                user: nextProps.admin.user
             });
         }
-
-        // if (nextProps.datasets) {
-        //     console.log("nextProps.datasets", nextProps.datasets);
-        //     return ({
-        //         datasets: nextProps.datasets
-        //     })
-        // }
-
-        // console.log("nextProps", nextProps);
 
         return null;
     }
@@ -99,15 +71,8 @@ class UserDetailsPage extends Component {
         });
     }
 
-    // appendDataset(dataset) {
-    //     this.setState({
-    //         datasets: this.state.datasets.push(dataset)
-    //     });
-    // }
-
     deleteDataset(dataset, confirmation = false) {
         if (confirmation) {
-            // console.log("dataset to be deleted", dataset);
             this.props.deleteDatasetById(dataset);
             this.setState({
                 datasetToDelete: {}
@@ -125,7 +90,23 @@ class UserDetailsPage extends Component {
         }
     }
 
-    dismountForm() {
+    dismountForm(options) {
+        var that = this;
+
+        if (options && options.message) {
+            this.setState({
+                showMessage: true,
+                message: options.message
+            });
+
+            setTimeout(function() {
+                that.setState({
+                    showMessage: false,
+                    message: ""
+                });
+            }, 3000);
+        }
+
         this.setState({
             isUploadingData: false,
             isResettingPassword: false
@@ -173,6 +154,14 @@ class UserDetailsPage extends Component {
               <ResetPasswordForm
                 userId={user._id}
                 dismountForm={this.dismountForm.bind(this)} />
+            : ""}
+
+            {this.state.showMessage ?
+            <div className="admin-confirmation-message">
+              <span className="admin-confirmation-message-text">
+                {this.state.message}
+              </span>
+            </div>
             : ""}
 
             <div className="admin-user-info">

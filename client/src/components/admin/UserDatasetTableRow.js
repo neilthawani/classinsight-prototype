@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
-import classnames from "classnames";
 import { connect } from "react-redux";
 import { editDataset } from "../../actions/datasetActions";
 // import UserTypes from '../../fixtures/user_types';

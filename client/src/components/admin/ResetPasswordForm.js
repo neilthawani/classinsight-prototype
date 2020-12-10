@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { resetUserPassword } from "../../actions/adminActions";
@@ -33,14 +33,16 @@ class ResetPasswordForm extends Component {
         // console.log("nextProps.datasets.isValid", nextProps.datasets.isValid)
         // console.log("nextProps.admin && nextProps.admin.passwordResetSuccessful", nextProps.admin && nextProps.admin.passwordResetSuccessful);
         if (nextProps.admin.passwordResetSuccessful) {
-            this.dismountForm();
+            this.dismountForm({
+                message: `Password reset successfully: ${this.state.password}`
+            });
         }
 
         return true;
     }
 
-    dismountForm() {
-        this.props.dismountForm();
+    dismountForm(options) {
+        this.props.dismountForm(options);
     }
 
     onChange = e => {

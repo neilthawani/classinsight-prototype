@@ -3,20 +3,15 @@ import { GET_ERRORS, LIST_USERS, EDIT_USER, CREATE_USER, DELETE_USER, SHOW_USER,
 export default function(state, action) {
     switch (action.type) {
         case RESET_PASSWORD:
-            // debugger;
-            var ret = {
+            return {
                 ...state,
                 passwordResetSuccessful: action.payload.passwordResetSuccessful
             };
-            debugger;
-            return ret;
         case LIST_USERS:
-            var users = {
+            return {
                 ...state,
                 users: action.payload.data
             };
-
-            return users;
         case EDIT_USER:
             return { users:
                 state.users.map((user) => {
@@ -28,7 +23,7 @@ export default function(state, action) {
             };
         case CREATE_USER:
             return {
-                users: (state.users && state.users.concat(action.payload.user)) || action.payload.user
+                users: [action.payload.user, ...state.users]
             };
         case DELETE_USER:
             return { users:
@@ -40,7 +35,6 @@ export default function(state, action) {
                 errors: action.payload
             }
         case SHOW_USER:
-            // console.log("action", action.payload);
             return {
                 ...state,
                 user: action.payload
