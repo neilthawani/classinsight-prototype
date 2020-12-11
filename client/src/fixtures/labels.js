@@ -19,4 +19,9 @@ export default {
         "Re-Voicing",
         "Behavior Management Questions",
     ],
+    Media: [ // different color that isn't blue orange or purple
+      // TODO: Do this in the parser.js model
+        "Video",
+        "Audio"
+    ]
 };
