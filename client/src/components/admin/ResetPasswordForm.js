@@ -7,14 +7,14 @@ import classnames from "classnames";
 
 class ResetPasswordForm extends Component {
     constructor(props) {
-      super();
+        super();
 
-      this.state = {
-        userId: props.userId,
-        password: "",
-        password2: "",
-        errors: {}
-      };
+        this.state = {
+          userId: props.userId,
+          password: "",
+          password2: "",
+          errors: {}
+        };
     }
 
     static getDerivedStateFromProps(nextProps) {
