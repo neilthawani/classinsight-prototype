@@ -106,4 +106,12 @@ export default [{
     speakerType: "Teacher",
     textColor: "white",
     description: "This code is applied when a teacher asks a question that is managing behavior and/or task completion."
+}, {
+    type: "Teacher",
+    value: "Video",
+    text: "Video",
+    barColor: "#29CB97",
+    speakerType: "Teacher",
+    textColor: "white",
+    description: ""
 }];
