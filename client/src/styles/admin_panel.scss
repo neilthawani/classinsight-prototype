@@ -64,6 +64,20 @@
     align-items: center;
 }
 
+.admin-table-dataset-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    .btn {
+        width: max-content;
+
+        &:first-child {
+            margin-bottom: 8px;
+        }
+    }
+}
+
 .admin-table-actions-confirm {
     text-align: center;
 }
