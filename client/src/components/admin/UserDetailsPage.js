@@ -110,12 +110,12 @@ class UserDetailsPage extends Component {
           <div className="admin-user">
             <div className="admin-header">
               <span
-                className="btn"
+                className={this.state.isResettingPassword ? "hidden" : "btn"}
                 onClick={this.toggleUploadData.bind(this)}>
                 {this.state.isUploadingData ? "Cancel" : "Upload data"}
               </span>
               <span
-                className="btn"
+                className={this.state.isUploadingData ? "hidden" : "btn"}
                 onClick={this.toggleResetPassword.bind(this)}>
                 {this.state.isResettingPassword ? "Cancel" : "Reset password"}
               </span>
