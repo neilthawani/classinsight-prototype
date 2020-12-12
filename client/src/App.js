@@ -2,6 +2,8 @@ import React, { Component } from "react";
 
 import { Route, Switch } from "react-router-dom";
 import { withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 import Navbar from "./components/layout/Navbar";
 
@@ -19,6 +21,7 @@ import TalkRatio from './components/visualizations/talk-ratio/TalkRatio';
 import Transcript from './components/visualizations/transcript/Transcript';
 import TurnTaking from './components/visualizations/turn-taking/TurnTaking';
 
+import { listDatasets } from "./actions/datasetActions";
 import Parser from './data/parser';
 import data_tom from './data/data_tom';
 import data_kim from './data/data_kim';
@@ -27,19 +30,46 @@ import data_bill from './data/data_bill';
 class App extends Component {
     constructor(props) {
         super(props);
+        // console.log("init props", props);
 
-        var dataRows = [data_tom[0], data_kim[0], data_bill[0]];
+        var dataRows = [data_tom[0], data_kim[0], data_bill[0], data_tom[0], data_kim[0], data_bill[0]];
         var dataParsers = dataRows.map((row) => {
             var parser = new Parser(row);
             return parser;
         });
 
         this.state = {
+            dataRows: dataRows,
             dataParsers: dataParsers,
             buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption"),
             activeDataRowIndex: 0
         };
     }
+
+    // componentDidMount() {
+    //     // console.log("app mount");
+    //     // console.log("props", this.props);
+    //     // console.log("state", this.state);
+    //     this.props.listDatasets(this.props.auth.user.id);
+    // }
+    //
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     if (nextProps.datasets.datasets) {
+    //         var dataRows = nextProps.datasets.datasets;
+    //         var dataParsers = dataRows.map((row) => {
+    //             var parser = new Parser(row);
+    //             return parser;
+    //         });
+    //
+    //         // debugger;
+    //         this.setState({
+    //             dataParsers: [...this.state.dataParsers, ...dataParsers]
+    //         })
+    //         // this.dismountForm();
+    //     }
+    //
+    //     return true;
+    // }
 
     activeParser = function() {
         return this.state.dataParsers[this.state.activeDataRowIndex];
@@ -160,4 +190,23 @@ class App extends Component {
     }
 }
 
-export default withRouter(App);
+App.propTypes = {
+    auth: PropTypes.object.isRequired,
+    // showUserDetails: PropTypes.func.isRequired,
+    datasets: PropTypes.object.isRequired,
+    // admin: PropTypes.object.isRequired,
+    // deleteDatasetById: PropTypes.func.isRequired
+}
+
+function mapStateToProps(state) {
+    return {
+        auth: state.auth,
+        datasets: state.datasets,
+
+    }
+};
+
+export default connect(
+  mapStateToProps,
+  { listDatasets }
+)(withRouter(App));

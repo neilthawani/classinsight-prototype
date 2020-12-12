@@ -4,9 +4,17 @@ import Icon from '@mdi/react';
 import { mdiDatabase } from '@mdi/js';
 import formatDate from '../../utils/formatDate';
 
+import { withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+
 class Sidebar extends Component {
     handleSidebarRowClick(index) {
         this.props.handleSidebarRowClick(index);
+    }
+
+    componentDidMount() {
+        console.log("sidebar props", this.props);
     }
 
     render() {
@@ -60,4 +68,24 @@ class Sidebar extends Component {
     }
 }
 
-export default Sidebar;
+
+Sidebar.propTypes = {
+    // auth: PropTypes.object.isRequired,
+    // showUserDetails: PropTypes.func.isRequired,
+    datasets: PropTypes.object.isRequired,
+    // admin: PropTypes.object.isRequired,
+    // deleteDatasetById: PropTypes.func.isRequired
+}
+
+function mapStateToProps(state) {
+    return {
+        // auth: state.auth,
+        datasets: state.datasets,
+
+    }
+};
+
+export default connect(
+  mapStateToProps,
+  { }
+)(withRouter(Sidebar));

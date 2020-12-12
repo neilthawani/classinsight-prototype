@@ -3,11 +3,12 @@
     top: 0;
     left: 0;
     width: $sidebarWidth;
-    height: 100%;
+    height: calc(100% - #{$navbarHeight});
     margin-top: $navbarHeight;
     z-index: 999;
     background-color: $blue;
     color: white;
+    overflow: auto;
 }
 
 .sidebar-header {
@@ -23,12 +24,14 @@
 }
 
 .sidebar-data {
-
+    height: 100%;
+    position: relative;
 }
 
 .sidebar-data-row {
     padding: 10px 10px;
     cursor: pointer;
+    min-height: min-content;
 }
 
 .sidebar-data-row.active {
