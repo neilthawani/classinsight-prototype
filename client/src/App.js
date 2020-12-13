@@ -32,7 +32,7 @@ class App extends Component {
         super(props);
         // console.log("init props", props);
 
-        var dataRows = [data_tom[0], data_kim[0], data_bill[0], data_tom[0], data_kim[0], data_bill[0]];
+        var dataRows = [data_tom[0], data_kim[0], data_bill[0]];//, data_tom[0], data_kim[0], data_bill[0]];
         var dataParsers = dataRows.map((row) => {
             var parser = new Parser(row);
             return parser;
@@ -46,28 +46,44 @@ class App extends Component {
         };
     }
 
-    // componentDidMount() {
-    //     // console.log("app mount");
-    //     // console.log("props", this.props);
-    //     // console.log("state", this.state);
-    //     this.props.listDatasets(this.props.auth.user.id);
-    // }
-    //
+    componentDidMount() {
+        // console.log("app mount");
+        // console.log("props", this.props);
+        // console.log("state", this.state);
+        this.props.listDatasets(this.props.auth.user.id);
+    }
+
     // shouldComponentUpdate(nextProps, nextState) {
-    //     if (nextProps.datasets.datasets) {
-    //         var dataRows = nextProps.datasets.datasets;
-    //         var dataParsers = dataRows.map((row) => {
-    //             var parser = new Parser(row);
-    //             return parser;
-    //         });
-    //
-    //         // debugger;
+    //     if (nextProps.datasets.dataParsers) {
+            // var dataParsers = nextProps.datasets.dataParsers;
+
+            // console.log("here", nextProps.datasets.dataParsers);
+            // if ()
     //         this.setState({
-    //             dataParsers: [...this.state.dataParsers, ...dataParsers]
-    //         })
-    //         // this.dismountForm();
+    //             dataParsers: nextProps.datasets.dataParsers
+    //         });
     //     }
     //
+    //     return true;
+    // }
+
+    //         var dataRows = nextProps.datasets.datasets.map((dataset) => {
+    //             return {
+    //                 ...dataset,
+    //                 data: JSON.parse(dataset.jsonData)
+    //             }
+    //         });
+            // var dataParsers = dataRows.map((row) => {
+            //     console.log("row", row);
+            //     var parser = new Parser(row);
+            //     return parser;
+            // });
+
+            // debugger;
+
+            // this.dismountForm();
+        // }
+
     //     return true;
     // }
 
@@ -144,7 +160,7 @@ class App extends Component {
             {this.dashboardRoutePaths().includes(window.location.pathname) ?
             <DashboardMenus
             buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
-            dataParsers={this.state.dataParsers}
+            dataParsers={this.props.datasets.dataParsers}
             activeDataRowIndex={this.state.activeDataRowIndex}
             handleButtonSelectorClick={this.handleButtonSelectorClick.bind(this)}
             handleSidebarRowClick={this.handleSidebarRowClick.bind(this)} /> : ""}
@@ -202,7 +218,6 @@ function mapStateToProps(state) {
     return {
         auth: state.auth,
         datasets: state.datasets,
-
     }
 };
 

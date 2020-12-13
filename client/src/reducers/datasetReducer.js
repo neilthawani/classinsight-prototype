@@ -5,13 +5,17 @@ import {
     UPLOAD_DATASET,
     SHOW_DATASET
 } from '../actions/types';
+import Parser from '../data/parser';
 
 export default function(state, action) {
     switch (action.type) {
         case LIST_DATASETS:
             return {
                 ...state,
-                datasets: action.payload
+                datasets: action.payload,
+                dataParsers: action.payload.map((dataset) => {
+                    return new Parser(dataset);
+                })
             }
             case EDIT_DATASET:
                 return {

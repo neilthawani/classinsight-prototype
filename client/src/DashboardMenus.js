@@ -13,6 +13,7 @@ class DashboardMenus extends Component {
 
   render() {
     var { buttonSelectorSelectedOption, dataParsers, activeDataRowIndex } = this.props;
+    // console.log("dataParsers", dataParsers);
 
     return (
       <div className="dashboard-container">
@@ -23,7 +24,8 @@ class DashboardMenus extends Component {
 
         <Sidebar
           dataRows={
-            dataParsers.map((parser) => {
+            (dataParsers || []).map((parser) => {
+                console.log("parser", parser);
                 return parser.data;
             })
           }

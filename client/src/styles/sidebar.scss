@@ -24,7 +24,7 @@
 }
 
 .sidebar-data {
-    height: 100%;
+    height: calc(100% - $sidebarHeaderImageHeight);
     position: relative;
 }
 

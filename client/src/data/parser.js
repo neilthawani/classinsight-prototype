@@ -1,9 +1,28 @@
 import LegendLabels from '../fixtures/legend_labels';
+import formatDate from '../utils/formatDate';
 
 export default class Parser {
     constructor(data) {
-        this.data = data;
-        this.segments = data.data.segments;
+
+        // console.log("data.jsonData", data.jsonData);
+        // console.log("parsedData", parsedData);
+        var parsedData = {};
+        if (data && data.jsonData) {
+            // debugger;
+            // console.log("data when jsonData", data);
+            parsedData = JSON.parse(data.jsonData);
+            // console.log("parsedData", parsedData);
+            this.topic = data.class_topic;
+            this.period = data.class_period;
+            this.date = formatDate(data.class_date);
+            this.data = parsedData;
+            this.segments = parsedData.segments;
+        } else {
+            // console.log("data from old scaffold", data);
+            this.data = data;
+            this.segments = data.data.segments;
+            // console.log("data from old scaffold");
+        }
     }
 
     legendLabels = function(options) {
