@@ -25,7 +25,7 @@ class DashboardMenus extends Component {
         <Sidebar
           dataRows={
             (dataParsers || []).map((parser) => {
-                console.log("parser", parser);
+                // console.log("parser", parser);
                 return parser.data;
             })
           }

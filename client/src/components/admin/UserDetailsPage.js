@@ -49,15 +49,17 @@ class UserDetailsPage extends Component {
     }
 
     toggleUploadData() {
-        this.setState({
-            isUploadingData: !this.state.isUploadingData
-        });
+        console.log("toggleUploadData");
+        this.setState(prevState => ({
+            isUploadingData: !prevState.isUploadingData
+        }));
     }
 
     toggleResetPassword() {
-        this.setState({
+        console.log("toggleResetPassword");
+        this.setState(prevState => ({
             isResettingPassword: !this.state.isResettingPassword
-        });
+        }));
     }
 
     deleteDataset(dataset, confirmation = false) {
@@ -80,6 +82,7 @@ class UserDetailsPage extends Component {
     }
 
     dismountForm(options) {
+        console.log("dismountForm");
         var that = this;
 
         if (options && options.message) {
@@ -203,7 +206,7 @@ function mapStateToProps(state) {
     }
 };
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   { showUserDetails, listDatasets, deleteDatasetById }
-)(withRouter(UserDetailsPage));
+)(UserDetailsPage));
