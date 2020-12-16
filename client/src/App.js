@@ -221,7 +221,7 @@ function mapStateToProps(state) {
     }
 };
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   { listDatasets }
-)(withRouter(App));
+)(App));
