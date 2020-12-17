@@ -1,4 +1,4 @@
-export default [
+var nouns = [
     "Actor",
     "Gold",
     "Painting",
@@ -169,3 +169,5 @@ export default [
     "Glass",
     "Garage"
 ];
+
+export default nouns;

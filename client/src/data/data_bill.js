@@ -1,4 +1,4 @@
-export default [
+var data_bill = [
     {
         "data":{
             "duration":3002.0,
@@ -16932,4 +16932,6 @@ export default [
             "title":"20200123"
         }
     }
-]
+];
+
+export default data_bill;
