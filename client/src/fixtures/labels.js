@@ -6,6 +6,15 @@ export default {
         "Teacher Close-Ended S/Q",
         "Assorted Teacher Talk",
     ],
+    Technique: [
+        "Turn-Taking Facilitation",
+        "Re-Voicing",
+        "Behavior Management Questions",
+    ],
+    Media: [
+        "Video",
+        "Audio"
+    ],
     Student: [
         "Student Explanation + Evidence",
         "Student Open-Ended S/Q",
@@ -13,10 +22,5 @@ export default {
         "Student Close-Ended S/Q",
         "Student Close-Ended Response",
         "Assorted Student Talk",
-    ],
-    Technique: [
-        "Turn-Taking Facilitation",
-        "Re-Voicing",
-        "Behavior Management Questions",
-    ],
+    ]
 };

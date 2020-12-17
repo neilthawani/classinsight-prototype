@@ -6,7 +6,7 @@ var data_bill = [
             "initial_time":"00:00:11",
             "original_csv":"20200123_Bill_Pd7_Mixed_Gomoll.csv",
             "metadata":{
-                "topic":"Ecology",
+                "topic":"Science",
                 "period":7,
                 "date":"2020-01-23"
             },

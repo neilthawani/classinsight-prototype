@@ -4,7 +4,7 @@ var legendLabels = LegendLabels;
 export default function defineInitialStyle(item) {
     var legendLabelValue = item.utteranceTypes[item.utteranceTypes.length - 1],
         matchingLegendObj = legendLabels.find(item => item.value === legendLabelValue);
-
+    
     var textColor = matchingLegendObj.textColor;
     var barColor = matchingLegendObj.barColor;
     var barBorder = "";
