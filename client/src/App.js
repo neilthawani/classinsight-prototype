@@ -47,29 +47,20 @@ class App extends Component {
 
     // set button selector to match URL on refresh
     componentDidMount() {
-        // var activeDataRowIndex = parseInt(localStorage.getItem("activeDataRowIndex"), 10);
         var buttonSelectorSelectedOption = localStorage.getItem("buttonSelectorSelectedOption");
         var transcriptLocationHash = localStorage.getItem("transcriptLocationHash");
-
-        // this.setState({
-        //     buttonSelectorSelectedOption: buttonSelectorSelectedOption,
-        //     transcriptLocationHash: transcriptLocationHash
-        // });
 
         this.props.history.push(`${buttonSelectorSelectedOption}${transcriptLocationHash}`);
 
         this.unlisten = this.props.history.listen((location, action) => {
-            // console.log("location.pathname", location.pathname);
-            var buttonSelectorSelectedOption = location.pathname.slice(1);//location.pathname.lastIndexOf("/") + 1);
+            var buttonSelectorSelectedOption = location.pathname.slice(1);
             var transcriptLocationHash = window.location.hash || "";
 
             this.setState({
-                // activeDataRowIndex: activeDataRowIndex,
                 buttonSelectorSelectedOption: buttonSelectorSelectedOption,
                 transcriptLocationHash: transcriptLocationHash
             });
 
-            // localStorage.setItem("activeDataRowIndex", activeDataRowIndex);
             localStorage.setItem("buttonSelectorSelectedOption", buttonSelectorSelectedOption);
             localStorage.setItem("transcriptLocationHash", transcriptLocationHash);
         }).bind(this);
