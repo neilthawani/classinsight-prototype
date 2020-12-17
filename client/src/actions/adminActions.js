@@ -1,5 +1,6 @@
 import {
     LIST_USERS,
+    CLEAR_IS_VALID_USER,
     EDIT_USER,
     CREATE_USER,
     DELETE_USER,
@@ -102,6 +103,20 @@ export const createUser = (userData) => dispatch => {
                 payload: error.response && error.response.data
             })
         });
+};
+
+export const clearIsValidUser = () => {
+    return (dispatch) => {
+        dispatch({
+            type: CLEAR_IS_VALID_USER,
+            payload: null
+        });
+
+        dispatch({
+            type: GET_ERRORS,
+            payload: {}
+        })
+    };
 };
 
 export const editUser = (userData) => dispatch => {

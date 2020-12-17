@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { fetchUsers, deleteUserById } from '../../actions/adminActions';
+import { fetchUsers, deleteUserById, clearIsValidUser } from '../../actions/adminActions';
 import AdminPanelTableRow from './AdminPanelTableRow';
 import CreateUserForm from './CreateUserForm';
 
@@ -20,12 +20,12 @@ class AdminPanel extends Component {
         this.props.fetchUsers();
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevState.isCreatingUser) {
-            this.setState({
-                isCreatingUser: false
-            });
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextProps.admin.isValidUser && this.state.isCreatingUser) {
+            this.toggleCreateUser();
         }
+
+        return true;
     }
 
     static getDerivedStateFromProps(nextProps) {
@@ -40,6 +40,10 @@ class AdminPanel extends Component {
     }
 
     toggleCreateUser() {
+        if (this.state.isCreatingUser) {
+            this.props.clearIsValidUser();
+        }
+
         this.setState({
             isCreatingUser: !this.state.isCreatingUser
         });
@@ -111,6 +115,7 @@ class AdminPanel extends Component {
 AdminPanel.propTypes = {
     auth: PropTypes.object.isRequired,
     fetchUsers: PropTypes.func.isRequired,
+    clearIsValidUser: PropTypes.func.isRequired,
     deleteUserById: PropTypes.func.isRequired,
     admin: PropTypes.object.isRequired
 }
@@ -124,5 +129,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { fetchUsers, deleteUserById }
+  { fetchUsers, deleteUserById, clearIsValidUser }
 )(AdminPanel);

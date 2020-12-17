@@ -48,7 +48,7 @@ class ResetPasswordForm extends Component {
 
     onSubmit = e => {
       e.preventDefault();
-      console.log("onSubmit");
+      
       const userData = {
           userId: this.state.userId,
           password: this.state.password,
