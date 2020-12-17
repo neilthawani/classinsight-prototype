@@ -1,7 +1,7 @@
 import LegendLabels from '../../../fixtures/legend_labels';
 var legendLabels = LegendLabels;
 
-export default function(item) {
+export default function defineInitialStyle(item) {
     var legendLabelValue = item.utteranceTypes[item.utteranceTypes.length - 1],
         matchingLegendObj = legendLabels.find(item => item.value === legendLabelValue);
 

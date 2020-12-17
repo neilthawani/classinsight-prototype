@@ -1,4 +1,4 @@
-export default [{
+var legendLabels = [{
     type: "Teacher",
     value: "Metacognitive Modeling Questions",
     text: "Metacognitive",
@@ -107,3 +107,5 @@ export default [{
     textColor: "white",
     description: "This code is applied when a teacher asks a question that is managing behavior and/or task completion."
 }];
+
+export default legendLabels;

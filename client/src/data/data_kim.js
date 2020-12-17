@@ -1,4 +1,4 @@
-export default [
+var data_kim = [
     {
         "id":"0a04492d-ee72-482a-9335-c4930f636c2a",
         "_id":"5e8e070c159e194675da5dbe",
@@ -21826,3 +21826,5 @@ export default [
         }
     }
 ];
+
+export default data_kim;

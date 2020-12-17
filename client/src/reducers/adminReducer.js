@@ -8,7 +8,7 @@ import {
     RESET_PASSWORD
 } from '../actions/types';
 
-export default function(state, action) {
+export default function adminReducer(state, action) {
     switch (action.type) {
         case RESET_PASSWORD:
             return {
