@@ -1,10 +1,18 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import Icon from '@mdi/react';
 import { mdiViewDashboardVariantOutline, mdiBarcode, mdiChartGantt, mdiCommentTextMultipleOutline } from '@mdi/js';
 
-export default class ButtonSelector extends Component {
+class ButtonSelector extends Component {
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextProps.location.pathname.slice(1) !== nextProps.buttonSelectorSelectedOption) {
+            this.handleClick(nextProps.location.pathname.slice(1));
+        }
+
+        return true;
+    }
+
     handleClick(value) {
         this.props.handleClick(value);
     }
@@ -64,3 +72,5 @@ export default class ButtonSelector extends Component {
 ButtonSelector.propTypes = {
     buttonSelectorSelectedOption: PropTypes.string.isRequired
 }
+
+export default withRouter(ButtonSelector);
