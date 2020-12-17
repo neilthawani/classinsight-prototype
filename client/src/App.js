@@ -37,7 +37,7 @@ class App extends Component {
         this.state = {
             dataParsers: dataParsers,
             buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption"),
-            activeDataRowIndex: 0
+            activeDataRowIndex: parseInt(localStorage.getItem("activeDataRowIndex"), 10) || 0
         };
     }
 
@@ -50,16 +50,16 @@ class App extends Component {
         var buttonSelectorSelectedOption = localStorage.getItem("buttonSelectorSelectedOption");
         var transcriptLocationHash = localStorage.getItem("transcriptLocationHash");
 
-        this.setState({
-            buttonSelectorSelectedOption: buttonSelectorSelectedOption,
-            transcriptLocationHash: transcriptLocationHash
-        });
-
         this.props.history.push(`${buttonSelectorSelectedOption}${transcriptLocationHash}`);
 
         this.unlisten = this.props.history.listen((location, action) => {
-            var buttonSelectorSelectedOption = location.pathname.slice(location.pathname.lastIndexOf("/") + 1);
+            var buttonSelectorSelectedOption = location.pathname.slice(1);
             var transcriptLocationHash = window.location.hash || "";
+
+            this.setState({
+                buttonSelectorSelectedOption: buttonSelectorSelectedOption,
+                transcriptLocationHash: transcriptLocationHash
+            });
 
             localStorage.setItem("buttonSelectorSelectedOption", buttonSelectorSelectedOption);
             localStorage.setItem("transcriptLocationHash", transcriptLocationHash);
@@ -79,6 +79,8 @@ class App extends Component {
     }
 
     handleSidebarRowClick(index) {
+        localStorage.setItem("activeDataRowIndex", index);
+
         this.setState({
             activeDataRowIndex: index
         });
