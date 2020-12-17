@@ -1,5 +1,6 @@
 {
   "name": "classinsight-server",
+  "repository": "http://www.github.com/neilthawani/classinsight-prototype",
   "version": "1.0.0",
   "description": "ClassInSight Backend",
   "main": "server.js",
@@ -22,7 +23,7 @@
     "express": "^4.17.1",
     "is-empty": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.10.1",
+    "mongoose": "^5.11.8",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "postcss-attribute-case-insensitive": "^4.0.2",
