@@ -15,20 +15,21 @@
     flex-direction: row;
     width: calc(100% - #{$sidebarWidth} - 1px);
     flex: 1;
-    height: $buttonSelectorHeight;
     background-color: $blue;
     font-size: 16px;
     font-weight: 300;
     margin-left: $sidebarWidth;
     margin-top: -$navbarMargin;
+    z-index: 999;
+    position: fixed;
 }
 
 .button-selector-item {
-    padding: 5px 10px;
+    padding: 2px 10px;
     @extend .button;
-    text-align: center;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .button-selector-item.active {
