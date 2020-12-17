@@ -6,7 +6,7 @@
     "@mdi/font": "^5.8.55",
     "@mdi/js": "^5.8.55",
     "@mdi/react": "^1.4.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.0",
     "bufferutil": "^4.0.1",
     "canvas": "^2.6.1",
     "change-case": "^4.1.1",
