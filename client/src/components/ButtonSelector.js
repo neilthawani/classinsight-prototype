@@ -5,24 +5,10 @@ import Icon from '@mdi/react';
 import { mdiViewDashboardVariantOutline, mdiBarcode, mdiChartGantt, mdiCommentTextMultipleOutline } from '@mdi/js';
 
 class ButtonSelector extends Component {
-    // componentDidMount() {
-    //     if (this.props.location.pathname.slice(1) !== this.props.buttonSelectorSelectedOption) {
-    //         this.handleClick(this.props.location.pathname.slice(1));
-    //     }
-    // }
-
     shouldComponentUpdate(nextProps, nextState) {
-        // console.log("nextProps", nextProps);
-        // console.log("nextState", nextState);
         if (nextProps.location.pathname.slice(1) !== nextProps.buttonSelectorSelectedOption) {
             this.handleClick(nextProps.location.pathname.slice(1));
         }
-        // console.log()
-        // if (nextProps.admin.passwordResetSuccessful) {
-        //     this.dismountForm({
-        //         message: `Password reset successfully: ${this.state.password}`
-        //     });
-        // }
 
         return true;
     }
