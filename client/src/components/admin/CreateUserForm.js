@@ -97,7 +97,7 @@ class CreateUserForm extends Component {
               </span>
             : ''}
 
-            <form noValidate onSubmit={this.onSubmit}>
+            <form noValidate>
               <div className="input-field">
                 <label htmlFor="name">Name</label>
                 <input
@@ -175,7 +175,7 @@ class CreateUserForm extends Component {
                 <span className="input-field-error-text">{errors.password2}</span>
               </div>
 
-              <button type="submit" className="btn btn-submit">
+              <button type="submit" className="btn btn-submit" onClick={this.onSubmit.bind(this)}>
                 Create user
               </button>
             </form>
