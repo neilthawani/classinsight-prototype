@@ -35,19 +35,18 @@ export default class LegendButtonGroup extends Component {
           </div>
           <div className="legend-buttons">
             {labels.map((label, index) => {
-              console.log("label", label);
-              if (label.value === "Video" && label.percentage === 0) {
-                  return null;
-              }
+                if (label.value === "Video" && label.percentage === 0) {
+                    return null;
+                }
 
-              return (
-                <LegendButton
-                  key={index}
-                  label={label}
-                  displayRatio={this.props.displayRatio}
-                  activeLabels={this.props.activeLabels}
-                  handleClick={this.handleClick.bind(this, label)} />
-              );
+                return (
+                  <LegendButton
+                    key={index}
+                    label={label}
+                    displayRatio={this.props.displayRatio}
+                    activeLabels={this.props.activeLabels}
+                    handleClick={this.handleClick.bind(this, label)} />
+                );
             })}
           </div>
         </div>
