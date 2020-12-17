@@ -50,6 +50,8 @@
 
 .admin-table tr td {
     padding: 10px 20px;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
 
     input {
         font-size: 16px;

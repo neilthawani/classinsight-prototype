@@ -6,7 +6,7 @@ import {
     SHOW_DATASET
 } from '../actions/types';
 
-export default function(state, action) {
+export default function datasetReducer(state, action) {
     switch (action.type) {
         case LIST_DATASETS:
             return {

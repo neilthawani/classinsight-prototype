@@ -1,6 +1,7 @@
 import {
     GET_ERRORS,
     LIST_USERS,
+    CLEAR_IS_VALID_USER,
     EDIT_USER,
     CREATE_USER,
     DELETE_USER,
@@ -8,8 +9,13 @@ import {
     RESET_PASSWORD
 } from '../actions/types';
 
-export default function(state, action) {
+export default function adminReducer(state, action) {
     switch (action.type) {
+        case CLEAR_IS_VALID_USER:
+            return {
+                ...state,
+                isValidUser: null
+            }
         case RESET_PASSWORD:
             return {
                 ...state,
@@ -32,6 +38,7 @@ export default function(state, action) {
             };
         case CREATE_USER:
             return {
+                isValidUser: true,
                 users: [action.payload.user, ...state.users]
             };
         case DELETE_USER:
