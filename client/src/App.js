@@ -80,13 +80,12 @@ class App extends Component {
 
     handleSidebarRowClick(index) {
         this.setState({
-            activeDataRowIndex: index,
-            // transcriptLocationHash: ""
+            activeDataRowIndex: index
         });
 
-        // localStorage.setItem("transcriptLocationHash", "");
-        console.log("this.props", this.props);
-        this.props.location.hash.replace(this.props.location.hash, "");
+        if (this.props.location.hash !== "") {
+            this.props.history.push(this.props.location.pathname);
+        }
     }
 
     dashboardRoutes() {
