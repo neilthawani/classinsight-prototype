@@ -19,6 +19,7 @@ class DashboardMenus extends Component {
       <div className="dashboard-container">
         {/* coarse, medium, and fine-grained visualizations */}
         <ButtonSelector
+          admin={this.props.admin}
           buttonSelectorSelectedOption={buttonSelectorSelectedOption}
           handleClick={this.props.handleButtonSelectorClick.bind(this)} />
 

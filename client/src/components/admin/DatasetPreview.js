@@ -1,5 +1,11 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import DashboardMenus from '../../DashboardMenus';
+import { listDatasets } from "../../actions/datasetActions";
+import { Switch } from "react-router-dom";// import App from '../../App';
+import PrivateRoute from "../private-route/PrivateRoute";
+
 // import { showUserDetails } from "../../actions/adminActions";
 // import { listDatasets, deleteDatasetById } from "../../actions/datasetActions";
 // import UserTypes from '../../fixtures/user_types';
@@ -12,12 +18,20 @@ import { withRouter } from "react-router-dom";
 class DatasetPreview extends Component {
     constructor(props) {
         super(props);
-        console.log("props.location", props.location);
+        // console.log("props.location", props.location);
+        console.log("props", props);
         var userId = props.match.params.userId;
 
-        this.setState({
+        this.state = {
+            buttonSelectorSelectedOption: "dashboard",//localStorage.get("buttonSelectorSelectedOption")
+            activeDataRowIndex: 0,
+            userId: userId,
+            areDatasetsLoaded: false
+
             // dataset: props.location.state.dataset
-        });
+        };
+
+        // console.log("app.adminPreviewRoutes", new App().adminPreviewRoutes());
         //
         // var userId = props.match.params.id;
         //
@@ -110,19 +124,75 @@ class DatasetPreview extends Component {
     //         isResettingPassword: false
     //     });
     // }
+    handleButtonSelectorClick(value) {
+        this.setState({
+            buttonSelectorSelectedOption: value
+        });
+    }
+
+    handleSidebarRowClick(index) {
+        this.setState({
+            activeDataRowIndex: index
+        });
+        //
+        // if (this.props.location.hash !== "") {
+        //     this.props.history.push(this.props.location.pathname);
+        // }
+    }
 
     render() {
         // var user = this.state.user || {};
         // var datasets = this.props.datasets.datasets || [];
+        // console.log("state", this.state);
+
 
         return (
-          <div className="dataset-preview-container">
+          <div className="preview-container">
+            <DashboardMenus
+              admin={{ userId: this.state.userId }}
+              buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
+              dataParsers={this.props.datasets.dataParsers}
+              activeDataRowIndex={this.state.activeDataRowIndex}
+              handleButtonSelectorClick={this.handleButtonSelectorClick.bind(this)}
+              handleSidebarRowClick={this.handleSidebarRowClick.bind(this)} /> : ""}
+
+            {this.state.areDatasetsLoaded ?
+              <div className="dashboard-content">
+                {/* A <Switch> looks through all its children <Route> elements and
+                  renders the first one whose path matches the current URL.
+                  Use a <Switch> any time you have multiple routes,
+                  but you want only one of them to render at a time. */}
+                <Switch>
+                  {this.dashboardRoutes().map((routeObj, index) => {
+                      return (
+                          <PrivateRoute
+                            exact
+                            key={index}
+                            path={routeObj.path}
+                            component={routeObj.component}
+                          />
+                      )
+                  })}
+                </Switch>
+              </div>
+            : ""}
           </div>
         )
     }
 }
 
-export default withRouter(DatasetPreview);
+function mapStateToProps(state) {
+    return {
+        auth: state.auth,
+        datasets: state.datasets,
+        admin: state.admin
+    }
+};
+
+export default withRouter(connect(
+    mapStateToProps,
+    { listDatasets }
+)(DatasetPreview));
 
 // UserDetailsPage.propTypes = {
 //     auth: PropTypes.object.isRequired,
@@ -132,13 +202,6 @@ export default withRouter(DatasetPreview);
 //     deleteDatasetById: PropTypes.func.isRequired
 // }
 //
-// function mapStateToProps(state) {
-//     return {
-//         auth: state.auth,
-//         datasets: state.datasets,
-//         admin: state.admin
-//     }
-// };
 //
 // export default withRouter(connect(
 //   mapStateToProps,

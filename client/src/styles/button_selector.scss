@@ -13,6 +13,7 @@
     width: max-content;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     width: calc(100% - #{$sidebarWidth} - 1px);
     flex: 1;
     background-color: $blue;
@@ -22,6 +23,16 @@
     margin-top: -$navbarMargin;
     z-index: 999;
     position: fixed;
+}
+
+.button-selector-options,
+.button-selector-admin-options {
+    display: flex;
+    flex-direction: row;
+}
+
+.button-selector-admin-options {
+    border-bottom: 1px solid $lightGray;
 }
 
 .button-selector-item {

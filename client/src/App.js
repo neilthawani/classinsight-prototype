@@ -145,7 +145,14 @@ class App extends Component {
         }
     }
 
-    dashboardRoutes() {
+    dashboardRoutes(admin) {
+        // var isAdmin = Object.keys(admin).length > 0,
+        //     baseAdminPath = isAdmin ? `/admin/user/${admin.userId}/preview` : "";
+        //
+        // return this.dashboardRoutePaths.map((path) => {
+        //     path: `${baseAdminPath}${path}`,
+        //
+        // });
         return [{
             path: "/dashboard",
             component: (props) => ( <Dashboard {...props} activeParser={this.activeParser()} /> )
@@ -161,18 +168,14 @@ class App extends Component {
         }]
     }
 
-    dashboardRoutePaths() {
-        return this.dashboardRoutes().map((routeObj) => {
-            return routeObj.path;
-        });
-    }
+    dashboardRoutePaths = ["/dashboard", "/talk-ratio", "/turn-taking", "/transcript"];
 
     render() {
         return (
           <div className="app">
             <Navbar />
 
-            {this.dashboardRoutePaths().includes(window.location.pathname) ?
+            {this.dashboardRoutePaths.includes(window.location.pathname) ?
             <DashboardMenus
               buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
               dataParsers={this.props.datasets.dataParsers}
@@ -183,6 +186,7 @@ class App extends Component {
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
+
             <PrivateRoute
               exact
               path="/admin"
@@ -190,6 +194,7 @@ class App extends Component {
                 <AdminPanel {...props} />
               )}
             />
+
             <PrivateRoute
               exact
               path='/admin/user/:userId'
@@ -200,7 +205,7 @@ class App extends Component {
 
             <PrivateRoute
               exact
-              path='/admin/user/:userId/preview/:datasetId'
+              path='/admin/user/:userId/preview'
               component={(props) => (
                 <DatasetPreview {...props} />
               )}
