@@ -43,7 +43,7 @@ export default function datasetReducer(state, action) {
                     ...state,
                     dataset: action.payload
                 }
-                default:
-                    return state || {};
+            default:
+                return state || {};
     }
 }

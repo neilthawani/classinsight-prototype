@@ -22,36 +22,37 @@ import Transcript from './components/visualizations/transcript/Transcript';
 import TurnTaking from './components/visualizations/turn-taking/TurnTaking';
 
 import { listDatasets } from "./actions/datasetActions";
-import Parser from './data/parser';
-import data_tom from './data/data_tom';
-import data_kim from './data/data_kim';
-import data_bill from './data/data_bill';
+// import Parser from './data/parser';
+// import data_tom from './data/data_tom';
+// import data_kim from './data/data_kim';
+// import data_bill from './data/data_bill';
 
 class App extends Component {
     constructor(props) {
         super(props);
         // console.log("init props", props);
 
-        var dataRows = [data_tom[0], data_kim[0], data_bill[0]];//, data_tom[0], data_kim[0], data_bill[0]];
-        var dataParsers = dataRows.map((row) => {
-            var parser = new Parser(row);
-            return parser;
-        });
+        // var dataRows = [data_tom[0], data_kim[0], data_bill[0]];//, data_tom[0], data_kim[0], data_bill[0]];
+        // var dataParsers = dataRows.map((row) => {
+        //     var parser = new Parser(row);
+        //     return parser;
+        // });
 
         this.state = {
-            dataRows: dataRows,
-            dataParsers: dataParsers,
+            // dataRows: dataRows,
+            // dataParsers: dataParsers,
+            areDatasetsLoaded: false,
             buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption"),
             activeDataRowIndex: parseInt(localStorage.getItem("activeDataRowIndex"), 10) || 0
         };
     }
 
-    componentDidMount() {
+    // componentDidMount() {
         // console.log("app mount");
         // console.log("props", this.props);
         // console.log("state", this.state);
-        this.props.listDatasets(this.props.auth.user.id);
-    }
+
+    // }
 
     // shouldComponentUpdate(nextProps, nextState) {
     //     if (nextProps.datasets.dataParsers) {
@@ -88,11 +89,18 @@ class App extends Component {
     // }
 
     activeParser = function() {
-        return this.state.dataParsers[this.state.activeDataRowIndex];
+        // console.log("this.props.datasets", this.props.datasets);
+        return this.props.datasets.dataParsers[this.state.activeDataRowIndex];
     }
 
     // set button selector to match URL on refresh
     componentDidMount() {
+        this.props.listDatasets(this.props.auth.user.id).then(res => {
+            this.setState({
+                areDatasetsLoaded: true
+            });
+        });
+
         var buttonSelectorSelectedOption = localStorage.getItem("buttonSelectorSelectedOption");
         var transcriptLocationHash = localStorage.getItem("transcriptLocationHash");
 
@@ -164,12 +172,12 @@ class App extends Component {
             <Navbar />
 
             {this.dashboardRoutePaths().includes(window.location.pathname) ?
-            <DashboardMenus
-            buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
-            dataParsers={this.props.datasets.dataParsers}
-            activeDataRowIndex={this.state.activeDataRowIndex}
-            handleButtonSelectorClick={this.handleButtonSelectorClick.bind(this)}
-            handleSidebarRowClick={this.handleSidebarRowClick.bind(this)} /> : ""}
+              <DashboardMenus
+              buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
+              dataParsers={this.props.datasets.dataParsers}
+              activeDataRowIndex={this.state.activeDataRowIndex}
+              handleButtonSelectorClick={this.handleButtonSelectorClick.bind(this)}
+              handleSidebarRowClick={this.handleSidebarRowClick.bind(this)} /> : ""}
 
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
@@ -189,24 +197,26 @@ class App extends Component {
               )}
             />
 
-            <div className="dashboard-content">
-              {/* A <Switch> looks through all its children <Route> elements and
-                renders the first one whose path matches the current URL.
-                Use a <Switch> any time you have multiple routes,
-                but you want only one of them to render at a time. */}
-              <Switch>
-                {this.dashboardRoutes().map((routeObj, index) => {
-                    return (
-                        <PrivateRoute
-                          exact
-                          key={index}
-                          path={routeObj.path}
-                          component={routeObj.component}
-                        />
-                    )
-                })}
-              </Switch>
-            </div>
+            {this.state.areDatasetsLoaded ?
+              <div className="dashboard-content">
+                {/* A <Switch> looks through all its children <Route> elements and
+                  renders the first one whose path matches the current URL.
+                  Use a <Switch> any time you have multiple routes,
+                  but you want only one of them to render at a time. */}
+                <Switch>
+                  {this.dashboardRoutes().map((routeObj, index) => {
+                      return (
+                          <PrivateRoute
+                            exact
+                            key={index}
+                            path={routeObj.path}
+                            component={routeObj.component}
+                          />
+                      )
+                  })}
+                </Switch>
+              </div>
+            : ""}
           </div>
         );
     }
