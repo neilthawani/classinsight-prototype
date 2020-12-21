@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { showUserDetails } from "../../actions/adminActions";
 import { listDatasets, deleteDatasetById } from "../../actions/datasetActions";
 import UserTypes from '../../fixtures/user_types';
@@ -13,7 +13,7 @@ class UserDetailsPage extends Component {
     constructor(props) {
         super(props);
 
-        var userId = props.match.params.id;
+        var userId = props.match.params.userId;
 
         this.state = {
             isUploadingData: false,
@@ -105,6 +105,10 @@ class UserDetailsPage extends Component {
         });
     }
 
+    previewTeacherView() {
+        console.log("this.props.dataset.jsonData");
+    }
+
     render() {
         var user = this.state.user || {};
         var datasets = this.props.datasets.datasets || [];
@@ -112,6 +116,13 @@ class UserDetailsPage extends Component {
         return (
           <div className="admin-user">
             <div className="admin-header">
+              <Link to={{
+                pathname: `/admin/user/${this.state.userId}/preview`
+              }}>
+                <span className="btn" onClick={this.previewTeacherView.bind(this)}>
+                  Preview Teacher View
+                </span>
+              </Link>
               <span
                 className={this.state.isResettingPassword ? "hidden" : "btn"}
                 onClick={this.toggleUploadData.bind(this)}>

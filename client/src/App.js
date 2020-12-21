@@ -16,6 +16,7 @@ import DashboardMenus from './DashboardMenus';
 
 import AdminPanel from './components/admin/AdminPanel';
 import UserDetailsPage from './components/admin/UserDetailsPage';
+import DatasetPreview from './components/admin/DatasetPreview';
 
 import TalkRatio from './components/visualizations/talk-ratio/TalkRatio';
 import Transcript from './components/visualizations/transcript/Transcript';
@@ -172,7 +173,7 @@ class App extends Component {
             <Navbar />
 
             {this.dashboardRoutePaths().includes(window.location.pathname) ?
-              <DashboardMenus
+            <DashboardMenus
               buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
               dataParsers={this.props.datasets.dataParsers}
               activeDataRowIndex={this.state.activeDataRowIndex}
@@ -191,9 +192,17 @@ class App extends Component {
             />
             <PrivateRoute
               exact
-              path='/admin/user/:id'
+              path='/admin/user/:userId'
               component={(props) => (
                 <UserDetailsPage {...props} />
+              )}
+            />
+
+            <PrivateRoute
+              exact
+              path='/admin/user/:userId/preview/:datasetId'
+              component={(props) => (
+                <DatasetPreview {...props} />
               )}
             />
 

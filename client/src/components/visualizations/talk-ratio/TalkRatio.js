@@ -119,7 +119,7 @@ export default class TalkRatio extends Component {
                   canInspect={true}
                   handleUtteranceClick={this.handleUtteranceClick.bind(this)}
                   handleScroll={() => {}} />
-              : "" }
+              : ""}
             </div>
           </div>
           <div className="talk-ratio-legend-student">
