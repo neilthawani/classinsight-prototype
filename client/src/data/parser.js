@@ -52,7 +52,8 @@ export default class Parser {
                                 (speakingTurn.speaker_pseudonym.includes("Class") ||
                                 speakingTurn.speaker_pseudonym.includes("Student")),
                             unclassifiedTeacherTalk = utterance.utterance_type.length === 0 &&
-                                (speakingTurn.speaker_pseudonym.includes("Teacher") || speakingTurn.speaker_pseudonym.includes("Video")),
+                                speakingTurn.speaker_pseudonym.includes("Teacher"),
+                            videoTeacherTalk = speakingTurn.speaker_pseudonym.includes("Video"),
                             speakerPseudonym = speakingTurn.speaker_pseudonym.includes("Video") ? "Teacher (Video)" : speakingTurn.speaker_pseudonym,
                             dataRow = {
                                 id: utteranceIndex++,
@@ -70,6 +71,8 @@ export default class Parser {
                             dataRow = { ...dataRow, ...{ utteranceTypes: ["Assorted Student Talk"] } };
                         } else if (unclassifiedTeacherTalk) {
                             dataRow = { ...dataRow, ...{ utteranceTypes: ["Assorted Teacher Talk"] } };
+                        } else if (videoTeacherTalk) {
+                            dataRow = { ...dataRow, ...{ utteranceTypes: ["Video"] } };
                         } else {
                             dataRow = { ...dataRow, ...{ utteranceTypes: utterance.utterance_type } };
                         }

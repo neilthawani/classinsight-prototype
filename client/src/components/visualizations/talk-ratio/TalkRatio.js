@@ -82,7 +82,11 @@ export default class TalkRatio extends Component {
               Teacher Talk: {formatPercentage(this.calculateSpeakerTotal("Teacher"), 0)}
             </h3>
             <LegendItemGroup
-              labels={this.state.parser.legendLabels({ type: "Teacher"})}
+              labels={this.state.parser.legendLabels({ type: "Teacher" })}
+              displayRatio={true}
+              handleClick={() => {}} />
+            <LegendItemGroup
+              labels={this.state.parser.legendLabels({ type: "Media" })}
               displayRatio={true}
               handleClick={() => {}} />
           </div>
@@ -123,7 +127,7 @@ export default class TalkRatio extends Component {
               Student Talk: {formatPercentage(this.calculateSpeakerTotal("Student"), 0)}
             </h3>
             <LegendItemGroup
-              labels={this.state.parser.legendLabels({ type: "Student"})}
+              labels={this.state.parser.legendLabels({ type: "Student" })}
               displayRatio={true}
               handleClick={() => {}} />
           </div>

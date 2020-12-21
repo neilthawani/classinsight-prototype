@@ -42,7 +42,7 @@ class App extends Component {
             dataRows: dataRows,
             dataParsers: dataParsers,
             buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption"),
-            activeDataRowIndex: 0
+            activeDataRowIndex: parseInt(localStorage.getItem("activeDataRowIndex"), 10) || 0
         };
     }
 
@@ -91,30 +91,30 @@ class App extends Component {
         return this.state.dataParsers[this.state.activeDataRowIndex];
     }
 
-    // If logged in and user navigates to Register page, should redirect them to dashboard
-    // componentDidMount() {
-    //     var buttonSelectorSelectedOption = localStorage.getItem("buttonSelectorSelectedOption");
-    //     var transcriptLocationHash = localStorage.getItem("transcriptLocationHash");
-    //
-    //     this.setState({
-    //         buttonSelectorSelectedOption: buttonSelectorSelectedOption,
-    //         transcriptLocationHash: transcriptLocationHash
-    //     });
-    //
-    //     this.props.history.push(`${buttonSelectorSelectedOption}${transcriptLocationHash}`);
-    //
-    //     this.unlisten = this.props.history.listen((location, action) => {
-    //         var buttonSelectorSelectedOption = location.pathname.slice(location.pathname.lastIndexOf("/") + 1);
-    //         var transcriptLocationHash = window.location.hash || "";
-    //
-    //         localStorage.setItem("buttonSelectorSelectedOption", buttonSelectorSelectedOption);
-    //         localStorage.setItem("transcriptLocationHash", transcriptLocationHash);
-    //     }).bind(this);
-    // }
+    // set button selector to match URL on refresh
+    componentDidMount() {
+        var buttonSelectorSelectedOption = localStorage.getItem("buttonSelectorSelectedOption");
+        var transcriptLocationHash = localStorage.getItem("transcriptLocationHash");
 
-    // componentWillUnmount() {
-    //     this.unlisten();
-    // }
+        this.props.history.push(`${buttonSelectorSelectedOption}${transcriptLocationHash}`);
+
+        this.unlisten = this.props.history.listen((location, action) => {
+            var buttonSelectorSelectedOption = location.pathname.slice(1);
+            var transcriptLocationHash = window.location.hash || "";
+
+            this.setState({
+                buttonSelectorSelectedOption: buttonSelectorSelectedOption,
+                transcriptLocationHash: transcriptLocationHash
+            });
+
+            localStorage.setItem("buttonSelectorSelectedOption", buttonSelectorSelectedOption);
+            localStorage.setItem("transcriptLocationHash", transcriptLocationHash);
+        }).bind(this);
+    }
+
+    componentWillUnmount() {
+        this.unlisten();
+    }
 
     handleButtonSelectorClick(value) {
         localStorage.setItem("buttonSelectorSelectedOption", value);
@@ -125,9 +125,15 @@ class App extends Component {
     }
 
     handleSidebarRowClick(index) {
+        localStorage.setItem("activeDataRowIndex", index);
+
         this.setState({
             activeDataRowIndex: index
         });
+
+        if (this.props.location.hash !== "") {
+            this.props.history.push(this.props.location.pathname);
+        }
     }
 
     dashboardRoutes() {

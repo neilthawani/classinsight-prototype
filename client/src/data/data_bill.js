@@ -1,4 +1,4 @@
-export default [
+var data_bill = [
     {
         "data":{
             "duration":3002.0,
@@ -6,7 +6,7 @@ export default [
             "initial_time":"00:00:11",
             "original_csv":"20200123_Bill_Pd7_Mixed_Gomoll.csv",
             "metadata":{
-                "topic":"Ecology",
+                "topic":"Science",
                 "period":7,
                 "date":"2020-01-23"
             },
@@ -16932,4 +16932,6 @@ export default [
             "title":"20200123"
         }
     }
-]
+];
+
+export default data_bill;

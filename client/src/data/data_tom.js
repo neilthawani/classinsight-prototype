@@ -1,4 +1,4 @@
-export default [
+var data_tom = [
   {
     "id": "c6758ef9-d3a7-444a-9fbc-2d842e5bd9e1",
     "_id": "5e8e18b9093ae64810e4a183",
@@ -43904,4 +43904,6 @@ export default [
       "title": "Copy of 20200211"
     }
   }
-]
+];
+
+export default data_tom;

@@ -1,4 +1,4 @@
-export default [
+var adjectives = [
     "Abundant",
     "Accurate",
     "Adorable",
@@ -194,3 +194,5 @@ export default [
     "Wonderful",
     "Zealous"
 ];
+
+export default adjectives;

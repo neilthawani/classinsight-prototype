@@ -7,7 +7,7 @@ import {
 } from '../actions/types';
 import Parser from '../data/parser';
 
-export default function(state, action) {
+export default function datasetReducer(state, action) {
     switch (action.type) {
         case LIST_DATASETS:
             return {

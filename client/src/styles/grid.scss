@@ -22,7 +22,9 @@
         flex: 1 0 evenColumnWidth($column, 100);
       }
 
-      .even-column:nth-last-child(-n+#{$column} + 1) + .even-column:nth-child(n+#{$column} + 1) {
+      // used to be, but seems to work fine for now:
+      // .even-column:nth-last-child(-n+#{$column} + 1) + .even-column:nth-child(n+#{$column} + 1) {
+      .even-column:nth-last-child(-n+#{$column}) + .even-column:nth-child(n+#{$column}) {
         max-width: evenColumnWidth($column, 10000);
       }
     }
