@@ -6,6 +6,10 @@ import { listDatasets } from "../../actions/datasetActions";
 import { Switch } from "react-router-dom";// import App from '../../App';
 import PrivateRoute from "../private-route/PrivateRoute";
 
+import Dashboard from "../dashboard/Dashboard";
+import TalkRatio from '../visualizations/talk-ratio/TalkRatio';
+import Transcript from '../visualizations/transcript/Transcript';
+import TurnTaking from '../visualizations/turn-taking/TurnTaking';
 // import { showUserDetails } from "../../actions/adminActions";
 // import { listDatasets, deleteDatasetById } from "../../actions/datasetActions";
 // import UserTypes from '../../fixtures/user_types';
@@ -138,6 +142,29 @@ class DatasetPreview extends Component {
         // if (this.props.location.hash !== "") {
         //     this.props.history.push(this.props.location.pathname);
         // }
+    }
+
+    dashboardRoutes(admin) {
+        // var isAdmin = Object.keys(admin).length > 0,
+        var baseAdminPath = `/admin/user/${this.state.userId}/preview`;
+        //
+        // return this.dashboardRoutePaths.map((path) => {
+        //     path: `${baseAdminPath}${path}`,
+        //
+        // });
+        return [{
+            path: `${baseAdminPath}/dashboard`,
+            component: (props) => ( <Dashboard {...props} activeParser={this.activeParser()} admin={{userId: this.state.userId}} /> )
+        }, {
+            path: `${baseAdminPath}/talk-ratio`,
+            component: (props) => ( <TalkRatio {...props} activeParser={this.activeParser()} admin={{userId: this.state.userId}} /> )
+        }, {
+            path: `${baseAdminPath}/turn-taking`,
+            component: (props) => ( <TurnTaking {...props} activeParser={this.activeParser()} admin={{userId: this.state.userId}} /> )
+        }, {
+            path: `${baseAdminPath}/transcript`,
+            component: (props) => ( <Transcript {...props} activeParser={this.activeParser()} admin={{userId: this.state.userId}} /> )
+        }]
     }
 
     render() {
