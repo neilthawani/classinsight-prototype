@@ -12,14 +12,14 @@ class DashboardMenus extends Component {
   }
 
   render() {
-    var { buttonSelectorSelectedOption, dataParsers, activeDataRowIndex } = this.props;
+    var { buttonSelectorSelectedOption, dataParsers, activeDataRowIndex, admin } = this.props;
     // console.log("dataParsers", dataParsers);
 
     return (
       <div className="dashboard-container">
         {/* coarse, medium, and fine-grained visualizations */}
         <ButtonSelector
-          admin={this.props.admin}
+          admin={admin}
           buttonSelectorSelectedOption={buttonSelectorSelectedOption}
           handleClick={this.props.handleButtonSelectorClick.bind(this)} />
 

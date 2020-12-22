@@ -34,100 +34,16 @@ class DatasetPreview extends Component {
 
             // dataset: props.location.state.dataset
         };
-
-        // console.log("app.adminPreviewRoutes", new App().adminPreviewRoutes());
-        //
-        // var userId = props.match.params.id;
-        //
-        // this.state = {
-        //     isUploadingData: false,
-        //     isResettingPassword: false,
-        //     userId: userId,
-        //     datasets: [],
-        //     datasetToDelete: {},
-        //     isLoaded: false,
-        //     showMessage: false,
-        //     message: ""
-        // };
     }
 
-    // componentDidMount() {
-    //     this.props.showUserDetails(this.state.userId);
-    //     this.props.listDatasets(this.state.userId);
-    // }
-    //
-    // static getDerivedStateFromProps(nextProps) {
-    //     if (nextProps.admin.user) {
-    //         return ({
-    //             user: nextProps.admin.user
-    //         });
-    //     }
-    //
-    //     return null;
-    // }
-    //
-    // // TODO: put this into a util function?
-    // userTypeAsWords(type) {
-    //     return UserTypes.filter(obj => obj.value === type)[0] &&
-    //             UserTypes.filter(obj => obj.value === type)[0].label;
-    // }
-    //
-    // toggleUploadData() {
-    //     console.log("toggleUploadData");
-    //     this.setState(prevState => ({
-    //         isUploadingData: !prevState.isUploadingData
-    //     }));
-    // }
-    //
-    // toggleResetPassword() {
-    //     console.log("toggleResetPassword");
-    //     this.setState(prevState => ({
-    //         isResettingPassword: !this.state.isResettingPassword
-    //     }));
-    // }
-    //
-    // deleteDataset(dataset, confirmation = false) {
-    //     if (confirmation) {
-    //         this.props.deleteDatasetById(dataset);
-    //         this.setState({
-    //             datasetToDelete: {}
-    //         });
-    //     }
-    //
-    //     if (dataset._id === this.state.datasetToDelete._id && !confirmation) { // remove confirmation message
-    //         this.setState({
-    //             datasetToDelete: {}
-    //         });
-    //     } else if (Object.entries(this.state.datasetToDelete).length === 0) { // set confirmation message
-    //         this.setState({
-    //             datasetToDelete: dataset
-    //         });
-    //     }
-    // }
-    //
-    // dismountForm(options) {
-    //     console.log("dismountForm");
-    //     var that = this;
-    //
-    //     if (options && options.message) {
-    //         this.setState({
-    //             showMessage: true,
-    //             message: options.message
-    //         });
-    //
-    //         setTimeout(function() {
-    //             that.setState({
-    //                 showMessage: false,
-    //                 message: ""
-    //             });
-    //         }, 3000);
-    //     }
-    //
-    //     this.setState({
-    //         isUploadingData: false,
-    //         isResettingPassword: false
-    //     });
-    // }
+    componentDidMount() {
+        this.props.listDatasets(this.userId).then(res => {
+            this.setState({
+                areDatasetsLoaded: true
+            });
+        });
+    }
+
     handleButtonSelectorClick(value) {
         this.setState({
             buttonSelectorSelectedOption: value
@@ -144,7 +60,12 @@ class DatasetPreview extends Component {
         // }
     }
 
-    dashboardRoutes(admin) {
+    activeParser = function() {
+        // console.log("this.props.datasets", this.props.datasets);
+        return this.props.datasets.dataParsers[this.state.activeDataRowIndex];
+    }
+
+    adminDashboardRoutes() {
         // var isAdmin = Object.keys(admin).length > 0,
         var baseAdminPath = `/admin/user/${this.state.userId}/preview`;
         //
@@ -176,7 +97,7 @@ class DatasetPreview extends Component {
         return (
           <div className="preview-container">
             <DashboardMenus
-              admin={{ userId: this.state.userId }}
+              admin={{ userId: this.state.userId, paths: this.adminDashboardRoutes() }}
               buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
               dataParsers={this.props.datasets.dataParsers}
               activeDataRowIndex={this.state.activeDataRowIndex}
@@ -190,7 +111,7 @@ class DatasetPreview extends Component {
                   Use a <Switch> any time you have multiple routes,
                   but you want only one of them to render at a time. */}
                 <Switch>
-                  {this.dashboardRoutes().map((routeObj, index) => {
+                  {this.adminDashboardRoutes().map((routeObj, index) => {
                       return (
                           <PrivateRoute
                             exact

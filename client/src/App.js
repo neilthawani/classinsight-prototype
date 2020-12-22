@@ -105,35 +105,15 @@ class App extends Component {
         var buttonSelectorSelectedOption = localStorage.getItem("buttonSelectorSelectedOption");
         var transcriptLocationHash = localStorage.getItem("transcriptLocationHash");
 
-        // console.log("push");
-        // debugger;
-        // this.props.history.push("/wowowow");
-
-        // this.props.location
-        // this.props.history.go("/aaaa")
-        // for (var i in this.props.history) {
-        //     console.log("this.props.history[i]", this.props.history[i]);
-        // }
-        // debugger;
-        // console.log("this.dashboardRoutePaths", this.dashboardRoutePaths);
-        // console.log("this.props.location.pathname", this.props.location.pathname);
         if (this.dashboardRoutePaths.includes(this.props.location.pathname)) {
             this.props.history.push(`${buttonSelectorSelectedOption}${transcriptLocationHash}`);
         }
-        // console.log("pushing to", `${buttonSelectorSelectedOption}${transcriptLocationHash}`);
-
-
 
         this.unlisten = this.props.history.listen((location, action) => {
             var buttonSelectorSelectedOption = location.pathname;
             var transcriptLocationHash = window.location.hash || "";
 
-            // debugger;
-
-            // console.log("this.dashboardRoutePaths", this.dashboardRoutePaths);
-            // console.log("buttonSelectorSelectedOption", buttonSelectorSelectedOption);
             if (this.dashboardRoutePaths.includes(buttonSelectorSelectedOption)) {
-                // console.log("here");
                 this.setState({
                     buttonSelectorSelectedOption: buttonSelectorSelectedOption.slice(1),
                     transcriptLocationHash: transcriptLocationHash
