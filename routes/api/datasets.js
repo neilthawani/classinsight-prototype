@@ -12,23 +12,23 @@ const validateDatasetInput = require("../../validation/data_upload");
 // @route GET api/datasets/show
 // @desc Retrieve user from Datasets table
 // @access Public
-router.get('/show', (req, res) => {
-    const id = req.query._id;
-    Dataset.find({
-        _id: id
-    }).then(dataset => {
-        if (user) {
-            return res.status(200).json({
-                message: "Dataset found",
-                dataset: dataset && dataset[0]
-            });
-        } else {
-            return res.status(400).json({
-                nouser: `There is no dataset with id: ${id}`
-            });
-        }
-    });
-});
+// router.get('/show', (req, res) => {
+//     const id = req.query._id;
+//     Dataset.find({
+//         _id: id
+//     }).then(dataset => {
+//         if (user) {
+//             return res.status(200).json({
+//                 message: "Dataset found",
+//                 dataset: dataset && dataset[0]
+//             });
+//         } else {
+//             return res.status(400).json({
+//                 nouser: `There is no dataset with id: ${id}`
+//             });
+//         }
+//     });
+// });
 
 // @route POST api/datasets/edit
 // @desc Edit or Delete dataset in Datasets table

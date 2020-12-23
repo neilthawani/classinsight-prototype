@@ -17,6 +17,7 @@ export default class Parser {
             this.date = formatDate(data.class_date);
             this.data = parsedData;
             this.segments = parsedData.segments;
+            this.isActive = false;
         } else {
             // console.log("data from old scaffold", data);
             this.data = data;

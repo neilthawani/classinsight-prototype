@@ -12,7 +12,7 @@ class DashboardMenus extends Component {
   }
 
   render() {
-    var { buttonSelectorSelectedOption, dataParsers, activeDataRowIndex, admin } = this.props;
+    var { buttonSelectorSelectedOption, admin } = this.props;
     // console.log("dataParsers", dataParsers);
 
     return (
@@ -23,15 +23,7 @@ class DashboardMenus extends Component {
           buttonSelectorSelectedOption={buttonSelectorSelectedOption}
           handleClick={this.props.handleButtonSelectorClick.bind(this)} />
 
-        <Sidebar
-          dataRows={
-            (dataParsers || []).map((parser) => {
-                // console.log("parser", parser);
-                return parser.data;
-            })
-          }
-          activeDataRowIndex={activeDataRowIndex}
-          handleSidebarRowClick={this.props.handleSidebarRowClick.bind(this)}/>
+        <Sidebar />
       </div>
     )
   }

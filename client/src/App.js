@@ -11,16 +11,16 @@ import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
-import Dashboard from "./components/dashboard/Dashboard";
+// import Dashboard from "./components/dashboard/Dashboard";
 import DashboardMenus from './DashboardMenus';
 
 import AdminPanel from './components/admin/AdminPanel';
 import UserDetailsPage from './components/admin/UserDetailsPage';
 import DatasetPreview from './components/admin/DatasetPreview';
 
-import TalkRatio from './components/visualizations/talk-ratio/TalkRatio';
-import Transcript from './components/visualizations/transcript/Transcript';
-import TurnTaking from './components/visualizations/turn-taking/TurnTaking';
+// import TalkRatio from './components/visualizations/talk-ratio/TalkRatio';
+// import Transcript from './components/visualizations/transcript/Transcript';
+// import TurnTaking from './components/visualizations/turn-taking/TurnTaking';
 
 import { listDatasets } from "./actions/datasetActions";
 import dashboardRoutes from './fixtures/dashboardRoutes';
@@ -44,8 +44,7 @@ class App extends Component {
             // dataRows: dataRows,
             // dataParsers: dataParsers,
             areDatasetsLoaded: false,
-            buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption"),
-            activeDataRowIndex: parseInt(localStorage.getItem("activeDataRowIndex"), 10) || 0
+            buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption")
         };
     }
 
@@ -90,10 +89,10 @@ class App extends Component {
     //     return true;
     // }
 
-    activeParser = function() {
-        // console.log("this.props.datasets", this.props.datasets);
-        return this.props.datasets.dataParsers[this.state.activeDataRowIndex];
-    }
+    // activeParser = function() {
+    //     // console.log("this.props.datasets", this.props.datasets);
+    //     return this.props.datasets.dataParsers[this.state.activeDataRowIndex];
+    // }
 
     // set button selector to match URL on refresh
     componentDidMount() {
@@ -140,17 +139,17 @@ class App extends Component {
         });
     }
 
-    handleSidebarRowClick(index) {
-        localStorage.setItem("activeDataRowIndex", index);
-
-        this.setState({
-            activeDataRowIndex: index
-        });
-
-        if (this.props.location.hash !== "") {
-            this.props.history.push(this.props.location.pathname);
-        }
-    }
+    // handleSidebarRowClick(index) {
+    //     localStorage.setItem("activeDataRowIndex", index);
+    //
+    //     this.setState({
+    //         activeDataRowIndex: index
+    //     });
+    //
+    //     if (this.props.location.hash !== "") {
+    //         this.props.history.push(this.props.location.pathname);
+    //     }
+    // }
 
     dashboardRoutes(admin) {
         return dashboardRoutes.definitions();
@@ -165,10 +164,7 @@ class App extends Component {
             {dashboardRoutes.paths.includes(window.location.pathname) ?
             <DashboardMenus
               buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
-              dataParsers={this.props.datasets.dataParsers}
-              activeDataRowIndex={this.state.activeDataRowIndex}
-              handleButtonSelectorClick={this.handleButtonSelectorClick.bind(this)}
-              handleSidebarRowClick={this.handleSidebarRowClick.bind(this)} /> : ""}
+              handleButtonSelectorClick={this.handleButtonSelectorClick.bind(this)} /> : ""}
 
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />

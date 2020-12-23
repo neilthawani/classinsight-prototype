@@ -5,11 +5,12 @@ import DashboardMenus from '../../DashboardMenus';
 import { listDatasets } from "../../actions/datasetActions";
 import { Switch } from "react-router-dom";// import App from '../../App';
 import PrivateRoute from "../private-route/PrivateRoute";
+import dashboardRoutes from '../../fixtures/dashboardRoutes';
 
-import Dashboard from "../dashboard/Dashboard";
-import TalkRatio from '../visualizations/talk-ratio/TalkRatio';
-import Transcript from '../visualizations/transcript/Transcript';
-import TurnTaking from '../visualizations/turn-taking/TurnTaking';
+// import Dashboard from "../dashboard/Dashboard";
+// import TalkRatio from '../visualizations/talk-ratio/TalkRatio';
+// import Transcript from '../visualizations/transcript/Transcript';
+// import TurnTaking from '../visualizations/turn-taking/TurnTaking';
 // import { showUserDetails } from "../../actions/adminActions";
 // import { listDatasets, deleteDatasetById } from "../../actions/datasetActions";
 // import UserTypes from '../../fixtures/user_types';
@@ -29,7 +30,6 @@ class DatasetPreview extends Component {
 
         this.state = {
             buttonSelectorSelectedOption: "dashboard",//localStorage.get("buttonSelectorSelectedOption")
-            activeDataRowIndex: 0,
             userId: userId,
             areUserDatasetsLoaded: false
 
@@ -49,48 +49,50 @@ class DatasetPreview extends Component {
     }
 
     handleButtonSelectorClick(value) {
+        localStorage.setItem("buttonSelectorSelectedOption", value);
+
         this.setState({
             buttonSelectorSelectedOption: value
         });
     }
 
-    handleSidebarRowClick(index) {
-        this.setState({
-            activeDataRowIndex: index
-        });
+    // handleSidebarRowClick(index) {
+    //     this.setState({
+    //         activeDataRowIndex: index
+    //     });
         //
         // if (this.props.location.hash !== "") {
         //     this.props.history.push(this.props.location.pathname);
         // }
-    }
+    // }
 
-    activeParser = function() {
-        // console.log("this.props.datasets", this.props.datasets);
-        return this.props.datasets.dataParsers[this.state.activeDataRowIndex];
-    }
+    // activeParser = function() {
+    //     // console.log("this.props.datasets", this.props.datasets);
+    //     return this.props.datasets.dataParsers[this.state.activeDataRowIndex];
+    // }
 
-    adminDashboardRoutes() {
-        // var isAdmin = Object.keys(admin).length > 0,
-        var baseAdminPath = `/admin/user/${this.state.userId}/preview`;
-        //
-        // return this.dashboardRoutePaths.map((path) => {
-        //     path: `${baseAdminPath}${path}`,
-        //
-        // });
-        return [{
-            path: `${baseAdminPath}/dashboard`,
-            component: (props) => ( <Dashboard {...props} activeParser={this.activeParser()} admin={{userId: this.state.userId}} /> )
-        }, {
-            path: `${baseAdminPath}/talk-ratio`,
-            component: (props) => ( <TalkRatio {...props} activeParser={this.activeParser()} admin={{userId: this.state.userId}} /> )
-        }, {
-            path: `${baseAdminPath}/turn-taking`,
-            component: (props) => ( <TurnTaking {...props} activeParser={this.activeParser()} admin={{userId: this.state.userId}} /> )
-        }, {
-            path: `${baseAdminPath}/transcript`,
-            component: (props) => ( <Transcript {...props} activeParser={this.activeParser()} admin={{userId: this.state.userId}} /> )
-        }]
-    }
+    // adminDashboardRoutes() {
+    //     // var isAdmin = Object.keys(admin).length > 0,
+    //     var baseAdminPath = `/admin/user/${this.state.userId}/preview`;
+    //     //
+    //     // return this.dashboardRoutePaths.map((path) => {
+    //     //     path: `${baseAdminPath}${path}`,
+    //     //
+    //     // });
+    //     return [{
+    //         path: `${baseAdminPath}/dashboard`,
+    //         component: (props) => ( <Dashboard {...props} activeParser={this.activeParser()} admin={{userId: this.state.userId}} /> )
+    //     }, {
+    //         path: `${baseAdminPath}/talk-ratio`,
+    //         component: (props) => ( <TalkRatio {...props} activeParser={this.activeParser()} admin={{userId: this.state.userId}} /> )
+    //     }, {
+    //         path: `${baseAdminPath}/turn-taking`,
+    //         component: (props) => ( <TurnTaking {...props} activeParser={this.activeParser()} admin={{userId: this.state.userId}} /> )
+    //     }, {
+    //         path: `${baseAdminPath}/transcript`,
+    //         component: (props) => ( <Transcript {...props} activeParser={this.activeParser()} admin={{userId: this.state.userId}} /> )
+    //     }]
+    // }
 
     render() {
         // var user = this.state.user || {};
@@ -101,10 +103,9 @@ class DatasetPreview extends Component {
         return (
           <div className="preview-container">
             <DashboardMenus
-              admin={{ userId: this.state.userId, paths: this.adminDashboardRoutes() }}
+              admin={{ userId: this.state.userId }}
               buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
               dataParsers={this.props.datasets.dataParsers}
-              activeDataRowIndex={this.state.activeDataRowIndex}
               handleButtonSelectorClick={this.handleButtonSelectorClick.bind(this)}
               handleSidebarRowClick={this.handleSidebarRowClick.bind(this)} /> : ""}
 
@@ -115,8 +116,8 @@ class DatasetPreview extends Component {
                   Use a <Switch> any time you have multiple routes,
                   but you want only one of them to render at a time. */}
                 <Switch>
-                  {this.adminDashboardRoutes().map((routeObj, index) => {
-                      console.log("routeObj", routeObj);
+                  {dashboardRoutes({ userId: this.state.userId }).definitions.map((routeObj, index) => {
+                      // console.log("routeObj", routeObj);
                       return (
                           <PrivateRoute
                             exact

@@ -7,17 +7,32 @@ import { mdiDatabase } from '@mdi/js';
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { showDataset } from "../../actions/datasetActions";
 
 class Sidebar extends Component {
-    // constructor(props) {
-    //     super(props)
-        // console.log("sidebar props", props);
-    // }
+    constructor(props) {
+        super(props)
+        console.log("sidebar props", props);
+        this.state = {
+            activeDataRowIndex: parseInt(localStorage.getItem("activeDataRowIndex"), 10) || 0
+        };
+    }
 
     handleSidebarRowClick(index) {
         // NEXT TODO:
         // this.props.setActiveSidebarIndex(index);
-        this.props.handleSidebarRowClick(index);
+        // this.props.handleSidebarRowClick(index);
+        this.setState({
+            activeSidebarIndex: index
+        });
+
+        localStorage.setItem("activeSidebarIndex", index);
+
+        this.props.showDataset(index);
+
+        if (this.props.location.hash !== "") {
+            this.props.history.push(this.props.location.pathname);
+        }
     }
 
     // componentDidMount() {
@@ -50,7 +65,7 @@ class Sidebar extends Component {
 
                   return (
                     <div key={index}
-                      className={this.props.activeDataRowIndex === index ? "sidebar-data-row active" : "sidebar-data-row"}
+                      className={this.state.activeDataRowIndex === index ? "sidebar-data-row active" : "sidebar-data-row"}
                       onClick={this.handleSidebarRowClick.bind(this, index)}>
                       <div className="sidebar-data-row-title">
                         {topic}
@@ -95,7 +110,7 @@ Sidebar.propTypes = {
     // showUserDetails: PropTypes.func.isRequired,
     datasets: PropTypes.object.isRequired,
     // admin: PropTypes.object.isRequired,
-    // deleteDatasetById: PropTypes.func.isRequired
+    showDataset: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
@@ -108,5 +123,5 @@ function mapStateToProps(state) {
 
 export default withRouter(connect(
   mapStateToProps,
-  { }
+  { showDataset }
 )(Sidebar));

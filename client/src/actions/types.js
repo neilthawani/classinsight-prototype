@@ -19,3 +19,4 @@ export const UPLOAD_DATASET = "UPLOAD_DATASET";
 export const DELETE_DATASET = "DELETE_DATASET";
 export const EDIT_DATASET = "EDIT_DATASET";
 export const SHOW_DATASET = "SHOW_DATASET";
+// export const SET_ACTIVE_INDEX = "SET_ACTIVE_INDEX";
