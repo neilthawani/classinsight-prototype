@@ -30,7 +30,7 @@ var definitions = function(activeParser, admin) {
         component: (props) => ( <Transcript {...props} activeParser={activeParser} admin={admin} /> ),
         label: "Transcript",
         icon: <Icon path={mdiCommentTextMultipleOutline} className="button-selector-item-icon" size={1} />
-    }]
+    }];
 };
 
 var paths = definitions().map((routeObj => routeObj.path));

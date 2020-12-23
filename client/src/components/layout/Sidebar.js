@@ -15,6 +15,8 @@ class Sidebar extends Component {
     // }
 
     handleSidebarRowClick(index) {
+        // NEXT TODO:
+        // this.props.setActiveSidebarIndex(index);
         this.props.handleSidebarRowClick(index);
     }
 

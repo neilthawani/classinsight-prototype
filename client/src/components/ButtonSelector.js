@@ -28,21 +28,21 @@ class ButtonSelector extends Component {
         return (
           <div className="button-selector">
             <div className="button-selector-options">
-              {dashboardRoutes.paths.map((path, index, array) => {
-                  var pathName = path.slice(1);
+              {dashboardRoutes.definitions().map((definitionObj, index, array) => {
+                  var pathName = definitionObj.path.slice(1);
                   // console.log("dashboardRoutes.definitions", dashboardRoutes.definitions);
                   return (
                     <Link
                       key={index}
                       className={this.props.buttonSelectorSelectedOption === pathName ? "button-selector-item active" : "button-selector-item"}
                       data-attr-name={pathName}
-                      to={dashboardRoutes.definitions()[index].path}
+                      to={definitionObj.path}
                       onClick={this.handleClick.bind(this, pathName)}>
 
-                      {dashboardRoutes.definitions()[index].icon}
+                      {definitionObj.icon}
 
                       <span className="button-selector-item-text">
-                        {dashboardRoutes.definitions()[index].label}
+                        {definitionObj.label}
                       </span>
                     </Link>
                   );
