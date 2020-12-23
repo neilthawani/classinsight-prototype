@@ -30,6 +30,9 @@ class AdminPanel extends Component {
 
     static getDerivedStateFromProps(nextProps) {
         if (nextProps.admin.users) {
+            // debugger;
+            console.log("nextProps.admin.users", nextProps.admin.users);
+
             return ({
                 users: nextProps.admin.users,
                 isDeletingUser: false

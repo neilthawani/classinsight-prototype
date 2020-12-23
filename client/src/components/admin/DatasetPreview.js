@@ -39,23 +39,23 @@ class DatasetPreview extends Component {
         };
     }
 
-    componentDidMount() {
-        // console.log("componentDidMount");
-        if (!this.state.areUserDatasetsLoaded) {
-            // console.log("are not loaded", this.state.userId);
-            this.props.listDatasets(this.state.userId).then(res => {
-                console.log("res", res);
-                // this.setState({
-                //     areUserDatasetsLoaded: true
-                // });
-
-                // this.props.history.push(`${this.state.buttonSelectorSelectedOption}`);
-            })
-            // .catch(error => {
-            //     console.error(error);
-            // });
-        }
-    }
+    // componentDidMount() {
+    //     // console.log("componentDidMount");
+    //     if (!this.state.areUserDatasetsLoaded) {
+    //         // console.log("are not loaded", this.state.userId);
+    //         this.props.listDatasets(this.state.userId).then(res => {
+    //             console.log("res", res);
+    //             // this.setState({
+    //             //     areUserDatasetsLoaded: true
+    //             // });
+    //
+    //             // this.props.history.push(`${this.state.buttonSelectorSelectedOption}`);
+    //         })
+    //         // .catch(error => {
+    //         //     console.error(error);
+    //         // });
+    //     }
+    // }
 
     handleButtonSelectorClick(value) {
         localStorage.setItem("buttonSelectorSelectedOption", value);
