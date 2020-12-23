@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import DashboardMenus from '../../DashboardMenus';
 import { listDatasets } from "../../actions/datasetActions";
 import { Switch } from "react-router-dom";// import App from '../../App';
@@ -27,6 +28,7 @@ class DatasetPreview extends Component {
         // console.log("props.location", props.location);
         // console.log("props", props);
         var userId = props.match.params.userId;
+        console.log("userId", userId);
 
         this.state = {
             buttonSelectorSelectedOption: "dashboard",//localStorage.get("buttonSelectorSelectedOption")
@@ -38,13 +40,20 @@ class DatasetPreview extends Component {
     }
 
     componentDidMount() {
-        console.log("componentDidMount");
+        // console.log("componentDidMount");
         if (!this.state.areUserDatasetsLoaded) {
-            this.props.listDatasets(this.userId).then(res => {
-                this.setState({
-                    areUserDatasetsLoaded: true
-                });
-            });
+            // console.log("are not loaded", this.state.userId);
+            this.props.listDatasets(this.state.userId).then(res => {
+                console.log("res", res);
+                // this.setState({
+                //     areUserDatasetsLoaded: true
+                // });
+
+                // this.props.history.push(`${this.state.buttonSelectorSelectedOption}`);
+            })
+            // .catch(error => {
+            //     console.error(error);
+            // });
         }
     }
 
@@ -71,29 +80,6 @@ class DatasetPreview extends Component {
     //     return this.props.datasets.dataParsers[this.state.activeDataRowIndex];
     // }
 
-    // adminDashboardRoutes() {
-    //     // var isAdmin = Object.keys(admin).length > 0,
-    //     var baseAdminPath = `/admin/user/${this.state.userId}/preview`;
-    //     //
-    //     // return this.dashboardRoutePaths.map((path) => {
-    //     //     path: `${baseAdminPath}${path}`,
-    //     //
-    //     // });
-    //     return [{
-    //         path: `${baseAdminPath}/dashboard`,
-    //         component: (props) => ( <Dashboard {...props} activeParser={this.activeParser()} admin={{userId: this.state.userId}} /> )
-    //     }, {
-    //         path: `${baseAdminPath}/talk-ratio`,
-    //         component: (props) => ( <TalkRatio {...props} activeParser={this.activeParser()} admin={{userId: this.state.userId}} /> )
-    //     }, {
-    //         path: `${baseAdminPath}/turn-taking`,
-    //         component: (props) => ( <TurnTaking {...props} activeParser={this.activeParser()} admin={{userId: this.state.userId}} /> )
-    //     }, {
-    //         path: `${baseAdminPath}/transcript`,
-    //         component: (props) => ( <Transcript {...props} activeParser={this.activeParser()} admin={{userId: this.state.userId}} /> )
-    //     }]
-    // }
-
     render() {
         // var user = this.state.user || {};
         // var datasets = this.props.datasets.datasets || [];
@@ -106,8 +92,7 @@ class DatasetPreview extends Component {
               admin={{ userId: this.state.userId }}
               buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
               dataParsers={this.props.datasets.dataParsers}
-              handleButtonSelectorClick={this.handleButtonSelectorClick.bind(this)}
-              handleSidebarRowClick={this.handleSidebarRowClick.bind(this)} /> : ""}
+              handleButtonSelectorClick={this.handleButtonSelectorClick.bind(this)} /> : ""}
 
             {this.state.areUserDatasetsLoaded ?
               <div className="dashboard-content">
@@ -129,10 +114,18 @@ class DatasetPreview extends Component {
                   })}
                 </Switch>
               </div>
-            : ""}
+            : "not loaded"}
           </div>
         )
     }
+}
+
+DatasetPreview.propTypes = {
+    // auth: PropTypes.object.isRequired,
+    // showUserDetails: PropTypes.func.isRequired,
+    datasets: PropTypes.object.isRequired,
+    admin: PropTypes.object.isRequired,
+    listDatasets: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {

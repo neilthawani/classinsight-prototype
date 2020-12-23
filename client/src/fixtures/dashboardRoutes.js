@@ -8,7 +8,7 @@ import { mdiViewDashboardVariantOutline, mdiBarcode, mdiChartGantt, mdiCommentTe
 
 var definitions = function(admin) {
     var isAdmin = admin ? Object.keys(admin).length > 0 : false,
-        baseAdminPath = isAdmin ? `/admin/user/${admin.userId}/preview` : "";
+        baseAdminPath = isAdmin ? `/admin/user/:userId/preview` : "";
 
     return [{
         path: `${baseAdminPath}/dashboard`,

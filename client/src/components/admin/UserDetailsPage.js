@@ -105,9 +105,9 @@ class UserDetailsPage extends Component {
         });
     }
 
-    previewTeacherView() {
-        console.log("this.props.dataset.jsonData");
-    }
+    // previewTeacherView() {
+    //     console.log("this.props.dataset.jsonData");
+    // }
 
     render() {
         var user = this.state.user || {};
@@ -117,9 +117,9 @@ class UserDetailsPage extends Component {
           <div className="admin-user">
             <div className="admin-header">
               <Link to={{
-                pathname: `/admin/user/${this.state.userId}/preview`
+                pathname: `/admin/user/${this.state.userId}/preview/dashboard`
               }}>
-                <span className="btn" onClick={this.previewTeacherView.bind(this)}>
+                <span className="btn">
                   Preview Teacher View
                 </span>
               </Link>

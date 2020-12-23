@@ -84,9 +84,11 @@ export const listDatasets = (userId) => {
                 }
             })
             .then(response => {
+                // console.log("response", response);
                 return response && response.data;
             })
             .then(ret => {
+                // console.log("ret", ret);
                 dispatch({
                     type: LIST_DATASETS,
                     payload: ret // datasets

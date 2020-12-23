@@ -187,7 +187,7 @@ class App extends Component {
             />
 
             <PrivateRoute
-              exact
+              
               path='/admin/user/:userId/preview'
               component={(props) => (
                 <DatasetPreview {...props} />

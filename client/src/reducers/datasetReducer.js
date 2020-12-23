@@ -11,6 +11,7 @@ import Parser from '../data/parser';
 export default function datasetReducer(state, action) {
     switch (action.type) {
         case LIST_DATASETS:
+            // console.log("action.payload", action.payload);
             var dataParsers = action.payload.map((dataset, index) => {
                 var parsedData = new Parser(dataset);
                 return Object.assign(parsedData, { isActive: (index === 0) });

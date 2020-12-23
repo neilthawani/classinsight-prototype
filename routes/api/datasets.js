@@ -70,6 +70,7 @@ router.post('/edit', (req, res) => {
 // @access Public
 router.get('/list', function(req, res) {
     Dataset.find({}, function(error, datasets) {
+        // console.log("datasets", datasets);
         var parsedDatasets = [];
 
         datasets.forEach((dataset) => {
