@@ -4,15 +4,15 @@ import Icon from '@mdi/react';
 import { mdiDatabase } from '@mdi/js';
 // import formatDate from '../../utils/formatDate';
 
-import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { showDataset } from "../../actions/datasetActions";
 
 class Sidebar extends Component {
     constructor(props) {
         super(props)
-        console.log("sidebar props", props);
+        // console.log("sidebar props", props);
         this.state = {
             activeDataRowIndex: parseInt(localStorage.getItem("activeDataRowIndex"), 10) || 0
         };

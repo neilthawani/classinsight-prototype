@@ -49,14 +49,14 @@ class UserDetailsPage extends Component {
     }
 
     toggleUploadData() {
-        console.log("toggleUploadData");
+        // console.log("toggleUploadData");
         this.setState(prevState => ({
             isUploadingData: !prevState.isUploadingData
         }));
     }
 
     toggleResetPassword() {
-        console.log("toggleResetPassword");
+        // console.log("toggleResetPassword");
         this.setState(prevState => ({
             isResettingPassword: !this.state.isResettingPassword
         }));
@@ -82,7 +82,7 @@ class UserDetailsPage extends Component {
     }
 
     dismountForm(options) {
-        console.log("dismountForm");
+        // console.log("dismountForm");
         var that = this;
 
         if (options && options.message) {

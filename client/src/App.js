@@ -104,9 +104,9 @@ class App extends Component {
 
         var buttonSelectorSelectedOption = localStorage.getItem("buttonSelectorSelectedOption");
         var transcriptLocationHash = localStorage.getItem("transcriptLocationHash");
-        console.log("dashboardRoutePaths", dashboardRoutes.paths);
+        // console.log("dashboardRoutePaths", dashboardRoutes.paths);
         if (dashboardRoutes.paths.includes(this.props.location.pathname)) {
-            console.log("push");
+            // console.log("push");
             this.props.history.push(`${buttonSelectorSelectedOption}${transcriptLocationHash}`);
         }
 
@@ -114,7 +114,7 @@ class App extends Component {
             var buttonSelectorSelectedOption = location.pathname;
             var transcriptLocationHash = window.location.hash || "";
 
-            console.log("dashboardRoutePaths", dashboardRoutes.paths);
+            // console.log("dashboardRoutePaths", dashboardRoutes.paths);
             if (dashboardRoutes.paths.includes(buttonSelectorSelectedOption)) {
                 this.setState({
                     buttonSelectorSelectedOption: buttonSelectorSelectedOption.slice(1),
@@ -156,7 +156,7 @@ class App extends Component {
     }
 
     render() {
-        console.log("dashboardRoutePaths render", dashboardRoutes.paths);
+        // console.log("dashboardRoutePaths render", dashboardRoutes.paths);
         return (
           <div className="app">
             <Navbar />

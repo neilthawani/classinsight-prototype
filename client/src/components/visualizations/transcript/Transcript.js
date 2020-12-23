@@ -4,13 +4,17 @@ import LegendButtonGroup from '../../legend/LegendButtonGroup';
 import TurnTakingSmall from '../turn-taking/TurnTakingSmall';
 import Script from '../transcript/Script';
 
+import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+
 import removeArrayValue from '../../../utils/removeArrayValue';
 
-export default class Transcript extends Component {
+class Transcript extends Component {
     constructor(props) {
         super(props);
 
-        var parser = props.activeParser,
+        var parser = props.datasets.activeParser,
             chartWidth = 2 * parser.maxNTokens(), // double width - for both left/right side of TurnTakingSmall chart
             talkRatios = parser.talkRatios(),
             transcript = parser.transcript();
@@ -113,3 +117,23 @@ export default class Transcript extends Component {
       );
     }
 }
+
+Transcript.propTypes = {
+    // auth: PropTypes.object.isRequired,
+    // showUserDetails: PropTypes.func.isRequired,
+    datasets: PropTypes.object.isRequired,
+    // admin: PropTypes.object.isRequired,
+    // showDataset: PropTypes.func.isRequired
+}
+
+function mapStateToProps(state) {
+    return {
+        // auth: state.auth,
+        datasets: state.datasets,
+    }
+};
+
+export default withRouter(connect(
+  mapStateToProps,
+  { }
+)(Transcript));

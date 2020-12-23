@@ -5,7 +5,9 @@ import Script from '../transcript/Script';
 import LegendItemGroup from '../../legend/LegendItemGroup';
 
 import formatPercentage from '../../../utils/formatPercentage';
-
+import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 /*
 For this file, the data we're after is in data.segments[0].speaking_turns.
 Each object in this array is a record of someone speaking. It has this structure:
@@ -30,11 +32,11 @@ Each object in the array has this structure:
 }
 */
 
-export default class TalkRatio extends Component {
+class TalkRatio extends Component {
     constructor(props) {
         super(props);
 
-        var parser = props.activeParser,
+        var parser = props.datasets.activeParser,
             talkRatios = parser.talkRatios(),
             teacherTalkRatios = parser.teacherTalkRatios(),
             studentTalkRatios = parser.studentTalkRatios(),
@@ -135,3 +137,28 @@ export default class TalkRatio extends Component {
       )
     }
 }
+
+
+
+TalkRatio.propTypes = {
+    // auth: PropTypes.object.isRequired,
+    // showUserDetails: PropTypes.func.isRequired,
+    datasets: PropTypes.object.isRequired,
+    // admin: PropTypes.object.isRequired,
+    // showDataset: PropTypes.func.isRequired
+}
+
+function mapStateToProps(state) {
+    return {
+        // auth: state.auth,
+        datasets: state.datasets,
+    }
+};
+
+export default withRouter(connect(
+  mapStateToProps,
+  { }
+)(TalkRatio));
+
+
+// export default TalkRatio;

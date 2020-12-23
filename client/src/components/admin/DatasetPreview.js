@@ -22,7 +22,7 @@ import dashboardRoutes from '../../fixtures/dashboardRoutes';
 
 class DatasetPreview extends Component {
     constructor(props) {
-        console.log("constructor");
+        // console.log("constructor");
         super(props);
         // console.log("props.location", props.location);
         // console.log("props", props);
