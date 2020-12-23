@@ -23,10 +23,10 @@ class Sidebar extends Component {
         // this.props.setActiveSidebarIndex(index);
         // this.props.handleSidebarRowClick(index);
         this.setState({
-            activeSidebarIndex: index
+            activeDataRowIndex: index
         });
 
-        localStorage.setItem("activeSidebarIndex", index);
+        localStorage.setItem("activeDataRowIndex", index);
 
         this.props.showDataset(index);
 
