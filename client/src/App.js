@@ -23,6 +23,7 @@ import Transcript from './components/visualizations/transcript/Transcript';
 import TurnTaking from './components/visualizations/turn-taking/TurnTaking';
 
 import { listDatasets } from "./actions/datasetActions";
+import dashboardRoutes from './fixtures/dashboardRoutes';
 // import Parser from './data/parser';
 // import data_tom from './data/data_tom';
 // import data_kim from './data/data_kim';
@@ -104,8 +105,9 @@ class App extends Component {
 
         var buttonSelectorSelectedOption = localStorage.getItem("buttonSelectorSelectedOption");
         var transcriptLocationHash = localStorage.getItem("transcriptLocationHash");
-
-        if (this.dashboardRoutePaths.includes(this.props.location.pathname)) {
+        console.log("dashboardRoutePaths", dashboardRoutes.paths);
+        if (dashboardRoutes.paths.includes(this.props.location.pathname)) {
+            console.log("push");
             this.props.history.push(`${buttonSelectorSelectedOption}${transcriptLocationHash}`);
         }
 
@@ -113,7 +115,8 @@ class App extends Component {
             var buttonSelectorSelectedOption = location.pathname;
             var transcriptLocationHash = window.location.hash || "";
 
-            if (this.dashboardRoutePaths.includes(buttonSelectorSelectedOption)) {
+            console.log("dashboardRoutePaths", dashboardRoutes.paths);
+            if (dashboardRoutes.paths.includes(buttonSelectorSelectedOption)) {
                 this.setState({
                     buttonSelectorSelectedOption: buttonSelectorSelectedOption.slice(1),
                     transcriptLocationHash: transcriptLocationHash
@@ -150,36 +153,16 @@ class App extends Component {
     }
 
     dashboardRoutes(admin) {
-        // var isAdmin = Object.keys(admin).length > 0,
-        //     baseAdminPath = isAdmin ? `/admin/user/${admin.userId}/preview` : "";
-        //
-        // return this.dashboardRoutePaths.map((path) => {
-        //     path: `${baseAdminPath}${path}`,
-        //
-        // });
-        return [{
-            path: "/dashboard",
-            component: (props) => ( <Dashboard {...props} activeParser={this.activeParser()} /> )
-        }, {
-            path: "/talk-ratio",
-            component: (props) => ( <TalkRatio {...props} activeParser={this.activeParser()} /> )
-        }, {
-            path: "/turn-taking",
-            component: (props) => ( <TurnTaking {...props} activeParser={this.activeParser()} /> )
-        }, {
-            path: "/transcript",
-            component: (props) => ( <Transcript {...props} activeParser={this.activeParser()} /> )
-        }]
+        return dashboardRoutes.definitions();
     }
 
-    dashboardRoutePaths = ["/dashboard", "/talk-ratio", "/turn-taking", "/transcript"];
-
     render() {
+        console.log("dashboardRoutePaths render", dashboardRoutes.paths);
         return (
           <div className="app">
             <Navbar />
 
-            {this.dashboardRoutePaths.includes(window.location.pathname) ?
+            {dashboardRoutes.paths.includes(window.location.pathname) ?
             <DashboardMenus
               buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
               dataParsers={this.props.datasets.dataParsers}

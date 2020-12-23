@@ -21,27 +21,31 @@ import TurnTaking from '../visualizations/turn-taking/TurnTaking';
 
 class DatasetPreview extends Component {
     constructor(props) {
+        console.log("constructor");
         super(props);
         // console.log("props.location", props.location);
-        console.log("props", props);
+        // console.log("props", props);
         var userId = props.match.params.userId;
 
         this.state = {
             buttonSelectorSelectedOption: "dashboard",//localStorage.get("buttonSelectorSelectedOption")
             activeDataRowIndex: 0,
             userId: userId,
-            areDatasetsLoaded: false
+            areUserDatasetsLoaded: false
 
             // dataset: props.location.state.dataset
         };
     }
 
     componentDidMount() {
-        this.props.listDatasets(this.userId).then(res => {
-            this.setState({
-                areDatasetsLoaded: true
+        console.log("componentDidMount");
+        if (!this.state.areUserDatasetsLoaded) {
+            this.props.listDatasets(this.userId).then(res => {
+                this.setState({
+                    areUserDatasetsLoaded: true
+                });
             });
-        });
+        }
     }
 
     handleButtonSelectorClick(value) {
@@ -104,7 +108,7 @@ class DatasetPreview extends Component {
               handleButtonSelectorClick={this.handleButtonSelectorClick.bind(this)}
               handleSidebarRowClick={this.handleSidebarRowClick.bind(this)} /> : ""}
 
-            {this.state.areDatasetsLoaded ?
+            {this.state.areUserDatasetsLoaded ?
               <div className="dashboard-content">
                 {/* A <Switch> looks through all its children <Route> elements and
                   renders the first one whose path matches the current URL.
@@ -112,6 +116,7 @@ class DatasetPreview extends Component {
                   but you want only one of them to render at a time. */}
                 <Switch>
                   {this.adminDashboardRoutes().map((routeObj, index) => {
+                      console.log("routeObj", routeObj);
                       return (
                           <PrivateRoute
                             exact
