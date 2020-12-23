@@ -106,7 +106,7 @@ class App extends Component {
         var transcriptLocationHash = localStorage.getItem("transcriptLocationHash");
         // console.log("dashboardRoutePaths", dashboardRoutes.paths);
         if (dashboardRoutes.paths.includes(this.props.location.pathname)) {
-            // console.log("push");
+            console.log("push");
             this.props.history.push(`${buttonSelectorSelectedOption}${transcriptLocationHash}`);
         }
 
@@ -187,7 +187,6 @@ class App extends Component {
             />
 
             <PrivateRoute
-              
               path='/admin/user/:userId/preview'
               component={(props) => (
                 <DatasetPreview {...props} />

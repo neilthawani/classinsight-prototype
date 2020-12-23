@@ -28,7 +28,7 @@ class DatasetPreview extends Component {
         // console.log("props.location", props.location);
         // console.log("props", props);
         var userId = props.match.params.userId;
-        console.log("userId", userId);
+        // console.log("userId", userId);
 
         this.state = {
             buttonSelectorSelectedOption: "dashboard",//localStorage.get("buttonSelectorSelectedOption")
@@ -39,23 +39,24 @@ class DatasetPreview extends Component {
         };
     }
 
-    // componentDidMount() {
-    //     // console.log("componentDidMount");
-    //     if (!this.state.areUserDatasetsLoaded) {
-    //         // console.log("are not loaded", this.state.userId);
-    //         this.props.listDatasets(this.state.userId).then(res => {
-    //             console.log("res", res);
-    //             // this.setState({
-    //             //     areUserDatasetsLoaded: true
-    //             // });
-    //
-    //             // this.props.history.push(`${this.state.buttonSelectorSelectedOption}`);
-    //         })
-    //         // .catch(error => {
-    //         //     console.error(error);
-    //         // });
-    //     }
-    // }
+
+    componentDidMount() {
+        console.log("componentDidMount");
+        if (!this.state.areUserDatasetsLoaded) {
+        //     // console.log("are not loaded", this.state.userId);
+        //     this.props.listDatasets(this.state.userId).then(res => {
+        //         console.log("res", res);
+                this.setState({
+                    areUserDatasetsLoaded: true
+                });
+
+                // this.props.history.push(`${this.state.buttonSelectorSelectedOption}`);
+            // })
+            // .catch(error => {
+            //     console.error(error);
+            // });
+        }
+    }
 
     handleButtonSelectorClick(value) {
         localStorage.setItem("buttonSelectorSelectedOption", value);
@@ -96,25 +97,26 @@ class DatasetPreview extends Component {
 
             {this.state.areUserDatasetsLoaded ?
               <div className="dashboard-content">
-                {/* A <Switch> looks through all its children <Route> elements and
-                  renders the first one whose path matches the current URL.
-                  Use a <Switch> any time you have multiple routes,
-                  but you want only one of them to render at a time. */}
-                <Switch>
-                  {dashboardRoutes({ userId: this.state.userId }).definitions.map((routeObj, index) => {
-                      // console.log("routeObj", routeObj);
-                      return (
-                          <PrivateRoute
-                            exact
-                            key={index}
-                            path={routeObj.path}
-                            component={routeObj.component}
-                          />
-                      )
-                  })}
-                </Switch>
               </div>
             : "not loaded"}
+
+            {/* A <Switch> looks through all its children <Route> elements and
+              renders the first one whose path matches the current URL.
+              Use a <Switch> any time you have multiple routes,
+              but you want only one of them to render at a time. */}
+            <Switch>
+              {/*dashboardRoutes({ userId: this.state.userId }).definitions.map((routeObj, index) => {
+                  // console.log("routeObj", routeObj);
+                  return (
+                      <PrivateRoute
+                        exact
+                        key={index}
+                        path={routeObj.path}
+                        component={routeObj.component}
+                      />
+                  )
+              })*/}
+            </Switch>
           </div>
         )
     }

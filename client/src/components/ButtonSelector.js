@@ -28,7 +28,7 @@ class ButtonSelector extends Component {
         return (
           <div className="button-selector">
             <div className="button-selector-options">
-              {dashboardRoutes.definitions().map((definitionObj, index, array) => {
+              {dashboardRoutes.definitions(this.props.admin).map((definitionObj, index, array) => {
                   var pathName = definitionObj.path.slice(1);
                   // console.log("dashboardRoutes.definitions", dashboardRoutes.definitions);
                   return (

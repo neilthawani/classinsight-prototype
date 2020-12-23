@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { fetchUsers, deleteUserById, clearIsValidUser } from '../../actions/adminActions';
+import { listDatasets } from '../../actions/datasetActions';
 import AdminPanelTableRow from './AdminPanelTableRow';
 import CreateUserForm from './CreateUserForm';
 
@@ -31,7 +32,14 @@ class AdminPanel extends Component {
     static getDerivedStateFromProps(nextProps) {
         if (nextProps.admin.users) {
             // debugger;
-            console.log("nextProps.admin.users", nextProps.admin.users);
+            // console.log("nextProps.admin.users", nextProps.admin.users);
+            // var users = nextProps.admin.users.reduce((prev, user, index, array) => {
+            //     nextProps.listDatasets(user._id).then(res => {
+            //         console.log("res", res);
+            //     });
+            //
+            //     prev.push(user);
+            // }, []);
 
             return ({
                 users: nextProps.admin.users,
@@ -117,6 +125,7 @@ class AdminPanel extends Component {
 
 AdminPanel.propTypes = {
     auth: PropTypes.object.isRequired,
+    datasets: PropTypes.object.isRequired,
     fetchUsers: PropTypes.func.isRequired,
     clearIsValidUser: PropTypes.func.isRequired,
     deleteUserById: PropTypes.func.isRequired,
@@ -126,7 +135,8 @@ AdminPanel.propTypes = {
 function mapStateToProps(state) {
     return {
         auth: state.auth,
-        admin: state.admin
+        admin: state.admin,
+        datasets: state.datasets
     }
 };
 
