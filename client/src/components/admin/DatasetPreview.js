@@ -104,7 +104,7 @@ class DatasetPreview extends Component {
               renders the first one whose path matches the current URL.
               Use a <Switch> any time you have multiple routes,
               but you want only one of them to render at a time. */}
-            <Switch>
+            {/*<Switch>*/}
               {/*dashboardRoutes({ userId: this.state.userId }).definitions.map((routeObj, index) => {
                   // console.log("routeObj", routeObj);
                   return (
@@ -116,7 +116,7 @@ class DatasetPreview extends Component {
                       />
                   )
               })*/}
-            </Switch>
+            {/*</Switch>*/}
           </div>
         )
     }

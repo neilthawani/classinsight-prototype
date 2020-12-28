@@ -6,6 +6,25 @@ import { mdiAccount } from '@mdi/js';
 import dashboardRoutes from '../fixtures/dashboardRoutes';
 
 class ButtonSelector extends Component {
+    constructor(props) {
+        super(props);
+        // console.log("props", props);
+        // debugger;
+
+        var userId = props.admin ? props.admin.userId : null;
+        // console.log("userId", userId);
+        if (userId) {
+            this.state = {
+                admin: {
+                    userId: userId
+                }
+            };
+        }
+        // this.setState({
+        //
+        // });
+    }
+
     shouldComponentUpdate(nextProps, nextState) {
         if (nextProps.location.pathname.slice(1) !== nextProps.buttonSelectorSelectedOption) {
             this.handleClick(nextProps.location.pathname.slice(1));
@@ -20,7 +39,15 @@ class ButtonSelector extends Component {
 
     // dashboardRoutePaths = ["/dashboard", "/talk-ratio", "/turn-taking", "/transcript"];
 
+    renderLink() {
+        if (this.state.adminUserId) {
+
+        }
+    }
+
     render() {
+        // debugger;
+        var isAdmin = this.state && this.state.admin ? Object.keys(this.state.admin).length > 0 : false;
         // console.log("this.props.admin", this.props.admin);
         // var isAdmin = this.props.admin ? Object.keys(this.props.admin).length > 0 : false;
             // linkToPaths = isAdmin ? this.props.admin.paths.map(pathObj => pathObj.path) : this.dashboardRoutePaths;
@@ -28,7 +55,7 @@ class ButtonSelector extends Component {
         return (
           <div className="button-selector">
             <div className="button-selector-options">
-              {dashboardRoutes.definitions(this.props.admin).map((definitionObj, index, array) => {
+              {dashboardRoutes.definitions(isAdmin ? this.state.admin : null).map((definitionObj, index, array) => {
                   var pathName = definitionObj.path.slice(1);
                   // console.log("dashboardRoutes.definitions", dashboardRoutes.definitions);
                   return (
