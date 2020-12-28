@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import BaseVisualization from '../BaseVisualization';
 import Bar from './Bar';
 import LegendItemGroup from '../../legend/LegendItemGroup';
 

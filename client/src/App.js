@@ -40,6 +40,10 @@ class App extends Component {
         //     return parser;
         // });
 
+        var adminUserId = props.match.params.userId;
+        var userId = this.props.auth.user.id;
+        console.log("App constructor");
+
         this.state = {
             admin: {
                 userId: ""
@@ -99,6 +103,7 @@ class App extends Component {
 
     // set button selector to match URL on refresh
     componentDidMount() {
+        console.log("App:componentDidMount");
         this.props.listDatasets(this.props.auth.user.id).then(res => {
             this.setState({
                 areDatasetsLoaded: true
