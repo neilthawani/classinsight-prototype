@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import BaseVisualization from '../BaseVisualization';
 import TalkRatioSection from './TalkRatioSection';
 import Script from '../transcript/Script';
 import LegendItemGroup from '../../legend/LegendItemGroup';
@@ -34,7 +35,9 @@ Each object in the array has this structure:
 
 class TalkRatio extends Component {
     constructor(props) {
+        console.log("TalkRatio constructor");
         super(props);
+        console.log("props", props);
 
         var parser = props.datasets.activeParser,
             talkRatios = parser.talkRatios(),
