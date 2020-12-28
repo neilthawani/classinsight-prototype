@@ -19,7 +19,7 @@
 }
 
 .admin-table thead th:nth-child(1) {
-    width: 20%;
+    width: 17.5%;
 }
 
 .admin-table thead th:nth-child(2) {
@@ -64,6 +64,16 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+
+.admin-table-dataset-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    .btn {
+        width: max-content;
+    }
 }
 
 .admin-table-actions-confirm {
