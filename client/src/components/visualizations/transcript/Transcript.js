@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import BaseVisualization from '../BaseVisualization';
 import LegendButtonGroup from '../../legend/LegendButtonGroup';
 import TurnTakingSmall from '../turn-taking/TurnTakingSmall';
 import Script from '../transcript/Script';
