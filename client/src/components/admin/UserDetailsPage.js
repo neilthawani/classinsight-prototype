@@ -49,16 +49,24 @@ class UserDetailsPage extends Component {
     }
 
     toggleUploadData() {
+<<<<<<< HEAD
         // console.log("toggleUploadData");
+=======
+>>>>>>> origin/main
         this.setState(prevState => ({
             isUploadingData: !prevState.isUploadingData
         }));
     }
 
     toggleResetPassword() {
+<<<<<<< HEAD
         // console.log("toggleResetPassword");
         this.setState(prevState => ({
             isResettingPassword: !this.state.isResettingPassword
+=======
+        this.setState(prevState => ({
+            isResettingPassword: !prevState.isResettingPassword
+>>>>>>> origin/main
         }));
     }
 
