@@ -13,7 +13,7 @@ class UserDetailsPage extends Component {
     constructor(props) {
         super(props);
 
-        var userId = props.match.params.id;
+        var userId = props.match.params.userId;
 
         this.state = {
             isUploadingData: false,
