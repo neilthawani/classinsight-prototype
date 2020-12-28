@@ -50,19 +50,24 @@ class App extends Component {
         var buttonSelectorSelectedOption = localStorage.getItem("buttonSelectorSelectedOption");
         var transcriptLocationHash = localStorage.getItem("transcriptLocationHash");
 
-        this.props.history.push(`${buttonSelectorSelectedOption}${transcriptLocationHash}`);
+        if (this.dashboardRoutePaths().includes(this.props.location.pathname)) {
+            console.log("push");
+            this.props.history.push(`${buttonSelectorSelectedOption}${transcriptLocationHash}`);
+        }
 
         this.unlisten = this.props.history.listen((location, action) => {
-            var buttonSelectorSelectedOption = location.pathname.slice(1);
+            var buttonSelectorSelectedOption = location.pathname;
             var transcriptLocationHash = window.location.hash || "";
 
-            this.setState({
-                buttonSelectorSelectedOption: buttonSelectorSelectedOption,
-                transcriptLocationHash: transcriptLocationHash
-            });
+            if (this.dashboardRoutePaths().includes(buttonSelectorSelectedOption)) {
+                this.setState({
+                    buttonSelectorSelectedOption: buttonSelectorSelectedOption.slice(1),
+                    transcriptLocationHash: transcriptLocationHash
+                });
 
-            localStorage.setItem("buttonSelectorSelectedOption", buttonSelectorSelectedOption);
-            localStorage.setItem("transcriptLocationHash", transcriptLocationHash);
+                localStorage.setItem("buttonSelectorSelectedOption", buttonSelectorSelectedOption.slice(1));
+                localStorage.setItem("transcriptLocationHash", transcriptLocationHash);
+            }
         }).bind(this);
     }
 
