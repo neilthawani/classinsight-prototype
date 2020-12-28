@@ -76,9 +76,9 @@ class AdminPanelTableRow extends Component {
                 <td className="text-center">
                   {dataset.class_period}
                 </td>
-                <td className="admin-table-actions">
+                <td className="admin-table-dataset-actions">
                   <span className="btn" onClick={this.expandJsonData.bind(this)}>
-                    {this.state.isJsonDataExpanded ? "Hide Data" : "View Data"}
+                    {this.state.isJsonDataExpanded ? "Hide Data" : "View Raw JSON"}
                   </span>
                   <span className="btn" onClick={this.toggleActive.bind(this, dataset)}>
                     {dataset.isActive ? "Mark inactive" : "Mark active"}
