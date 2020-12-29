@@ -2,7 +2,7 @@ import defineInitialStyle from './defineInitialStyle';
 
 export default function drawBarStyles(item, areBarsSmall = false) {
     var isStudentData = item.speakerPseudonym.includes("Student"),
-        isTeacherData = item.speakerPseudonym.includes("Teacher"),
+        isTeacherData = !item.speakerPseudonym.includes("Student"),
         initialStyle = defineInitialStyle(item);
 
     var barWidth = item.nTokens,
