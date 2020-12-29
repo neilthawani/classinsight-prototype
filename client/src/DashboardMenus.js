@@ -4,6 +4,7 @@ import Sidebar from "./components/layout/Sidebar";
 
 class DashboardMenus extends Component {
   handleButtonSelectorClick(value) {
+      console.log("DashboardMenus handleButtonSelectorClick", value);
       this.props.handleButtonSelectorClick(value);
   }
 

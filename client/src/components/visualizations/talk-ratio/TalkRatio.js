@@ -39,39 +39,39 @@ class TalkRatio extends Component {
         // console.log("TalkRatio constructor");
         super(props);
         // console.log("props", props);
-        console.log("TalkRatio constructor, props.datasets:", props.datasets);
+        // console.log("TalkRatio constructor, props.datasets:", props.datasets);
         // console.log("props", props);
         // props.match.params.userId
 
-        var parser = props.datasets.activeParser;
-        console.log("parser", parser);
-        if (!parser) {
-            console.log("no parser");
-            props.listDatasets(props.match.params.userId).then((response) => {
-                console.log("here", response);
-            });
-        }
+        // var parser = props.datasets.activeParser;
+        // console.log("parser", parser);
+        // if (!parser) {
+        //     console.log("no parser");
+        //     props.listDatasets(props.match.params.userId).then((response) => {
+        //         console.log("here", response);
+        //     });
+        // }
         // || JSON.parse(localStorage.getItem("datasets")).activeParser,
-        var talkRatios = parser.talkRatios(),
-            teacherTalkRatios = parser.teacherTalkRatios(),
-            studentTalkRatios = parser.studentTalkRatios(),
-            speakerTalkTotals = parser.speakerTalkTotals(),
-            transcript = parser.transcript();
+        // var talkRatios = parser.talkRatios(),
+        //     teacherTalkRatios = parser.teacherTalkRatios(),
+        //     studentTalkRatios = parser.studentTalkRatios(),
+        //     speakerTalkTotals = parser.speakerTalkTotals(),
+        //     transcript = parser.transcript();
 
         this.state = {
-            parser: parser,
+            // parser: parser,
             drilldownFilter: "",
-            talkRatios: talkRatios,
-            teacherTalkRatios: teacherTalkRatios,
-            studentTalkRatios: studentTalkRatios,
-            speakerTalkTotals: speakerTalkTotals,
-            transcript: transcript
+            // talkRatios: talkRatios,
+            // teacherTalkRatios: teacherTalkRatios,
+            // studentTalkRatios: studentTalkRatios,
+            // speakerTalkTotals: speakerTalkTotals,
+            // transcript: transcript
         };
     }
 
     componentDidMount() {
-        console.log("TalkRatio componentDidMount");
-        console.log("this.props.datasets", this.props.datasets);
+        // console.log("TalkRatio componentDidMount");
+        // console.log("this.props.datasets", this.props.datasets);
     }
 
     // getSnapshotBeforeUpdate(prevProps, prevState) {
@@ -93,7 +93,9 @@ class TalkRatio extends Component {
     // }
 
     calculateSpeakerTotal(type) {
-        var speakerTotalObj = this.state.speakerTalkTotals.filter((item) => item.speakerType === type);
+        var parser = this.props.datasets.activeParser;
+        var speakerTalkTotals = parser.speakerTalkTotals();
+        var speakerTotalObj = speakerTalkTotals.filter((item) => item.speakerType === type);
         return speakerTotalObj[0].totalTalkPercentage;
     }
 
@@ -119,6 +121,12 @@ class TalkRatio extends Component {
     }
 
     render() {
+      var parser = this.props.datasets.activeParser,
+          // talkRatios = parser.talkRatios(),
+          teacherTalkRatios = parser.teacherTalkRatios(),
+          studentTalkRatios = parser.studentTalkRatios(),
+          transcript = parser.transcript();
+
       return (
         <div className="talk-ratio-visualization-container">
           <div className="talk-ratio-legend-teacher">
@@ -126,17 +134,17 @@ class TalkRatio extends Component {
               Teacher Talk: {formatPercentage(this.calculateSpeakerTotal("Teacher"), 0)}
             </h3>
             <LegendItemGroup
-              labels={this.state.parser.legendLabels({ type: "Teacher" })}
+              labels={parser.legendLabels({ type: "Teacher" })}
               displayRatio={true}
               handleClick={() => {}} />
             <LegendItemGroup
-              labels={this.state.parser.legendLabels({ type: "Media" })}
+              labels={parser.legendLabels({ type: "Media" })}
               displayRatio={true}
               handleClick={() => {}} />
           </div>
           <div className="talk-ratio-visualization">
             <div className="talk-ratio-visualization-chart">
-              {this.state.teacherTalkRatios.map((item, index, array) => {
+              {teacherTalkRatios.map((item, index, array) => {
                   return (
                     <TalkRatioSection
                       key={index}
@@ -145,7 +153,7 @@ class TalkRatio extends Component {
                   );
               })}
               <div className="talk-ratio-visualization-divider"></div>
-              {this.state.studentTalkRatios.map((item, index, array) => {
+              {studentTalkRatios.map((item, index, array) => {
                   return (
                     <TalkRatioSection
                       key={index}
@@ -157,8 +165,8 @@ class TalkRatio extends Component {
             <div className="talk-ratio-visualization-drilldown">
               {this.state.drilldownFilter ?
                 <Script
-                  parser={this.state.parser}
-                  transcript={this.state.transcript}
+                  parser={parser}
+                  transcript={transcript}
                   drilldownFilter={this.state.drilldownFilter}
                   canInspect={true}
                   handleUtteranceClick={this.handleUtteranceClick.bind(this)}
@@ -171,7 +179,7 @@ class TalkRatio extends Component {
               Student Talk: {formatPercentage(this.calculateSpeakerTotal("Student"), 0)}
             </h3>
             <LegendItemGroup
-              labels={this.state.parser.legendLabels({ type: "Student" })}
+              labels={parser.legendLabels({ type: "Student" })}
               displayRatio={true}
               handleClick={() => {}} />
           </div>

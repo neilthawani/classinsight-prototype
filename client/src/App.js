@@ -140,6 +140,7 @@ class App extends Component {
     }
 
     handleButtonSelectorClick(value) {
+        console.log("App handleButtonSelectorClick", value);
         localStorage.setItem("buttonSelectorSelectedOption", value);
 
         this.setState({

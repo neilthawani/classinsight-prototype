@@ -31,7 +31,7 @@ class DatasetPreview extends Component {
         // console.log("userId", userId);
 
         this.state = {
-            buttonSelectorSelectedOption: "dashboard",//localStorage.get("buttonSelectorSelectedOption")
+            buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption"),
             userId: userId,
             areUserDatasetsLoaded: false,
             datasets: props.datasets
@@ -42,12 +42,12 @@ class DatasetPreview extends Component {
 
 
     componentDidMount() {
-        // console.log("DatasetPreview componentDidMount");
+        console.log("DatasetPreview componentDidMount");
         // console.log("DatasetPreview props", this.props);
         // localStorage.setItem("datasets", JSON.stringify(this.props.datasets));
         // if (!this.state.areUserDatasetsLoaded) {
         //     // console.log("are not loaded", this.state.userId);
-        //     this.props.listDatasets(this.state.userId).then(res => {
+        this.props.listDatasets(this.state.userId);
         //         console.log("res", res);
                 // this.setState({
                 //     areUserDatasetsLoaded: true
@@ -62,6 +62,7 @@ class DatasetPreview extends Component {
     }
 
     handleButtonSelectorClick(value) {
+        console.log("DatasetPreview handleButtonSelectorClick", value);
         localStorage.setItem("buttonSelectorSelectedOption", value);
 
         this.setState({

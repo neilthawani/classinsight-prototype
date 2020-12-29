@@ -17,13 +17,10 @@ class Transcript extends Component {
         console.log("props", props);
         // props.match.params.userId
 
-        var parser = props.datasets.activeParser,// || localStorage.getItem("activeParser"),
-            chartWidth = 2 * parser.maxNTokens(), // double width - for both left/right side of TurnTakingSmall chart
-            talkRatios = parser.talkRatios(),
-            transcript = parser.transcript();
+
 
         this.state = {
-            parser: parser,
+            // parser: parser,
             activeLabels: [],
             focusBox: {
                 topElId: 0,
@@ -31,9 +28,9 @@ class Transcript extends Component {
                 y: 0,
                 height: 0
             },
-            chartWidth: chartWidth,
-            talkRatios: talkRatios,
-            transcript: transcript
+            // chartWidth: chartWidth,
+            // talkRatios: talkRatios,
+            // transcript: transcript
         };
     }
 
@@ -86,36 +83,41 @@ class Transcript extends Component {
     }
 
     render() {
+      var parser = this.props.datasets.activeParser,// || localStorage.getItem("activeParser"),
+          chartWidth = 2 * parser.maxNTokens(), // double width - for both left/right side of TurnTakingSmall chart
+          talkRatios = parser.talkRatios(),
+          transcript = parser.transcript();
+
       return (
         <div className="transcript-visualization-container">
           <div className="transcript-visualization-legend">
             <LegendButtonGroup
-              labels={this.state.parser.legendLabels({ type: "Teacher"})}
+              labels={parser.legendLabels({ type: "Teacher"})}
               displayRatio={true}
               activeLabels={this.state.activeLabels}
               handleClick={this.handleClick.bind(this)} />
             <LegendButtonGroup
-              labels={this.state.parser.legendLabels({ type: "Student"})}
+              labels={parser.legendLabels({ type: "Student"})}
               displayRatio={true}
               activeLabels={this.state.activeLabels}
               handleClick={this.handleClick.bind(this)} />
             <LegendButtonGroup
-              labels={this.state.parser.legendLabels({ type: "Technique"})}
+              labels={parser.legendLabels({ type: "Technique"})}
               displayRatio={true}
               activeLabels={this.state.activeLabels}
               handleClick={this.handleClick.bind(this)} />
           </div>
 
           <TurnTakingSmall
-            parser={this.state.parser}
-            chartWidth={this.state.chartWidth}
+            parser={parser}
+            chartWidth={chartWidth}
 
             barHeight={this.barHeight}
             focusBox={this.state.focusBox} />
 
-          <div className="transcript-script-container" style={{ marginLeft: `${this.state.chartWidth}px` }}>
+          <div className="transcript-script-container" style={{ marginLeft: `${chartWidth}px` }}>
             <Script
-              transcript={this.state.transcript}
+              transcript={transcript}
               activeLabels={this.state.activeLabels}
               focusBox={this.state.focusBox}
               handleScroll={this.handleScroll.bind(this)}
