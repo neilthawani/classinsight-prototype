@@ -17,8 +17,8 @@ class ButtonSelector extends Component {
         };
 
         var userId = props.match.params.userId;
-        console.log("ButtonSelector constructor userId", userId);
-        console.log("ButtonSelector buttonSelectorSelectedOption", props.buttonSelectorSelectedOption)
+        // console.log("ButtonSelector constructor userId", userId);
+        // console.log("ButtonSelector buttonSelectorSelectedOption", props.buttonSelectorSelectedOption)
 
         if (userId) {
             this.state = {
@@ -35,7 +35,7 @@ class ButtonSelector extends Component {
     shouldComponentUpdate(nextProps, nextState) {
         var buttonSelectorSelectedOption = nextProps.location.pathname.slice(nextProps.location.pathname.lastIndexOf("/") + 1);
         if (buttonSelectorSelectedOption !== nextProps.buttonSelectorSelectedOption) {
-            console.log("shouldComponentUpdate here");
+            // console.log("shouldComponentUpdate here");
             this.handleClick(buttonSelectorSelectedOption);
         }
 
@@ -44,7 +44,7 @@ class ButtonSelector extends Component {
 
     handleClick(value) {
 
-        console.log("ButtonSelector handleClick", value);
+        // console.log("ButtonSelector handleClick", value);
         this.props.handleClick(value);
     }
 

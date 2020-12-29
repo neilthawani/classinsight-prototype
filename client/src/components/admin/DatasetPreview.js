@@ -23,10 +23,10 @@ import dashboardRoutes from '../../fixtures/dashboardRoutes';
 
 class DatasetPreview extends Component {
     constructor(props) {
-        console.log("DatasetPreview constructor");
+        // console.log("DatasetPreview constructor");
         super(props);
         // console.log("props.location", props.location);
-        console.log("props", props);
+        // console.log("props", props);
         var userId = props.match.params.userId;
         // console.log("userId", userId);
 
@@ -42,7 +42,7 @@ class DatasetPreview extends Component {
 
 
     componentDidMount() {
-        console.log("DatasetPreview componentDidMount");
+        // console.log("DatasetPreview componentDidMount");
         // console.log("DatasetPreview props", this.props);
         // localStorage.setItem("datasets", JSON.stringify(this.props.datasets));
         // if (!this.state.areUserDatasetsLoaded) {
@@ -62,7 +62,7 @@ class DatasetPreview extends Component {
     }
 
     handleButtonSelectorClick(value) {
-        console.log("DatasetPreview handleButtonSelectorClick", value);
+        // console.log("DatasetPreview handleButtonSelectorClick", value);
         localStorage.setItem("buttonSelectorSelectedOption", value);
 
         this.setState({

@@ -13,8 +13,8 @@ import removeArrayValue from '../../../utils/removeArrayValue';
 class Transcript extends Component {
     constructor(props) {
         super(props);
-        console.log("Transcript constructor, props.datasets:", props.datasets);
-        console.log("props", props);
+        // console.log("Transcript constructor, props.datasets:", props.datasets);
+        // console.log("props", props);
         // props.match.params.userId
 
 
@@ -34,10 +34,10 @@ class Transcript extends Component {
         };
     }
 
-    componentDidMount() {
-        console.log("Transcript componentDidMount");
-        console.log("this.props.datasets", this.props.datasets);
-    }
+    // componentDidMount() {
+    //     console.log("Transcript componentDidMount");
+    //     console.log("this.props.datasets", this.props.datasets);
+    // }
 
     // same logic as in TurnTaking::handleFilterClick
     handleClick(label) {
@@ -85,7 +85,7 @@ class Transcript extends Component {
     render() {
       var parser = this.props.datasets.activeParser,// || localStorage.getItem("activeParser"),
           chartWidth = 2 * parser.maxNTokens(), // double width - for both left/right side of TurnTakingSmall chart
-          talkRatios = parser.talkRatios(),
+          // talkRatios = parser.talkRatios(),
           transcript = parser.transcript();
 
       return (

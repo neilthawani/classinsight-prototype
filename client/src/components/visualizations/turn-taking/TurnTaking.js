@@ -37,8 +37,8 @@ Each object in the array has this structure:
 class TurnTaking extends Component {
     constructor(props) {
         super(props);
-        console.log("TurnTaking constructor, props.datasets:", props.datasets);
-        console.log("props", props);
+        // console.log("TurnTaking constructor, props.datasets:", props.datasets);
+        // console.log("props", props);
         // props.match.params.userId
         // var parser = props.datasets.activeParser,// || localStorage.getItem("activeParser"),
         //     talkRatios = parser.talkRatios(),
@@ -54,10 +54,10 @@ class TurnTaking extends Component {
         };
     }
 
-    componentDidMount() {
-        console.log("TurnTaking componentDidMount");
-        console.log("this.props.datasets", this.props.datasets);
-    }
+    // componentDidMount() {
+    //     console.log("TurnTaking componentDidMount");
+    //     console.log("this.props.datasets", this.props.datasets);
+    // }
 
     toggleExpandedBars = function(value, context) {
         this.setState({ "bars": value });

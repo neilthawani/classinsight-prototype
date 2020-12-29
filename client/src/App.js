@@ -42,7 +42,7 @@ class App extends Component {
 
         var adminUserId = props.match.params.userId;
         var userId = this.props.auth.user.id;
-        console.log("App constructor");
+        // console.log("App constructor");
 
         this.state = {
             admin: {
@@ -103,7 +103,7 @@ class App extends Component {
 
     // set button selector to match URL on refresh
     componentDidMount() {
-        console.log("App:componentDidMount");
+        // console.log("App:componentDidMount");
         this.props.listDatasets(this.props.auth.user.id).then(res => {
             this.setState({
                 areDatasetsLoaded: true
@@ -114,7 +114,7 @@ class App extends Component {
         var transcriptLocationHash = localStorage.getItem("transcriptLocationHash");
         // console.log("dashboardRoutePaths", dashboardRoutes.paths);
         if (dashboardRoutes.paths.includes(this.props.location.pathname)) {
-            console.log("push");
+            // console.log("push");
             this.props.history.push(`${buttonSelectorSelectedOption}${transcriptLocationHash}`);
         }
 
@@ -140,7 +140,7 @@ class App extends Component {
     }
 
     handleButtonSelectorClick(value) {
-        console.log("App handleButtonSelectorClick", value);
+        // console.log("App handleButtonSelectorClick", value);
         localStorage.setItem("buttonSelectorSelectedOption", value);
 
         this.setState({
