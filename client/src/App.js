@@ -40,14 +40,14 @@ class App extends Component {
         //     return parser;
         // });
 
-        var adminUserId = props.match.params.userId;
-        var userId = this.props.auth.user.id;
+        // var adminUserId = props.match.params.userId;
+        // var userId = this.props.auth.user.id;
         // console.log("App constructor");
 
         this.state = {
-            admin: {
-                userId: ""
-            },
+            // admin: {
+            //     userId: ""
+            // },
             // dataRows: dataRows,
             // dataParsers: dataParsers,
             areDatasetsLoaded: false,

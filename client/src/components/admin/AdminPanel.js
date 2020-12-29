@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { fetchUsers, deleteUserById, clearIsValidUser } from '../../actions/adminActions';
-import { listDatasets } from '../../actions/datasetActions';
+// import { listDatasets } from '../../actions/datasetActions';
 import AdminPanelTableRow from './AdminPanelTableRow';
 import CreateUserForm from './CreateUserForm';
 

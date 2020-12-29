@@ -4,9 +4,9 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import DashboardMenus from '../../DashboardMenus';
 import { listDatasets } from "../../actions/datasetActions";
-import { Switch } from "react-router-dom";// import App from '../../App';
-import PrivateRoute from "../private-route/PrivateRoute";
-import dashboardRoutes from '../../fixtures/dashboardRoutes';
+// import { Switch } from "react-router-dom";// import App from '../../App';
+// import PrivateRoute from "../private-route/PrivateRoute";
+// import dashboardRoutes from '../../fixtures/dashboardRoutes';
 
 // import Dashboard from "../dashboard/Dashboard";
 // import TalkRatio from '../visualizations/talk-ratio/TalkRatio';
