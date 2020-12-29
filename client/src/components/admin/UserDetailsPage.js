@@ -28,9 +28,27 @@ class UserDetailsPage extends Component {
     }
 
     componentDidMount() {
+        console.log("componentDidMount");
         this.props.showUserDetails(this.state.userId);
         this.props.listDatasets(this.state.userId);
+        // .then((response) => {
+        //     console.log("response", response);
+        // });
     }
+
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     // console.log("shouldComponentUpdate", nextProps, nextState);
+    //     if (nextProps.datasets.datasets) {
+    //         // console.log("here");
+    //         this.setState({
+    //             datasets: nextProps.datasets.datasets
+    //         })
+    //     } else if (this.state.datasets.length) {
+    //         return false;
+    //     }
+    //
+    //     return true;
+    // }
 
     static getDerivedStateFromProps(nextProps) {
         if (nextProps.admin.user) {
@@ -181,12 +199,12 @@ class UserDetailsPage extends Component {
                     This user doesn't have any datasets.
                   </td>
                 </tr> :
-                (datasets || []).map((dataset, index, array) => {
+                datasets.map((dataset, index, array) => {
                   var isDeletingDataset = dataset._id && (this.state.datasetToDelete._id === dataset._id);
 
                   return (
                     <UserDatasetTableRow
-                      key={dataset._id}
+                      key={index}
                       dataset={dataset}
                       isDeletingDataset={isDeletingDataset}
                       deleteDataset={this.deleteDataset.bind(this)} />

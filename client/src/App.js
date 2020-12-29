@@ -255,7 +255,7 @@ class App extends Component {
 App.propTypes = {
     auth: PropTypes.object.isRequired,
     // showUserDetails: PropTypes.func.isRequired,
-    datasets: PropTypes.object.isRequired,
+    // datasets: PropTypes.object.isRequired,
     // admin: PropTypes.object.isRequired,
     // deleteDatasetById: PropTypes.func.isRequired
 }
@@ -263,7 +263,7 @@ App.propTypes = {
 function mapStateToProps(state) {
     return {
         auth: state.auth,
-        datasets: state.datasets,
+        // datasets: state.datasets,
     }
 };
 
