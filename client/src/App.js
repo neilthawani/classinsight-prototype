@@ -56,9 +56,9 @@ class App extends Component {
     componentDidMount() {
         // console.log("App:componentDidMount");
         // this.props.listDatasets(this.props.auth.user.id).then(res => {
-        //     this.setState({
-        //         areDatasetsLoaded: true
-        //     });
+        this.setState({
+            areDatasetsLoaded: true
+        });
         // });
 
         var buttonSelectorSelectedOption = localStorage.getItem("buttonSelectorSelectedOption");
@@ -112,11 +112,6 @@ class App extends Component {
     dashboardRoutes = dashboardRoutes.definitions();
 
     dashboardRoutePaths = dashboardRoutes.paths;
-    // () {
-    //     return this.dashboardRoutes.map((routeObj) => {
-    //         return routeObj.path;
-    //     });
-    // }
 
     render() {
         return (
@@ -149,41 +144,36 @@ class App extends Component {
               )}
             />
 
-            {/*<PrivateRoute
-              path='/admin/user/:userId/preview'
-              component={(props) => (
-                <DatasetPreview {...props} />
-              )}
-            />*/}
-
             {this.state.areDatasetsLoaded ?
               <div className="dashboard-content">
-                <PrivateRoute
-                  exact
-                  path='/admin/user/:userId/preview/dashboard'
-                  component={(props) => ( <Dashboard {...props} /> )}
-                />
-                <PrivateRoute
-                  exact
-                  path='/admin/user/:userId/preview/talk-ratio'
-                  component={(props) => ( <TalkRatio {...props} /> )}
-                />
-                <PrivateRoute
-                  exact
-                  path='/admin/user/:userId/preview/turn-taking'
-                  component={(props) => ( <TurnTaking {...props} /> )}
-                />
-                <PrivateRoute
-                  exact
-                  path='/admin/user/:userId/preview/transcript'
-                  component={(props) => ( <Transcript {...props} /> )}
-                />
+                <Switch>
+                  <PrivateRoute
+                    exact
+                    path='/dashboard'
+                    component={(props) => ( <Dashboard {...props} activeParser={this.activeParser()} /> )}
+                  />
+                  <PrivateRoute
+                    exact
+                    path='/talk-ratio'
+                    component={(props) => ( <TalkRatio {...props} activeParser={this.activeParser()} /> )}
+                  />
+                  <PrivateRoute
+                    exact
+                    path='/turn-taking'
+                    component={(props) => ( <TurnTaking {...props} activeParser={this.activeParser()} /> )}
+                  />
+                  <PrivateRoute
+                    exact
+                    path='/transcript'
+                    component={(props) => ( <Transcript {...props} activeParser={this.activeParser()} /> )}
+                  />
+                </Switch>
 
                 {/* A <Switch> looks through all its children <Route> elements and
                   renders the first one whose path matches the current URL.
                   Use a <Switch> any time you have multiple routes,
                   but you want only one of them to render at a time. */}
-                <Switch>
+                {/*<Switch>
                   {this.dashboardRoutes.map((routeObj, index) => {
                       return (
                           <PrivateRoute
@@ -194,7 +184,7 @@ class App extends Component {
                           />
                       )
                   })}
-                </Switch>
+                </Switch>*/}
               </div> : ""}
           </div>
         );
