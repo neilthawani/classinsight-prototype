@@ -82,14 +82,13 @@
 }
 
 .navbar-dropdown-profile-photo {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  // background-color: yellow;
-  border: 1px solid $blue;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid $blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .navbar-dropdown-profile-name {
