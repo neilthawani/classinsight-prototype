@@ -6,6 +6,10 @@ import LegendItemGroup from '../../legend/LegendItemGroup';
 import Icon from '@mdi/react';
 import { mdiArrowCollapseVertical, mdiArrowExpandVertical } from '@mdi/js';
 
+import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+
 import removeArrayValue from '../../../utils/removeArrayValue';
 
 /*
@@ -32,11 +36,11 @@ Each object in the array has this structure:
 }
 */
 
-export default class TurnTaking extends Component {
+class TurnTaking extends Component {
     constructor(props) {
         super(props);
 
-        var parser = props.activeParser,
+        var parser = props.datasets.activeParser,
             talkRatios = parser.talkRatios(),
             bars = localStorage.getItem("bars") || "expanded",
             activeFilters = [];
@@ -145,3 +149,23 @@ export default class TurnTaking extends Component {
         );
     }
 }
+
+TurnTaking.propTypes = {
+    // auth: PropTypes.object.isRequired,
+    // showUserDetails: PropTypes.func.isRequired,
+    datasets: PropTypes.object.isRequired,
+    // admin: PropTypes.object.isRequired,
+    // showDataset: PropTypes.func.isRequired
+}
+
+function mapStateToProps(state) {
+    return {
+        // auth: state.auth,
+        datasets: state.datasets,
+    }
+};
+
+export default withRouter(connect(
+  mapStateToProps,
+  { }
+)(TurnTaking));

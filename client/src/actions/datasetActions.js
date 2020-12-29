@@ -46,23 +46,23 @@ export const deleteDatasetById = (dataset) => dispatch => {
         });
 }
 
-export const showDataset = (datasetId) => {
+export const showDataset = (datasetIndex) => {
     return (dispatch) => {
-        return axios.get("/api/datasets/show", {
-                params: {
-                    id: datasetId
-                }
-            })
-            .then(response => {
+        // return axios.get("/api/datasets/show", {
+        //         params: {
+        //             id: datasetId
+        //         }
+        //     })
+        //     .then(response => {
                 dispatch({
                     type: SHOW_DATASET,
-                    payload: response && response.data.dataset
+                    payload: datasetIndex//response && response.data.dataset
                 })
-            })
-            .catch(error => {
-                console.error(error);
-                return error;
-            });
+            // })
+            // .catch(error => {
+            //     console.error(error);
+            //     return error;
+            // });
     };
 };
 

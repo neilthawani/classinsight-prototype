@@ -2,6 +2,10 @@ import React, { Component } from "react";
 
 import { Route, Switch } from "react-router-dom";
 import { withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+
+import { listDatasets } from "./actions/datasetActions";
 
 import Navbar from "./components/layout/Navbar";
 
@@ -19,34 +23,41 @@ import TalkRatio from './components/visualizations/talk-ratio/TalkRatio';
 import Transcript from './components/visualizations/transcript/Transcript';
 import TurnTaking from './components/visualizations/turn-taking/TurnTaking';
 
-import Parser from './data/parser';
-import data_tom from './data/data_tom';
-import data_kim from './data/data_kim';
-import data_bill from './data/data_bill';
+// import Parser from './data/parser';
+// import data_tom from './data/data_tom';
+// import data_kim from './data/data_kim';
+// import data_bill from './data/data_bill';
 
 class App extends Component {
     constructor(props) {
         super(props);
 
-        var dataRows = [data_tom[0], data_kim[0], data_bill[0]];
-        var dataParsers = dataRows.map((row) => {
-            var parser = new Parser(row);
-            return parser;
-        });
+        // var dataRows = [data_tom[0], data_kim[0], data_bill[0]];
+        // var dataParsers = dataRows.map((row) => {
+        //     var parser = new Parser(row);
+        //     return parser;
+        // });
 
         this.state = {
-            dataParsers: dataParsers,
+            areDatasetsLoaded: false,
+            // dataParsers: dataParsers,
             buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption"),
             activeDataRowIndex: parseInt(localStorage.getItem("activeDataRowIndex"), 10) || 0
         };
     }
 
     activeParser = function() {
-        return this.state.dataParsers[this.state.activeDataRowIndex];
+        return this.props.datasets.dataParsers[this.state.activeDataRowIndex];
     }
 
     // set button selector to match URL on refresh
     componentDidMount() {
+        this.props.listDatasets(this.props.auth.user.id).then(res => {
+            this.setState({
+                areDatasetsLoaded: true
+            });
+        });
+
         var buttonSelectorSelectedOption = localStorage.getItem("buttonSelectorSelectedOption");
         var transcriptLocationHash = localStorage.getItem("transcriptLocationHash");
 
@@ -124,11 +135,11 @@ class App extends Component {
 
             {this.dashboardRoutePaths().includes(window.location.pathname) ?
             <DashboardMenus
-            buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
-            dataParsers={this.state.dataParsers}
-            activeDataRowIndex={this.state.activeDataRowIndex}
-            handleButtonSelectorClick={this.handleButtonSelectorClick.bind(this)}
-            handleSidebarRowClick={this.handleSidebarRowClick.bind(this)} /> : ""}
+              buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
+              dataParsers={this.state.dataParsers}
+              activeDataRowIndex={this.state.activeDataRowIndex}
+              handleButtonSelectorClick={this.handleButtonSelectorClick.bind(this)}
+              handleSidebarRowClick={this.handleSidebarRowClick.bind(this)} /> : ""}
 
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
@@ -142,12 +153,13 @@ class App extends Component {
             />
             <PrivateRoute
               exact
-              path='/admin/user/:id'
+              path='/admin/user/:userId'
               component={(props) => (
                 <UserDetailsPage {...props} />
               )}
             />
 
+            {this.state.areDatasetsLoaded ?
             <div className="dashboard-content">
               {/* A <Switch> looks through all its children <Route> elements and
                 renders the first one whose path matches the current URL.
@@ -166,9 +178,28 @@ class App extends Component {
                 })}
               </Switch>
             </div>
+            : null}
           </div>
         );
     }
 }
 
-export default withRouter(App);
+App.propTypes = {
+    auth: PropTypes.object.isRequired,
+    // showUserDetails: PropTypes.func.isRequired,
+    datasets: PropTypes.object.isRequired,
+    // admin: PropTypes.object.isRequired,
+    // deleteDatasetById: PropTypes.func.isRequired
+}
+
+function mapStateToProps(state) {
+    return {
+        auth: state.auth,
+        datasets: state.datasets,
+    }
+};
+
+export default withRouter(connect(
+  mapStateToProps,
+  { listDatasets }
+)(App));

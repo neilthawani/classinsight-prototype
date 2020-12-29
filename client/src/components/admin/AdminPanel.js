@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { fetchUsers, deleteUserById, clearIsValidUser } from '../../actions/adminActions';
+import { listDatasets } from '../../actions/datasetActions';
 import AdminPanelTableRow from './AdminPanelTableRow';
 import CreateUserForm from './CreateUserForm';
 
@@ -114,6 +115,7 @@ class AdminPanel extends Component {
 
 AdminPanel.propTypes = {
     auth: PropTypes.object.isRequired,
+    datasets: PropTypes.object.isRequired,
     fetchUsers: PropTypes.func.isRequired,
     clearIsValidUser: PropTypes.func.isRequired,
     deleteUserById: PropTypes.func.isRequired,
@@ -123,7 +125,8 @@ AdminPanel.propTypes = {
 function mapStateToProps(state) {
     return {
         auth: state.auth,
-        admin: state.admin
+        admin: state.admin,
+        datasets: state.datasets
     }
 };
 

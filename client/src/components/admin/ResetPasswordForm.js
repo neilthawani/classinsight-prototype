@@ -43,19 +43,19 @@ class ResetPasswordForm extends Component {
     }
 
     onChange = e => {
-      this.setState({ [e.target.id]: e.target.value });
+        this.setState({ [e.target.id]: e.target.value });
     };
 
     onSubmit = e => {
-      e.preventDefault();
-      
-      const userData = {
-          userId: this.state.userId,
-          password: this.state.password,
-          password2: this.state.password2
-      };
+        e.preventDefault();
 
-      this.props.resetUserPassword(userData);
+        const userData = {
+            userId: this.state.userId,
+            password: this.state.password,
+            password2: this.state.password2
+        };
+
+        this.props.resetUserPassword(userData);
     };
 
     render() {

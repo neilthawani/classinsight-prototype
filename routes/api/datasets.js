@@ -69,7 +69,7 @@ router.post('/edit', (req, res) => {
 // @desc List all datasets
 // @access Public
 router.get('/list', function(req, res) {
-    Dataset.find({}, function(error, datasets) {
+    Dataset.find({user_id: req.query.user_id}, function(error, datasets) {
         var parsedDatasets = [];
 
         datasets.forEach((dataset) => {
