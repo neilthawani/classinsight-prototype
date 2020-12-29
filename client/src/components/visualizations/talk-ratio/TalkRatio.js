@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import BaseVisualization from '../BaseVisualization';
+// import BaseVisualization from '../BaseVisualization';
 import TalkRatioSection from './TalkRatioSection';
 import Script from '../transcript/Script';
 import LegendItemGroup from '../../legend/LegendItemGroup';
@@ -9,6 +9,7 @@ import formatPercentage from '../../../utils/formatPercentage';
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { listDatasets } from "../../../actions/datasetActions";
 /*
 For this file, the data we're after is in data.segments[0].speaking_turns.
 Each object in this array is a record of someone speaking. It has this structure:
@@ -35,12 +36,23 @@ Each object in the array has this structure:
 
 class TalkRatio extends Component {
     constructor(props) {
-        console.log("TalkRatio constructor");
+        // console.log("TalkRatio constructor");
         super(props);
-        console.log("props", props);
+        // console.log("props", props);
+        console.log("TalkRatio constructor, props.datasets:", props.datasets);
+        // console.log("props", props);
+        // props.match.params.userId
 
-        var parser = props.datasets.activeParser,
-            talkRatios = parser.talkRatios(),
+        var parser = props.datasets.activeParser;
+        console.log("parser", parser);
+        if (!parser) {
+            console.log("no parser");
+            props.listDatasets(props.match.params.userId).then((response) => {
+                console.log("here", response);
+            });
+        }
+        // || JSON.parse(localStorage.getItem("datasets")).activeParser,
+        var talkRatios = parser.talkRatios(),
             teacherTalkRatios = parser.teacherTalkRatios(),
             studentTalkRatios = parser.studentTalkRatios(),
             speakerTalkTotals = parser.speakerTalkTotals(),
@@ -56,6 +68,29 @@ class TalkRatio extends Component {
             transcript: transcript
         };
     }
+
+    componentDidMount() {
+        console.log("TalkRatio componentDidMount");
+        console.log("this.props.datasets", this.props.datasets);
+    }
+
+    // getSnapshotBeforeUpdate(prevProps, prevState) {
+    //     console.log("getSnapshotBeforeUpdate");
+    // }
+    //
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    //     console.log("componentDidUpdate");
+    // }
+    //
+    // static getDerivedStateFromProps(props, state) {
+    //     console.log("getDerivedStateFromProps");
+    //     return null;
+    // }
+    //
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     console.log("shouldComponentUpdate");
+    //     return true;
+    // }
 
     calculateSpeakerTotal(type) {
         var speakerTotalObj = this.state.speakerTalkTotals.filter((item) => item.speakerType === type);
@@ -75,8 +110,12 @@ class TalkRatio extends Component {
     }
 
     handleUtteranceClick(utteranceId) {
-        this.props.history.push(`/transcript#${utteranceId}`);
-        localStorage.setItem("buttonSelectorSelectedOption", "transcript");
+        // debugger;
+        var slashTurnTaking = this.props.location.pathname.slice(this.props.location.pathname.lastIndexOf("/"));
+        var newPathname = this.props.location.pathname.replace(slashTurnTaking, `/transcript#${utteranceId}`);
+        this.props.history.push(newPathname);
+        // this.props.history.push(`/transcript#${utteranceId}`);
+        // localStorage.setItem("buttonSelectorSelectedOption", "transcript");
     }
 
     render() {
@@ -148,7 +187,7 @@ TalkRatio.propTypes = {
     // showUserDetails: PropTypes.func.isRequired,
     datasets: PropTypes.object.isRequired,
     // admin: PropTypes.object.isRequired,
-    // showDataset: PropTypes.func.isRequired
+    listDatasets: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
@@ -160,7 +199,7 @@ function mapStateToProps(state) {
 
 export default withRouter(connect(
   mapStateToProps,
-  { }
+  { listDatasets }
 )(TalkRatio));
 
 

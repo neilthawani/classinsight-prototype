@@ -11,15 +11,16 @@ class ButtonSelector extends Component {
         // console.log("props", props);
         // debugger;
 
-        var userId = props.admin ? props.admin.userId : null;
-        // console.log("userId", userId);
-        if (userId) {
+        // var userId = props.admin ? props.admin.userId : null;
+        var userId = props.match.params.userId;
+        console.log("ButtonSelector constructor userId", userId);
+        // if (userId.length) {
             this.state = {
                 admin: {
                     userId: userId
                 }
             };
-        }
+        // }
         // this.setState({
         //
         // });
@@ -27,6 +28,7 @@ class ButtonSelector extends Component {
 
     shouldComponentUpdate(nextProps, nextState) {
         if (nextProps.location.pathname.slice(1) !== nextProps.buttonSelectorSelectedOption) {
+            console.log("shouldComponentUpdate here");
             this.handleClick(nextProps.location.pathname.slice(1));
         }
 
@@ -56,8 +58,10 @@ class ButtonSelector extends Component {
           <div className="button-selector">
             <div className="button-selector-options">
               {dashboardRoutes.definitions(isAdmin ? this.state.admin : null).map((definitionObj, index, array) => {
-                  var pathName = definitionObj.path.slice(1);
+                  var pathName = definitionObj.path.slice(definitionObj.path.indexOf("/") + 1);
+                  // debugger;
                   // console.log("dashboardRoutes.definitions", dashboardRoutes.definitions);
+                  // console.log("pathName", pathName);
                   return (
                     <Link
                       key={index}

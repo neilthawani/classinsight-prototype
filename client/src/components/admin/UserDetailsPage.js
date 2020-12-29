@@ -28,7 +28,7 @@ class UserDetailsPage extends Component {
     }
 
     componentDidMount() {
-        console.log("componentDidMount");
+        console.log("UserDetailsPage componentDidMount");
         this.props.showUserDetails(this.state.userId);
         this.props.listDatasets(this.state.userId);
         // .then((response) => {
@@ -220,6 +220,7 @@ class UserDetailsPage extends Component {
 UserDetailsPage.propTypes = {
     auth: PropTypes.object.isRequired,
     showUserDetails: PropTypes.func.isRequired,
+    listDatasets: PropTypes.func.isRequired,
     datasets: PropTypes.object.isRequired,
     admin: PropTypes.object.isRequired,
     deleteDatasetById: PropTypes.func.isRequired

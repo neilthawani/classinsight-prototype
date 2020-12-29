@@ -167,12 +167,14 @@ class App extends Component {
         // console.log("dashboardRoutePaths render", dashboardRoutes.paths);
         return (
           <div className="app">
-            <Navbar />
+            <Navbar
+              datasets={this.props.datasets}/>
 
             {dashboardRoutes.paths.includes(window.location.pathname) ?
-            <DashboardMenus
-              buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
-              handleButtonSelectorClick={this.handleButtonSelectorClick.bind(this)} /> : ""}
+              <DashboardMenus
+                buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
+                handleButtonSelectorClick={this.handleButtonSelectorClick.bind(this)}
+                datasets={this.props.datasets} /> : ""}
 
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
@@ -202,6 +204,20 @@ class App extends Component {
             />
 
             <div className="dashboard-content">
+              {/*<Switch>
+                {this.dashboardRoutes(this.props.match.params.userId).map((routeObj, index) => {
+                    console.log("admin path", routeObj.path);
+                    return (
+                        <PrivateRoute
+                          exact
+                          key={`admin-${index}`}
+                          path={routeObj.path}
+                          component={routeObj.component}
+                        />
+                    )
+                })}
+              </Switch>*/}
+
               <PrivateRoute
                 exact
                 path='/admin/user/:userId/preview/dashboard'

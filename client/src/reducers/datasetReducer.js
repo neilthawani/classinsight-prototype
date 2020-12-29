@@ -47,6 +47,8 @@ export default function datasetReducer(state, action) {
             };
         case SHOW_DATASET:
             // return {
+                // localStorage.setItem("activeParser", state.dataParsers[action.payload]);
+
                 return {
                     ...state,
                     activeDataset: state.datasets[action.payload],

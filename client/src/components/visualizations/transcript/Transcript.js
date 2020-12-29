@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import BaseVisualization from '../BaseVisualization';
+// import BaseVisualization from '../BaseVisualization';
 import LegendButtonGroup from '../../legend/LegendButtonGroup';
 import TurnTakingSmall from '../turn-taking/TurnTakingSmall';
 import Script from '../transcript/Script';
@@ -13,8 +13,11 @@ import removeArrayValue from '../../../utils/removeArrayValue';
 class Transcript extends Component {
     constructor(props) {
         super(props);
+        console.log("Transcript constructor, props.datasets:", props.datasets);
+        console.log("props", props);
+        // props.match.params.userId
 
-        var parser = props.datasets.activeParser,
+        var parser = props.datasets.activeParser,// || localStorage.getItem("activeParser"),
             chartWidth = 2 * parser.maxNTokens(), // double width - for both left/right side of TurnTakingSmall chart
             talkRatios = parser.talkRatios(),
             transcript = parser.transcript();
@@ -32,6 +35,11 @@ class Transcript extends Component {
             talkRatios: talkRatios,
             transcript: transcript
         };
+    }
+
+    componentDidMount() {
+        console.log("Transcript componentDidMount");
+        console.log("this.props.datasets", this.props.datasets);
     }
 
     // same logic as in TurnTaking::handleFilterClick

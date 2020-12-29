@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import BaseVisualization from '../BaseVisualization';
+// import BaseVisualization from '../BaseVisualization';
 import Bar from './Bar';
 import LegendItemGroup from '../../legend/LegendItemGroup';
 
@@ -37,8 +37,10 @@ Each object in the array has this structure:
 class TurnTaking extends Component {
     constructor(props) {
         super(props);
-
-        var parser = props.datasets.activeParser,
+        console.log("TurnTaking constructor, props.datasets:", props.datasets);
+        console.log("props", props);
+        // props.match.params.userId
+        var parser = props.datasets.activeParser,// || localStorage.getItem("activeParser"),
             talkRatios = parser.talkRatios(),
             bars = localStorage.getItem("bars") || "expanded",
             activeFilters = [];
@@ -50,6 +52,11 @@ class TurnTaking extends Component {
             activeFilters: activeFilters,
             activeTurn: {}
         };
+    }
+
+    componentDidMount() {
+        console.log("TurnTaking componentDidMount");
+        console.log("this.props.datasets", this.props.datasets);
     }
 
     toggleExpandedBars = function(value, context) {
@@ -96,7 +103,12 @@ class TurnTaking extends Component {
     }
 
     handleTextClick(turnId) {
-        this.props.history.push(`/transcript#${turnId}`);
+        // debugger;
+        // this.props.location.pathname
+        var slashTurnTaking = this.props.location.pathname.slice(this.props.location.pathname.lastIndexOf("/"));
+        var newPathname = this.props.location.pathname.replace(slashTurnTaking, `/transcript#${turnId}`);
+        this.props.history.push(newPathname);
+        // localStorage.setItem("buttonSelectorSelectedOption", "transcript");
     }
 
     render() {

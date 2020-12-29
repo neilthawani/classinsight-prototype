@@ -23,17 +23,18 @@ import dashboardRoutes from '../../fixtures/dashboardRoutes';
 
 class DatasetPreview extends Component {
     constructor(props) {
-        // console.log("constructor");
+        console.log("DatasetPreview constructor");
         super(props);
         // console.log("props.location", props.location);
-        // console.log("props", props);
+        console.log("props", props);
         var userId = props.match.params.userId;
         // console.log("userId", userId);
 
         this.state = {
             buttonSelectorSelectedOption: "dashboard",//localStorage.get("buttonSelectorSelectedOption")
             userId: userId,
-            areUserDatasetsLoaded: false
+            areUserDatasetsLoaded: false,
+            datasets: props.datasets
 
             // dataset: props.location.state.dataset
         };
@@ -41,21 +42,23 @@ class DatasetPreview extends Component {
 
 
     componentDidMount() {
-        console.log("componentDidMount");
-        if (!this.state.areUserDatasetsLoaded) {
+        // console.log("DatasetPreview componentDidMount");
+        // console.log("DatasetPreview props", this.props);
+        // localStorage.setItem("datasets", JSON.stringify(this.props.datasets));
+        // if (!this.state.areUserDatasetsLoaded) {
         //     // console.log("are not loaded", this.state.userId);
         //     this.props.listDatasets(this.state.userId).then(res => {
         //         console.log("res", res);
-                this.setState({
-                    areUserDatasetsLoaded: true
-                });
+                // this.setState({
+                //     areUserDatasetsLoaded: true
+                // });
 
                 // this.props.history.push(`${this.state.buttonSelectorSelectedOption}`);
             // })
             // .catch(error => {
             //     console.error(error);
             // });
-        }
+        // }
     }
 
     handleButtonSelectorClick(value) {

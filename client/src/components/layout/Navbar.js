@@ -23,7 +23,11 @@ class Navbar extends Component {
         return (
           <div className="navbar">
             <div className="navbar-logo">
-              <Link to="/">
+              <Link
+                to={{
+                  pathname: "/",
+                  state: { datasets: this.props.datasets }
+                }}>
                 <img src={ClassInSightLogo} alt="ClassInSight Logo" height="50"/>
               </Link>
             </div>
