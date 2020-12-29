@@ -25,26 +25,26 @@ import TurnTaking from './components/visualizations/turn-taking/TurnTaking';
 
 import dashboardRoutes from './fixtures/dashboardRoutes';
 
-// import Parser from './data/parser';
-// import data_tom from './data/data_tom';
-// import data_kim from './data/data_kim';
-// import data_bill from './data/data_bill';
+import Parser from './data/parser';
+import data_tom from './data/data_tom';
+import data_kim from './data/data_kim';
+import data_bill from './data/data_bill';
 
 class App extends Component {
     constructor(props) {
         super(props);
 
-        // var dataRows = [data_tom[0], data_kim[0], data_bill[0]];
-        // var dataParsers = dataRows.map((row) => {
-        //     var parser = new Parser(row);
-        //     return parser;
-        // });
+        var dataRows = [data_tom[0], data_kim[0], data_bill[0]];
+        var dataParsers = dataRows.map((row) => {
+            var parser = new Parser(row);
+            return parser;
+        });
 
         this.state = {
             areDatasetsLoaded: false,
-            // dataParsers: dataParsers,
+            dataParsers: dataParsers,
             buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption") || "dashboard",
-            // activeDataRowIndex: parseInt(localStorage.getItem("activeDataRowIndex"), 10) || 0
+            activeDataRowIndex: parseInt(localStorage.getItem("activeDataRowIndex"), 10) || 0
         };
     }
 
@@ -54,17 +54,17 @@ class App extends Component {
 
     // set button selector to match URL on refresh
     componentDidMount() {
-        console.log("App:componentDidMount");
-        this.props.listDatasets(this.props.auth.user.id).then(res => {
-            this.setState({
-                areDatasetsLoaded: true
-            });
-        });
+        // console.log("App:componentDidMount");
+        // this.props.listDatasets(this.props.auth.user.id).then(res => {
+        //     this.setState({
+        //         areDatasetsLoaded: true
+        //     });
+        // });
 
         var buttonSelectorSelectedOption = localStorage.getItem("buttonSelectorSelectedOption");
         var transcriptLocationHash = localStorage.getItem("transcriptLocationHash");
 
-        if (this.dashboardRoutePaths().includes(this.props.location.pathname)) {
+        if (this.dashboardRoutePaths.includes(this.props.location.pathname)) {
             console.log("push");
             this.props.history.push(`${buttonSelectorSelectedOption}${transcriptLocationHash}`);
         }
@@ -73,7 +73,7 @@ class App extends Component {
             var buttonSelectorSelectedOption = location.pathname;
             var transcriptLocationHash = window.location.hash || "";
 
-            if (this.dashboardRoutePaths().includes(buttonSelectorSelectedOption)) {
+            if (this.dashboardRoutePaths.includes(buttonSelectorSelectedOption)) {
                 this.setState({
                     buttonSelectorSelectedOption: buttonSelectorSelectedOption.slice(1),
                     transcriptLocationHash: transcriptLocationHash
