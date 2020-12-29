@@ -260,6 +260,8 @@ App.propTypes = {
     // deleteDatasetById: PropTypes.func.isRequired
 }
 
+// NOTE: Do not bind admin.datasets to this method.
+// It will cause componentDidMount to fire infinitely in all subcomponents which use it.
 function mapStateToProps(state) {
     return {
         auth: state.auth,
