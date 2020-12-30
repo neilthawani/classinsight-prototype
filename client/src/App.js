@@ -43,7 +43,7 @@ class App extends Component {
 
         // var adminUserId = props.match.params.userId;
         // var userId = this.props.auth.user.id;
-        console.log("App constructor", props);
+        // console.log("App constructor", props);
 
         this.state = {
             // admin: {
