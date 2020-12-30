@@ -51,7 +51,6 @@ class App extends Component {
         var transcriptLocationHash = localStorage.getItem("transcriptLocationHash");
 
         if (this.dashboardRoutePaths().includes(this.props.location.pathname)) {
-            console.log("push");
             this.props.history.push(`${buttonSelectorSelectedOption}${transcriptLocationHash}`);
         }
 
