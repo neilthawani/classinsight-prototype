@@ -40,7 +40,7 @@ router.post('/edit', (req, res) => {
     };
 
     let toUpdate = {
-        'last_updated_date': Date.now(),
+        'lastUpdatedDate': Date.now(),
         'isActive': req.body.dataset.isActive,
         'isDeleted': req.body.dataset.isDeleted
     };
@@ -73,14 +73,14 @@ router.get('/list', function(req, res) {
         var parsedDatasets = [];
 
         datasets.forEach((dataset) => {
-            if (!dataset.isDeleted && dataset.user_id.toString() === req.query.user_id) {
+            if (!dataset.isDeleted && dataset.userId.toString() === req.query.userId) {
                 parsedDatasets.push({
                     _id: dataset._id,
                     isActive: dataset.isActive,
                     isDeleted: dataset.isDeleted,
-                    class_topic: dataset.class_topic,
-                    class_date: dataset.class_date,
-                    class_period: dataset.class_period,
+                    classTopic: dataset.classTopic,
+                    classDate: dataset.classDate,
+                    classPeriod: dataset.classPeriod,
                     jsonData: dataset.jsonData
                 });
             }
@@ -109,11 +109,11 @@ router.post("/upload", (req, res) => {
         _id: req.body._id
     }).then(dataset => {
         const newDataset = new Dataset({
-            user_id: req.body.user_id,
+            userId: req.body.userId,
             filename: req.body.filename,
-            class_topic: req.body.class_topic,
-            class_date: req.body.class_date,
-            class_period: req.body.class_period,
+            classTopic: req.body.classTopic,
+            classDate: req.body.classDate,
+            classPeriod: req.body.classPeriod,
             jsonData: JSON.stringify(req.body.jsonData)
         });
 

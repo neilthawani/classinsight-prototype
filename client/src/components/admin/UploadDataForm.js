@@ -12,7 +12,7 @@ class UploadDataForm extends Component {
         this.state = {
             errors: {},
             userId: props.userId,
-            class_topic: "",
+            classTopic: "",
             isUploaded: false,
             isValid: false
         };
@@ -72,18 +72,18 @@ class UploadDataForm extends Component {
             var fileName = el.value.split("\\")[2];
 
             var fileMetadata = fileName.split("_");
-            var class_date = fileMetadata[1],
-                classDate = class_date.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
-            var class_period = fileMetadata[2].replace("Per", "").replace(".json", "").replace("_", ", ");
+            var classDate = fileMetadata[1],
+                classDate = classDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
+            var classPeriod = fileMetadata[2].replace("Per", "").replace(".json", "").replace("_", ", ");
 
             this.setState({
                 isUploaded: true,
                 fileData: {
-                    user_id: userId,
+                    userId: userId,
                     filename: fileName,
-                    class_topic: "",
-                    class_date: classDate,
-                    class_period: class_period,
+                    classTopic: "",
+                    classDate: classDate,
+                    classPeriod: classPeriod,
                     jsonData: jsonData
                 }
             })
@@ -127,23 +127,23 @@ class UploadDataForm extends Component {
                       <label htmlFor="topic">Class Topic</label>
                       <input
                         onChange={this.onChange}
-                        value={this.state.fileData.class_topic}
-                        id="class_topic"
+                        value={this.state.fileData.classTopic}
+                        id="classTopic"
                         type="text"
-                        error={errors.class_topic}
+                        error={errors.classTopic}
                         className={classnames("", {
-                          invalid: errors.class_topic
+                          invalid: errors.classTopic
                         })}
                       />
-                      <span className="input-field-error-text">{errors.class_topic}</span>
+                      <span className="input-field-error-text">{errors.classTopic}</span>
                     </div>
 
                     <div className="input-field">
                       <label htmlFor="date">Date</label>
                       <input
                         onChange={this.onChange}
-                        value={this.state.fileData.class_date}
-                        id="class_date"
+                        value={this.state.fileData.classDate}
+                        id="classDate"
                         type="date"
                       />
                     </div>
@@ -152,15 +152,15 @@ class UploadDataForm extends Component {
                       <label htmlFor="period">Period(s), comma-separated</label>
                       <input
                         onChange={this.onChange}
-                        value={this.state.fileData.class_period}
-                        id="class_period"
+                        value={this.state.fileData.classPeriod}
+                        id="classPeriod"
                         type="text"
-                        error={errors.class_period}
+                        error={errors.classPeriod}
                         className={classnames("", {
-                          invalid: errors.class_period
+                          invalid: errors.classPeriod
                         })}
                       />
-                      <span className="input-field-error-text">{errors.class_period}</span>
+                      <span className="input-field-error-text">{errors.classPeriod}</span>
                     </div>
                   </div>
 
