@@ -175,7 +175,7 @@ class App extends Component {
     }
 
     render() {
-        console.log("App render");
+        // console.log("App render");
         // console.log("dashboardRoutePaths render", dashboardRoutes.paths);
         return (
           <div className="app">

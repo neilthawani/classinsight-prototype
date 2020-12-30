@@ -33,7 +33,7 @@ class Sidebar extends Component {
 
         localStorage.setItem("activeDataRowIndex", index);
 
-        console.log("Sidebar handleSidebarRowClick", this.props);
+        // console.log("Sidebar handleSidebarRowClick", this.props);
 
         this.props.showDataset(index);
 

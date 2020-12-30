@@ -50,10 +50,10 @@ export default function datasetReducer(state, action) {
                     state.datasets.filter(dataset => dataset._id !== action.payload.dataset._id)
             };
         case SHOW_DATASET:
-            console.log("SHOW_DATASET", action.payload, typeof action.payload)
+            // console.log("SHOW_DATASET", action.payload, typeof action.payload)
             // return {
                 // localStorage.setItem("activeParser", state.dataParsers[action.payload]);
-                console.log("state", state);
+                // console.log("state", state);
                 return {
                     ...state,
                     activeDataset: state.datasets[action.payload],

@@ -24,7 +24,7 @@ import TurnTaking from '../visualizations/turn-taking/TurnTaking';
 
 class DatasetPreview extends Component {
     constructor(props) {
-        console.log("DatasetPreview constructor");
+        // console.log("DatasetPreview constructor");
         super(props);
         // console.log("props.location", props.location);
         // console.log("props", props);
@@ -52,11 +52,12 @@ class DatasetPreview extends Component {
         // localStorage.setItem("datasets", JSON.stringify(this.props.datasets));
         // if (!this.state.areUserDatasetsLoaded) {
         //     // console.log("are not loaded", this.state.userId);
-        this.props.listDatasets(this.state.userId).then(res => {
-            this.setState({
-                areUserDatasetsLoaded: true
-            });
-        });
+        this.props.listDatasets(this.state.userId);
+        // .then(res => {
+        //     this.setState({
+        //         areUserDatasetsLoaded: true
+        //     });
+        // });
         //         console.log("res", res);
 
 
