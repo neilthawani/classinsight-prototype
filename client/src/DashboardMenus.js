@@ -13,8 +13,8 @@ class DashboardMenus extends Component {
   }
 
   render() {
-      var { buttonSelectorSelectedOption, sidebarSelectedOption, admin } = this.props;
-      // console.log("dataParsers", dataParsers);
+      var { buttonSelectorSelectedOption, sidebarSelectedOption, admin, datasets } = this.props;
+      console.log("DashboardMenus datasets", datasets);
 
       return (
         <div className="dashboard-container">

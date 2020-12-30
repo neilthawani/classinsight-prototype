@@ -83,48 +83,53 @@ class Transcript extends Component {
     }
 
     render() {
-      var parser = this.props.datasets.activeParser,// || localStorage.getItem("activeParser"),
-          chartWidth = 2 * parser.maxNTokens(), // double width - for both left/right side of TurnTakingSmall chart
-          // talkRatios = parser.talkRatios(),
-          transcript = parser.transcript();
+        var areDatasetsLoaded = Object.keys(this.props.datasets).length > 0;
 
-      return (
-        <div className="transcript-visualization-container">
-          <div className="transcript-visualization-legend">
-            <LegendButtonGroup
-              labels={parser.legendLabels({ type: "Teacher"})}
-              displayRatio={true}
-              activeLabels={this.state.activeLabels}
-              handleClick={this.handleClick.bind(this)} />
-            <LegendButtonGroup
-              labels={parser.legendLabels({ type: "Student"})}
-              displayRatio={true}
-              activeLabels={this.state.activeLabels}
-              handleClick={this.handleClick.bind(this)} />
-            <LegendButtonGroup
-              labels={parser.legendLabels({ type: "Technique"})}
-              displayRatio={true}
-              activeLabels={this.state.activeLabels}
-              handleClick={this.handleClick.bind(this)} />
+        if (!areDatasetsLoaded) {
+            return null;
+        }
+        var parser = this.props.datasets.activeParser,// || localStorage.getItem("activeParser"),
+            chartWidth = 2 * parser.maxNTokens(), // double width - for both left/right side of TurnTakingSmall chart
+            // talkRatios = parser.talkRatios(),
+            transcript = parser.transcript();
+
+        return (
+          <div className="transcript-visualization-container">
+            <div className="transcript-visualization-legend">
+              <LegendButtonGroup
+                labels={parser.legendLabels({ type: "Teacher"})}
+                displayRatio={true}
+                activeLabels={this.state.activeLabels}
+                handleClick={this.handleClick.bind(this)} />
+              <LegendButtonGroup
+                labels={parser.legendLabels({ type: "Student"})}
+                displayRatio={true}
+                activeLabels={this.state.activeLabels}
+                handleClick={this.handleClick.bind(this)} />
+              <LegendButtonGroup
+                labels={parser.legendLabels({ type: "Technique"})}
+                displayRatio={true}
+                activeLabels={this.state.activeLabels}
+                handleClick={this.handleClick.bind(this)} />
+            </div>
+
+            <TurnTakingSmall
+              parser={parser}
+              chartWidth={chartWidth}
+
+              barHeight={this.barHeight}
+              focusBox={this.state.focusBox} />
+
+            <div className="transcript-script-container" style={{ marginLeft: `${chartWidth}px` }}>
+              <Script
+                transcript={transcript}
+                activeLabels={this.state.activeLabels}
+                focusBox={this.state.focusBox}
+                handleScroll={this.handleScroll.bind(this)}
+                handleUtteranceClick={() => {}} />
+            </div>
           </div>
-
-          <TurnTakingSmall
-            parser={parser}
-            chartWidth={chartWidth}
-
-            barHeight={this.barHeight}
-            focusBox={this.state.focusBox} />
-
-          <div className="transcript-script-container" style={{ marginLeft: `${chartWidth}px` }}>
-            <Script
-              transcript={transcript}
-              activeLabels={this.state.activeLabels}
-              focusBox={this.state.focusBox}
-              handleScroll={this.handleScroll.bind(this)}
-              handleUtteranceClick={() => {}} />
-          </div>
-        </div>
-      );
+        );
     }
 }
 

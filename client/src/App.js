@@ -11,16 +11,17 @@ import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
-import Dashboard from "./components/dashboard/Dashboard";
+// import Dashboard from "./components/dashboard/Dashboard";
+// import TalkRatio from './components/visualizations/talk-ratio/TalkRatio';
+// import Transcript from './components/visualizations/transcript/Transcript';
+// import TurnTaking from './components/visualizations/turn-taking/TurnTaking';
 import DashboardMenus from './DashboardMenus';
 
 import AdminPanel from './components/admin/AdminPanel';
 import UserDetailsPage from './components/admin/UserDetailsPage';
 import DatasetPreview from './components/admin/DatasetPreview';
 
-import TalkRatio from './components/visualizations/talk-ratio/TalkRatio';
-import Transcript from './components/visualizations/transcript/Transcript';
-import TurnTaking from './components/visualizations/turn-taking/TurnTaking';
+
 
 import { listDatasets } from "./actions/datasetActions";
 import dashboardRoutes from './fixtures/dashboardRoutes';
@@ -174,6 +175,7 @@ class App extends Component {
     }
 
     render() {
+        console.log("App render");
         // console.log("dashboardRoutePaths render", dashboardRoutes.paths);
         return (
           <div className="app">
@@ -215,21 +217,7 @@ class App extends Component {
               )}
             />
 
-            <div className="dashboard-content">
-              {/*<Switch>
-                {this.dashboardRoutes(this.props.match.params.userId).map((routeObj, index) => {
-                    console.log("admin path", routeObj.path);
-                    return (
-                        <PrivateRoute
-                          exact
-                          key={`admin-${index}`}
-                          path={routeObj.path}
-                          component={routeObj.component}
-                        />
-                    )
-                })}
-              </Switch>*/}
-
+            {/*<div className="dashboard-content">
               <PrivateRoute
                 exact
                 path='/admin/user/:userId/preview/dashboard'
@@ -253,7 +241,7 @@ class App extends Component {
                 path='/admin/user/:userId/preview/transcript'
                 component={(props) => ( <Transcript {...props} /> )}
               />
-            </div>
+            </div>*/}
 
             {this.state.areDatasetsLoaded ?
               <div className="dashboard-content">
@@ -274,7 +262,7 @@ class App extends Component {
                   })}
                 </Switch>
               </div>
-            : ""}
+            : null}
           </div>
         );
     }

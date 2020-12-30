@@ -121,73 +121,80 @@ class TalkRatio extends Component {
     }
 
     render() {
-      var parser = this.props.datasets.activeParser,
-          // talkRatios = parser.talkRatios(),
-          teacherTalkRatios = parser.teacherTalkRatios(),
-          studentTalkRatios = parser.studentTalkRatios(),
-          transcript = parser.transcript();
+        // console.log("this.props.datasets", this.props.datasets);
+        var areDatasetsLoaded = Object.keys(this.props.datasets).length > 0;
 
-      // console.log("TalkRatio parser", parser);
+        if (!areDatasetsLoaded) {
+            return null;
+        }
 
-      return (
-        <div className="talk-ratio-visualization-container">
-          <div className="talk-ratio-legend-teacher">
-            <h3 className="talk-ratio-visualization-heading">
-              Teacher Talk: {formatPercentage(this.calculateSpeakerTotal("Teacher"), 0)}
-            </h3>
-            <LegendItemGroup
-              labels={parser.legendLabels({ type: "Teacher" })}
-              displayRatio={true}
-              handleClick={() => {}} />
-            <LegendItemGroup
-              labels={parser.legendLabels({ type: "Media" })}
-              displayRatio={true}
-              handleClick={() => {}} />
-          </div>
-          <div className="talk-ratio-visualization">
-            <div className="talk-ratio-visualization-chart">
-              {teacherTalkRatios.map((item, index, array) => {
-                  // console.log("teacherTalkRatios item", item);
-                  return (
-                    <TalkRatioSection
-                      key={index}
-                      data={item}
-                      handleTalkRatioSectionClick={this.handleTalkRatioSectionClick.bind(this)} />
-                  );
-              })}
-              <div className="talk-ratio-visualization-divider"></div>
-              {studentTalkRatios.map((item, index, array) => {
-                  return (
-                    <TalkRatioSection
-                      key={index}
-                      data={item}
-                      handleTalkRatioSectionClick={this.handleTalkRatioSectionClick.bind(this)} />
-                  );
-              })}
+        var parser = this.props.datasets.activeParser,
+            // talkRatios = parser.talkRatios(),
+            teacherTalkRatios = parser.teacherTalkRatios(),
+            studentTalkRatios = parser.studentTalkRatios(),
+            transcript = parser.transcript();
+
+        // console.log("TalkRatio parser", parser);
+
+        return (
+          <div className="talk-ratio-visualization-container">
+            <div className="talk-ratio-legend-teacher">
+              <h3 className="talk-ratio-visualization-heading">
+                Teacher Talk: {formatPercentage(this.calculateSpeakerTotal("Teacher"), 0)}
+              </h3>
+              <LegendItemGroup
+                labels={parser.legendLabels({ type: "Teacher" })}
+                displayRatio={true}
+                handleClick={() => {}} />
+              <LegendItemGroup
+                labels={parser.legendLabels({ type: "Media" })}
+                displayRatio={true}
+                handleClick={() => {}} />
             </div>
-            <div className="talk-ratio-visualization-drilldown">
-              {this.state.drilldownFilter ?
-                <Script
-                  parser={parser}
-                  transcript={transcript}
-                  drilldownFilter={this.state.drilldownFilter}
-                  canInspect={true}
-                  handleUtteranceClick={this.handleUtteranceClick.bind(this)}
-                  handleScroll={() => {}} />
-              : ""}
+            <div className="talk-ratio-visualization">
+              <div className="talk-ratio-visualization-chart">
+                {teacherTalkRatios.map((item, index, array) => {
+                    // console.log("teacherTalkRatios item", item);
+                    return (
+                      <TalkRatioSection
+                        key={index}
+                        data={item}
+                        handleTalkRatioSectionClick={this.handleTalkRatioSectionClick.bind(this)} />
+                    );
+                })}
+                <div className="talk-ratio-visualization-divider"></div>
+                {studentTalkRatios.map((item, index, array) => {
+                    return (
+                      <TalkRatioSection
+                        key={index}
+                        data={item}
+                        handleTalkRatioSectionClick={this.handleTalkRatioSectionClick.bind(this)} />
+                    );
+                })}
+              </div>
+              <div className="talk-ratio-visualization-drilldown">
+                {this.state.drilldownFilter ?
+                  <Script
+                    parser={parser}
+                    transcript={transcript}
+                    drilldownFilter={this.state.drilldownFilter}
+                    canInspect={true}
+                    handleUtteranceClick={this.handleUtteranceClick.bind(this)}
+                    handleScroll={() => {}} />
+                : ""}
+              </div>
+            </div>
+            <div className="talk-ratio-legend-student">
+              <h3 className="talk-ratio-visualization-heading text-right">
+                Student Talk: {formatPercentage(this.calculateSpeakerTotal("Student"), 0)}
+              </h3>
+              <LegendItemGroup
+                labels={parser.legendLabels({ type: "Student" })}
+                displayRatio={true}
+                handleClick={() => {}} />
             </div>
           </div>
-          <div className="talk-ratio-legend-student">
-            <h3 className="talk-ratio-visualization-heading text-right">
-              Student Talk: {formatPercentage(this.calculateSpeakerTotal("Student"), 0)}
-            </h3>
-            <LegendItemGroup
-              labels={parser.legendLabels({ type: "Student" })}
-              displayRatio={true}
-              handleClick={() => {}} />
-          </div>
-        </div>
-      )
+        )
     }
 }
 

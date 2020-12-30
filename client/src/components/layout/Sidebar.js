@@ -33,6 +33,8 @@ class Sidebar extends Component {
 
         localStorage.setItem("activeDataRowIndex", index);
 
+        console.log("Sidebar handleSidebarRowClick", this.props);
+
         this.props.showDataset(index);
 
         if (this.props.location.hash !== "") {
@@ -41,7 +43,6 @@ class Sidebar extends Component {
     }
 
     componentDidMount() {
-
         // console.log("sidebar props", this.props.datasets.activeDataRowIndex);
         if (typeof this.props.datasets.activeDataRowIndex !== "number") {
             this.handleSidebarRowClick(0);

@@ -4,14 +4,15 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import DashboardMenus from '../../DashboardMenus';
 import { listDatasets } from "../../actions/datasetActions";
+import PrivateRoute from "../private-route/PrivateRoute";
 // import { Switch } from "react-router-dom";// import App from '../../App';
 // import PrivateRoute from "../private-route/PrivateRoute";
 // import dashboardRoutes from '../../fixtures/dashboardRoutes';
 
-// import Dashboard from "../dashboard/Dashboard";
-// import TalkRatio from '../visualizations/talk-ratio/TalkRatio';
-// import Transcript from '../visualizations/transcript/Transcript';
-// import TurnTaking from '../visualizations/turn-taking/TurnTaking';
+import Dashboard from "../dashboard/Dashboard";
+import TalkRatio from '../visualizations/talk-ratio/TalkRatio';
+import Transcript from '../visualizations/transcript/Transcript';
+import TurnTaking from '../visualizations/turn-taking/TurnTaking';
 // import { showUserDetails } from "../../actions/adminActions";
 // import { listDatasets, deleteDatasetById } from "../../actions/datasetActions";
 // import UserTypes from '../../fixtures/user_types';
@@ -23,7 +24,7 @@ import { listDatasets } from "../../actions/datasetActions";
 
 class DatasetPreview extends Component {
     constructor(props) {
-        // console.log("DatasetPreview constructor");
+        console.log("DatasetPreview constructor");
         super(props);
         // console.log("props.location", props.location);
         // console.log("props", props);
@@ -51,11 +52,13 @@ class DatasetPreview extends Component {
         // localStorage.setItem("datasets", JSON.stringify(this.props.datasets));
         // if (!this.state.areUserDatasetsLoaded) {
         //     // console.log("are not loaded", this.state.userId);
-        this.props.listDatasets(this.state.userId);
+        this.props.listDatasets(this.state.userId).then(res => {
+            this.setState({
+                areUserDatasetsLoaded: true
+            });
+        });
         //         console.log("res", res);
-                // this.setState({
-                //     areUserDatasetsLoaded: true
-                // });
+
 
                 // this.props.history.push(`${this.state.buttonSelectorSelectedOption}`);
             // })
@@ -101,21 +104,52 @@ class DatasetPreview extends Component {
         // var user = this.state.user || {};
         // var datasets = this.props.datasets.datasets || [];
         // console.log("state", this.state);
+        var areDatasetsLoaded = Object.keys(this.props.datasets).length > 0;
 
+        if (!areDatasetsLoaded) {
+            return null;
+        }
 
         return (
           <div className="preview-container">
+            {/*{this.state.areUserDatasetsLoaded ?*/}
             <DashboardMenus
               admin={{ userId: this.state.userId }}
               buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
               handleSidebarRowClick={this.handleSidebarRowClick.bind(this)}
-              dataParsers={this.props.datasets.dataParsers}
+              datasets={this.props.datasets}
               handleButtonSelectorClick={this.handleButtonSelectorClick.bind(this)} /> : ""}
 
-            {this.state.areUserDatasetsLoaded ?
+              <div className="dashboard-content">
+                <PrivateRoute
+                  exact
+                  path='/admin/user/:userId/preview/dashboard'
+                  component={(props) => ( <Dashboard {...props} /> )}
+                />
+
+                <PrivateRoute
+                  exact
+                  path='/admin/user/:userId/preview/talk-ratio'
+                  component={(props) => ( <TalkRatio {...props} /> )}
+                />
+
+                <PrivateRoute
+                  exact
+                  path='/admin/user/:userId/preview/turn-taking'
+                  component={(props) => ( <TurnTaking {...props} /> )}
+                />
+
+                <PrivateRoute
+                  exact
+                  path='/admin/user/:userId/preview/transcript'
+                  component={(props) => ( <Transcript {...props} /> )}
+                />
+              </div>
+              {/*: null}*/}
+            {/*{this.state.areUserDatasetsLoaded ?
               <div className="dashboard-content">
               </div>
-            : "not loaded"}
+            : "not loaded"}*/}
 
             {/* A <Switch> looks through all its children <Route> elements and
               renders the first one whose path matches the current URL.
