@@ -88,6 +88,7 @@ class Transcript extends Component {
         if (!areDatasetsLoaded) {
             return null;
         }
+
         var parser = this.props.datasets.activeParser,// || localStorage.getItem("activeParser"),
             chartWidth = 2 * parser.maxNTokens(), // double width - for both left/right side of TurnTakingSmall chart
             // talkRatios = parser.talkRatios(),

@@ -6,11 +6,11 @@ import { listDatasets } from "../../actions/datasetActions";
 
 class Landing extends Component {
   componentDidMount() {
-    // console.log("Landing componentDidMount")
+    console.log("Landing componentDidMount")
     // If logged in and user navigates to Register page, should redirect them to dashboard
     if (this.props.auth.isAuthenticated) {
       this.props.listDatasets(this.props.auth.user.id);
-      // console.log("redirect");
+      console.log("redirect");
       this.props.history.push("/dashboard");
     }
   }

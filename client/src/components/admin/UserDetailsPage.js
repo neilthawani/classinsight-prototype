@@ -23,14 +23,21 @@ class UserDetailsPage extends Component {
             datasetToDelete: {},
             isLoaded: false,
             showMessage: false,
-            message: ""
+            message: "",
+            areDatasetsLoaded: false,
         };
     }
 
     componentDidMount() {
         // console.log("UserDetailsPage componentDidMount");
         this.props.showUserDetails(this.state.userId);
-        this.props.listDatasets(this.state.userId);
+        if (!this.state.areDatasetsLoaded) {
+            this.props.listDatasets(this.state.userId).then((response) => {
+                this.setState({
+                    areDatasetsLoaded: true
+                });
+            });
+        }
         // .then((response) => {
         //     console.log("response", response);
         // });
