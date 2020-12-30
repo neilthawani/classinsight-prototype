@@ -5,20 +5,6 @@ import Utterance from './Utterance';
 
 export default class Script extends Component {
     componentDidMount() {
-<<<<<<< HEAD
-        // var url = window.location.href;
-        //
-        // if (url.indexOf("#") > -1) {
-        //     var utteranceId = url.slice(url.indexOf("#") + 1, url.length);
-        //     window.setTimeout(function() {
-        //         var focusId = document.getElementById(utteranceId);
-        //
-        //         const y = focusId.getBoundingClientRect().top;
-        //
-        //         window.scrollTo({top: y, behavior: 'smooth'});
-        //     }, 500);
-        // }
-=======
         var url = window.location.href;
 
         if (url.indexOf("#") > -1) {
@@ -33,7 +19,6 @@ export default class Script extends Component {
                 window.scrollTo({top: y, behavior: 'smooth'});
             }, 1000);
         }
->>>>>>> origin/main
 
         window.addEventListener('scroll', this.handleScroll.bind(this));
         this.handleScroll();

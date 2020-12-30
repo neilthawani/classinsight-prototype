@@ -32,26 +32,6 @@ export default class Transcript extends Component {
         };
     }
 
-<<<<<<< HEAD
-    componentDidMount() {
-        // dynamically orient and size TurnTakingSmall chart
-        var legendButtonGroup = document.getElementsByClassName("transcript-visualization-legend")[0],
-            chartOffsetWidth = legendButtonGroup.clientWidth,
-            navbarDiv = document.getElementsByClassName("navbar"),
-            navbar = navbarDiv && navbarDiv[0],
-            buttonSelectorDiv = document.getElementsByClassName("button-selector"),
-            buttonSelector = buttonSelectorDiv && buttonSelectorDiv[0],
-            chartHeight = window.innerHeight - 2.5 * (navbar.clientHeight - buttonSelector.clientHeight); // this is good enough for now; ideally it captures focusBox.height in its sizing of the chart
-
-        console.log("Transcript::componentDidMount");
-        this.setState({
-            chartOffsetWidth: chartOffsetWidth,
-            chartHeight: chartHeight
-        });
-    }
-
-=======
->>>>>>> origin/main
     // same logic as in TurnTaking::handleFilterClick
     handleClick(label) {
         var activeLabels = this.state.activeLabels;
@@ -85,17 +65,12 @@ export default class Transcript extends Component {
         // focus the box
         turnTakingBarsSmall.scrollTo(0, topElId * this.barHeight);
 
-<<<<<<< HEAD
-        console.log("Transcript::handleScroll");
-        console.log("this", this);
-=======
         var focusBox = {
             topElId: topElId,
             bottomElId: bottomElId,
             height: boxHeight,
         };
 
->>>>>>> origin/main
         this.setState({
             focusBox: focusBox
         });
