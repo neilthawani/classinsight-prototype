@@ -4,18 +4,14 @@ import formatDate from '../utils/formatDate';
 export default class Parser {
     constructor(data) {
         var parsedData = {};
-        // if (data && data.jsonData) {
-            parsedData = JSON.parse(data.jsonData);
-            this.topic = data.class_topic;
-            this.period = data.class_period;
-            this.date = formatDate(data.class_date);
-            this.data = parsedData;
-            this.segments = parsedData.segments;
-            this.isActive = false;
-        // } else {
-        //     this.data = data;
-        //     this.segments = data.data.segments;
-        // }
+
+        parsedData = JSON.parse(data.jsonData);
+        this.topic = data.class_topic;
+        this.period = data.class_period;
+        this.date = formatDate(data.class_date);
+        this.data = parsedData;
+        this.segments = parsedData.segments;
+        this.isActive = false;
     }
 
     legendLabels = function(options) {
