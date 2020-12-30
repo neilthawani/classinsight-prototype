@@ -27,7 +27,6 @@ class Landing extends Component {
   }
 }
 
-// export default Landing;
 Landing.propTypes = {
   auth: PropTypes.object.isRequired,
   datasets: PropTypes.object.isRequired

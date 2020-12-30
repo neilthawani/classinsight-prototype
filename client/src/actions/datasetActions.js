@@ -6,7 +6,6 @@ import {
     UPLOAD_DATASET,
     SHOW_DATASET,
     CLEAR_VALID_STATE
-    // SET_ACTIVE_INDEX
 } from './types';
 import axios from 'axios';
 
@@ -37,7 +36,6 @@ export const deleteDatasetById = (dataset) => dispatch => {
             }
         })
         .then(response => {
-            // debugger;
             dispatch({
                 type: DELETE_DATASET,
                 payload: response && response.data // dataset
@@ -50,21 +48,10 @@ export const deleteDatasetById = (dataset) => dispatch => {
 
 export const showDataset = (datasetIndex) => {
     return (dispatch) => {
-        // return axios.get("/api/datasets/show", {
-        //         params: {
-        //             id: datasetId
-        //         }
-        //     })
-        //     .then(response => {
-                dispatch({
-                    type: SHOW_DATASET,
-                    payload: datasetIndex//response && response.data.dataset
-                })
-            // })
-            // .catch(error => {
-            //     console.error(error);
-            //     return error;
-            // });
+        dispatch({
+            type: SHOW_DATASET,
+            payload: datasetIndex
+        });
     };
 };
 
@@ -76,15 +63,6 @@ export const clearValidState = () => {
         })
     }
 }
-
-// export const setActiveIndex = (index) => {
-//     return (dispatch) => {
-//         dispatch({
-//             type: SET_ACTIVE_INDEX,
-//             payload:
-//         })
-//     };
-// };
 
 export const listDatasets = (userId) => {
     return (dispatch) => {
