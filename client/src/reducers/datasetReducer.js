@@ -59,7 +59,7 @@ export default function datasetReducer(state, action) {
             };
         case SHOW_DATASET:
             var activeIndex = action.payload;
-            console.log("SHOW_DATASET", action.payload, typeof action.payload)
+            // console.log("SHOW_DATASET", action.payload, typeof action.payload)
             if (action.payload >= state.datasets.length) {
                 activeIndex = 0;
             }

@@ -25,7 +25,7 @@ import TurnTaking from '../visualizations/turn-taking/TurnTaking';
 
 class DatasetPreview extends Component {
     constructor(props) {
-        console.log("DatasetPreview constructor");
+        // console.log("DatasetPreview constructor");
         super(props);
         // console.log("props.location", props.location);
         // console.log("props", props);

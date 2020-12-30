@@ -13,7 +13,7 @@ class DashboardMenus extends Component {
   }
 
   render() {
-      var { buttonSelectorSelectedOption, sidebarSelectedOption, admin, datasets } = this.props;
+      var { buttonSelectorSelectedOption, sidebarSelectedOption, admin } = this.props;
       // console.log("DashboardMenus datasets", datasets);
       // console.log("sidebarSelectedOption", sidebarSelectedOption, typeof sidebarSelectedOption);
       return (
