@@ -10,8 +10,8 @@ import { connect } from "react-redux";
 import { showDataset } from "../../actions/datasetActions";
 
 class Sidebar extends Component {
-    constructor(props) {
-        super(props)
+    // constructor(props) {
+    //     super(props)
 
         // console.log("Sidebar constructor", props);
 
@@ -20,7 +20,7 @@ class Sidebar extends Component {
         // };
 
         // console.log("Sidebar activeDataRowIndex", this.state.activeDataRowIndex, typeof this.state.activeDataRowIndex);
-    }
+    // }
 
     handleSidebarRowClick(index) {
         // console.log("handleSidebarRowClick", index);

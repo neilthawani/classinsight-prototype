@@ -13,7 +13,7 @@ export default function datasetReducer(state, action) {
     // console.log("datasetReducer", action);
     switch (action.type) {
         case LIST_DATASETS:
-            var activeIndex = parseInt(localStorage.getItem("activeDataRowIndex"), 10) || 0;
+            var activeIndex = 0;//parseInt(localStorage.getItem("activeDataRowIndex"), 10) || 0;
 
             // console.log("action.payload", action.payload);
             var dataParsers = action.payload.map((dataset, index) => {
@@ -25,6 +25,7 @@ export default function datasetReducer(state, action) {
                 ...state,
                 datasets: action.payload,
                 dataParsers: dataParsers,
+                activeDataRowIndex: activeIndex,
                 activeDataset: action.payload[activeIndex],//state.datasets[action.payload],
                 activeParser: dataParsers[activeIndex]
             };

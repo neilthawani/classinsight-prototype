@@ -33,8 +33,8 @@ class DatasetPreview extends Component {
         // console.log("userId", userId);
 
         this.state = {
-            sidebarSelectedOption: localStorage.getItem("sidebarSelectedOption"),
-            buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption"),
+            sidebarSelectedOption: 0,//localStorage.getItem("sidebarSelectedOption") || 0,
+            buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption") || "dashboard",
             userId: userId,
             areUserDatasetsLoaded: false,
             datasets: props.datasets
@@ -112,14 +112,17 @@ class DatasetPreview extends Component {
             return null;
         }
 
+        console.log("this.state.sidebarSelectedOption", this.state.sidebarSelectedOption);
+
         return (
           <div className="preview-container">
             {/*{this.state.areUserDatasetsLoaded ?*/}
             <DashboardMenus
               admin={{ userId: this.state.userId }}
-              buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
-              handleSidebarRowClick={this.handleSidebarRowClick.bind(this)}
               datasets={this.props.datasets}
+              sidebarSelectedOption={this.state.sidebarSelectedOption}
+              handleSidebarRowClick={this.handleSidebarRowClick.bind(this)}
+              buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
               handleButtonSelectorClick={this.handleButtonSelectorClick.bind(this)} />
 
             <div className="dashboard-content">
