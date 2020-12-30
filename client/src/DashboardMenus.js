@@ -3,33 +3,31 @@ import ButtonSelector from './components/ButtonSelector';
 import Sidebar from "./components/layout/Sidebar";
 
 class DashboardMenus extends Component {
-  handleButtonSelectorClick(value) {
-      // console.log("DashboardMenus handleButtonSelectorClick", value);
-      this.props.handleButtonSelectorClick(value);
-  }
+    handleButtonSelectorClick(value) {
+        this.props.handleButtonSelectorClick(value);
+    }
 
-  handleSidebarRowClick(value) {
-      this.props.handleSidebarRowClick(value);
-  }
+    handleSidebarRowClick(value) {
+        this.props.handleSidebarRowClick(value);
+    }
 
-  render() {
-      var { buttonSelectorSelectedOption, sidebarSelectedOption, admin } = this.props;
-      // console.log("DashboardMenus datasets", datasets);
-      // console.log("sidebarSelectedOption", sidebarSelectedOption, typeof sidebarSelectedOption);
-      return (
-        <div className="dashboard-container">
-          {/* coarse, medium, and fine-grained visualizations */}
-          <ButtonSelector
-            admin={admin}
-            buttonSelectorSelectedOption={buttonSelectorSelectedOption}
-            handleClick={this.props.handleButtonSelectorClick.bind(this)} />
+    render() {
+        var { buttonSelectorSelectedOption, sidebarSelectedOption, admin } = this.props;
 
-          <Sidebar
-            sidebarSelectedOption={sidebarSelectedOption}
-            handleSidebarRowClick={this.props.handleSidebarRowClick.bind(this)} />
-        </div>
-      )
-  }
+        return (
+          <div className="dashboard-container">
+            {/* coarse, medium, and fine-grained visualizations */}
+            <ButtonSelector
+              admin={admin}
+              buttonSelectorSelectedOption={buttonSelectorSelectedOption}
+              handleClick={this.props.handleButtonSelectorClick.bind(this)} />
+
+            <Sidebar
+              sidebarSelectedOption={sidebarSelectedOption}
+              handleSidebarRowClick={this.props.handleSidebarRowClick.bind(this)} />
+          </div>
+        )
+    }
 }
 
 export default DashboardMenus;

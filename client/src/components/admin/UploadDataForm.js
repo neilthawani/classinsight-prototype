@@ -30,7 +30,6 @@ class UploadDataForm extends Component {
 
     shouldComponentUpdate(nextProps, nextState) {
         if (nextProps.datasets.isValid) {
-            // console.log("DISMOUNT!");
             this.dismountForm();
         }
 

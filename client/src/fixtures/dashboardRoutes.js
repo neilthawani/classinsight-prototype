@@ -7,7 +7,6 @@ import Icon from '@mdi/react';
 import { mdiViewDashboardVariantOutline, mdiBarcode, mdiChartGantt, mdiCommentTextMultipleOutline } from '@mdi/js';
 
 var definitions = function(admin) {
-    // console.log("adminUserId", adminUserId);
     var isAdmin = admin && Object.keys(admin).length > 0 ? true : false;
     var baseAdminPath = isAdmin ? `/admin/user/${admin.userId}/preview` : "";
 

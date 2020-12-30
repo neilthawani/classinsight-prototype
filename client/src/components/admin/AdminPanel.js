@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { fetchUsers, deleteUserById, clearIsValidUser } from '../../actions/adminActions';
-// import { listDatasets } from '../../actions/datasetActions';
 import AdminPanelTableRow from './AdminPanelTableRow';
 import CreateUserForm from './CreateUserForm';
 
@@ -31,16 +30,6 @@ class AdminPanel extends Component {
 
     static getDerivedStateFromProps(nextProps) {
         if (nextProps.admin.users) {
-            // debugger;
-            // console.log("nextProps.admin.users", nextProps.admin.users);
-            // var users = nextProps.admin.users.reduce((prev, user, index, array) => {
-            //     nextProps.listDatasets(user._id).then(res => {
-            //         console.log("res", res);
-            //     });
-            //
-            //     prev.push(user);
-            // }, []);
-
             return ({
                 users: nextProps.admin.users,
                 isDeletingUser: false

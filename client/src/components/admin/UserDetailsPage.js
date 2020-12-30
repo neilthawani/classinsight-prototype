@@ -29,7 +29,6 @@ class UserDetailsPage extends Component {
     }
 
     componentDidMount() {
-        // console.log("UserDetailsPage componentDidMount");
         this.props.showUserDetails(this.state.userId);
         if (!this.state.areDatasetsLoaded) {
             this.props.listDatasets(this.state.userId).then((response) => {
@@ -38,24 +37,7 @@ class UserDetailsPage extends Component {
                 });
             });
         }
-        // .then((response) => {
-        //     console.log("response", response);
-        // });
     }
-
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     // console.log("shouldComponentUpdate", nextProps, nextState);
-    //     if (nextProps.datasets.datasets) {
-    //         // console.log("here");
-    //         this.setState({
-    //             datasets: nextProps.datasets.datasets
-    //         })
-    //     } else if (this.state.datasets.length) {
-    //         return false;
-    //     }
-    //
-    //     return true;
-    // }
 
     static getDerivedStateFromProps(nextProps) {
         if (nextProps.admin.user) {
@@ -105,7 +87,6 @@ class UserDetailsPage extends Component {
     }
 
     dismountForm(options) {
-        // console.log("dismountForm");
         var that = this;
 
         if (options && options.message) {
@@ -129,10 +110,6 @@ class UserDetailsPage extends Component {
             isResettingPassword: false
         });
     }
-
-    // previewTeacherView() {
-    //     console.log("this.props.dataset.jsonData");
-    // }
 
     render() {
         var user = this.state.user || {};

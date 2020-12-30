@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import BaseVisualization from '../BaseVisualization';
 import Bar from './Bar';
 import LegendItemGroup from '../../legend/LegendItemGroup';
 
@@ -37,31 +36,16 @@ Each object in the array has this structure:
 class TurnTaking extends Component {
     constructor(props) {
         super(props);
-        // console.log("TurnTaking constructor", props.datasets.activeDataRowIndex);//, props.datasets:", props.datasets);
-        // console.log("props", props);
-        // props.match.params.userId
-        // var parser = props.datasets.activeParser,// || localStorage.getItem("activeParser"),
-        //     talkRatios = parser.talkRatios(),
+
         var bars = localStorage.getItem("bars") || "expanded",
             activeFilters = [];
 
         this.state = {
-            // parser: parser,
-            // talkRatios: talkRatios,
             bars: bars,
             activeFilters: activeFilters,
             activeTurn: {}
         };
     }
-
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     console.log("TurnTaking shouldComponentUpdate", nextProps, nextState);
-    // }
-
-    // componentDidMount() {
-    //     console.log("TurnTaking componentDidMount");
-    //     console.log("this.props.datasets", this.props.datasets);
-    // }
 
     toggleExpandedBars = function(value, context) {
         this.setState({ "bars": value });
@@ -107,12 +91,9 @@ class TurnTaking extends Component {
     }
 
     handleTextClick(turnId) {
-        // debugger;
-        // this.props.location.pathname
         var slashTurnTaking = this.props.location.pathname.slice(this.props.location.pathname.lastIndexOf("/"));
         var newPathname = this.props.location.pathname.replace(slashTurnTaking, `/transcript#${turnId}`);
         this.props.history.push(newPathname);
-        // localStorage.setItem("buttonSelectorSelectedOption", "transcript");
     }
 
     render() {
@@ -121,12 +102,10 @@ class TurnTaking extends Component {
         if (!areDatasetsLoaded) {
             return null;
         }
-        // var parser = props.datasets.activeParser,// || localStorage.getItem("activeParser"),
 
         var parser = this.props.datasets.activeParser,
-            // talkRatios = parser.talkRatios(),
             chartData = parser.parsedData({activeFilters: this.state.activeFilters})[this.state.bars] || [];
-        // console.log("TurnTaking this.props.datasets.activeParser", parser, "index", this.props.datasets.activeDataRowIndex);
+
         return (
             <div className="turn-taking-visualization-container">
               <div className="turn-taking-legend-teacher">
@@ -174,16 +153,11 @@ class TurnTaking extends Component {
 
 
 TurnTaking.propTypes = {
-    // auth: PropTypes.object.isRequired,
-    // showUserDetails: PropTypes.func.isRequired,
-    datasets: PropTypes.object.isRequired,
-    // admin: PropTypes.object.isRequired,
-    // showDataset: PropTypes.func.isRequired
-}
+    datasets: PropTypes.object.isRequired
+};
 
 function mapStateToProps(state) {
     return {
-        // auth: state.auth,
         datasets: state.datasets,
     }
 };

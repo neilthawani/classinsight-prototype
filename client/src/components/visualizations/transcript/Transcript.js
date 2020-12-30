@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import BaseVisualization from '../BaseVisualization';
 import LegendButtonGroup from '../../legend/LegendButtonGroup';
 import TurnTakingSmall from '../turn-taking/TurnTakingSmall';
 import Script from '../transcript/Script';
@@ -13,31 +12,17 @@ import removeArrayValue from '../../../utils/removeArrayValue';
 class Transcript extends Component {
     constructor(props) {
         super(props);
-        // console.log("Transcript constructor");//, props.datasets:", props.datasets);
-        // console.log("props", props);
-        // props.match.params.userId
-
-
 
         this.state = {
-            // parser: parser,
             activeLabels: [],
             focusBox: {
                 topElId: 0,
                 bottomElId: 0,
                 y: 0,
                 height: 0
-            },
-            // chartWidth: chartWidth,
-            // talkRatios: talkRatios,
-            // transcript: transcript
+            }
         };
     }
-
-    // componentDidMount() {
-    //     console.log("Transcript componentDidMount");
-    //     console.log("this.props.datasets", this.props.datasets);
-    // }
 
     // same logic as in TurnTaking::handleFilterClick
     handleClick(label) {
@@ -89,9 +74,8 @@ class Transcript extends Component {
             return null;
         }
 
-        var parser = this.props.datasets.activeParser,// || localStorage.getItem("activeParser"),
+        var parser = this.props.datasets.activeParser,
             chartWidth = 2 * parser.maxNTokens(), // double width - for both left/right side of TurnTakingSmall chart
-            // talkRatios = parser.talkRatios(),
             transcript = parser.transcript();
 
         return (
@@ -135,16 +119,11 @@ class Transcript extends Component {
 }
 
 Transcript.propTypes = {
-    // auth: PropTypes.object.isRequired,
-    // showUserDetails: PropTypes.func.isRequired,
-    datasets: PropTypes.object.isRequired,
-    // admin: PropTypes.object.isRequired,
-    // showDataset: PropTypes.func.isRequired
-}
+    datasets: PropTypes.object.isRequired
+};
 
 function mapStateToProps(state) {
     return {
-        // auth: state.auth,
         datasets: state.datasets,
     }
 };

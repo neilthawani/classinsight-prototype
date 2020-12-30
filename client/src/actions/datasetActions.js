@@ -94,12 +94,9 @@ export const listDatasets = (userId) => {
                 }
             })
             .then(response => {
-                // console.trace("response in datasetActions", response);
-                // console.log("response in datasetActions", response);
                 return response && response.data;
             })
             .then(ret => {
-                // console.log("ret", ret);
                 dispatch({
                     type: LIST_DATASETS,
                     payload: ret // datasets
@@ -130,10 +127,7 @@ export const uploadDataset = (dataset) => dispatch => {
 
             dispatch({
                 type: GET_ERRORS,
-                payload: //{
-                    // errors:
-                    error.response && error.response.data
-                // }
+                payload: error.response && error.response.data
             })
         });
 };

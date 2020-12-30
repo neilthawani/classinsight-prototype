@@ -11,101 +11,28 @@ import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
-// import Dashboard from "./components/dashboard/Dashboard";
-// import TalkRatio from './components/visualizations/talk-ratio/TalkRatio';
-// import Transcript from './components/visualizations/transcript/Transcript';
-// import TurnTaking from './components/visualizations/turn-taking/TurnTaking';
 import DashboardMenus from './DashboardMenus';
 
 import AdminPanel from './components/admin/AdminPanel';
 import UserDetailsPage from './components/admin/UserDetailsPage';
 import DatasetPreview from './components/admin/DatasetPreview';
 
-
-
 import { listDatasets } from "./actions/datasetActions";
 import dashboardRoutes from './fixtures/dashboardRoutes';
-// import Parser from './data/parser';
-// import data_tom from './data/data_tom';
-// import data_kim from './data/data_kim';
-// import data_bill from './data/data_bill';
 
 class App extends Component {
     constructor(props) {
         super(props);
-        // console.log("init props", props);
-
-        // var dataRows = [data_tom[0], data_kim[0], data_bill[0]];//, data_tom[0], data_kim[0], data_bill[0]];
-        // var dataParsers = dataRows.map((row) => {
-        //     var parser = new Parser(row);
-        //     return parser;
-        // });
-
-        // var adminUserId = props.match.params.userId;
-        // var userId = this.props.auth.user.id;
-        // console.log("App constructor", props);
 
         this.state = {
-            // admin: {
-            //     userId: ""
-            // },
-            // dataRows: dataRows,
-            // dataParsers: dataParsers,
             areDatasetsLoaded: false,
             sidebarSelectedOption: localStorage.getItem("sidebarSelectedOption"),
             buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption")
         };
     }
 
-    // componentDidMount() {
-        // console.log("app mount");
-        // console.log("props", this.props);
-        // console.log("state", this.state);
-
-    // }
-
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     if (nextProps.datasets.dataParsers) {
-            // var dataParsers = nextProps.datasets.dataParsers;
-
-            // console.log("here", nextProps.datasets.dataParsers);
-            // if ()
-    //         this.setState({
-    //             dataParsers: nextProps.datasets.dataParsers
-    //         });
-    //     }
-    //
-    //     return true;
-    // }
-
-    //         var dataRows = nextProps.datasets.datasets.map((dataset) => {
-    //             return {
-    //                 ...dataset,
-    //                 data: JSON.parse(dataset.jsonData)
-    //             }
-    //         });
-            // var dataParsers = dataRows.map((row) => {
-            //     console.log("row", row);
-            //     var parser = new Parser(row);
-            //     return parser;
-            // });
-
-            // debugger;
-
-            // this.dismountForm();
-        // }
-
-    //     return true;
-    // }
-
-    // activeParser = function() {
-    //     // console.log("this.props.datasets", this.props.datasets);
-    //     return this.props.datasets.dataParsers[this.state.activeDataRowIndex];
-    // }
-
     // set button selector to match URL on refresh
     componentDidMount() {
-        // console.log("App:componentDidMount");
         this.props.listDatasets(this.props.auth.user.id).then((response) => {
             this.setState({
                 areDatasetsLoaded: true
@@ -114,9 +41,8 @@ class App extends Component {
 
         var buttonSelectorSelectedOption = localStorage.getItem("buttonSelectorSelectedOption");
         var transcriptLocationHash = localStorage.getItem("transcriptLocationHash");
-        // console.log("dashboardRoutePaths", dashboardRoutes.paths);
+
         if (dashboardRoutes.paths.includes(this.props.location.pathname)) {
-            // console.log("push");
             this.props.history.push(`${buttonSelectorSelectedOption}${transcriptLocationHash}`);
         }
 
@@ -124,7 +50,6 @@ class App extends Component {
             var buttonSelectorSelectedOption = location.pathname;
             var transcriptLocationHash = window.location.hash || "";
 
-            // console.log("dashboardRoutePaths", dashboardRoutes.paths);
             if (dashboardRoutes.paths.includes(buttonSelectorSelectedOption)) {
                 this.setState({
                     buttonSelectorSelectedOption: buttonSelectorSelectedOption.slice(1),
@@ -150,7 +75,6 @@ class App extends Component {
     }
 
     handleButtonSelectorClick(value) {
-        // console.log("App handleButtonSelectorClick", value);
         localStorage.setItem("buttonSelectorSelectedOption", value);
 
         this.setState({
@@ -158,32 +82,15 @@ class App extends Component {
         });
     }
 
-    // handleSidebarRowClick(index) {
-    //     localStorage.setItem("activeDataRowIndex", index);
-    //
-    //     this.setState({
-    //         activeDataRowIndex: index
-    //     });
-    //
-    //     if (this.props.location.hash !== "") {
-    //         this.props.history.push(this.props.location.pathname);
-    //     }
-    // }
-
     dashboardRoutes(admin) {
         return dashboardRoutes.definitions();
     }
 
     render() {
-        // console.log("App::props.datasets", this.props.datasets);
-        // var areDatasetsLoaded = this.props.datasets && Object.keys(this.props.datasets).length > 0;
-        //
         if (!this.state.areDatasetsLoaded) {
             return null;
         }
 
-        // console.log("App render");
-        // console.log("dashboardRoutePaths render", dashboardRoutes.paths);
         return (
           <div className="app">
             <Navbar
@@ -216,32 +123,6 @@ class App extends Component {
                 <UserDetailsPage {...props} />
               )}
             />
-
-            {/*<div className="dashboard-content">
-              <PrivateRoute
-                exact
-                path='/admin/user/:userId/preview/dashboard'
-                component={(props) => ( <Dashboard {...props} /> )}
-              />
-
-              <PrivateRoute
-                exact
-                path='/admin/user/:userId/preview/talk-ratio'
-                component={(props) => ( <TalkRatio {...props} /> )}
-              />
-
-              <PrivateRoute
-                exact
-                path='/admin/user/:userId/preview/turn-taking'
-                component={(props) => ( <TurnTaking {...props} /> )}
-              />
-
-              <PrivateRoute
-                exact
-                path='/admin/user/:userId/preview/transcript'
-                component={(props) => ( <Transcript {...props} /> )}
-              />
-            </div>*/}
 
             <PrivateRoute
               path='/admin/user/:userId/preview'
@@ -276,10 +157,6 @@ class App extends Component {
 
 App.propTypes = {
     auth: PropTypes.object.isRequired,
-    // showUserDetails: PropTypes.func.isRequired,
-    // datasets: PropTypes.object.isRequired,
-    // admin: PropTypes.object.isRequired,
-    // deleteDatasetById: PropTypes.func.isRequired
 }
 
 // NOTE: Do not bind admin.datasets to this method.
@@ -287,7 +164,6 @@ App.propTypes = {
 function mapStateToProps(state) {
     return {
         auth: state.auth,
-        // datasets: state.datasets,
     }
 };
 

@@ -38,7 +38,6 @@ export const showUserDetails = (userId) => {
                 }
             })
             .then(response => {
-                // console.log("adminActions response");
                 dispatch({
                     type: SHOW_USER,
                     payload: response && response.data.user

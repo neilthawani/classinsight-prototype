@@ -201,39 +201,6 @@ router.post('/delete', (req, res) => {
 // @route GET api/users/list
 // @desc List all users
 // @access Public
-// router.get('/list', function(req, res) {
-//     User.find().populate('datasets').exec((err, users) => {
-//         var parsedUsers = (users || []).map((user) => {
-//             console.log("user", user);
-//             return {
-//                 _id: user._id,
-//                 userType: user.userType,
-//                 name: user.name,
-//                 email: user.email,
-//                 datasets: user.datasets
-//             }
-//         });
-//
-//         res.send(parsedUsers);
-//     });
-
-    // var response = User.aggregate([
-    //   { $lookup:
-    //     {
-    //       from: 'datasets',
-    //       localField: '_id',
-    //       foreignField: 'user_id',
-    //       as: 'userDatasets'
-    //     }
-    //   }
-    // ]);
-    //
-    // res.send(response);
-
-    // .toArray((err, data) => {
-    //     res.send(data);
-    // })
-// });
 router.get('/list', function(req, res) {
     User.find({}, function(error, users) {
         var parsedUsers = users.map((user) => {

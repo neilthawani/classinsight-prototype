@@ -3,27 +3,19 @@ import formatDate from '../utils/formatDate';
 
 export default class Parser {
     constructor(data) {
-
-        // console.log("data.jsonData", data.jsonData);
-        // console.log("parsedData", parsedData);
         var parsedData = {};
-        if (data && data.jsonData) {
-            // debugger;
-            // console.log("data when jsonData", data);
+        // if (data && data.jsonData) {
             parsedData = JSON.parse(data.jsonData);
-            // console.log("parsedData", parsedData);
             this.topic = data.class_topic;
             this.period = data.class_period;
             this.date = formatDate(data.class_date);
             this.data = parsedData;
             this.segments = parsedData.segments;
             this.isActive = false;
-        } else {
-            // console.log("data from old scaffold", data);
-            this.data = data;
-            this.segments = data.data.segments;
-            // console.log("data from old scaffold");
-        }
+        // } else {
+        //     this.data = data;
+        //     this.segments = data.data.segments;
+        // }
     }
 
     legendLabels = function(options) {
