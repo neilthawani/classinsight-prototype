@@ -3,17 +3,14 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const DatasetSchema = new Schema({
-  // user_id: {
   userId: {
     type: Schema.Types.ObjectId, // https://stackoverflow.com/questions/32684927/mongoose-foreign-key
     ref: 'User'
   },
-  // created_date: {
   createdDate: {
     type: Date,
     default: Date.now
   },
-  // last_updated_date: {
   lastUpdatedDate: {
     type: Date,
     default: Date.now
@@ -22,17 +19,14 @@ const DatasetSchema = new Schema({
     type: String,
     required: true
   },
-  // class_topic: {
   classTopic: {
     type: String,
     required: true
   },
-  // class_date: {
   classDate: {
     type: String,
     required: true
   },
-  // class_period: {
   classPeriod: {
     type: Number,
     required: true
