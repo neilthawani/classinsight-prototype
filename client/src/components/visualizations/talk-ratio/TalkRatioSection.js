@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import formatPercentage from '../../../utils/formatPercentage';
 
 export default class TalkRatioSection extends Component {
-    constructor(props) {
-        super(props);
-        this.item = this.props.data;
-    }
+    // constructor(props) {
+    //     super(props);
+    //     this.item = this.props.data;
+    // }
 
     formatStyle(item) {
         return {
@@ -21,7 +21,8 @@ export default class TalkRatioSection extends Component {
     }
 
     render() {
-      var item = this.item;
+      var item = this.props.data;
+      // console.log("TalkRatioSection item", item);
 
       return (
         <div

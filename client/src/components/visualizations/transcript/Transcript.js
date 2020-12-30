@@ -13,7 +13,7 @@ import removeArrayValue from '../../../utils/removeArrayValue';
 class Transcript extends Component {
     constructor(props) {
         super(props);
-        // console.log("Transcript constructor, props.datasets:", props.datasets);
+        // console.log("Transcript constructor");//, props.datasets:", props.datasets);
         // console.log("props", props);
         // props.match.params.userId
 

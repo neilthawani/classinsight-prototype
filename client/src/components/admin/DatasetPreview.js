@@ -31,6 +31,7 @@ class DatasetPreview extends Component {
         // console.log("userId", userId);
 
         this.state = {
+            sidebarSelectedOption: localStorage.getItem("sidebarSelectedOption"),
             buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption"),
             userId: userId,
             areUserDatasetsLoaded: false,
@@ -38,6 +39,9 @@ class DatasetPreview extends Component {
 
             // dataset: props.location.state.dataset
         };
+
+        // console.log("props.location", props.location);
+        // localStorage.setItem("activeDataRowIndex", 0);
     }
 
 
@@ -61,8 +65,16 @@ class DatasetPreview extends Component {
         // }
     }
 
+    handleSidebarRowClick(value) {
+        localStorage.setItem("sidebarSelectedOption", value);
+
+        this.setState({
+            sidebarSelectedOption: value
+        });
+    }
+
     handleButtonSelectorClick(value) {
-        // console.log("DatasetPreview handleButtonSelectorClick", value);
+        // console.log("DatasetPreview handleButtonSelectorClick", value, "props.datasets.activeDataRowIndex", this.props.datasets.activeDataRowIndex);
         localStorage.setItem("buttonSelectorSelectedOption", value);
 
         this.setState({
@@ -96,6 +108,7 @@ class DatasetPreview extends Component {
             <DashboardMenus
               admin={{ userId: this.state.userId }}
               buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
+              handleSidebarRowClick={this.handleSidebarRowClick.bind(this)}
               dataParsers={this.props.datasets.dataParsers}
               handleButtonSelectorClick={this.handleButtonSelectorClick.bind(this)} /> : ""}
 

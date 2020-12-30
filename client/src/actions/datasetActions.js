@@ -5,6 +5,7 @@ import {
     EDIT_DATASET,
     UPLOAD_DATASET,
     SHOW_DATASET,
+    CLEAR_VALID_STATE
     // SET_ACTIVE_INDEX
 } from './types';
 import axios from 'axios';
@@ -66,6 +67,15 @@ export const showDataset = (datasetIndex) => {
             // });
     };
 };
+
+export const clearValidState = () => {
+    return (dispatch) => {
+        dispatch({
+            type: CLEAR_VALID_STATE,
+            payload: false
+        })
+    }
+}
 
 // export const setActiveIndex = (index) => {
 //     return (dispatch) => {

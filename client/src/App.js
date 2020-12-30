@@ -42,7 +42,7 @@ class App extends Component {
 
         // var adminUserId = props.match.params.userId;
         // var userId = this.props.auth.user.id;
-        // console.log("App constructor");
+        // console.log("App constructor", props);
 
         this.state = {
             // admin: {
@@ -51,6 +51,7 @@ class App extends Component {
             // dataRows: dataRows,
             // dataParsers: dataParsers,
             areDatasetsLoaded: false,
+            sidebarSelectedOption: localStorage.getItem("sidebarSelectedOption"),
             buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption")
         };
     }
@@ -139,6 +140,14 @@ class App extends Component {
         this.unlisten();
     }
 
+    handleSidebarRowClick(value) {
+        localStorage.setItem("sidebarSelectedOption", value);
+
+        this.setState({
+            sidebarSelectedOption: value
+        });
+    }
+
     handleButtonSelectorClick(value) {
         // console.log("App handleButtonSelectorClick", value);
         localStorage.setItem("buttonSelectorSelectedOption", value);
@@ -173,6 +182,8 @@ class App extends Component {
 
             {dashboardRoutes.paths.includes(window.location.pathname) ?
               <DashboardMenus
+                sidebarSelectedOption={this.state.sidebarSelectedOption}
+                handleSidebarRowClick={this.handleSidebarRowClick.bind(this)}
                 buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
                 handleButtonSelectorClick={this.handleButtonSelectorClick.bind(this)}
                 datasets={this.props.datasets} /> : ""}

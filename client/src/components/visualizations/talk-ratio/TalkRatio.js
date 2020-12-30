@@ -9,7 +9,7 @@ import formatPercentage from '../../../utils/formatPercentage';
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { listDatasets } from "../../../actions/datasetActions";
+// import { listDatasets } from "../../../actions/datasetActions";
 /*
 For this file, the data we're after is in data.segments[0].speaking_turns.
 Each object in this array is a record of someone speaking. It has this structure:
@@ -127,6 +127,8 @@ class TalkRatio extends Component {
           studentTalkRatios = parser.studentTalkRatios(),
           transcript = parser.transcript();
 
+      // console.log("TalkRatio parser", parser);
+
       return (
         <div className="talk-ratio-visualization-container">
           <div className="talk-ratio-legend-teacher">
@@ -145,6 +147,7 @@ class TalkRatio extends Component {
           <div className="talk-ratio-visualization">
             <div className="talk-ratio-visualization-chart">
               {teacherTalkRatios.map((item, index, array) => {
+                  // console.log("teacherTalkRatios item", item);
                   return (
                     <TalkRatioSection
                       key={index}
@@ -195,7 +198,7 @@ TalkRatio.propTypes = {
     // showUserDetails: PropTypes.func.isRequired,
     datasets: PropTypes.object.isRequired,
     // admin: PropTypes.object.isRequired,
-    listDatasets: PropTypes.func.isRequired
+    // listDatasets: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
@@ -207,7 +210,7 @@ function mapStateToProps(state) {
 
 export default withRouter(connect(
   mapStateToProps,
-  { listDatasets }
+  {}
 )(TalkRatio));
 
 

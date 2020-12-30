@@ -12,19 +12,24 @@ import { showDataset } from "../../actions/datasetActions";
 class Sidebar extends Component {
     constructor(props) {
         super(props)
-        // console.log("sidebar props", props);
-        this.state = {
-            activeDataRowIndex: parseInt(localStorage.getItem("activeDataRowIndex"), 10) || 0
-        };
+
+        // console.log("Sidebar constructor", props);
+
+        // this.state = {
+        //     activeDataRowIndex: parseInt(localStorage.getItem("activeDataRowIndex"), 10) || 0
+        // };
+
+        // console.log("Sidebar activeDataRowIndex", this.state.activeDataRowIndex, typeof this.state.activeDataRowIndex);
     }
 
     handleSidebarRowClick(index) {
+        // console.log("handleSidebarRowClick", index);
         // NEXT TODO:
         // this.props.setActiveSidebarIndex(index);
-        // this.props.handleSidebarRowClick(index);
-        this.setState({
-            activeDataRowIndex: index
-        });
+        this.props.handleSidebarRowClick(index);
+        // this.setState({
+        //     activeDataRowIndex: index
+        // });
 
         localStorage.setItem("activeDataRowIndex", index);
 
@@ -35,9 +40,13 @@ class Sidebar extends Component {
         }
     }
 
-    // componentDidMount() {
-    //     console.log("sidebar props", this.props);
-    // }
+    componentDidMount() {
+
+        // console.log("sidebar props", this.props.datasets.activeDataRowIndex);
+        if (typeof this.props.datasets.activeDataRowIndex !== "number") {
+            this.handleSidebarRowClick(0);
+        }
+    }
 
     render() {
         // console.log("this.props.datasets.dataParsers")
@@ -65,7 +74,7 @@ class Sidebar extends Component {
 
                   return (
                     <div key={index}
-                      className={this.state.activeDataRowIndex === index ? "sidebar-data-row active" : "sidebar-data-row"}
+                      className={this.props.datasets.activeDataRowIndex === index ? "sidebar-data-row active" : "sidebar-data-row"}
                       onClick={this.handleSidebarRowClick.bind(this, index)}>
                       <div className="sidebar-data-row-title">
                         {topic}

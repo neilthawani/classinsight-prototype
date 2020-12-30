@@ -13,20 +13,22 @@ class DashboardMenus extends Component {
   }
 
   render() {
-    var { buttonSelectorSelectedOption, admin } = this.props;
-    // console.log("dataParsers", dataParsers);
+      var { buttonSelectorSelectedOption, sidebarSelectedOption, admin } = this.props;
+      // console.log("dataParsers", dataParsers);
 
-    return (
-      <div className="dashboard-container">
-        {/* coarse, medium, and fine-grained visualizations */}
-        <ButtonSelector
-          admin={admin}
-          buttonSelectorSelectedOption={buttonSelectorSelectedOption}
-          handleClick={this.props.handleButtonSelectorClick.bind(this)} />
+      return (
+        <div className="dashboard-container">
+          {/* coarse, medium, and fine-grained visualizations */}
+          <ButtonSelector
+            admin={admin}
+            buttonSelectorSelectedOption={buttonSelectorSelectedOption}
+            handleClick={this.props.handleButtonSelectorClick.bind(this)} />
 
-        <Sidebar />
-      </div>
-    )
+          <Sidebar
+            sidebarSelectedOption={sidebarSelectedOption}
+            handleSidebarRowClick={this.props.handleSidebarRowClick.bind(this)} />
+        </div>
+      )
   }
 }
 

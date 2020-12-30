@@ -43,18 +43,17 @@ class ButtonSelector extends Component {
     }
 
     handleClick(value) {
-
         // console.log("ButtonSelector handleClick", value);
         this.props.handleClick(value);
     }
 
     // dashboardRoutePaths = ["/dashboard", "/talk-ratio", "/turn-taking", "/transcript"];
 
-    renderLink() {
-        if (this.state.adminUserId) {
-
-        }
-    }
+    // renderLink() {
+    //     if (this.state.adminUserId) {
+    //
+    //     }
+    // }
 
     render() {
         // debugger;

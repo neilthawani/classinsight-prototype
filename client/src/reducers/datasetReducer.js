@@ -4,25 +4,29 @@ import {
     EDIT_DATASET,
     UPLOAD_DATASET,
     SHOW_DATASET,
+    CLEAR_VALID_STATE
     // SET_ACTIVE_INDEX
 } from '../actions/types';
 import Parser from '../data/parser';
 
 export default function datasetReducer(state, action) {
+    // console.log("datasetReducer", action);
     switch (action.type) {
         case LIST_DATASETS:
+            var activeIndex = localStorage.getItem("activeDataRowIndex");
+
             // console.log("action.payload", action.payload);
             var dataParsers = action.payload.map((dataset, index) => {
                 var parsedData = new Parser(dataset);
-                return Object.assign(parsedData, { isActive: (index === 0) });
+                return Object.assign(parsedData, { isActive: (index === activeIndex) });
             });
 
             return {
                 ...state,
                 datasets: action.payload,
                 dataParsers: dataParsers,
-                activeDataset: action.payload[0],//state.datasets[action.payload],
-                activeParser: dataParsers[0]
+                activeDataset: action.payload[activeIndex],//state.datasets[action.payload],
+                activeParser: dataParsers[activeIndex]
             };
         case EDIT_DATASET:
             return {
@@ -38,7 +42,7 @@ export default function datasetReducer(state, action) {
         case UPLOAD_DATASET:
             return {
                 datasets: [action.payload.dataset, ...state.datasets],
-                    isValid: true
+                isValid: true
             };
         case DELETE_DATASET:
             return {
@@ -46,13 +50,15 @@ export default function datasetReducer(state, action) {
                     state.datasets.filter(dataset => dataset._id !== action.payload.dataset._id)
             };
         case SHOW_DATASET:
+            // console.log("SHOW_DATASET", action.payload, typeof action.payload)
             // return {
                 // localStorage.setItem("activeParser", state.dataParsers[action.payload]);
 
                 return {
                     ...state,
                     activeDataset: state.datasets[action.payload],
-                    activeParser: state.dataParsers[action.payload]
+                    activeParser: state.dataParsers[action.payload],
+                    activeDataRowIndex: action.payload
                 }
                 // for (var i = 0; i < state.datasets.length; i++) {
                 //     if (i === action.payload) {
@@ -67,6 +73,11 @@ export default function datasetReducer(state, action) {
                 // }, []);
                 // dataset: action.payload
             // }
+        case CLEAR_VALID_STATE:
+            return {
+                ...state,
+                isValid: null
+            }
         default:
             return state || {};
     }

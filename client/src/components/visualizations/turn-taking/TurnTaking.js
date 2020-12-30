@@ -37,7 +37,7 @@ Each object in the array has this structure:
 class TurnTaking extends Component {
     constructor(props) {
         super(props);
-        // console.log("TurnTaking constructor, props.datasets:", props.datasets);
+        // console.log("TurnTaking constructor", props.datasets.activeDataRowIndex);//, props.datasets:", props.datasets);
         // console.log("props", props);
         // props.match.params.userId
         // var parser = props.datasets.activeParser,// || localStorage.getItem("activeParser"),
@@ -53,6 +53,10 @@ class TurnTaking extends Component {
             activeTurn: {}
         };
     }
+
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     console.log("TurnTaking shouldComponentUpdate", nextProps, nextState);
+    // }
 
     // componentDidMount() {
     //     console.log("TurnTaking componentDidMount");
@@ -117,7 +121,7 @@ class TurnTaking extends Component {
         var parser = this.props.datasets.activeParser,
             // talkRatios = parser.talkRatios(),
             chartData = parser.parsedData({activeFilters: this.state.activeFilters})[this.state.bars] || [];
-
+        // console.log("TurnTaking this.props.datasets.activeParser", parser);
         return (
             <div className="turn-taking-visualization-container">
               <div className="turn-taking-legend-teacher">

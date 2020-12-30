@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { showUserDetails } from "../../actions/adminActions";
-import { listDatasets, deleteDatasetById } from "../../actions/datasetActions";
+import { listDatasets, deleteDatasetById, clearValidState } from "../../actions/datasetActions";
 import UserTypes from '../../fixtures/user_types';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -113,6 +113,8 @@ class UserDetailsPage extends Component {
                     message: ""
                 });
             }, 3000);
+        } else {
+            this.props.clearValidState();
         }
 
         this.setState({
@@ -223,7 +225,8 @@ UserDetailsPage.propTypes = {
     listDatasets: PropTypes.func.isRequired,
     datasets: PropTypes.object.isRequired,
     admin: PropTypes.object.isRequired,
-    deleteDatasetById: PropTypes.func.isRequired
+    deleteDatasetById: PropTypes.func.isRequired,
+    clearValidState: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
@@ -236,5 +239,5 @@ function mapStateToProps(state) {
 
 export default withRouter(connect(
   mapStateToProps,
-  { showUserDetails, listDatasets, deleteDatasetById }
+  { showUserDetails, listDatasets, deleteDatasetById, clearValidState }
 )(UserDetailsPage));
