@@ -1,40 +1,55 @@
 .button {
     cursor: pointer;
     color: black;
-    border: 1px solid $blue;
-    background-color: white;
+    background-color: $blue;
 
 
     &:focus {
         outline: 0;
     }
-
-    &:hover {
-        background-color: $lightGray;
-        box-shadow: 1px 1px $blue;
-    }
 }
 
 .button-selector {
-    margin: 20px auto;
     width: max-content;
+    display: flex;
+    flex-direction: row;
+    width: calc(100% - #{$sidebarWidth} - 1px);
+    flex: 1;
+    background-color: $blue;
+    font-size: 16px;
+    font-weight: 300;
+    margin-left: $sidebarWidth;
+    margin-top: -$navbarMargin;
+    z-index: 999;
+    position: fixed;
 }
 
 .button-selector-item {
-    padding: 10px 15px;
-    margin-left: 10px;
-    margin-right: 10px;
-    border-radius: 5px;
+    padding: 2px 10px;
     @extend .button;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .button-selector-item.active {
-  cursor: not-allowed;
-  border: 1px solid white;
-  color: white;
-  background-color: $blue;
+    background-color: white;
 
-  &:hover {
-      box-shadow: none;
-  }
+    .button-selector-item-icon {
+        color: $blue;
+    }
+
+    .button-selector-item-text {
+        color: $blue;
+    }
+}
+
+.button-selector-item-icon {
+    color: white;
+    font-size: 24px;
+    margin-right: 5px;
+}
+
+.button-selector-item-text {
+    color: white;
 }

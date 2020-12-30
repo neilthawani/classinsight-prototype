@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 
-import Parser from '../../../data/parser';
-
 import TalkRatioSection from './TalkRatioSection';
 import Script from '../transcript/Script';
 import LegendItemGroup from '../../legend/LegendItemGroup';
-import displayLegendLabels from '../../legend/displayLegendLabels';
 
 import formatPercentage from '../../../utils/formatPercentage';
 
@@ -38,18 +35,28 @@ export default class TalkRatio extends Component {
         console.log("super TalkRatio");
         super(props);
 
+        var parser = props.activeParser,
+            talkRatios = parser.talkRatios(),
+            teacherTalkRatios = parser.teacherTalkRatios(),
+            studentTalkRatios = parser.studentTalkRatios(),
+            speakerTalkTotals = parser.speakerTalkTotals(),
+            transcript = parser.transcript();
+
         this.state = {
-            drilldownFilter: ""
+            parser: parser,
+            drilldownFilter: "",
+            talkRatios: talkRatios,
+            teacherTalkRatios: teacherTalkRatios,
+            studentTalkRatios: studentTalkRatios,
+            speakerTalkTotals: speakerTalkTotals,
+            transcript: transcript
         };
     }
 
     calculateSpeakerTotal(type) {
-        var speakerTotalObj = Parser.speakerTalkTotals().filter((item) => item.speakerType === type);
+        var speakerTotalObj = this.state.speakerTalkTotals.filter((item) => item.speakerType === type);
         return speakerTotalObj[0].totalTalkPercentage;
     }
-
-    teacherTalkRatio = Parser.talkRatios().filter((item) => item.type === "Teacher").reverse();
-    studentTalkRatio = Parser.talkRatios().filter((item) => item.type === "Student");
 
     handleTalkRatioSectionClick(label) {
         var drilldownFilter = label.value === this.state.drilldownFilter ? "" : label.value;
@@ -64,7 +71,7 @@ export default class TalkRatio extends Component {
     }
 
     handleUtteranceClick(utteranceId) {
-        this.props.history.push(`/dashboard/transcript#${utteranceId}`);
+        this.props.history.push(`/transcript#${utteranceId}`);
         localStorage.setItem("buttonSelectorSelectedOption", "transcript");
     }
 
@@ -76,13 +83,17 @@ export default class TalkRatio extends Component {
               Teacher Talk: {formatPercentage(this.calculateSpeakerTotal("Teacher"), 0)}
             </h3>
             <LegendItemGroup
-              labels={displayLegendLabels({ type: "Teacher"})}
+              labels={this.state.parser.legendLabels({ type: "Teacher" })}
+              displayRatio={true}
+              handleClick={() => {}} />
+            <LegendItemGroup
+              labels={this.state.parser.legendLabels({ type: "Media" })}
               displayRatio={true}
               handleClick={() => {}} />
           </div>
           <div className="talk-ratio-visualization">
             <div className="talk-ratio-visualization-chart">
-              {this.teacherTalkRatio.map((item, index, array) => {
+              {this.state.teacherTalkRatios.map((item, index, array) => {
                   return (
                     <TalkRatioSection
                       key={index}
@@ -91,7 +102,7 @@ export default class TalkRatio extends Component {
                   );
               })}
               <div className="talk-ratio-visualization-divider"></div>
-              {this.studentTalkRatio.map((item, index, array) => {
+              {this.state.studentTalkRatios.map((item, index, array) => {
                   return (
                     <TalkRatioSection
                       key={index}
@@ -103,7 +114,8 @@ export default class TalkRatio extends Component {
             <div className="talk-ratio-visualization-drilldown">
               {this.state.drilldownFilter ?
                 <Script
-                  data={Parser.transcript()}
+                  parser={this.state.parser}
+                  transcript={this.state.transcript}
                   drilldownFilter={this.state.drilldownFilter}
                   canInspect={true}
                   handleUtteranceClick={this.handleUtteranceClick.bind(this)}
@@ -112,11 +124,11 @@ export default class TalkRatio extends Component {
             </div>
           </div>
           <div className="talk-ratio-legend-student">
-            <h3 className="talk-ratio-visualization-heading">
+            <h3 className="talk-ratio-visualization-heading text-right">
               Student Talk: {formatPercentage(this.calculateSpeakerTotal("Student"), 0)}
             </h3>
             <LegendItemGroup
-              labels={displayLegendLabels({ type: "Student" })}
+              labels={this.state.parser.legendLabels({ type: "Student" })}
               displayRatio={true}
               handleClick={() => {}} />
           </div>

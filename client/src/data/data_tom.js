@@ -1,4 +1,4 @@
-export default [
+var data_tom = [
   {
     "id": "c6758ef9-d3a7-444a-9fbc-2d842e5bd9e1",
     "_id": "5e8e18b9093ae64810e4a183",
@@ -7,6 +7,11 @@ export default [
       "end_time": "1:53:30",
       "initial_time": "0:00:04",
       "original_csv": "Copy of 20200211_Tom_Per2_Mixed_Tarang_Madisyn_DeletedColumns.csv",
+      "metadata": {
+          "topic": "Earth Science",
+          "period": 2,
+          "date": "2020-02-11"
+      },
       "py/object": "__main__.Period",
       "segments": [
         {
@@ -43899,4 +43904,6 @@ export default [
       "title": "Copy of 20200211"
     }
   }
-]
+];
+
+export default data_tom;

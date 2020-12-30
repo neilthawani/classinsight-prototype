@@ -1,10 +1,11 @@
 import LegendLabels from '../../../fixtures/legend_labels';
 var legendLabels = LegendLabels;
 
-export default function(item) {
+export default function defineInitialStyle(item) {
     var legendLabelValue = item.utteranceTypes[item.utteranceTypes.length - 1],
         matchingLegendObj = legendLabels.find(item => item.value === legendLabelValue);
-    var textColor = matchingLegendObj.textColor
+    
+    var textColor = matchingLegendObj.textColor;
     var barColor = matchingLegendObj.barColor;
     var barBorder = "";
     var boxSizing = "";
@@ -13,7 +14,7 @@ export default function(item) {
         barBorder = `3px solid ${legendLabels.find(item => item.value === borderValue).barColor}`;
         boxSizing = "border-box";
     }
-    
+
     return {
         color: textColor,
         backgroundColor: barColor,

@@ -18,7 +18,7 @@ npm run app_install
 npm run dev
 ```
 
-`npm run dev` will execute both the client and server using [concurrently](https://www.npmjs.com/package/concurrently). The app will be live at `localhost:3000` in your browser. The server runs at `localhost:5000`.
+`npm run dev` will execute both the client and server using [concurrently](https://www.npmjs.com/package/concurrently). The app will be live at `localhost:3000` in your browser. The server runs at `localhost:8802`.
 
 ## The Tech Stack
 
@@ -31,7 +31,8 @@ This project uses the following technologies:
 
 ## Other Tech
 
-- [Material Design Icons](https://github.com/levrik/mdi-react)
+- [Material Design Icons (GitHub Repository)](https://templarian.github.io/@mdi/react/)
+- [Material Design Icons (Examples)](https://github.com/Templarian/MaterialDesign-React)
 
 ## Deployment
 

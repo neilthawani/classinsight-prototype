@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 
-import Parser from '../../../data/parser';
-
 import Bar from './Bar';
 import LegendItemGroup from '../../legend/LegendItemGroup';
-import displayLegendLabels from '../../legend/displayLegendLabels';
 
-import ArrowCollapseVerticalIcon from 'mdi-react/ArrowCollapseVerticalIcon';
-import ArrowExpandVerticalIcon from 'mdi-react/ArrowExpandVerticalIcon';
+import Icon from '@mdi/react';
+import { mdiArrowCollapseVertical, mdiArrowExpandVertical } from '@mdi/js';
 
 import removeArrayValue from '../../../utils/removeArrayValue';
 
@@ -40,9 +37,16 @@ export default class TurnTaking extends Component {
         console.log("super TurnTaking");
         super(props);
 
+        var parser = props.activeParser,
+            talkRatios = parser.talkRatios(),
+            bars = localStorage.getItem("bars") || "expanded",
+            activeFilters = [];
+
         this.state = {
-            bars: localStorage.getItem("bars") || "expanded",
-            activeFilters: [],
+            parser: parser,
+            talkRatios: talkRatios,
+            bars: bars,
+            activeFilters: activeFilters,
             activeTurn: {}
         };
     }
@@ -54,14 +58,16 @@ export default class TurnTaking extends Component {
     }
 
     barsStateIcon = {
-        "expanded": <ArrowCollapseVerticalIcon
+        "expanded": <Icon
+          path={mdiArrowCollapseVertical}
           className="turn-taking-visualization-heading-icon"
           onClick={this.toggleExpandedBars.bind(this, "collapsed")}
-          size="24" />,
-        "collapsed": <ArrowExpandVerticalIcon
+          size={1} />,
+        "collapsed": <Icon
+          path={mdiArrowExpandVertical}
           className="turn-taking-visualization-heading-icon"
           onClick={this.toggleExpandedBars.bind(this, "expanded")}
-          size="24" />
+          size={1} />
     }
 
     // same logic as in Transcript::handleClick
@@ -92,21 +98,22 @@ export default class TurnTaking extends Component {
     }
 
     handleTextClick(turnId) {
-        this.props.history.push(`/dashboard/transcript#${turnId}`);
+        this.props.history.push(`/transcript#${turnId}`);
     }
 
     render() {
-        var chartData = Parser.parsedData({activeFilters: this.state.activeFilters})[this.state.bars];
+        var parser = this.state.parser;
+        var chartData = parser.parsedData({activeFilters: this.state.activeFilters})[this.state.bars] || [];
 
         return (
             <div className="turn-taking-visualization-container">
               <div className="turn-taking-legend-teacher">
                 <LegendItemGroup
-                  labels={displayLegendLabels({ type: "Teacher"})}
+                  labels={this.state.parser.legendLabels({ type: "Teacher"})}
                   activeFilters={this.state.activeFilters}
                   handleClick={this.handleFilterClick.bind(this) }/>
                 <LegendItemGroup
-                  labels={displayLegendLabels({ type: "Technique"})}
+                  labels={this.state.parser.legendLabels({ type: "Technique"})}
                   activeFilters={this.state.activeFilters}
                   handleClick={this.handleFilterClick.bind(this) }/>
               </div>
@@ -134,7 +141,7 @@ export default class TurnTaking extends Component {
               </div>
               <div className="turn-taking-legend-student">
                 <LegendItemGroup
-                  labels={displayLegendLabels({ type: "Student" })}
+                  labels={this.state.parser.legendLabels({ type: "Student"})}
                   activeFilters={this.state.activeFilters}
                   handleClick={this.handleFilterClick.bind(this) }/>
               </div>

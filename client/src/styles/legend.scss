@@ -2,18 +2,22 @@
 .talk-ratio-legend-teacher,
 .turn-taking-legend-teacher {
     position: fixed;
-    top: 40%;
-    left: 2%;
+    padding-left: $legendSideBuffer;
 }
 
 .talk-ratio-legend-student,
 .turn-taking-legend-student {
     position: fixed;
-    top: 40%;
-    right: 2%;
+    right: $legendSideBuffer;
 }
 
-.turn-taking-legend-student .legend-item {
+.turn-taking-legend-teacher,
+.turn-taking-legend-student {
+    margin-top: 65px;
+}
+
+.turn-taking-legend-student .legend-item,
+.talk-ratio-legend-student .legend-item {
     flex-direction: row-reverse;
 }
 
@@ -34,8 +38,8 @@
 .legend-item-key {
     height: 25px;
     width: 25px;
-    margin-right: 6px;
-    margin-left: 6px;
+    // margin-right: 6px;
+    // margin-left: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -48,6 +52,9 @@
 .legend-item-label {
     font-size: 14px;
     cursor: pointer;
+    margin-left: 6px;
+    margin-right: 6px;
+    background-color: white;
 }
 
 // LegendButton.js
@@ -80,5 +87,5 @@
     background-color: $lightGray;
     font-size: 12px;
     margin-bottom: 5px;
-    width: 170px;
+    width: $legendButtonWidth;
 }

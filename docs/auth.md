@@ -131,7 +131,7 @@ axios.post('/api/users/register');
 So `client/package.json` has the following under the `scripts` object:
 
 ```
-"proxy": "http://localhost:5000",
+"proxy": "http://localhost:8802",
 ```
 
 ### Dependencies
@@ -244,9 +244,9 @@ Similar logic applies to `components/auth/Login.js`.
 
 Since we cannot define types in our `constructor`, it is considered good convention to do so using the `prop-types` package.
 
-#### `componentWillReceiveProps(nextProps)`
+#### `getDerivedStateFromProps(nextProps, prevState)`
 
-Per the first conditional statement of our `componentWillReceiveProps(nextProps)` lifecycle method, when the user logs in, the app redirects us to `/dashboard`. The `Dashboard` component is a `PrivateRoute` so that only a logged in user can view it.
+Per the first conditional statement of our `getDerivedStateFromProps(nextProps)` lifecycle method, when the user logs in, the app redirects us to `/dashboard`. The `Dashboard` component is a `PrivateRoute` so that only a logged in user can view it.
 
 #### `componentDidMount`
 

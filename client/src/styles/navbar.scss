@@ -7,14 +7,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 5px 20px;
+    padding: 0 20px;
     color: $darkGray;
     border-bottom: 1px solid $lightGray;
     z-index: 9999;
+    height: $navbarHeight;
+    margin-bottom: $navbarMargin;
 }
 
 .navbar-logo {
-  padding: 5px;
+  padding: 10px 5px;
   text-decoration: none;
 
   &:visited {
@@ -30,28 +32,28 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    padding: 5px;
+    padding: 10px 5px;
 
     .navbar-dropdown-menu {
-       display: none;
+         display: none;
 
-       position: absolute;
-       top: 90%;
-       right: 20px;
-       background-color: white;
-       width: 250px;
-       text-align: left;
-       border: 1px solid $lightGray;
+         position: absolute;
+         top: 90%;
+         right: 20px;
+         background-color: white;
+         width: $sidebarWidth;
+         text-align: left;
+         border: 1px solid $lightGray;
 
-       .navbar-dropdown-menu-item {
-          padding: 15px 12px;
-          display: flex;
-          align-items: center;
+         .navbar-dropdown-menu-item {
+              padding: 15px 12px;
+              display: flex;
+              align-items: center;
 
-          &:not(:last-child) {
-              border-bottom: black;
-          }
-       }
+              &:hover {
+                  background-color: $lightestGray;
+              }
+         }
     }
 
     &:hover {
@@ -61,8 +63,14 @@
     }
 }
 
+.navbar-dropdown-icon {
+    color: $blue;
+
+}
+
 .navbar-dropdown-menu-item-icon {
-    margin-right: 5px;
+    margin-right: 15px;
+    color: $darkGray;
 }
 
 .navbar-dropdown-profile {
@@ -74,10 +82,13 @@
 }
 
 .navbar-dropdown-profile-photo {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: yellow;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid $blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .navbar-dropdown-profile-name {

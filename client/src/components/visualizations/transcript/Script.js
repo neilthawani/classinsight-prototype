@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
 
-import Parser from '../../../data/parser';
 import Utterance from './Utterance';
 
 export default class Script extends Component {
-    constructor(props) {
-        super(props);
-        this.transcript = this.props.data;
-    }
-
     componentDidMount() {
+<<<<<<< HEAD
         // var url = window.location.href;
         //
         // if (url.indexOf("#") > -1) {
@@ -23,6 +18,22 @@ export default class Script extends Component {
         //         window.scrollTo({top: y, behavior: 'smooth'});
         //     }, 500);
         // }
+=======
+        var url = window.location.href;
+
+        if (url.indexOf("#") > -1) {
+            var utteranceId = url.slice(url.indexOf("#") + 1, url.length);
+            window.setTimeout(function() {
+                var focusId = document.getElementById(utteranceId),
+                    buffer = document.getElementsByClassName("navbar")[0].clientHeight +
+                              document.getElementsByClassName("button-selector")[0].clientHeight;
+
+                const y = focusId.getBoundingClientRect().top - buffer;
+
+                window.scrollTo({top: y, behavior: 'smooth'});
+            }, 1000);
+        }
+>>>>>>> origin/main
 
         window.addEventListener('scroll', this.handleScroll.bind(this));
         this.handleScroll();
@@ -84,11 +95,11 @@ export default class Script extends Component {
 
     render() {
       var drilldownFilter = this.props.drilldownFilter,
-          activeTranscript = this.transcript;
+          activeTranscript = this.props.transcript;
 
       // for TalkRatio drilldown
       if (drilldownFilter) {
-          activeTranscript = Parser.drilldownTranscript({ drilldownFilter: drilldownFilter });
+          activeTranscript = this.props.parser.drilldownTranscript({ drilldownFilter: drilldownFilter });
       }
 
       return (
@@ -131,7 +142,7 @@ export default class Script extends Component {
 }
 
 Script.propTypes = {
-    data: PropTypes.array.isRequired,
+    transcript: PropTypes.array.isRequired,
     activeLabels: PropTypes.array,
     focusBox: PropTypes.object,
     handleScroll: PropTypes.func.isRequired

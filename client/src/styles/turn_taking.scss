@@ -21,7 +21,7 @@
 .turn-taking-visualization-heading {
     font-weight: 400;
     display: flex;
-    align-items: baseline;
+    align-items: flex-start;
 }
 
 .turn-taking-visualization-heading-icon {
@@ -43,12 +43,14 @@
 
 .turn-taking-bar-timestamp-time {
     @extend .turn-taking-bar-timestamp;
-    left: -45px;
+    right: 100%;
+    z-index: -1;
 }
 
 .turn-taking-bar-timestamp-range {
     @extend .turn-taking-bar-timestamp;
-    left: -95px;
+    right: 100%;
+    z-index: -1;
 }
 
 .turn-taking-bar {
@@ -100,6 +102,8 @@
 .turn-taking-bars-small-visualization {
     overflow-y: scroll;
     position: fixed;
+    left: calc(#{$sidebarWidth} + #{$legendButtonWidth} + #{$legendButtonPadding});
+    height: calc(100% - #{$navbarHeight} - #{$buttonSelectorHeight} - 12px);
 }
 
 .turn-taking-bar-small {

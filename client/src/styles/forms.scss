@@ -1,10 +1,36 @@
+$formMinWidth: 225px;
+
 .form-container {
-    margin: 50px auto;
+    margin-left: auto;
+    margin-right: auto;
     border: 1px solid $lightGray;
     padding: 10px 40px;
-    min-width: 200px;
+    min-width: $formMinWidth;
     max-width: 400px;
     width: max-content;
+}
+
+.form-container.wide {
+    width: 75%;
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+
+.form-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.form-header .icon {
+    cursor: pointer;
+}
+
+.form-confirmation {
+    color: $blue;
+    max-width: fit-content;
+    display: block;
+    margin: -10px 0 10px 0;
 }
 
 .form-container a.link {
@@ -13,13 +39,12 @@
     font-size: 12px;
 }
 
-// .form-container a.btn,
-.form-container .btn {
-    width: 75%;
+.btn {
+    width: max-content;
+    height: max-content;
     font-size: 18px;
     display: block;
     padding: 5px 10px;
-    margin: 20px auto;
     text-align: center;
     cursor: pointer;
     color: white;
@@ -32,6 +57,19 @@
     }
 }
 
+select {
+    font-size: 18px;
+    padding: 4px 4px 2px 4px;
+    color: black;
+    width: 100%;
+}
+
+.form-container .btn {
+    width: 75%;
+    margin: 20px auto;
+    @extend .btn;
+}
+
 .input-field {
     display: block;
     margin-bottom: 5px;
@@ -39,7 +77,7 @@
 
 .input-field label {
   font-size: 14px;
-  color: #777;
+  color: $gray;
   margin-right: 4px;
   display: block;
 }
@@ -48,12 +86,12 @@
     font-size: 18px;
     padding: 4px 4px 2px 4px;
     color: black;
-    min-width: 200px;
+    min-width: $formMinWidth;
     width: max-content;
 }
 
 .input-field-error-text {
     display: block;
     color: red;
-    word-wrap: break-word;
+    max-width: fit-content;
 }

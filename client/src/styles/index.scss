@@ -1,4 +1,7 @@
 @import "./variables.scss";
+@import "./grid.scss";
+
+@import "./admin_panel.scss";
 @import "./button_selector.scss";
 @import "./forms.scss";
 @import "./hover_box.scss";
@@ -7,6 +10,7 @@
 @import "./talk_ratio.scss";
 @import "./turn_taking.scss";
 @import "./script.scss";
+@import "./sidebar.scss";
 @import "./transcript.scss";
 
 body {
@@ -28,8 +32,16 @@ p {
     margin-inline-end: 0;
 }
 
+.text-left {
+    text-align: left;
+}
+
 .text-center {
     text-align: center;
+}
+
+.text-right {
+    text-align: right;
 }
 
 .text-with-link {
@@ -38,7 +50,14 @@ p {
     font-size: 10px;
 }
 
-.content-container {
-    margin: auto;
-    width: max-content;
+.hidden {
+    display: none;
+}
+
+.app {}
+
+.app-container {}
+
+.dashboard-content {
+    margin-left: $sidebarWidth;
 }

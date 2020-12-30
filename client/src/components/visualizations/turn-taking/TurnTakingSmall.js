@@ -1,29 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
-import Parser from '../../../data/parser';
 import drawBarStyles from './drawBarStyles';
 
 export default class TurnTakingSmall extends Component {
-    constructor(props) {
-        super(props);
-        this.chartWidth = this.props.chartWidth;
-        this.barHeight = this.props.barHeight;
-        this.focusBox = this.props.focusBox;
-    }
-
     render() {
-        var chartData = Parser.parsedData().expanded,
+        var chartData = this.props.parser.parsedData().expanded,
+            chartWidth = this.props.chartWidth,
+            barHeight = this.props.barHeight,
             focusBox = this.props.focusBox,
-            boxHeight = focusBox.height + this.barHeight,
-            boxOffset = this.barHeight * focusBox.topElId;
+            boxHeight = focusBox.height + barHeight,
+            boxOffset = barHeight * focusBox.topElId;
 
         return (
-            <div className="turn-taking-bars-small-visualization" style={{ minWidth: `${this.chartWidth}px`, left:  `${this.props.chartOffsetWidth}px`, height: `${this.props.chartHeight}px`}}>
+            <div className="turn-taking-bars-small-visualization" style={{ minWidth: `${chartWidth}px` }}>
               {chartData.map((item, index) => {
                   var { teacherStyle, studentStyle } = drawBarStyles(item, true);
 
                   return (
-                      <div key={index} className="turn-taking-bar-small" data-attr-utterance-id={item.id} style={{height: `${this.barHeight}px`}}>
+                      <div key={index} className="turn-taking-bar-small" data-attr-utterance-id={item.id} style={{height: `${barHeight}px`}}>
                         <div className="turn-taking-bar-teacher-outer">
                           <div className="turn-taking-bar-teacher-inner" style={teacherStyle}>
                           </div>

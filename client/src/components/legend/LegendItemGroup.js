@@ -13,14 +13,18 @@ export default class LegendItemGroup extends Component {
       return (
         <div>
         {labels.map((label, index) => {
-          return (
-            <LegendItem
-              key={index}
-              label={label}
-              activeFilters={this.props.activeFilters}
-              displayRatio={this.props.displayRatio}
-              handleClick={this.handleClick.bind(this) }/>
-          );
+            if (label.value === "Video" && label.percentage === 0) {
+                return null;
+            }
+
+            return (
+              <LegendItem
+                key={index}
+                label={label}
+                activeFilters={this.props.activeFilters}
+                displayRatio={this.props.displayRatio}
+                handleClick={this.handleClick.bind(this) }/>
+            );
         })}
         </div>
       );

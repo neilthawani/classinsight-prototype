@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
-import ChevronDownIcon from 'mdi-react/ChevronDownIcon';
-import LogoutIcon from 'mdi-react/LogoutIcon';
+
+import Icon from '@mdi/react';
+import { mdiAccount, mdiChevronDown, mdiBadgeAccountHorizontalOutline, mdiLogout } from '@mdi/js';
+
 import ClassInSightLogo from "../../assets/images/classinsight-logo.png";
 
 class Navbar extends Component {
@@ -15,6 +17,7 @@ class Navbar extends Component {
 
     render() {
         const { user } = this.props.auth;
+        var isAdmin = user.userType === 100;
         var isLoggedIn = Object.keys(user).length !== 0 ? true : false;
 
         return (
@@ -28,16 +31,27 @@ class Navbar extends Component {
             {isLoggedIn ?
               <div className="navbar-dropdown">
                 <div className="navbar-dropdown-profile">
-                  <div className="navbar-dropdown-profile-photo"></div>
+                  <div className="navbar-dropdown-profile-photo">
+                    <Icon path={mdiAccount} className="navbar-dropdown-icon" size={1.5} />
+                  </div>
                   <p className="navbar-dropdown-profile-name">
                     {user.name}
                   </p>
                 </div>
-                <ChevronDownIcon color="#0363f3" size="24" />
+                <Icon path={mdiChevronDown} className="navbar-dropdown-icon" size={1} />
 
                 <div className="navbar-dropdown-menu">
+                  {isAdmin ?
+                  <Link to="/admin">
+                    <div className="navbar-dropdown-menu-item">
+                      <Icon path={mdiBadgeAccountHorizontalOutline} className="navbar-dropdown-menu-item-icon" size={1} />
+                      <span className="navbar-dropdown-menu-item-link">
+                         Manage Users
+                      </span>
+                    </div>
+                  </Link> : ""}
                   <div className="navbar-dropdown-menu-item">
-                    <LogoutIcon className="navbar-dropdown-menu-item-icon" color="#777" size="24" />
+                    <Icon path={mdiLogout} className="navbar-dropdown-menu-item-icon" size={1} />
                     <span className="navbar-dropdown-menu-item-link" onClick={this.onLogoutClick}>
                        Logout
                     </span>
