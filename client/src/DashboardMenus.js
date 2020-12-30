@@ -15,7 +15,7 @@ class DashboardMenus extends Component {
   render() {
       var { buttonSelectorSelectedOption, sidebarSelectedOption, admin, datasets } = this.props;
       // console.log("DashboardMenus datasets", datasets);
-
+      // console.log("sidebarSelectedOption", sidebarSelectedOption, typeof sidebarSelectedOption);
       return (
         <div className="dashboard-container">
           {/* coarse, medium, and fine-grained visualizations */}

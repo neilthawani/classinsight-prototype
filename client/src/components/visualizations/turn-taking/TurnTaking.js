@@ -126,7 +126,7 @@ class TurnTaking extends Component {
         var parser = this.props.datasets.activeParser,
             // talkRatios = parser.talkRatios(),
             chartData = parser.parsedData({activeFilters: this.state.activeFilters})[this.state.bars] || [];
-        // console.log("TurnTaking this.props.datasets.activeParser", parser);
+        // console.log("TurnTaking this.props.datasets.activeParser", parser, "index", this.props.datasets.activeDataRowIndex);
         return (
             <div className="turn-taking-visualization-container">
               <div className="turn-taking-legend-teacher">

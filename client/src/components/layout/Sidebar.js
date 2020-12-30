@@ -73,6 +73,7 @@ class Sidebar extends Component {
                       period = item.period;//item && item.class_period;
                   // debugger;
 
+                  // console.log("this.props.datasets.activeDataRowIndex", this.props.datasets.activeDataRowIndex, "index", index);
                   return (
                     <div key={index}
                       className={this.props.datasets.activeDataRowIndex === index ? "sidebar-data-row active" : "sidebar-data-row"}

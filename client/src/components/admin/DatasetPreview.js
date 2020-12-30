@@ -25,15 +25,15 @@ import TurnTaking from '../visualizations/turn-taking/TurnTaking';
 
 class DatasetPreview extends Component {
     constructor(props) {
-        // console.log("DatasetPreview constructor");
+        console.log("DatasetPreview constructor");
         super(props);
         // console.log("props.location", props.location);
         // console.log("props", props);
         var userId = props.match.params.userId;
         // console.log("userId", userId);
-
+        // console.log(localStorage.getItem("sidebarSelectedOption"), typeof localStorage.getItem("sidebarSelectedOption"));
         this.state = {
-            sidebarSelectedOption: 0,//localStorage.getItem("sidebarSelectedOption") || 0,
+            sidebarSelectedOption: 0,//,parseInt(localStorage.getItem("sidebarSelectedOption"), 10) || 0,
             buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption") || "dashboard",
             userId: userId,
             areUserDatasetsLoaded: false,
@@ -112,7 +112,7 @@ class DatasetPreview extends Component {
             return null;
         }
 
-        console.log("this.state.sidebarSelectedOption", this.state.sidebarSelectedOption);
+        // console.log("this.state.sidebarSelectedOption", this.state.sidebarSelectedOption);
 
         return (
           <div className="preview-container">

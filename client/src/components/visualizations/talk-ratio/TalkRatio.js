@@ -134,7 +134,7 @@ class TalkRatio extends Component {
             studentTalkRatios = parser.studentTalkRatios(),
             transcript = parser.transcript();
 
-        // console.log("TalkRatio parser", parser);
+        // console.log("TalkRatio parser", parser, "index", this.props.datasets.activeDataRowIndex);
 
         return (
           <div className="talk-ratio-visualization-container">
