@@ -136,7 +136,6 @@ router.get('/show', (req, res) => {
 // @desc Edit user in Users table
 // @access Public
 router.post('/edit', (req, res) => {
-    const id = req.body.user._id;
     const {
         errors,
         isValid
@@ -181,9 +180,21 @@ router.post('/edit', (req, res) => {
 // @access Public
 router.post('/delete', (req, res) => {
     const id = req.body.user._id;
-    User.deleteOne({
+
+    var byQuery = {
         _id: id
-    }).then(user => {
+    };
+    let toUpdate = {
+        'isActive': false
+    };
+    var options = {
+        returnNewDocument: true,
+        useFindAndModify: false
+    };
+
+    User.findOneAndUpdate(byQuery, {
+        $set: toUpdate
+    }, options, function(err, user) {
         if (user) {
             return res.status(200).json({
                 message: "User deleted",
