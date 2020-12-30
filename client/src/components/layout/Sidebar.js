@@ -2,11 +2,29 @@ import React, { Component } from "react";
 
 import Icon from '@mdi/react';
 import { mdiDatabase } from '@mdi/js';
-import formatDate from '../../utils/formatDate';
+
+import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { showDataset } from "../../actions/datasetActions";
 
 class Sidebar extends Component {
     handleSidebarRowClick(index) {
         this.props.handleSidebarRowClick(index);
+
+        localStorage.setItem("activeDataRowIndex", index);
+
+        this.props.showDataset(index);
+
+        if (this.props.location.hash !== "") {
+            this.props.history.push(this.props.location.pathname);
+        }
+    }
+
+    componentDidMount() {
+        if (typeof this.props.datasets.activeDataRowIndex !== "number") {
+            this.handleSidebarRowClick(0);
+        }
     }
 
     render() {
@@ -16,15 +34,18 @@ class Sidebar extends Component {
               <Icon path={mdiDatabase} className="sidebar-header-icon" size={2} />
             </div>
             <div className="sidebar-data">
-              {this.props.dataRows.map((item, index, array) => {
+              {(this.props.datasets.dataParsers || []).map((item, index, array) => {
                   var datum = item.data;
+                  var topic = item.topic,
+                      date = item.date,
+                      period = item.period;
 
                   return (
                     <div key={index}
-                      className={this.props.activeDataRowIndex === index ? "sidebar-data-row active" : "sidebar-data-row"}
+                      className={this.props.datasets.activeDataRowIndex === index ? "sidebar-data-row active" : "sidebar-data-row"}
                       onClick={this.handleSidebarRowClick.bind(this, index)}>
                       <div className="sidebar-data-row-title">
-                        {datum.metadata.topic}
+                        {topic}
                       </div>
 
                       <div className="sidebar-data-row-descriptor">
@@ -32,7 +53,7 @@ class Sidebar extends Component {
                           Date:
                         </span>
                         <span className="sidebar-data-row-descriptor-value">
-                          {formatDate(datum.metadata.date)}
+                          {date}
                         </span>
                       </div>
                       <div className="sidebar-data-row-descriptor">
@@ -40,7 +61,7 @@ class Sidebar extends Component {
                           Period:
                         </span>
                         <span className="sidebar-data-row-descriptor-value">
-                          {datum.metadata.period}
+                          {period}
                         </span>
                       </div>
                       <div className="sidebar-data-row-descriptor">
@@ -60,4 +81,19 @@ class Sidebar extends Component {
     }
 }
 
-export default Sidebar;
+Sidebar.propTypes = {
+    datasets: PropTypes.object.isRequired,
+    showDataset: PropTypes.func.isRequired
+}
+
+function mapStateToProps(state) {
+    return {
+        datasets: state.datasets,
+
+    }
+};
+
+export default withRouter(connect(
+  mapStateToProps,
+  { showDataset }
+)(Sidebar));

@@ -13,6 +13,7 @@ const validatePasswordInput = require("../../validation/reset-password");
 
 // Load User model
 const User = require("../../models/User");
+const Dataset = require("../../models/Dataset");
 
 function getNextSequence() {
     var ret = User.findAndModify({

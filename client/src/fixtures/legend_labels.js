@@ -112,7 +112,7 @@ var legendLabels = [{
     text: "Video",
     barColor: "#29CB97",
     speakerType: "Teacher",
-    textColor: "white",
+    textColor: "black",
     description: ""
 }];
 

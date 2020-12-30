@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { showUserDetails } from "../../actions/adminActions";
-import { listDatasets, deleteDatasetById } from "../../actions/datasetActions";
+import { listDatasets, deleteDatasetById, clearValidState } from "../../actions/datasetActions";
 import UserTypes from '../../fixtures/user_types';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -13,7 +13,7 @@ class UserDetailsPage extends Component {
     constructor(props) {
         super(props);
 
-        var userId = props.match.params.id;
+        var userId = props.match.params.userId;
 
         this.state = {
             isUploadingData: false,
@@ -23,13 +23,20 @@ class UserDetailsPage extends Component {
             datasetToDelete: {},
             isLoaded: false,
             showMessage: false,
-            message: ""
+            message: "",
+            areDatasetsLoaded: false,
         };
     }
 
     componentDidMount() {
         this.props.showUserDetails(this.state.userId);
-        this.props.listDatasets(this.state.userId);
+        if (!this.state.areDatasetsLoaded) {
+            this.props.listDatasets(this.state.userId).then((response) => {
+                this.setState({
+                    areDatasetsLoaded: true
+                });
+            });
+        }
     }
 
     static getDerivedStateFromProps(nextProps) {
@@ -94,6 +101,8 @@ class UserDetailsPage extends Component {
                     message: ""
                 });
             }, 3000);
+        } else {
+            this.props.clearValidState();
         }
 
         this.setState({
@@ -109,6 +118,13 @@ class UserDetailsPage extends Component {
         return (
           <div className="admin-user">
             <div className="admin-header">
+              <Link to={{
+                pathname: `/admin/user/${this.state.userId}/preview/dashboard`
+              }}>
+                <span className="btn">
+                  Preview Teacher View
+                </span>
+              </Link>
               <span
                 className={this.state.isResettingPassword ? "hidden" : "btn"}
                 onClick={this.toggleUploadData.bind(this)}>
@@ -169,12 +185,12 @@ class UserDetailsPage extends Component {
                     This user doesn't have any datasets.
                   </td>
                 </tr> :
-                (datasets || []).map((dataset, index, array) => {
+                datasets.map((dataset, index, array) => {
                   var isDeletingDataset = dataset._id && (this.state.datasetToDelete._id === dataset._id);
 
                   return (
                     <UserDatasetTableRow
-                      key={dataset._id}
+                      key={index}
                       dataset={dataset}
                       isDeletingDataset={isDeletingDataset}
                       deleteDataset={this.deleteDataset.bind(this)} />
@@ -190,9 +206,11 @@ class UserDetailsPage extends Component {
 UserDetailsPage.propTypes = {
     auth: PropTypes.object.isRequired,
     showUserDetails: PropTypes.func.isRequired,
+    listDatasets: PropTypes.func.isRequired,
     datasets: PropTypes.object.isRequired,
     admin: PropTypes.object.isRequired,
-    deleteDatasetById: PropTypes.func.isRequired
+    deleteDatasetById: PropTypes.func.isRequired,
+    clearValidState: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
@@ -203,7 +221,7 @@ function mapStateToProps(state) {
     }
 };
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
-  { showUserDetails, listDatasets, deleteDatasetById }
-)(withRouter(UserDetailsPage));
+  { showUserDetails, listDatasets, deleteDatasetById, clearValidState }
+)(UserDetailsPage));

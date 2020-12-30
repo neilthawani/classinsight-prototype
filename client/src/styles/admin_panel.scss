@@ -4,6 +4,7 @@
 }
 
 .admin-header {
+    margin-top: 40px;
     margin-bottom: 20px;
     display: flex;
     flex-direction: row-reverse;
@@ -93,7 +94,7 @@
     width: 75%;
     margin: 0 auto;
 
-    // span {
+    // span
     .admin-user-info-name,
     .admin-user-info-email,
     .admin-user-info-type {

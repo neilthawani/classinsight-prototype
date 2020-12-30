@@ -3,35 +3,31 @@ import ButtonSelector from './components/ButtonSelector';
 import Sidebar from "./components/layout/Sidebar";
 
 class DashboardMenus extends Component {
-  handleButtonSelectorClick(value) {
-      this.props.handleButtonSelectorClick(value);
-  }
+    handleButtonSelectorClick(value) {
+        this.props.handleButtonSelectorClick(value);
+    }
 
-  handleSidebarRowClick(value) {
-      this.props.handleSidebarRowClick(value);
-  }
+    handleSidebarRowClick(value) {
+        this.props.handleSidebarRowClick(value);
+    }
 
-  render() {
-    var { buttonSelectorSelectedOption, dataParsers, activeDataRowIndex } = this.props;
+    render() {
+        var { buttonSelectorSelectedOption, sidebarSelectedOption, admin } = this.props;
 
-    return (
-      <div className="dashboard-container">
-        {/* coarse, medium, and fine-grained visualizations */}
-        <ButtonSelector
-          buttonSelectorSelectedOption={buttonSelectorSelectedOption}
-          handleClick={this.props.handleButtonSelectorClick.bind(this)} />
+        return (
+          <div className="dashboard-container">
+            {/* coarse, medium, and fine-grained visualizations */}
+            <ButtonSelector
+              admin={admin}
+              buttonSelectorSelectedOption={buttonSelectorSelectedOption}
+              handleClick={this.props.handleButtonSelectorClick.bind(this)} />
 
-        <Sidebar
-          dataRows={
-            dataParsers.map((parser) => {
-                return parser.data;
-            })
-          }
-          activeDataRowIndex={activeDataRowIndex}
-          handleSidebarRowClick={this.props.handleSidebarRowClick.bind(this)}/>
-      </div>
-    )
-  }
+            <Sidebar
+              sidebarSelectedOption={sidebarSelectedOption}
+              handleSidebarRowClick={this.props.handleSidebarRowClick.bind(this)} />
+          </div>
+        )
+    }
 }
 
 export default DashboardMenus;

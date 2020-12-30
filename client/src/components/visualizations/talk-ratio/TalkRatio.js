@@ -5,6 +5,9 @@ import Script from '../transcript/Script';
 import LegendItemGroup from '../../legend/LegendItemGroup';
 
 import formatPercentage from '../../../utils/formatPercentage';
+import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 
 /*
 For this file, the data we're after is in data.segments[0].speaking_turns.
@@ -30,30 +33,19 @@ Each object in the array has this structure:
 }
 */
 
-export default class TalkRatio extends Component {
+class TalkRatio extends Component {
     constructor(props) {
         super(props);
 
-        var parser = props.activeParser,
-            talkRatios = parser.talkRatios(),
-            teacherTalkRatios = parser.teacherTalkRatios(),
-            studentTalkRatios = parser.studentTalkRatios(),
-            speakerTalkTotals = parser.speakerTalkTotals(),
-            transcript = parser.transcript();
-
         this.state = {
-            parser: parser,
             drilldownFilter: "",
-            talkRatios: talkRatios,
-            teacherTalkRatios: teacherTalkRatios,
-            studentTalkRatios: studentTalkRatios,
-            speakerTalkTotals: speakerTalkTotals,
-            transcript: transcript
         };
     }
 
     calculateSpeakerTotal(type) {
-        var speakerTotalObj = this.state.speakerTalkTotals.filter((item) => item.speakerType === type);
+        var parser = this.props.datasets.activeParser;
+        var speakerTalkTotals = parser.speakerTalkTotals();
+        var speakerTotalObj = speakerTalkTotals.filter((item) => item.speakerType === type);
         return speakerTotalObj[0].totalTalkPercentage;
     }
 
@@ -70,68 +62,97 @@ export default class TalkRatio extends Component {
     }
 
     handleUtteranceClick(utteranceId) {
-        this.props.history.push(`/transcript#${utteranceId}`);
-        localStorage.setItem("buttonSelectorSelectedOption", "transcript");
+        var slashTurnTaking = this.props.location.pathname.slice(this.props.location.pathname.lastIndexOf("/"));
+        var newPathname = this.props.location.pathname.replace(slashTurnTaking, `/transcript#${utteranceId}`);
+        this.props.history.push(newPathname);
     }
 
     render() {
-      return (
-        <div className="talk-ratio-visualization-container">
-          <div className="talk-ratio-legend-teacher">
-            <h3 className="talk-ratio-visualization-heading">
-              Teacher Talk: {formatPercentage(this.calculateSpeakerTotal("Teacher"), 0)}
-            </h3>
-            <LegendItemGroup
-              labels={this.state.parser.legendLabels({ type: "Teacher" })}
-              displayRatio={true}
-              handleClick={() => {}} />
-            <LegendItemGroup
-              labels={this.state.parser.legendLabels({ type: "Media" })}
-              displayRatio={true}
-              handleClick={() => {}} />
-          </div>
-          <div className="talk-ratio-visualization">
-            <div className="talk-ratio-visualization-chart">
-              {this.state.teacherTalkRatios.map((item, index, array) => {
-                  return (
-                    <TalkRatioSection
-                      key={index}
-                      data={item}
-                      handleTalkRatioSectionClick={this.handleTalkRatioSectionClick.bind(this)} />
-                  );
-              })}
-              <div className="talk-ratio-visualization-divider"></div>
-              {this.state.studentTalkRatios.map((item, index, array) => {
-                  return (
-                    <TalkRatioSection
-                      key={index}
-                      data={item}
-                      handleTalkRatioSectionClick={this.handleTalkRatioSectionClick.bind(this)} />
-                  );
-              })}
+        var areDatasetsLoaded = Object.keys(this.props.datasets).length > 0;
+
+        if (!areDatasetsLoaded) {
+            return null;
+        }
+
+        var parser = this.props.datasets.activeParser,
+            teacherTalkRatios = parser.teacherTalkRatios(),
+            studentTalkRatios = parser.studentTalkRatios(),
+            transcript = parser.transcript();
+
+        return (
+          <div className="talk-ratio-visualization-container">
+            <div className="talk-ratio-legend-teacher">
+              <h3 className="talk-ratio-visualization-heading">
+                Teacher Talk: {formatPercentage(this.calculateSpeakerTotal("Teacher"), 0)}
+              </h3>
+              <LegendItemGroup
+                labels={parser.legendLabels({ type: "Teacher" })}
+                displayRatio={true}
+                handleClick={() => {}} />
+              <LegendItemGroup
+                labels={parser.legendLabels({ type: "Media" })}
+                displayRatio={true}
+                handleClick={() => {}} />
             </div>
-            <div className="talk-ratio-visualization-drilldown">
-              {this.state.drilldownFilter ?
-                <Script
-                  parser={this.state.parser}
-                  transcript={this.state.transcript}
-                  drilldownFilter={this.state.drilldownFilter}
-                  canInspect={true}
-                  handleUtteranceClick={this.handleUtteranceClick.bind(this)}
-                  handleScroll={() => {}} />
-              : "" }
+            <div className="talk-ratio-visualization">
+              <div className="talk-ratio-visualization-chart">
+                {teacherTalkRatios.map((item, index, array) => {
+                    return (
+                      <TalkRatioSection
+                        key={index}
+                        data={item}
+                        handleTalkRatioSectionClick={this.handleTalkRatioSectionClick.bind(this)} />
+                    );
+                })}
+                <div className="talk-ratio-visualization-divider"></div>
+                {studentTalkRatios.map((item, index, array) => {
+                    return (
+                      <TalkRatioSection
+                        key={index}
+                        data={item}
+                        handleTalkRatioSectionClick={this.handleTalkRatioSectionClick.bind(this)} />
+                    );
+                })}
+              </div>
+              <div className="talk-ratio-visualization-drilldown">
+                {this.state.drilldownFilter ?
+                  <Script
+                    parser={parser}
+                    transcript={transcript}
+                    drilldownFilter={this.state.drilldownFilter}
+                    canInspect={true}
+                    handleUtteranceClick={this.handleUtteranceClick.bind(this)}
+                    handleScroll={() => {}} />
+                : ""}
+              </div>
+            </div>
+            <div className="talk-ratio-legend-student">
+              <h3 className="talk-ratio-visualization-heading text-right">
+                Student Talk: {formatPercentage(this.calculateSpeakerTotal("Student"), 0)}
+              </h3>
+              <LegendItemGroup
+                labels={parser.legendLabels({ type: "Student" })}
+                displayRatio={true}
+                handleClick={() => {}} />
             </div>
           </div>
-          <div className="talk-ratio-legend-student">
-            <h3 className="talk-ratio-visualization-heading text-right">
-              Student Talk: {formatPercentage(this.calculateSpeakerTotal("Student"), 0)}
-            </h3>
-            <LegendItemGroup
-              labels={this.state.parser.legendLabels({ type: "Student" })}
-              displayRatio={true}
-              handleClick={() => {}} />
-          </div>
-        </div>
-      )
+        )
     }
 }
+
+
+
+TalkRatio.propTypes = {
+    datasets: PropTypes.object.isRequired
+};
+
+function mapStateToProps(state) {
+    return {
+        datasets: state.datasets,
+    }
+};
+
+export default withRouter(connect(
+  mapStateToProps,
+  {}
+)(TalkRatio));
