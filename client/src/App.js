@@ -9,6 +9,9 @@ import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
+
+import ButtonSelector from './components/ButtonSelector';
+
 import Dashboard from "./components/dashboard/Dashboard";
 import DashboardMenus from './DashboardMenus';
 

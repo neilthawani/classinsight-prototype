@@ -8,9 +8,10 @@ export default class HoverScript extends Component {
 
     render() {
         var turn = this.props.data;
+        var utteranceId = `utterance${turn.id}`
 
         return (
-          <div className="script-turn-container" id={turn.id} onClick={this.handleTextClick.bind(this, turn.id)}>
+          <div className="script-turn-container" id={utteranceId} onClick={this.handleTextClick.bind(this, utteranceId)}>
             <table className="script-turn">
               <tbody className="script-turn-rows">
                 <tr className="script-turn-speaker">

@@ -24,6 +24,11 @@ export default class Script extends Component {
         this.handleScroll();
     }
 
+    // nope
+    // componentDidUpdate() {
+    //     this.handleScroll();
+    // }
+
     componentWillUnmount() {
         window.removeEventListener('scroll', this.handleScroll.bind(this));
     }

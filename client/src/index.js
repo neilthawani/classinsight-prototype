@@ -12,6 +12,7 @@ import { setCurrentUser, logoutUser } from "./actions/authActions";
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { BrowserRouter as Router } from "react-router-dom";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {

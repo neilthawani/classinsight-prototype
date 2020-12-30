@@ -32,6 +32,7 @@ Each object in the array has this structure:
 
 export default class TalkRatio extends Component {
     constructor(props) {
+        console.log("super TalkRatio");
         super(props);
 
         var parser = props.activeParser,

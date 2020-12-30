@@ -8,6 +8,7 @@ import removeArrayValue from '../../../utils/removeArrayValue';
 
 export default class Transcript extends Component {
     constructor(props) {
+        console.log("super Transcript");
         super(props);
 
         var parser = props.activeParser,
@@ -15,6 +16,7 @@ export default class Transcript extends Component {
             talkRatios = parser.talkRatios(),
             transcript = parser.transcript();
 
+        console.log("constructor");
         this.state = {
             parser: parser,
             activeLabels: [],
@@ -40,6 +42,7 @@ export default class Transcript extends Component {
             activeLabels.push(label.value);
         }
 
+        console.log("Transcript::handleClick");
         this.setState({
             activeLabels: activeLabels
         });
