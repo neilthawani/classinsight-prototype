@@ -59,5 +59,6 @@ p {
 .app-container {}
 
 .dashboard-content {
+    margin-top: $navbarMargin;
     margin-left: $sidebarWidth;
 }

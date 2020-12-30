@@ -195,7 +195,7 @@ class App extends Component {
                 handleSidebarRowClick={this.handleSidebarRowClick.bind(this)}
                 buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
                 handleButtonSelectorClick={this.handleButtonSelectorClick.bind(this)}
-                datasets={this.props.datasets} /> : ""}
+                datasets={this.props.datasets} /> : null}
 
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
@@ -214,13 +214,6 @@ class App extends Component {
               path='/admin/user/:userId'
               component={(props) => (
                 <UserDetailsPage {...props} />
-              )}
-            />
-
-            <PrivateRoute
-              path='/admin/user/:userId/preview'
-              component={(props) => (
-                <DatasetPreview {...props} />
               )}
             />
 
@@ -249,6 +242,14 @@ class App extends Component {
                 component={(props) => ( <Transcript {...props} /> )}
               />
             </div>*/}
+
+            <PrivateRoute
+              path='/admin/user/:userId/preview'
+              component={(props) => (
+                <DatasetPreview {...props} />
+              )}
+            />
+
 
             <div className="dashboard-content">
               {/* A <Switch> looks through all its children <Route> elements and

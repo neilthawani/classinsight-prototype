@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
-
 import Icon from '@mdi/react';
 import { mdiAccount, mdiChevronDown, mdiBadgeAccountHorizontalOutline, mdiLogout } from '@mdi/js';
 

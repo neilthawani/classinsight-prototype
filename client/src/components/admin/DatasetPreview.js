@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import DashboardMenus from '../../DashboardMenus';
 import { listDatasets } from "../../actions/datasetActions";
 import PrivateRoute from "../private-route/PrivateRoute";
+import { Switch } from "react-router-dom";
 // import { Switch } from "react-router-dom";// import App from '../../App';
 // import PrivateRoute from "../private-route/PrivateRoute";
 // import dashboardRoutes from '../../fixtures/dashboardRoutes';
@@ -119,9 +120,10 @@ class DatasetPreview extends Component {
               buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
               handleSidebarRowClick={this.handleSidebarRowClick.bind(this)}
               datasets={this.props.datasets}
-              handleButtonSelectorClick={this.handleButtonSelectorClick.bind(this)} /> : ""}
+              handleButtonSelectorClick={this.handleButtonSelectorClick.bind(this)} />
 
-              <div className="dashboard-content">
+            <div className="dashboard-content">
+              <Switch>
                 <PrivateRoute
                   exact
                   path='/admin/user/:userId/preview/dashboard'
@@ -145,7 +147,8 @@ class DatasetPreview extends Component {
                   path='/admin/user/:userId/preview/transcript'
                   component={(props) => ( <Transcript {...props} /> )}
                 />
-              </div>
+              </Switch>
+            </div>
               {/*: null}*/}
             {/*{this.state.areUserDatasetsLoaded ?
               <div className="dashboard-content">
@@ -156,7 +159,7 @@ class DatasetPreview extends Component {
               renders the first one whose path matches the current URL.
               Use a <Switch> any time you have multiple routes,
               but you want only one of them to render at a time. */}
-            {/*<Switch>*/}
+
               {/*dashboardRoutes({ userId: this.state.userId }).definitions.map((routeObj, index) => {
                   // console.log("routeObj", routeObj);
                   return (
@@ -168,7 +171,7 @@ class DatasetPreview extends Component {
                       />
                   )
               })*/}
-            {/*</Switch>*/}
+
           </div>
         )
     }
