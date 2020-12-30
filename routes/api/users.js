@@ -14,6 +14,17 @@ const validatePasswordInput = require("../../validation/reset-password");
 // Load User model
 const User = require("../../models/User");
 
+function getNextSequence() {
+    var ret = User.findAndModify({
+        query: { dbName: "users" },
+        update: { $inc: { count: 1 } },
+        new: true
+
+    });
+
+    return ret.count;
+}
+
 // @route POST api/users/reset-password
 // @desc Reset user password
 // @access Public

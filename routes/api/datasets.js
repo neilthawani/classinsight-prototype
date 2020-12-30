@@ -9,6 +9,17 @@ const Dataset = require("../../models/Dataset");
 // Load input validation
 const validateDatasetInput = require("../../validation/data_upload");
 
+function getNextSequence() {
+    var ret = Dataset.findAndModify({
+        query: { dbName: "datasets" },
+        update: { $inc: { count: 1 } },
+        new: true
+
+    });
+
+    return ret.count;
+}
+
 // @route GET api/datasets/show
 // @desc Retrieve user from Datasets table
 // @access Public
