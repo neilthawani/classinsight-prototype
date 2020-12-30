@@ -2,6 +2,8 @@ import React, { Component } from "react";
 
 import { Route, Switch } from "react-router-dom";
 import { withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 import Navbar from "./components/layout/Navbar";
 
@@ -9,48 +11,38 @@ import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
-import Dashboard from "./components/dashboard/Dashboard";
 import DashboardMenus from './DashboardMenus';
 
 import AdminPanel from './components/admin/AdminPanel';
 import UserDetailsPage from './components/admin/UserDetailsPage';
+import DatasetPreview from './components/admin/DatasetPreview';
 
-import TalkRatio from './components/visualizations/talk-ratio/TalkRatio';
-import Transcript from './components/visualizations/transcript/Transcript';
-import TurnTaking from './components/visualizations/turn-taking/TurnTaking';
-
-import Parser from './data/parser';
-import data_tom from './data/data_tom';
-import data_kim from './data/data_kim';
-import data_bill from './data/data_bill';
+import { listDatasets } from "./actions/datasetActions";
+import dashboardRoutes from './fixtures/dashboardRoutes';
 
 class App extends Component {
     constructor(props) {
         super(props);
 
-        var dataRows = [data_tom[0], data_kim[0], data_bill[0]];
-        var dataParsers = dataRows.map((row) => {
-            var parser = new Parser(row);
-            return parser;
-        });
-
         this.state = {
-            dataParsers: dataParsers,
-            buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption"),
-            activeDataRowIndex: parseInt(localStorage.getItem("activeDataRowIndex"), 10) || 0
+            areDatasetsLoaded: false,
+            sidebarSelectedOption: localStorage.getItem("sidebarSelectedOption"),
+            buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption")
         };
-    }
-
-    activeParser = function() {
-        return this.state.dataParsers[this.state.activeDataRowIndex];
     }
 
     // set button selector to match URL on refresh
     componentDidMount() {
+        this.props.listDatasets(this.props.auth.user.id).then((response) => {
+            this.setState({
+                areDatasetsLoaded: true
+            });
+        });
+
         var buttonSelectorSelectedOption = localStorage.getItem("buttonSelectorSelectedOption");
         var transcriptLocationHash = localStorage.getItem("transcriptLocationHash");
 
-        if (this.dashboardRoutePaths().includes(this.props.location.pathname)) {
+        if (dashboardRoutes.paths.includes(this.props.location.pathname)) {
             this.props.history.push(`${buttonSelectorSelectedOption}${transcriptLocationHash}`);
         }
 
@@ -58,7 +50,7 @@ class App extends Component {
             var buttonSelectorSelectedOption = location.pathname;
             var transcriptLocationHash = window.location.hash || "";
 
-            if (this.dashboardRoutePaths().includes(buttonSelectorSelectedOption)) {
+            if (dashboardRoutes.paths.includes(buttonSelectorSelectedOption)) {
                 this.setState({
                     buttonSelectorSelectedOption: buttonSelectorSelectedOption.slice(1),
                     transcriptLocationHash: transcriptLocationHash
@@ -74,6 +66,14 @@ class App extends Component {
         this.unlisten();
     }
 
+    handleSidebarRowClick(value) {
+        localStorage.setItem("sidebarSelectedOption", value);
+
+        this.setState({
+            sidebarSelectedOption: value
+        });
+    }
+
     handleButtonSelectorClick(value) {
         localStorage.setItem("buttonSelectorSelectedOption", value);
 
@@ -82,56 +82,32 @@ class App extends Component {
         });
     }
 
-    handleSidebarRowClick(index) {
-        localStorage.setItem("activeDataRowIndex", index);
-
-        this.setState({
-            activeDataRowIndex: index
-        });
-
-        if (this.props.location.hash !== "") {
-            this.props.history.push(this.props.location.pathname);
-        }
-    }
-
-    dashboardRoutes() {
-        return [{
-            path: "/dashboard",
-            component: (props) => ( <Dashboard {...props} activeParser={this.activeParser()} /> )
-        }, {
-            path: "/talk-ratio",
-            component: (props) => ( <TalkRatio {...props} activeParser={this.activeParser()} /> )
-        }, {
-            path: "/turn-taking",
-            component: (props) => ( <TurnTaking {...props} activeParser={this.activeParser()} /> )
-        }, {
-            path: "/transcript",
-            component: (props) => ( <Transcript {...props} activeParser={this.activeParser()} /> )
-        }]
-    }
-
-    dashboardRoutePaths() {
-        return this.dashboardRoutes().map((routeObj) => {
-            return routeObj.path;
-        });
+    dashboardRoutes(admin) {
+        return dashboardRoutes.definitions();
     }
 
     render() {
+        if (!this.state.areDatasetsLoaded) {
+            return null;
+        }
+
         return (
           <div className="app">
-            <Navbar />
+            <Navbar
+              datasets={this.props.datasets}/>
 
-            {this.dashboardRoutePaths().includes(window.location.pathname) ?
-            <DashboardMenus
-            buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
-            dataParsers={this.state.dataParsers}
-            activeDataRowIndex={this.state.activeDataRowIndex}
-            handleButtonSelectorClick={this.handleButtonSelectorClick.bind(this)}
-            handleSidebarRowClick={this.handleSidebarRowClick.bind(this)} /> : ""}
+            {dashboardRoutes.paths.includes(window.location.pathname) ?
+              <DashboardMenus
+                sidebarSelectedOption={this.state.sidebarSelectedOption}
+                handleSidebarRowClick={this.handleSidebarRowClick.bind(this)}
+                buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
+                handleButtonSelectorClick={this.handleButtonSelectorClick.bind(this)}
+                datasets={this.props.datasets} /> : null}
 
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
+
             <PrivateRoute
               exact
               path="/admin"
@@ -139,13 +115,22 @@ class App extends Component {
                 <AdminPanel {...props} />
               )}
             />
+
             <PrivateRoute
               exact
-              path='/admin/user/:id'
+              path='/admin/user/:userId'
               component={(props) => (
                 <UserDetailsPage {...props} />
               )}
             />
+
+            <PrivateRoute
+              path='/admin/user/:userId/preview'
+              component={(props) => (
+                <DatasetPreview {...props} />
+              )}
+            />
+
 
             <div className="dashboard-content">
               {/* A <Switch> looks through all its children <Route> elements and
@@ -170,4 +155,19 @@ class App extends Component {
     }
 }
 
-export default withRouter(App);
+App.propTypes = {
+    auth: PropTypes.object.isRequired,
+}
+
+// NOTE: Do not bind admin.datasets to this method.
+// It will cause componentDidMount to fire infinitely in all subcomponents which use it.
+function mapStateToProps(state) {
+    return {
+        auth: state.auth,
+    }
+};
+
+export default withRouter(connect(
+  mapStateToProps,
+  { listDatasets }
+)(App));

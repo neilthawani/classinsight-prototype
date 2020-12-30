@@ -4,7 +4,8 @@ import {
     DELETE_DATASET,
     EDIT_DATASET,
     UPLOAD_DATASET,
-    SHOW_DATASET
+    SHOW_DATASET,
+    CLEAR_VALID_STATE
 } from './types';
 import axios from 'axios';
 
@@ -35,7 +36,6 @@ export const deleteDatasetById = (dataset) => dispatch => {
             }
         })
         .then(response => {
-            // debugger;
             dispatch({
                 type: DELETE_DATASET,
                 payload: response && response.data // dataset
@@ -46,25 +46,23 @@ export const deleteDatasetById = (dataset) => dispatch => {
         });
 }
 
-export const showDataset = (datasetId) => {
+export const showDataset = (datasetIndex) => {
     return (dispatch) => {
-        return axios.get("/api/datasets/show", {
-                params: {
-                    id: datasetId
-                }
-            })
-            .then(response => {
-                dispatch({
-                    type: SHOW_DATASET,
-                    payload: response && response.data.dataset
-                })
-            })
-            .catch(error => {
-                console.error(error);
-                return error;
-            });
+        dispatch({
+            type: SHOW_DATASET,
+            payload: datasetIndex
+        });
     };
 };
+
+export const clearValidState = () => {
+    return (dispatch) => {
+        dispatch({
+            type: CLEAR_VALID_STATE,
+            payload: false
+        })
+    }
+}
 
 export const listDatasets = (userId) => {
     return (dispatch) => {
@@ -107,10 +105,7 @@ export const uploadDataset = (dataset) => dispatch => {
 
             dispatch({
                 type: GET_ERRORS,
-                payload: //{
-                    // errors:
-                    error.response && error.response.data
-                // }
+                payload: error.response && error.response.data
             })
         });
 };

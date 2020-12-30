@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import Bar from './Bar';
 import LegendItemGroup from '../../legend/LegendItemGroup';
 
@@ -7,7 +6,9 @@ import Icon from '@mdi/react';
 import { mdiArrowCollapseVertical, mdiArrowExpandVertical } from '@mdi/js';
 
 import removeArrayValue from '../../../utils/removeArrayValue';
-
+import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 /*
 For this file, the data we're after is in data.segments[0].speaking_turns.
 Each object in this array is a record of someone speaking. It has this structure:
@@ -32,18 +33,14 @@ Each object in the array has this structure:
 }
 */
 
-export default class TurnTaking extends Component {
+class TurnTaking extends Component {
     constructor(props) {
         super(props);
 
-        var parser = props.activeParser,
-            talkRatios = parser.talkRatios(),
-            bars = localStorage.getItem("bars") || "expanded",
+        var bars = localStorage.getItem("bars") || "expanded",
             activeFilters = [];
 
         this.state = {
-            parser: parser,
-            talkRatios: talkRatios,
             bars: bars,
             activeFilters: activeFilters,
             activeTurn: {}
@@ -94,22 +91,30 @@ export default class TurnTaking extends Component {
     }
 
     handleTextClick(turnId) {
-        this.props.history.push(`/transcript#${turnId}`);
+        var slashTurnTaking = this.props.location.pathname.slice(this.props.location.pathname.lastIndexOf("/"));
+        var newPathname = this.props.location.pathname.replace(slashTurnTaking, `/transcript#${turnId}`);
+        this.props.history.push(newPathname);
     }
 
     render() {
-        var parser = this.state.parser;
-        var chartData = parser.parsedData({activeFilters: this.state.activeFilters})[this.state.bars] || [];
+        var areDatasetsLoaded = Object.keys(this.props.datasets).length > 0;
+
+        if (!areDatasetsLoaded) {
+            return null;
+        }
+
+        var parser = this.props.datasets.activeParser,
+            chartData = parser.parsedData({activeFilters: this.state.activeFilters})[this.state.bars] || [];
 
         return (
             <div className="turn-taking-visualization-container">
               <div className="turn-taking-legend-teacher">
                 <LegendItemGroup
-                  labels={this.state.parser.legendLabels({ type: "Teacher"})}
+                  labels={parser.legendLabels({ type: "Teacher"})}
                   activeFilters={this.state.activeFilters}
                   handleClick={this.handleFilterClick.bind(this) }/>
                 <LegendItemGroup
-                  labels={this.state.parser.legendLabels({ type: "Technique"})}
+                  labels={parser.legendLabels({ type: "Technique"})}
                   activeFilters={this.state.activeFilters}
                   handleClick={this.handleFilterClick.bind(this) }/>
               </div>
@@ -137,7 +142,7 @@ export default class TurnTaking extends Component {
               </div>
               <div className="turn-taking-legend-student">
                 <LegendItemGroup
-                  labels={this.state.parser.legendLabels({ type: "Student"})}
+                  labels={parser.legendLabels({ type: "Student"})}
                   activeFilters={this.state.activeFilters}
                   handleClick={this.handleFilterClick.bind(this) }/>
               </div>
@@ -145,3 +150,19 @@ export default class TurnTaking extends Component {
         );
     }
 }
+
+
+TurnTaking.propTypes = {
+    datasets: PropTypes.object.isRequired
+};
+
+function mapStateToProps(state) {
+    return {
+        datasets: state.datasets,
+    }
+};
+
+export default withRouter(connect(
+  mapStateToProps,
+  { }
+)(TurnTaking));

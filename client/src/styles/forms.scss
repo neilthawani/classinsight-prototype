@@ -40,7 +40,7 @@ $formMinWidth: 225px;
 }
 
 .btn {
-    width: max-content;
+    min-width: max-content;
     height: max-content;
     font-size: 18px;
     display: block;
@@ -50,7 +50,6 @@ $formMinWidth: 225px;
     color: white;
     border: 1px solid $lightGray;
     background-color: $blue;
-
 
     &:focus {
         outline: 0;

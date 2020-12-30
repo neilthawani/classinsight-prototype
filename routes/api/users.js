@@ -13,6 +13,7 @@ const validatePasswordInput = require("../../validation/reset-password");
 
 // Load User model
 const User = require("../../models/User");
+const Dataset = require("../../models/Dataset");
 
 // @route POST api/users/reset-password
 // @desc Reset user password

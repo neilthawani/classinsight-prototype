@@ -2,12 +2,31 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import Icon from '@mdi/react';
-import { mdiViewDashboardVariantOutline, mdiBarcode, mdiChartGantt, mdiCommentTextMultipleOutline } from '@mdi/js';
+import { mdiAccount } from '@mdi/js';
+import dashboardRoutes from '../fixtures/dashboardRoutes';
 
 class ButtonSelector extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            admin: {}
+        };
+
+        var userId = props.match.params.userId;
+
+        if (userId) {
+            this.state = {
+                admin: {
+                    userId: userId
+                }
+            };
+        }
+    }
+
     shouldComponentUpdate(nextProps, nextState) {
-        if (nextProps.location.pathname.slice(1) !== nextProps.buttonSelectorSelectedOption) {
-            this.handleClick(nextProps.location.pathname.slice(1));
+        var buttonSelectorSelectedOption = nextProps.location.pathname.slice(nextProps.location.pathname.lastIndexOf("/") + 1);
+        if (buttonSelectorSelectedOption !== nextProps.buttonSelectorSelectedOption) {
+            this.handleClick(buttonSelectorSelectedOption);
         }
 
         return true;
@@ -20,50 +39,40 @@ class ButtonSelector extends Component {
     render() {
         return (
           <div className="button-selector">
-            <Link
-              className={this.props.buttonSelectorSelectedOption === "dashboard" ? "button-selector-item active" : "button-selector-item"}
-              data-attr-name="dashboard"
-              to="/dashboard"
-              onClick={this.handleClick.bind(this, "dashboard")}>
-              <Icon path={mdiViewDashboardVariantOutline} className="button-selector-item-icon" size={1} />
-              <span className="button-selector-item-text">
-                Dashboard
-              </span>
-            </Link>
+            <div className="button-selector-options">
+              {dashboardRoutes.definitions(this.state.admin).map((definitionObj, index, array) => {
+                  return (
+                    <Link
+                      key={index}
+                      className={this.props.buttonSelectorSelectedOption === definitionObj.buttonValue ? "button-selector-item active" : "button-selector-item"}
+                      data-attr-name={definitionObj.buttonValue}
+                      to={definitionObj.path}
+                      onClick={this.handleClick.bind(this, definitionObj.buttonValue)}>
 
-            <Link
-              className={this.props.buttonSelectorSelectedOption === "talk-ratio" ? "button-selector-item active" : "button-selector-item"}
-              data-attr-name="talk-ratio"
-              to="/talk-ratio"
-              onClick={this.handleClick.bind(this, "talk-ratio")}>
-              <Icon path={mdiBarcode} className="button-selector-item-icon" size={1.5} />
+                      {definitionObj.icon}
 
-              <span className="button-selector-item-text">
-                Talk Ratio
-              </span>
-            </Link>
+                      <span className="button-selector-item-text">
+                        {definitionObj.label}
+                      </span>
+                    </Link>
+                  );
+              })}
+            </div>
 
-            <Link
-              className={this.props.buttonSelectorSelectedOption === "turn-taking" ? "button-selector-item active" : "button-selector-item"}
-              data-attr-name="turn-taking"
-              to="/turn-taking"
-              onClick={this.handleClick.bind(this, "turn-taking")}>
-              <Icon path={mdiChartGantt} className="button-selector-item-icon" size={1} />
-              <span className="button-selector-item-text">
-                Turn Taking
-              </span>
-            </Link>
+            {this.props.admin ?
+              <div className="button-selector-admin-options">
+                <Link
+                  className="button-selector-item active"
+                  data-attr-name="admin-user"
+                  to={`/admin/user/${this.props.admin.userId}`}>
+                  <Icon path={mdiAccount} className="button-selector-item-icon" size={1} />
+                  <span className="button-selector-item-text">
+                    Back to User Page
+                  </span>
+                </Link>
+              </div>
+            : ""}
 
-            <Link
-              className={this.props.buttonSelectorSelectedOption === "transcript" ? "button-selector-item active" : "button-selector-item"}
-              data-attr-name="transcript"
-              to="/transcript"
-              onClick={this.handleClick.bind(this, "transcript")}>
-              <Icon path={mdiCommentTextMultipleOutline} className="button-selector-item-icon" size={1} />
-              <span className="button-selector-item-text">
-                Transcript
-              </span>
-            </Link>
           </div>
         );
     }

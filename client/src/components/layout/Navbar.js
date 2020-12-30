@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
-
 import Icon from '@mdi/react';
 import { mdiAccount, mdiChevronDown, mdiBadgeAccountHorizontalOutline, mdiLogout } from '@mdi/js';
 
@@ -23,7 +22,10 @@ class Navbar extends Component {
         return (
           <div className="navbar">
             <div className="navbar-logo">
-              <Link to="/">
+              <Link
+                to={{
+                  pathname: "/"
+                }}>
                 <img src={ClassInSightLogo} alt="ClassInSight Logo" height="50"/>
               </Link>
             </div>

@@ -22,7 +22,8 @@ const UserSchema = new Schema({
   userType: {
     type: Number,
     default: 50
-  }
+  },
+  datasets: [{ type: Schema.Types.ObjectId, ref: 'Dataset' }]
 });
 
 module.exports = User = mongoose.model("users", UserSchema);

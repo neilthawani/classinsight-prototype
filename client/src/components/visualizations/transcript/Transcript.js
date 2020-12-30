@@ -1,32 +1,26 @@
 import React, { Component } from 'react';
-
 import LegendButtonGroup from '../../legend/LegendButtonGroup';
 import TurnTakingSmall from '../turn-taking/TurnTakingSmall';
 import Script from '../transcript/Script';
 
+import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+
 import removeArrayValue from '../../../utils/removeArrayValue';
 
-export default class Transcript extends Component {
+class Transcript extends Component {
     constructor(props) {
         super(props);
 
-        var parser = props.activeParser,
-            chartWidth = 2 * parser.maxNTokens(), // double width - for both left/right side of TurnTakingSmall chart
-            talkRatios = parser.talkRatios(),
-            transcript = parser.transcript();
-
         this.state = {
-            parser: parser,
             activeLabels: [],
             focusBox: {
                 topElId: 0,
                 bottomElId: 0,
                 y: 0,
                 height: 0
-            },
-            chartWidth: chartWidth,
-            talkRatios: talkRatios,
-            transcript: transcript
+            }
         };
     }
 
@@ -74,42 +68,67 @@ export default class Transcript extends Component {
     }
 
     render() {
-      return (
-        <div className="transcript-visualization-container">
-          <div className="transcript-visualization-legend">
-            <LegendButtonGroup
-              labels={this.state.parser.legendLabels({ type: "Teacher"})}
-              displayRatio={true}
-              activeLabels={this.state.activeLabels}
-              handleClick={this.handleClick.bind(this)} />
-            <LegendButtonGroup
-              labels={this.state.parser.legendLabels({ type: "Student"})}
-              displayRatio={true}
-              activeLabels={this.state.activeLabels}
-              handleClick={this.handleClick.bind(this)} />
-            <LegendButtonGroup
-              labels={this.state.parser.legendLabels({ type: "Technique"})}
-              displayRatio={true}
-              activeLabels={this.state.activeLabels}
-              handleClick={this.handleClick.bind(this)} />
+        var areDatasetsLoaded = Object.keys(this.props.datasets).length > 0;
+
+        if (!areDatasetsLoaded) {
+            return null;
+        }
+
+        var parser = this.props.datasets.activeParser,
+            chartWidth = 2 * parser.maxNTokens(), // double width - for both left/right side of TurnTakingSmall chart
+            transcript = parser.transcript();
+
+        return (
+          <div className="transcript-visualization-container">
+            <div className="transcript-visualization-legend">
+              <LegendButtonGroup
+                labels={parser.legendLabels({ type: "Teacher"})}
+                displayRatio={true}
+                activeLabels={this.state.activeLabels}
+                handleClick={this.handleClick.bind(this)} />
+              <LegendButtonGroup
+                labels={parser.legendLabels({ type: "Student"})}
+                displayRatio={true}
+                activeLabels={this.state.activeLabels}
+                handleClick={this.handleClick.bind(this)} />
+              <LegendButtonGroup
+                labels={parser.legendLabels({ type: "Technique"})}
+                displayRatio={true}
+                activeLabels={this.state.activeLabels}
+                handleClick={this.handleClick.bind(this)} />
+            </div>
+
+            <TurnTakingSmall
+              parser={parser}
+              chartWidth={chartWidth}
+
+              barHeight={this.barHeight}
+              focusBox={this.state.focusBox} />
+
+            <div className="transcript-script-container" style={{ marginLeft: `${chartWidth}px` }}>
+              <Script
+                transcript={transcript}
+                activeLabels={this.state.activeLabels}
+                focusBox={this.state.focusBox}
+                handleScroll={this.handleScroll.bind(this)}
+                handleUtteranceClick={() => {}} />
+            </div>
           </div>
-
-          <TurnTakingSmall
-            parser={this.state.parser}
-            chartWidth={this.state.chartWidth}
-
-            barHeight={this.barHeight}
-            focusBox={this.state.focusBox} />
-
-          <div className="transcript-script-container" style={{ marginLeft: `${this.state.chartWidth}px` }}>
-            <Script
-              transcript={this.state.transcript}
-              activeLabels={this.state.activeLabels}
-              focusBox={this.state.focusBox}
-              handleScroll={this.handleScroll.bind(this)}
-              handleUtteranceClick={() => {}} />
-          </div>
-        </div>
-      );
+        );
     }
 }
+
+Transcript.propTypes = {
+    datasets: PropTypes.object.isRequired
+};
+
+function mapStateToProps(state) {
+    return {
+        datasets: state.datasets,
+    }
+};
+
+export default withRouter(connect(
+  mapStateToProps,
+  { }
+)(Transcript));
