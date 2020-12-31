@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
+require("mongoose-long")(mongoose);
+
 const Schema = mongoose.Schema;
+var NumberLong = Schema.Types.Long;
 
 // Create Schema
 const DatasetSchema = new Schema({
