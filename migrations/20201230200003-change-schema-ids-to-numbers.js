@@ -7,7 +7,9 @@ module.exports = {
             db.users.save(doc);
         });
 
-        db.datasets.find().forEach(function (doc) {
+        db.datasets.find().forEach(function (doc, index) {
+            print(doc.jsonData)
+        });
             db.datasets.remove({ _id : doc._id});
             tempId = new NumberLong(doc._id);
             doc._id = tempId;
