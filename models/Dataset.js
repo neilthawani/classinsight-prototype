@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const DatasetSchema = new Schema({
+  _id: {
+    type: NumberLong,
+    required: true
+  },
   userId: {
     type: Schema.Types.ObjectId, // https://stackoverflow.com/questions/32684927/mongoose-foreign-key
     ref: 'User'
