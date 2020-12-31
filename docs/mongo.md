@@ -29,6 +29,22 @@ This is how you go back to the previous database state.
 
 It is not always possible to go back to the previous state
 
+## Seeds for Production
+
+```
+mongo
+show dbs
+use test
+db.users # confirm test has the relevant tables
+db.datasets
+db.counters
+db.users.find()
+db.datasets.find()
+db.counters.find()
+db.counters.insert({dbName: "users", count: 0})
+db.counters.insert({dbName: "datasets", count: 0})
+```
+
 # Sources
 
 https://softwareontheroad.com/database-migration-node-mongo/
