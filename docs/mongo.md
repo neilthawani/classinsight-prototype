@@ -69,6 +69,20 @@ db.datasets.updateMany({}, {
 });
 ```
 
+### Update _id type and value
+
+```
+i = 1
+usersTable = db.users.find()
+usersTable.forEach(function (doc, index) {
+    print(doc.jsonData)
+    db.users.remove({ _id : doc._id});
+    tempId = new NumberLong(doc._id);
+    doc._id = i++
+    db.users.save(doc)
+});
+```
+
 # Sources
 
 https://softwareontheroad.com/database-migration-node-mongo/
