@@ -11,20 +11,10 @@ const validateLoginInput = require("../../validation/login");
 const validateEditUser = require("../../validation/edit");
 const validatePasswordInput = require("../../validation/reset-password");
 
+const getNextIdInSequence = require("../helpers/getNextIdInSequence");
+
 // Load User model
 const User = require("../../models/User");
-const Dataset = require("../../models/Dataset");
-
-function getNextSequence() {
-    var ret = User.findAndModify({
-        query: { dbName: "users" },
-        update: { $inc: { count: 1 } },
-        new: true
-
-    });
-
-    return ret.count;
-}
 
 // @route POST api/users/reset-password
 // @desc Reset user password
@@ -101,6 +91,7 @@ router.post("/register", (req, res) => {
             });
         } else {
             const newUser = new User({
+                _id: getNextIdInSequence("users"),
                 name: req.body.name,
                 email: req.body.email,
                 userType: req.body.userType,

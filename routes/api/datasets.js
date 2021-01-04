@@ -6,19 +6,11 @@ const passport = require("passport");
 // Load Dataset model
 const Dataset = require("../../models/Dataset");
 
+const getNextIdInSequence = require("../helpers/getNextIdInSequence");
+
 // Load input validation
 const validateDatasetInput = require("../../validation/data_upload");
 
-function getNextSequence() {
-    var ret = Dataset.findAndModify({
-        query: { dbName: "datasets" },
-        update: { $inc: { count: 1 } },
-        new: true
-
-    });
-
-    return ret.count;
-}
 // @route POST api/datasets/edit
 // @desc Edit or Delete dataset in Datasets table
 // @access Public
@@ -99,6 +91,7 @@ router.post("/upload", (req, res) => {
     }).then(dataset => {
         const newDataset = new Dataset({
             userId: req.body.userId,
+            _id: getNextIdInSequence("datasets"),
             filename: req.body.filename,
             classTopic: req.body.classTopic,
             classDate: req.body.classDate,
