@@ -20,6 +20,8 @@ import DatasetPreview from './components/admin/DatasetPreview';
 import { listDatasets } from "./actions/datasetActions";
 import dashboardRoutes from './fixtures/dashboardRoutes';
 
+import UploadDataForm from './components/admin/UploadDataForm';
+
 class App extends Component {
     constructor(props) {
         super(props);
@@ -27,15 +29,18 @@ class App extends Component {
         this.state = {
             areDatasetsLoaded: false,
             sidebarSelectedOption: localStorage.getItem("sidebarSelectedOption"),
-            buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption")
+            buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption"),
+            isShowingUploadDataForm: false
         };
     }
 
     // set button selector to match URL on refresh
     componentDidMount() {
         this.props.listDatasets(this.props.auth.user.id).then((response) => {
+            // console.log("response", response);
+
             this.setState({
-                areDatasetsLoaded: true
+                areDatasetsLoaded: true//response ? true : false
             });
         });
 
@@ -86,6 +91,12 @@ class App extends Component {
         return dashboardRoutes.definitions();
     }
 
+    toggleUploadDataForm() {
+        this.setState(prevState => ({
+            isShowingUploadDataForm: !prevState.isShowingUploadDataForm
+        }));
+    }
+
     render() {
         if (!this.state.areDatasetsLoaded) {
             return null;
@@ -102,6 +113,7 @@ class App extends Component {
                 handleSidebarRowClick={this.handleSidebarRowClick.bind(this)}
                 buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
                 handleButtonSelectorClick={this.handleButtonSelectorClick.bind(this)}
+                toggleUploadDataForm={this.toggleUploadDataForm.bind(this)}
                 datasets={this.props.datasets} /> : null}
 
             <Route exact path="/" component={Landing} />
@@ -132,24 +144,32 @@ class App extends Component {
             />
 
 
-            <div className="dashboard-content">
-              {/* A <Switch> looks through all its children <Route> elements and
-                renders the first one whose path matches the current URL.
-                Use a <Switch> any time you have multiple routes,
-                but you want only one of them to render at a time. */}
-              <Switch>
-                {this.dashboardRoutes().map((routeObj, index) => {
-                    return (
-                        <PrivateRoute
-                          exact
-                          key={index}
-                          path={routeObj.path}
-                          component={routeObj.component}
-                        />
-                    )
-                })}
-              </Switch>
-            </div>
+            {this.state.isShowingUploadDataForm ?
+              <div className="dashboard-content">
+                <UploadDataForm
+                  userId={this.props.auth.user.id}
+                  dismountForm={this.toggleUploadDataForm.bind(this)} />
+              </div>
+            :
+              <div className="dashboard-content">
+                {/* A <Switch> looks through all its children <Route> elements and
+                  renders the first one whose path matches the current URL.
+                  Use a <Switch> any time you have multiple routes,
+                  but you want only one of them to render at a time. */}
+                <Switch>
+                  {this.dashboardRoutes().map((routeObj, index) => {
+                      return (
+                          <PrivateRoute
+                            exact
+                            key={index}
+                            path={routeObj.path}
+                            component={routeObj.component}
+                          />
+                      )
+                  })}
+                </Switch>
+              </div>
+            }
           </div>
         );
     }

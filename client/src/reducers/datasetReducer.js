@@ -22,6 +22,17 @@ export default function datasetReducer(state, action) {
                 return Object.assign(parsedData, { isActive: (index === activeIndex) });
             });
 
+            // if (action.payload.length === 0) {
+            //     return {
+            //         ...state,
+            //         datasets: [],
+            //         dataParsers: [],
+            //         activeDataRowIndex: null,
+            //         activeDataset: null,
+            //         activeParser: null
+            //     };
+            // }
+
             return {
                 ...state,
                 datasets: action.payload,
@@ -53,6 +64,11 @@ export default function datasetReducer(state, action) {
             };
         case SHOW_DATASET:
             var activeIndex = action.payload;
+            // console.log("activeIndex", activeIndex);
+            // console.log("action.payload", action.payload, "state.datasets", state.datasets);
+            // if (!state.datasets) {
+            //
+            // }
 
             if (action.payload >= state.datasets.length) {
                 activeIndex = 0;

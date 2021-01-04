@@ -11,6 +11,10 @@ class DashboardMenus extends Component {
         this.props.handleSidebarRowClick(value);
     }
 
+    toggleUploadDataForm() {
+        this.props.toggleUploadDataForm();
+    }
+
     render() {
         var { buttonSelectorSelectedOption, sidebarSelectedOption, admin } = this.props;
 
@@ -24,7 +28,8 @@ class DashboardMenus extends Component {
 
             <Sidebar
               sidebarSelectedOption={sidebarSelectedOption}
-              handleSidebarRowClick={this.props.handleSidebarRowClick.bind(this)} />
+              handleSidebarRowClick={this.props.handleSidebarRowClick.bind(this)}
+              toggleUploadDataForm={this.toggleUploadDataForm.bind(this)} />
           </div>
         )
     }

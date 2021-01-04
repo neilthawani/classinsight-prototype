@@ -13,12 +13,16 @@ class Sidebar extends Component {
         this.props.handleSidebarRowClick(index);
 
         localStorage.setItem("activeDataRowIndex", index);
-
+        console.log("this.props", this.props);
         this.props.showDataset(index);
 
         if (this.props.location.hash !== "") {
             this.props.history.push(this.props.location.pathname);
         }
+    }
+
+    toggleUploadDataForm() {
+        this.props.toggleUploadDataForm();
     }
 
     componentDidMount() {
@@ -31,7 +35,11 @@ class Sidebar extends Component {
         return (
           <div className="sidebar">
             <div className="sidebar-header">
-              <Icon path={mdiDatabase} className="sidebar-header-icon" size={2} />
+              <Icon
+                path={mdiDatabase}
+                className="sidebar-header-icon"
+                size={2}
+                onClick={this.toggleUploadDataForm.bind(this)} />
             </div>
             <div className="sidebar-data">
               {(this.props.datasets.dataParsers || []).map((item, index, array) => {
