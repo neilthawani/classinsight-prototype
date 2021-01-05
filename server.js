@@ -21,7 +21,7 @@ const db = require("./config/keys").mongoURI;
 mongoose
   .connect(
     db,
-    { useNewUrlParser: true, useUnifiedTopology: true }
+    { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }
   )
   .then(() => console.log("MongoDB successfully connected"))
   .catch(err => console.log(err));
@@ -36,6 +36,8 @@ require("./config/passport")(passport);
 app.use("/api/users", users);
 app.use("/api/datasets", datasets);
 
-const port = process.env.PORT || 8802; // process.env.port is Heroku's port if you choose to deploy the app there
+const port = 8802 || process.env.PORT; // process.env.port is Heroku's port if you choose to deploy the app there
+// Developer's note:
+// Run `killall node` in the Terminal if server doesn't refresh successfully and says EADDRINUSE.
 
 app.listen(port, () => console.log(`Server up and running on port ${port} !`));

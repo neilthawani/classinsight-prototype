@@ -1,14 +1,17 @@
 const mongoose = require("mongoose");
-require("mongoose-long")(mongoose);
+const AutoIncrement = require('mongoose-sequence')(mongoose);
+// Developer's note:
+// AutoIncrement causes this warning:
+// [0] (node:7835) DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.
 
 const Schema = mongoose.Schema;
-var NumberLong = Schema.Types.Long;
+// var NumberLong = Schema.Types.Long;
 
 // Create Schema
 const UserSchema = new Schema({
   _id: {
-    type: NumberLong,
-    required: true
+    type: Number,
+    // required: true
   },
   name: {
     type: String,
@@ -35,5 +38,8 @@ const UserSchema = new Schema({
     default: true
   }
 });
+
+// UserSchema.plugin(AutoIncrement);//, {inc_field: 'id'});
+UserSchema.plugin(AutoIncrement, {id: "users_id_counter", inc_field: '_id'});
 
 module.exports = User = mongoose.model("users", UserSchema);

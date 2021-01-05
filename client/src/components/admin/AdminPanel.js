@@ -92,13 +92,13 @@ class AdminPanel extends Component {
                 </tr>
               </thead>
               <tbody>
-                {(users || []).map((user) => {
+                {(users || []).map((user, index) => {
                     var isCurrentUser = this.props.auth.user.id === user._id,
                         isDeletingUser = user._id && (this.state.userToDelete._id === user._id);
 
                     return (
                       <AdminPanelTableRow
-                        key={user._id}
+                        key={index}
                         user={user}
                         isCurrentUser={isCurrentUser}
                         isDeletingUser={isDeletingUser}

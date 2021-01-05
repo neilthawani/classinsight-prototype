@@ -1,17 +1,20 @@
 const mongoose = require("mongoose");
-require("mongoose-long")(mongoose);
+const AutoIncrement = require('mongoose-sequence')(mongoose);
+// Developer's note:
+// AutoIncrement causes this warning:
+// [0] (node:7835) DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.
 
 const Schema = mongoose.Schema;
-var NumberLong = Schema.Types.Long;
+// var NumberLong = Schema.Types.Long;
 
 // Create Schema
 const DatasetSchema = new Schema({
   _id: {
-    type: NumberLong,
-    required: true
+    type: Number,
+    // required: true
   },
   userId: {
-    type: Schema.Types.ObjectId, // https://stackoverflow.com/questions/32684927/mongoose-foreign-key
+    type: Schema.Types.Number, // https://stackoverflow.com/questions/32684927/mongoose-foreign-key
     ref: 'User'
   },
   createdDate: {
@@ -54,4 +57,5 @@ const DatasetSchema = new Schema({
   }
 });
 
+DatasetSchema.plugin(AutoIncrement, {id: "datasets_id_counter", inc_field: '_id'});
 module.exports = Dataset = mongoose.model("datasets", DatasetSchema);

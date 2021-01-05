@@ -11,7 +11,7 @@ const validateLoginInput = require("../../validation/login");
 const validateEditUser = require("../../validation/edit");
 const validatePasswordInput = require("../../validation/reset-password");
 
-const getNextIdInSequence = require("../helpers/getNextIdInSequence");
+// const getNextIdInSequence = require("../helpers/getNextIdInSequence");
 
 // Load User model
 const User = require("../../models/User");
@@ -89,6 +89,10 @@ router.post("/register", (req, res) => {
     if (!isValid) {
         return res.status(400).json(errors);
     }
+    // console.log("this", this);
+    // console.log("req", req);
+    // console.log("res", res);
+    // getNextIdInSequence("users")
 
     User.findOne({
         email: req.body.email
@@ -100,9 +104,9 @@ router.post("/register", (req, res) => {
         } else {
             // console.log("users here");
             //
-            console.log("id", getNextIdInSequence("users"));
+            // console.log("id", getNextIdInSequence("users"));
             const newUser = new User({
-                _id: getNextIdInSequence("users"),
+                // _id: getNextIdInSequence("users"),
                 name: req.body.name,
                 email: req.body.email,
                 userType: req.body.userType,

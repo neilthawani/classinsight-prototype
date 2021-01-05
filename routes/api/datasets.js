@@ -6,7 +6,7 @@ const passport = require("passport");
 // Load Dataset model
 const Dataset = require("../../models/Dataset");
 
-const getNextIdInSequence = require("../helpers/getNextIdInSequence");
+// const getNextIdInSequence = require("../helpers/getNextIdInSequence");
 
 // Load input validation
 const validateDatasetInput = require("../../validation/data_upload");
@@ -53,7 +53,11 @@ router.get('/list', function(req, res) {
     Dataset.find({userId: req.query.userId}, function(error, datasets) {
         var parsedDatasets = [];
 
-        datasets.forEach((dataset) => {
+        // if (!datasets || !datasets.length) {
+        //     return;//res.send([]);
+        // }
+        // console.log("datasets", datasets);
+        (datasets || []).forEach((dataset) => {
             if (!dataset.isDeleted) {
                 parsedDatasets.push({
                     _id: dataset._id,
@@ -91,7 +95,7 @@ router.post("/upload", (req, res) => {
     }).then(dataset => {
         const newDataset = new Dataset({
             userId: req.body.userId,
-            _id: getNextIdInSequence("datasets"),
+            // _id: getNextIdInSequence("datasets"),
             filename: req.body.filename,
             classTopic: req.body.classTopic,
             classDate: req.body.classDate,
