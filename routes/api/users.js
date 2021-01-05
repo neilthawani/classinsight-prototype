@@ -67,6 +67,14 @@ router.post("/reset-password", (req, res) => {
     });
 });
 
+// var generateNewUser = async function() {
+//     console.log("generateNewUser");
+//     var id = await getNextIdInSequence("users");
+//     console.log("id", id);
+//     console.log("returning");
+//     return
+// }
+
 // @route POST api/users/register
 // @desc Register user
 // @access Public
@@ -90,6 +98,9 @@ router.post("/register", (req, res) => {
                 email: "Email already exists"
             });
         } else {
+            // console.log("users here");
+            //
+            console.log("id", getNextIdInSequence("users"));
             const newUser = new User({
                 _id: getNextIdInSequence("users"),
                 name: req.body.name,
