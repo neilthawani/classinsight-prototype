@@ -6,9 +6,9 @@ export default class Parser {
         var parsedData = {};
 
         parsedData = JSON.parse(data.jsonData);
-        this.topic = data.class_topic;
-        this.period = data.class_period;
-        this.date = formatDate(data.class_date);
+        this.topic = data.classTopic;
+        this.period = data.classPeriod;
+        this.date = formatDate(data.classDate);
         this.data = parsedData;
         this.segments = parsedData.segments;
         this.isActive = false;

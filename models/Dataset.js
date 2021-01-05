@@ -1,17 +1,26 @@
 const mongoose = require("mongoose");
+const AutoIncrement = require('mongoose-sequence')(mongoose);
+// Developer's note:
+// AutoIncrement causes this warning:
+// [0] (node:7835) DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.
+// [0] (node:9503) DeprecationWarning: Mongoose: `findOneAndUpdate()` and `findOneAndDelete()` without the `useFindAndModify` option set to false are deprecated. See: https://mongoosejs.com/docs/deprecations.html#findandmodify
+
 const Schema = mongoose.Schema;
 
 // Create Schema
 const DatasetSchema = new Schema({
-  user_id: {
-    type: Schema.Types.ObjectId, // https://stackoverflow.com/questions/32684927/mongoose-foreign-key
+  _id: {
+    type: Number
+  },
+  userId: {
+    type: Schema.Types.Number, // https://stackoverflow.com/questions/32684927/mongoose-foreign-key
     ref: 'User'
   },
-  created_date: {
+  createdDate: {
     type: Date,
     default: Date.now
   },
-  last_updated_date: {
+  lastUpdatedDate: {
     type: Date,
     default: Date.now
   },
@@ -19,15 +28,15 @@ const DatasetSchema = new Schema({
     type: String,
     required: true
   },
-  class_topic: {
+  classTopic: {
     type: String,
     required: true
   },
-  class_date: {
+  classDate: {
     type: String,
     required: true
   },
-  class_period: {
+  classPeriod: {
     type: Number,
     required: true
   },
@@ -47,4 +56,5 @@ const DatasetSchema = new Schema({
   }
 });
 
+DatasetSchema.plugin(AutoIncrement, {id: "datasets_id_counter", inc_field: '_id'});
 module.exports = Dataset = mongoose.model("datasets", DatasetSchema);

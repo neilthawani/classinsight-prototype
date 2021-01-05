@@ -42,12 +42,12 @@ class AdminPanelTableRow extends Component {
         if (isDeletingDataset) {
             return (
               <tr>
-                <td>{dataset.class_topic}</td>
+                <td>{dataset.classTopic}</td>
                 <td className="text-center">
-                  {formatDate(dataset.class_date)}
+                  {formatDate(dataset.classDate)}
                 </td>
                 <td className="text-center">
-                  {dataset.class_period}
+                  {dataset.classPeriod}
                 </td>
                 <td className="admin-table-actions-confirm">
                   <span className="admin-table-actions-confirm-text">
@@ -68,13 +68,13 @@ class AdminPanelTableRow extends Component {
             return [
               <tr key={dataset._id}>
                 <td>
-                  {dataset.class_topic}
+                  {dataset.classTopic}
                 </td>
                 <td className="text-center">
-                  {formatDate(dataset.class_date)}
+                  {formatDate(dataset.classDate)}
                 </td>
                 <td className="text-center">
-                  {dataset.class_period}
+                  {dataset.classPeriod}
                 </td>
                 <td className="admin-table-dataset-actions">
                   <span className="btn" onClick={this.expandJsonData.bind(this)}>

@@ -68,7 +68,7 @@ export const listDatasets = (userId) => {
     return (dispatch) => {
         return axios.get("/api/datasets/list", {
                 params: {
-                    user_id: userId
+                    userId: userId
                 }
             })
             .then(response => {

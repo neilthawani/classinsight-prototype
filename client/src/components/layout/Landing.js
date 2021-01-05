@@ -15,7 +15,7 @@ class Landing extends Component {
 
   render() {
     return (
-      <div className="form-container">
+      <div className="auth-form-container form-container">
         <Link to="/register" className="btn">
           Register
         </Link>

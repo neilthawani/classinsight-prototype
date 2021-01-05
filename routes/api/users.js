@@ -13,7 +13,6 @@ const validatePasswordInput = require("../../validation/reset-password");
 
 // Load User model
 const User = require("../../models/User");
-const Dataset = require("../../models/Dataset");
 
 // @route POST api/users/reset-password
 // @desc Reset user password
@@ -137,7 +136,6 @@ router.get('/show', (req, res) => {
 // @desc Edit user in Users table
 // @access Public
 router.post('/edit', (req, res) => {
-    const id = req.body.user._id;
     const {
         errors,
         isValid
@@ -182,9 +180,21 @@ router.post('/edit', (req, res) => {
 // @access Public
 router.post('/delete', (req, res) => {
     const id = req.body.user._id;
-    User.deleteOne({
+
+    var byQuery = {
         _id: id
-    }).then(user => {
+    };
+    let toUpdate = {
+        'isActive': false
+    };
+    var options = {
+        returnNewDocument: true,
+        useFindAndModify: false
+    };
+
+    User.findOneAndUpdate(byQuery, {
+        $set: toUpdate
+    }, options, function(err, user) {
         if (user) {
             return res.status(200).json({
                 message: "User deleted",
@@ -204,11 +214,13 @@ router.post('/delete', (req, res) => {
 router.get('/list', function(req, res) {
     User.find({}, function(error, users) {
         var parsedUsers = users.map((user) => {
-            return {
-                _id: user._id,
-                userType: user.userType,
-                name: user.name,
-                email: user.email
+            if (user.isActive) {
+                return {
+                    _id: user._id,
+                    userType: user.userType,
+                    name: user.name,
+                    email: user.email
+                }
             }
         })
         res.send(parsedUsers);
