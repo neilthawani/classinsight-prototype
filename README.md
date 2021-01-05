@@ -18,7 +18,6 @@ mongo
 show dbs
 db.createCollection("users")
 db.createCollection("datasets")
-db.counters.insert({dbName: "datasets", count: 0})
 ```
 
 See [the Mongo docs in this repo](docs/mongo.md) for more information.
