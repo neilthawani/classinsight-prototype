@@ -16,7 +16,8 @@ In Terminal, run:
 ```
 mongo
 show dbs
-db.counters.insert({dbName: "users", count: 0})
+db.createCollection("users")
+db.createCollection("datasets")
 db.counters.insert({dbName: "datasets", count: 0})
 ```
 

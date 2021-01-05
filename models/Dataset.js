@@ -3,15 +3,14 @@ const AutoIncrement = require('mongoose-sequence')(mongoose);
 // Developer's note:
 // AutoIncrement causes this warning:
 // [0] (node:7835) DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.
+// [0] (node:9503) DeprecationWarning: Mongoose: `findOneAndUpdate()` and `findOneAndDelete()` without the `useFindAndModify` option set to false are deprecated. See: https://mongoosejs.com/docs/deprecations.html#findandmodify
 
 const Schema = mongoose.Schema;
-// var NumberLong = Schema.Types.Long;
 
 // Create Schema
 const DatasetSchema = new Schema({
   _id: {
-    type: Number,
-    // required: true
+    type: Number
   },
   userId: {
     type: Schema.Types.Number, // https://stackoverflow.com/questions/32684927/mongoose-foreign-key

@@ -47,13 +47,6 @@ db.datasets.find().pretty() # pretty print
 db.counters.find()
 ```
 
-## Seeds for Production
-
-```
-db.counters.insert({dbName: "users", count: 0})
-db.counters.insert({dbName: "datasets", count: 0})
-```
-
 ### Update attr names from the Terminal
 
 ```

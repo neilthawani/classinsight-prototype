@@ -1,17 +1,16 @@
 const mongoose = require("mongoose");
 const AutoIncrement = require('mongoose-sequence')(mongoose);
 // Developer's note:
-// AutoIncrement causes this warning:
+// AutoIncrement causes these warnings:
 // [0] (node:7835) DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.
+// [0] (node:9503) DeprecationWarning: Mongoose: `findOneAndUpdate()` and `findOneAndDelete()` without the `useFindAndModify` option set to false are deprecated. See: https://mongoosejs.com/docs/deprecations.html#findandmodify
 
 const Schema = mongoose.Schema;
-// var NumberLong = Schema.Types.Long;
 
 // Create Schema
 const UserSchema = new Schema({
   _id: {
-    type: Number,
-    // required: true
+    type: Number
   },
   name: {
     type: String,
@@ -39,7 +38,6 @@ const UserSchema = new Schema({
   }
 });
 
-// UserSchema.plugin(AutoIncrement);//, {inc_field: 'id'});
 UserSchema.plugin(AutoIncrement, {id: "users_id_counter", inc_field: '_id'});
 
 module.exports = User = mongoose.model("users", UserSchema);
