@@ -86,6 +86,12 @@ class App extends Component {
         return dashboardRoutes.definitions();
     }
 
+    handleGoogleLogin(res) {
+      // console.log("token", res.tokenId);
+      const decoded = handleLogin(res.tokenId);
+      console.log("decoded", decoded);
+    }
+
     render() {
         if (!this.state.areDatasetsLoaded) {
             return null;
@@ -106,7 +112,11 @@ class App extends Component {
 
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
+            {/*<Route exact path="/login" component={Login} />*/}
+            {/* https://github.com/ReactTraining/react-router/issues/4105 */}
+              <Route
+                path='/login'
+                render={routeProps => <Login {...routeProps} handleGoogleLogin={this.handleGoogleLogin.bind(this)}/>} />
 
             <PrivateRoute
               exact

@@ -28,6 +28,7 @@
     "mongoose-sequence": "^5.3.0",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
+    "react-google-login": "^5.2.2",
     "validator": "^13.5.1"
   },
   "devDependencies": {

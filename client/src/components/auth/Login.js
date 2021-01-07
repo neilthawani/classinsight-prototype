@@ -4,6 +4,9 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
 import classnames from "classnames";
+import keys from '../../config/keys';
+import GoogleLogin from 'react-google-login';
+import refreshTokenSetup from '../../utils/refreshToken';
 
 class Login extends Component {
   constructor() {
@@ -13,6 +16,18 @@ class Login extends Component {
       password: "",
       errors: {}
     };
+  }
+
+  onSuccess(res) {
+      // console.log("onSuccess", res);
+      // dispatch("quick!")
+      // debugger;
+      refreshTokenSetup(res);
+      this.props.handleGoogleLogin(res);
+  }
+
+  onFailure(res) {
+      console.log("onFailure", res);
   }
 
   componentDidMount() {
@@ -58,7 +73,7 @@ class Login extends Component {
     return (
       <div className="auth-form-container form-container">
         <h2 className="text-center">
-          Login
+          Sign in
         </h2>
 
         <form noValidate onSubmit={this.onSubmit}>
@@ -97,6 +112,23 @@ class Login extends Component {
             Login
           </button>
         </form>
+
+        <div className="google-form">
+          <div className="google-form-option">
+            <div className="google-form-option-line"></div>
+            <span className="google-form-option-or">OR</span>
+            <div className="google-form-option-line"></div>
+          </div>
+
+          <GoogleLogin
+            clientId={keys.oauth.clientId}
+            buttonText="Sign in with Google"
+            theme="dark"
+            onSuccess={this.onSuccess.bind(this)}
+            onFailure={this.onFailure}
+            cookiePolicy={'single_host_origin'}
+            isSignedIn={true} />
+        </div>
 
         <span className="text-with-link">
           Don't have an account? &nbsp;

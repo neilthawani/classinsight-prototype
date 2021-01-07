@@ -13,15 +13,30 @@ import { setCurrentUser, logoutUser } from "./actions/authActions";
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+// // Check for token to keep user logged in
+// if (localStorage.jwtToken) {
+//     // Set auth token header auth
+//     const token = localStorage.jwtToken;
+//     setAuthToken(token);
+//     // Decode token and get user info and exp
+//     const decoded = jwt_decode(token);
+//     // Set user and isAuthenticated
+//     store.dispatch(setCurrentUser(decoded));
+//     // Check for expired token
+//     const currentTime = Date.now() / 1000; // to get in milliseconds
+//     if (decoded.exp < currentTime) {
+//         // Logout user
+//         store.dispatch(logoutUser());
+//
+//         // Redirect to login
+//         window.location.href = "./login";
+//     }
+// }
+
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
-    // Set auth token header auth
-    const token = localStorage.jwtToken;
-    setAuthToken(token);
-    // Decode token and get user info and exp
-    const decoded = jwt_decode(token);
-    // Set user and isAuthenticated
-    store.dispatch(setCurrentUser(decoded));
+    const decoded = handleLogin(localStorage.jwtToken);
+
     // Check for expired token
     const currentTime = Date.now() / 1000; // to get in milliseconds
     if (decoded.exp < currentTime) {
@@ -31,6 +46,20 @@ if (localStorage.jwtToken) {
         // Redirect to login
         window.location.href = "./login";
     }
+}
+
+function handleLogin(token) {
+    // console.log("handleLogin token", token, [token]);
+    // Set auth token header auth
+    setAuthToken(token);
+
+    // Decode token and get user info and exp
+    const decoded = jwt_decode(token);
+
+    // Set user and isAuthenticated
+    store.dispatch(setCurrentUser(decoded));
+
+    return decoded;
 }
 
 ReactDOM.render(

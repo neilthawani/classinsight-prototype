@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import Icon from '@mdi/react';
 import { mdiAccount, mdiChevronDown, mdiBadgeAccountHorizontalOutline, mdiLogout } from '@mdi/js';
+import { GoogleLogout } from 'react-google-login';
+import keys from '../../config/keys';
 
 import ClassInSightLogo from "../../assets/images/classinsight-logo.png";
 
@@ -13,6 +15,10 @@ class Navbar extends Component {
         e.preventDefault();
         this.props.logoutUser();
     };
+
+    onSuccess(res) {
+        console.log("logout onSuccess", res);
+    }
 
     render() {
         const { user } = this.props.auth;
@@ -57,6 +63,15 @@ class Navbar extends Component {
                     <span className="navbar-dropdown-menu-item-link" onClick={this.onLogoutClick}>
                        Logout
                     </span>
+                  </div>
+                  <div className="navbar-dropdown-menu-item">
+                    <Icon path={mdiLogout} className="navbar-dropdown-menu-item-icon" size={1} />
+                    {/*<span className="navbar-dropdown-menu-item-link" onClick={this.onLogoutClick}>
+                       <GoogleLogout
+                          clientId={keys.oauth.clientId}
+                          buttonText="Logout"
+                          onLogoutSuccess={this.onSuccess} />
+                    </span>*/}
                   </div>
                 </div>
               </div> : ''
