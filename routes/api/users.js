@@ -296,6 +296,7 @@ router.post("/login", (req, res) => {
 // @desc Login user with Google SSO and return token
 // @access Public
 router.post("/google-login", (req, res) => {
+    console.log("req", req);
     // Form validation
     if (!req.email_verified) {
         res.status(400).json({
@@ -316,12 +317,14 @@ router.post("/google-login", (req, res) => {
     // }
 
     const email = req.email;
+    console.log("email", email);
     // const password = req.body.password;
 
     // Find user by email
     User.findOne({
         email
     }).then(user => {
+        console.log("user", user);
         // Check if user exists
         if (!user) {
             return res.status(404).json({

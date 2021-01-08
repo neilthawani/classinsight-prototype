@@ -45,41 +45,41 @@ import DatasetPreview from './components/admin/DatasetPreview';
 
 import { listDatasets } from "./actions/datasetActions";
 import dashboardRoutes from './fixtures/dashboardRoutes';
-import jwt_decode from "jwt-decode";
-import setAuthToken from "./utils/setAuthToken";
-import store from "./store";
+// import jwt_decode from "jwt-decode";
+// import setAuthToken from "./utils/setAuthToken";
+// import store from "./store";
+//
+// import { setCurrentUser, logoutUser } from "./actions/authActions";
 
-import { setCurrentUser, logoutUser } from "./actions/authActions";
 
-
-// Check for token to keep user logged in
-if (localStorage.jwtToken) {
-    const decoded = handleLogin(localStorage.jwtToken);
-
-    // Check for expired token
-    const currentTime = Date.now() / 1000; // to get in milliseconds
-    if (decoded.exp < currentTime) {
-        // Logout user
-        store.dispatch(logoutUser());
-
-        // Redirect to login
-        window.location.href = "./login";
-    }
-}
-
-function handleLogin(token) {
-    // console.log("handleLogin token", token, [token]);
-    // Set auth token header auth
-    setAuthToken(token);
-
-    // Decode token and get user info and exp
-    const decoded = jwt_decode(token);
-    console.log("decoded", decoded);
-    // Set user and isAuthenticated
-    store.dispatch(setCurrentUser(decoded));
-
-    return decoded;
-}
+// // Check for token to keep user logged in
+// if (localStorage.jwtToken) {
+//     const decoded = handleLogin(localStorage.jwtToken);
+//
+//     // Check for expired token
+//     const currentTime = Date.now() / 1000; // to get in milliseconds
+//     if (decoded.exp < currentTime) {
+//         // Logout user
+//         store.dispatch(logoutUser());
+//
+//         // Redirect to login
+//         window.location.href = "./login";
+//     }
+// }
+//
+// function handleLogin(token) {
+//     // console.log("handleLogin token", token, [token]);
+//     // Set auth token header auth
+//     setAuthToken(token);
+//
+//     // Decode token and get user info and exp
+//     const decoded = jwt_decode(token);
+//     console.log("decoded", decoded);
+//     // Set user and isAuthenticated
+//     store.dispatch(setCurrentUser(decoded));
+//
+//     return decoded;
+// }
 
 class App extends Component {
     constructor(props) {
