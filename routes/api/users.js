@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
+// const oauth_keys = require("../../client/src/config/keys");
 const passport = require("passport");
 
 // Load input validation
@@ -341,7 +342,7 @@ router.post("/google-login", (req, res) => {
                 // User matched
                 // Create JWT Payload
                 const payload = {
-                    id: user.id,
+                    id: parseInt(user.id, 10),
                     name: user.name,
                     email: user.email,
                     userType: user.userType
@@ -350,13 +351,14 @@ router.post("/google-login", (req, res) => {
                 // Sign token
                 jwt.sign(
                     payload,
-                    keys.secretOrKey, {
+                    keys.oauth.clientSecret, {
                         expiresIn: 31556926 // 1 year in seconds
                     },
                     (err, token) => {
+                        console.log("token", token);
                         res.json({
                             success: true,
-                            token: "Bearer " + token
+                            token: "Google " + token
                         });
                     }
                 );

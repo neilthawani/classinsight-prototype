@@ -90,6 +90,9 @@ export const setUserLoading = () => {
 
 // Log user out
 export const logoutUser = () => dispatch => {
+    // console.log("localStorage", localStorage);
+    // localStorage.clear();
+    // console.log("localStorage", localStorage);
     // Remove token from local storage
     localStorage.removeItem("jwtToken");
     // Remove auth header for future requests
