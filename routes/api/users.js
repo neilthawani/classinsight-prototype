@@ -292,4 +292,77 @@ router.post("/login", (req, res) => {
     });
 });
 
+// @route POST api/users/google-login
+// @desc Login user with Google SSO and return token
+// @access Public
+router.post("/google-login", (req, res) => {
+    // Form validation
+    if (!req.email_verified) {
+        res.status(400).json({
+            errors: {
+                email: "User does not exist"
+            },
+            isValid: false
+        })
+    }
+    // const {
+    //     errors,
+    //     isValid
+    // } = validateLoginInput(req.body);
+
+    // Check validation
+    // if (!isValid) {
+    //     return res.status(400).json(errors);
+    // }
+
+    const email = req.email;
+    // const password = req.body.password;
+
+    // Find user by email
+    User.findOne({
+        email
+    }).then(user => {
+        // Check if user exists
+        if (!user) {
+            return res.status(404).json({
+                emailnotfound: "Email not found"
+            });
+        }
+
+        // Check password
+        // bcrypt.compare(password, user.password).then(isMatch => {
+        //     if (isMatch) {
+                // User matched
+                // Create JWT Payload
+                const payload = {
+                    id: user.id,
+                    name: user.name,
+                    email: user.email,
+                    userType: user.userType
+                };
+
+                // Sign token
+                jwt.sign(
+                    payload,
+                    keys.secretOrKey, {
+                        expiresIn: 31556926 // 1 year in seconds
+                    },
+                    (err, token) => {
+                        res.json({
+                            success: true,
+                            token: "Bearer " + token
+                        });
+                    }
+                );
+            // } else {
+            //     return res
+            //         .status(400)
+            //         .json({
+            //             passwordincorrect: "Password incorrect"
+            //         });
+            // }
+        // });
+    });
+});
+
 module.exports = router;

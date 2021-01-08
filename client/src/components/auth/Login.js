@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { loginUser } from "../../actions/authActions";
+import { loginUser, loginGoogleUser } from "../../actions/authActions";
 import classnames from "classnames";
 import keys from '../../config/keys';
 import GoogleLogin from 'react-google-login';
-import refreshTokenSetup from '../../utils/refreshToken';
+// import refreshTokenSetup from '../../utils/refreshToken';
 
 class Login extends Component {
   constructor() {
@@ -22,8 +22,8 @@ class Login extends Component {
       // console.log("onSuccess", res);
       // dispatch("quick!")
       // debugger;
-      refreshTokenSetup(res);
-      this.props.handleGoogleLogin(res);
+      // refreshTokenSetup(res);
+      this.props.loginGoogleUser(res); // res.tokenId
   }
 
   onFailure(res) {
@@ -39,6 +39,7 @@ class Login extends Component {
 
   static getDerivedStateFromProps(nextProps) {
       if (nextProps.auth.isAuthenticated) {
+          console.log("isAuthenticated");
           nextProps.history.push("/dashboard"); // push user to dashboard when they login
       }
 
@@ -142,7 +143,8 @@ class Login extends Component {
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
+  loginGoogleUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -152,5 +154,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { loginUser }
+  { loginUser, loginGoogleUser }
 )(Login);
