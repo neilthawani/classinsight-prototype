@@ -296,16 +296,19 @@ router.post("/login", (req, res) => {
 // @desc Login user with Google SSO and return token
 // @access Public
 router.post("/google-login", (req, res) => {
-    console.log("req", req);
+    // console.log("req", req);
+    // console.log("req.body", req.body);
+    // var token = req.body.id_token;
+    var email = req.body.profileObj.email;
     // Form validation
-    if (!req.email_verified) {
-        res.status(400).json({
-            errors: {
-                email: "User does not exist"
-            },
-            isValid: false
-        })
-    }
+    // if (!req.email_verified) {
+    //     res.status(400).json({
+    //         errors: {
+    //             email: "User does not exist"
+    //         },
+    //         isValid: false
+    //     })
+    // }
     // const {
     //     errors,
     //     isValid
@@ -316,8 +319,8 @@ router.post("/google-login", (req, res) => {
     //     return res.status(400).json(errors);
     // }
 
-    const email = req.email;
-    console.log("email", email);
+    // const email = req.email;
+    // console.log("email", email);
     // const password = req.body.password;
 
     // Find user by email
