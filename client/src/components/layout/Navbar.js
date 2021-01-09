@@ -58,21 +58,24 @@ class Navbar extends Component {
                       </span>
                     </div>
                   </Link> : ""}
-                  <div className="navbar-dropdown-menu-item">
-                    <Icon path={mdiLogout} className="navbar-dropdown-menu-item-icon" size={1} />
-                    <span className="navbar-dropdown-menu-item-link" onClick={this.onLogoutClick}>
-                       Logout
-                    </span>
-                  </div>
-                  <div className="navbar-dropdown-menu-item">
-                    <Icon path={mdiLogout} className="navbar-dropdown-menu-item-icon" size={1} />
-                    <span className="navbar-dropdown-menu-item-link" onClick={this.onLogoutClick}>
-                       <GoogleLogout
-                          clientId={keys.oauth.clientId}
-                          buttonText="Logout"
-                          onLogoutSuccess={this.onSuccess} />
-                    </span>
-                  </div>
+                  {user.isGoogleUser ?
+                    <div className="navbar-dropdown-menu-item">
+                      <Icon path={mdiLogout} className="navbar-dropdown-menu-item-icon" size={1} />
+                      <span className="navbar-dropdown-menu-item-link" onClick={this.onLogoutClick}>
+                         <GoogleLogout
+                            clientId={keys.oauth.clientId}
+                            buttonText="Logout"
+                            onLogoutSuccess={this.onSuccess} />
+                      </span>
+                    </div>
+                  :
+                    <div className="navbar-dropdown-menu-item">
+                      <Icon path={mdiLogout} className="navbar-dropdown-menu-item-icon" size={1} />
+                      <span className="navbar-dropdown-menu-item-link" onClick={this.onLogoutClick}>
+                         Logout
+                      </span>
+                    </div>
+                  }
                 </div>
               </div> : ''
             }

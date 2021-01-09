@@ -345,7 +345,8 @@ router.post("/google-login", (req, res) => {
                     id: parseInt(user.id, 10),
                     name: user.name,
                     email: user.email,
-                    userType: user.userType
+                    userType: user.userType,
+                    isGoogleUser: true
                 };
 
                 // Sign token
