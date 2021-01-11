@@ -18,6 +18,7 @@ class Navbar extends Component {
 
     onGoogleLogoutSuccess(res) {
         console.log("onGoogleLogoutSuccess", res);
+        this.props.logoutUser();
     }
 
     render() {
