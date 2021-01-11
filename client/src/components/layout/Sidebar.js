@@ -6,7 +6,7 @@ import { mdiDatabase } from '@mdi/js';
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { showDataset } from "../../actions/datasetActions";
+import { listDatasets, showDataset } from "../../actions/datasetActions";
 
 class Sidebar extends Component {
     handleSidebarRowClick(index) {
@@ -25,16 +25,25 @@ class Sidebar extends Component {
         if (typeof this.props.datasets.activeDataRowIndex !== "number") {
             this.handleSidebarRowClick(0);
         }
+
+        this.props.listDatasets(this.props.auth.user.id)
+        // .then((response) => {
+        //     console.log("areDatasetsLoaded", response);
+        //     this.setState({
+        //         areDatasetsLoaded: true
+        //     });
+        // });
     }
 
     render() {
+        console.log("this.props.datasets.datasets", this.props.datasets.datasets);
         return (
           <div className="sidebar">
             <div className="sidebar-header">
               <Icon path={mdiDatabase} className="sidebar-header-icon" size={2} />
             </div>
             <div className="sidebar-data">
-              {(this.props.datasets.dataParsers || []).map((item, index, array) => {
+              {this.props.datasets.dataParsers.map((item, index, array) => {
                   var datum = item.data;
                   var topic = item.topic,
                       date = item.date,
@@ -82,18 +91,20 @@ class Sidebar extends Component {
 }
 
 Sidebar.propTypes = {
+    auth: PropTypes.object.isRequired,
     datasets: PropTypes.object.isRequired,
-    showDataset: PropTypes.func.isRequired
+    showDataset: PropTypes.func.isRequired,
+    listDatasets: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
     return {
         datasets: state.datasets,
-
+        auth: state.auth
     }
 };
 
 export default withRouter(connect(
   mapStateToProps,
-  { showDataset }
+  { showDataset, listDatasets }
 )(Sidebar));

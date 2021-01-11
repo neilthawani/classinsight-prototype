@@ -1,7 +1,8 @@
 import {
     SET_CURRENT_USER,
-    USER_LOADING,
-    GOOGLE_OAUTH2
+    USER_LOADING
+    // ,
+    // GOOGLE_OAUTH2
 } from "../actions/types";
 
 const isEmpty = require("is-empty");

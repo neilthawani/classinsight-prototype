@@ -96,6 +96,7 @@ class Login extends Component {
               error={errors.password}
               id="password"
               type="password"
+              autoComplete="current-password"
               className={classnames("", { invalid: errors.password || errors.passwordincorrect })}/>
             <span className="input-field-error-text">
               {errors.password}

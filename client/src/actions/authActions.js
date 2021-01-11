@@ -5,8 +5,9 @@ import jwt_decode from "jwt-decode";
 import {
     GET_ERRORS,
     SET_CURRENT_USER,
-    USER_LOADING,
-    GOOGLE_OAUTH2
+    USER_LOADING
+    // ,
+    // GOOGLE_OAUTH2
 } from "./types";
 
 // Register User
