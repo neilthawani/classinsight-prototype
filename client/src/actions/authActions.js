@@ -50,7 +50,7 @@ export const loginUser = userData => dispatch => {
 };
 
 // Set logged in user
-export const setCurrentUser = decoded => {
+export const setCurrentUser = decoded => {//dispatch => {
     return {
         type: SET_CURRENT_USER,
         payload: decoded
@@ -71,13 +71,14 @@ export const logoutUser = () => dispatch => {
     // Remove auth header for future requests
     setAuthToken(false);
     // Set current user to empty object {} which will set isAuthenticated to false
+    dispatch({type: GET_ERRORS, payload: {}});
     dispatch(setCurrentUser({}));
 };
 
 export const loginWithGoogle = (googleResponse) => dispatch => {
     axios.post("/api/users/google-login/", googleResponse)
          .then(res => {
-              console.log("loginWithGoogle xhr", res);
+              // console.log("loginWithGoogle xhr", res);
               const {
                   token
               } = res.data;
@@ -91,7 +92,7 @@ export const loginWithGoogle = (googleResponse) => dispatch => {
               dispatch(setCurrentUser(decoded));
          })
          .catch(err => {
-              console.log("loginWithGoogle err", err);
+              // console.log("loginWithGoogle err", err);
              dispatch({
                  type: GET_ERRORS,
                  payload: err.response && err.response.data

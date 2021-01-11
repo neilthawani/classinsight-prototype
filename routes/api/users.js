@@ -309,7 +309,7 @@ router.post("/google-login", (req, res) => {
         email
     }).then(user => {
         if (!user) {
-            console.log("no user");
+            // console.log("no user");
             return res.status(404).json({
                 emailnotfound: "Email not found"
             });

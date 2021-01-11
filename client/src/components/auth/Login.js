@@ -59,7 +59,7 @@ class Login extends Component {
       this.props.loginWithGoogle(response);
   }
   onGoogleFailure(response) {
-      console.log("onGoogleFailure", response);
+      // console.log("onGoogleFailure", response);
       this.props.loginWithGoogle(response);
   }
 
