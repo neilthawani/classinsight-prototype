@@ -73,7 +73,7 @@ class Navbar extends Component {
                       <GoogleLogout
                         clientId={oauth.clientId}
                         render={renderProps => (
-                          <span onClick={renderProps.onClick} disabled={renderProps.disabled}>GLogout</span>
+                          <span onClick={renderProps.onClick} disabled={renderProps.disabled}>Logout</span>
                         )}
                         buttonText="Logout"
                         onLogoutSuccess={this.onGoogleLogoutSuccess.bind(this)}
