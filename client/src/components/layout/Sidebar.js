@@ -36,7 +36,7 @@ class Sidebar extends Component {
     }
 
     render() {
-        console.log("this.props.datasets.datasets", this.props.datasets.datasets);
+        // console.log("this.props.datasets.datasets", this.props.datasets.datasets);
         return (
           <div className="sidebar">
             <div className="sidebar-header">
