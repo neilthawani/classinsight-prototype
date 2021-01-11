@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import Icon from '@mdi/react';
@@ -37,6 +38,14 @@ class ButtonSelector extends Component {
     }
 
     render() {
+        var areDatasetsLoaded = this.props.datasets.activeParser;//Object.keys(this.props.datasets.activeParser).length > 0;
+        // console.log("ButtonSelector areDatasetsLoaded", areDatasetsLoaded);
+        // console.log("this.props.datasets", this.props.datasets);
+
+        if (!areDatasetsLoaded) {
+            return null;
+        }
+
         return (
           <div className="button-selector">
             <div className="button-selector-options">
@@ -79,7 +88,27 @@ class ButtonSelector extends Component {
 }
 
 ButtonSelector.propTypes = {
-    buttonSelectorSelectedOption: PropTypes.string.isRequired
+    buttonSelectorSelectedOption: PropTypes.string.isRequired,
+    datasets: PropTypes.object.isRequired
 }
+//
+// export default withRouter(ButtonSelector);
+//
+// Sidebar.propTypes = {
+//     auth: PropTypes.object.isRequired,
+//     datasets: PropTypes.object.isRequired,
+//     showDataset: PropTypes.func.isRequired,
+//     listDatasets: PropTypes.func.isRequired
+// }
 
-export default withRouter(ButtonSelector);
+function mapStateToProps(state) {
+    return {
+        datasets: state.datasets,
+        // auth: state.auth
+    }
+};
+
+export default withRouter(connect(
+  mapStateToProps,
+  { }
+)(ButtonSelector));

@@ -26,16 +26,18 @@ class Sidebar extends Component {
             this.handleSidebarRowClick(0);
         }
 
-        this.props.listDatasets(this.props.auth.user.id)
-        // .then((response) => {
-        //     console.log("areDatasetsLoaded", response);
-        //     this.setState({
-        //         areDatasetsLoaded: true
-        //     });
-        // });
+        this.props.listDatasets(this.props.auth.user.id);
     }
 
     render() {
+        var areDatasetsLoaded = this.props.datasets.activeParser;//Object.keys(this.props.datasets.activeParser).length > 0;
+        // console.log("ButtonSelector areDatasetsLoaded", areDatasetsLoaded);
+        // console.log("this.props.datasets", this.props.datasets);
+
+        if (!areDatasetsLoaded) {
+            return null;
+        }
+
         // console.log("this.props.datasets.datasets", this.props.datasets.datasets);
         return (
           <div className="sidebar">
