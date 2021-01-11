@@ -5,7 +5,8 @@ import jwt_decode from "jwt-decode";
 import {
     GET_ERRORS,
     SET_CURRENT_USER,
-    USER_LOADING
+    USER_LOADING,
+    GOOGLE_OAUTH2
 } from "./types";
 
 // Register User
@@ -71,4 +72,37 @@ export const logoutUser = () => dispatch => {
     setAuthToken(false);
     // Set current user to empty object {} which will set isAuthenticated to false
     dispatch(setCurrentUser({}));
+};
+
+export const loginWithGoogle = (googleResponse) => dispatch => {
+    axios.post("/api/users/google-login/", googleResponse)
+         .then(res => {
+              console.log("loginWithGoogle xhr", res);
+              const {
+                  token
+              } = res.data;
+
+              localStorage.setItem("jwtToken", token);
+              // Set token to Auth header
+              setAuthToken(token);
+              // Decode token to get user data
+              const decoded = jwt_decode(token);
+              // Set current user
+              dispatch(setCurrentUser(decoded));
+         })
+         .catch(err => {
+              console.log("loginWithGoogle err", err);
+             dispatch({
+                 type: GET_ERRORS,
+                 payload: err.response && err.response.data
+             });
+        });
+
+        // return async (dispatch) => {
+        //     if (typeof googleResponse === 'undefined') {
+        //         googleResponse = [];
+        //     }
+        //
+        //     dispatch({ type: GOOGLE_OAUTH2, googleResponse });
+        // };
 };
