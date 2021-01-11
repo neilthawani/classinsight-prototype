@@ -38,9 +38,7 @@ class ButtonSelector extends Component {
     }
 
     render() {
-        var areDatasetsLoaded = this.props.datasets.activeParser;//Object.keys(this.props.datasets.activeParser).length > 0;
-        // console.log("ButtonSelector areDatasetsLoaded", areDatasetsLoaded);
-        // console.log("this.props.datasets", this.props.datasets);
+        var areDatasetsLoaded = this.props.datasets.activeParser;
 
         if (!areDatasetsLoaded) {
             return null;
@@ -91,20 +89,10 @@ ButtonSelector.propTypes = {
     buttonSelectorSelectedOption: PropTypes.string.isRequired,
     datasets: PropTypes.object.isRequired
 }
-//
-// export default withRouter(ButtonSelector);
-//
-// Sidebar.propTypes = {
-//     auth: PropTypes.object.isRequired,
-//     datasets: PropTypes.object.isRequired,
-//     showDataset: PropTypes.func.isRequired,
-//     listDatasets: PropTypes.func.isRequired
-// }
 
 function mapStateToProps(state) {
     return {
         datasets: state.datasets,
-        // auth: state.auth
     }
 };
 

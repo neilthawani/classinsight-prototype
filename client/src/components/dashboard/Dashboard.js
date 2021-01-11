@@ -4,13 +4,6 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 class Dashboard extends Component {
-    // constructor(props) {
-    //     super(props);
-    // }
-    //
-    // componentDidMount() {
-    //
-    // }
     render() {
         if (!this.props.datasets.activeParser) {
             return (
@@ -28,13 +21,8 @@ class Dashboard extends Component {
     }
 }
 
-// export default Dashboard;
-
 Dashboard.propTypes = {
-    // auth: PropTypes.object.isRequired,
-    datasets: PropTypes.object.isRequired,
-    // showDataset: PropTypes.func.isRequired,
-    // listDatasets: PropTypes.func.isRequired
+    datasets: PropTypes.object.isRequired
 }
 
 function mapStateToProps(state) {

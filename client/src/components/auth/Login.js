@@ -55,11 +55,9 @@ class Login extends Component {
   };
 
   onGoogleSuccess(response) {
-      // console.log("onGoogleSuccess", response);
       this.props.loginWithGoogle(response);
   }
   onGoogleFailure(response) {
-      // console.log("onGoogleFailure", response);
       this.props.loginWithGoogle(response);
   }
 

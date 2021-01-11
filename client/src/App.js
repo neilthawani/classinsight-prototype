@@ -33,9 +33,7 @@ class App extends Component {
 
     // set button selector to match URL on refresh
     componentDidMount() {
-        // console.log("componentDidMount", this.props.auth.user.id);
         this.props.listDatasets(this.props.auth.user.id).then((response) => {
-            // console.log("areDatasetsLoaded", response);
             this.setState({
                 areDatasetsLoaded: true
             });
@@ -89,7 +87,6 @@ class App extends Component {
     }
 
     render() {
-        // console.log("App", this.state);
         if (!this.state.areDatasetsLoaded) {
             return null;
         }

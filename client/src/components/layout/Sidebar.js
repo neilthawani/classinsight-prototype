@@ -30,15 +30,12 @@ class Sidebar extends Component {
     }
 
     render() {
-        var areDatasetsLoaded = this.props.datasets.activeParser;//Object.keys(this.props.datasets.activeParser).length > 0;
-        // console.log("ButtonSelector areDatasetsLoaded", areDatasetsLoaded);
-        // console.log("this.props.datasets", this.props.datasets);
+        var areDatasetsLoaded = this.props.datasets.activeParser;
 
         if (!areDatasetsLoaded) {
             return null;
         }
 
-        // console.log("this.props.datasets.datasets", this.props.datasets.datasets);
         return (
           <div className="sidebar">
             <div className="sidebar-header">

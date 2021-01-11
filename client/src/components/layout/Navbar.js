@@ -17,7 +17,6 @@ class Navbar extends Component {
     };
 
     onGoogleLogoutSuccess(res) {
-        // console.log("onGoogleLogoutSuccess", res);
         this.props.logoutUser();
     }
 
@@ -59,7 +58,7 @@ class Navbar extends Component {
                       </span>
                     </div>
                   </Link> : ""}
-                  {/*typeof this.props.auth.accessToken === 'undefined'*/}
+                  
                   {!this.props.auth.user.isGoogleUser ?
                     <div className="navbar-dropdown-menu-item">
                       <Icon path={mdiLogout} className="navbar-dropdown-menu-item-icon" size={1} />

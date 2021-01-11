@@ -10,8 +10,8 @@ var oauth = {
   //   "auth_uri": "https://accounts.google.com/o/oauth2/auth",
   //   "token_uri": "https://oauth2.googleapis.com/token",
   //   "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  //   "redirect_uris": ["http://localhost:3000"],
-  //   "javascript_origins": ["http://localhost:3000"]
+  //   "redirect_uris": ["http://localhost:3000/dashboard", "https://app.classinsight.io/dashboard"],
+  //   "javascript_origins": ["http://localhost:3000", "https://app.classinsight.io"]
   // }
 
 export default oauth;

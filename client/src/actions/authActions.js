@@ -6,8 +6,6 @@ import {
     GET_ERRORS,
     SET_CURRENT_USER,
     USER_LOADING
-    // ,
-    // GOOGLE_OAUTH2
 } from "./types";
 
 // Register User
@@ -51,7 +49,7 @@ export const loginUser = userData => dispatch => {
 };
 
 // Set logged in user
-export const setCurrentUser = decoded => {//dispatch => {
+export const setCurrentUser = decoded => {
     return {
         type: SET_CURRENT_USER,
         payload: decoded
@@ -79,7 +77,6 @@ export const logoutUser = () => dispatch => {
 export const loginWithGoogle = (googleResponse) => dispatch => {
     axios.post("/api/users/google-login/", googleResponse)
          .then(res => {
-              // console.log("loginWithGoogle xhr", res);
               const {
                   token
               } = res.data;
@@ -93,18 +90,9 @@ export const loginWithGoogle = (googleResponse) => dispatch => {
               dispatch(setCurrentUser(decoded));
          })
          .catch(err => {
-              // console.log("loginWithGoogle err", err);
              dispatch({
                  type: GET_ERRORS,
                  payload: err.response && err.response.data
              });
         });
-
-        // return async (dispatch) => {
-        //     if (typeof googleResponse === 'undefined') {
-        //         googleResponse = [];
-        //     }
-        //
-        //     dispatch({ type: GOOGLE_OAUTH2, googleResponse });
-        // };
 };

@@ -296,20 +296,13 @@ router.post("/login", (req, res) => {
 // @desc Login user with Google SSO and return token
 // @access Public
 router.post("/google-login", (req, res) => {
-    // console.log("req", req);
-    // console.log("req.body", req.body);
     var email = req.body.profileObj.email;
-    // var token = req.body.accessToken;
     var tokenId = req.body.tokenId;
 
-    // console.log("email", email);
-    // console.log("token", token);
-    // console.log("tokenId", tokenId);
     User.findOne({
         email
     }).then(user => {
         if (!user) {
-            // console.log("no user");
             return res.status(404).json({
                 emailnotfound: "Email not found"
             });
@@ -330,7 +323,6 @@ router.post("/google-login", (req, res) => {
                 expiresIn: 31556926 // 1 year in seconds
             },
             (err, token) => {
-                // console.log("token", token);
                 res.json({
                     success: true,
                     token: "Bearer " + token
