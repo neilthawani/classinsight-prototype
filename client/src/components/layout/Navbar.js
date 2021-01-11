@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import Icon from '@mdi/react';
 import { mdiAccount, mdiChevronDown, mdiBadgeAccountHorizontalOutline, mdiLogout } from '@mdi/js';
+import { GoogleLogout } from 'react-google-login';
+import oauth from '../../config/oauth';
 
 import ClassInSightLogo from "../../assets/images/classinsight-logo.png";
 
@@ -13,6 +15,10 @@ class Navbar extends Component {
         e.preventDefault();
         this.props.logoutUser();
     };
+
+    onGoogleLogoutSuccess(res) {
+        this.props.logoutUser();
+    }
 
     render() {
         const { user } = this.props.auth;
@@ -52,12 +58,27 @@ class Navbar extends Component {
                       </span>
                     </div>
                   </Link> : ""}
-                  <div className="navbar-dropdown-menu-item">
-                    <Icon path={mdiLogout} className="navbar-dropdown-menu-item-icon" size={1} />
-                    <span className="navbar-dropdown-menu-item-link" onClick={this.onLogoutClick}>
-                       Logout
-                    </span>
-                  </div>
+                  
+                  {!this.props.auth.user.isGoogleUser ?
+                    <div className="navbar-dropdown-menu-item">
+                      <Icon path={mdiLogout} className="navbar-dropdown-menu-item-icon" size={1} />
+                      <span className="navbar-dropdown-menu-item-link" onClick={this.onLogoutClick}>
+                         Logout
+                      </span>
+                    </div>
+                  :
+                    <div className="navbar-dropdown-menu-item">
+                      <Icon path={mdiLogout} className="navbar-dropdown-menu-item-icon" size={1} />
+                      <GoogleLogout
+                        clientId={oauth.clientId}
+                        render={renderProps => (
+                          <span onClick={renderProps.onClick} disabled={renderProps.disabled}>Logout</span>
+                        )}
+                        buttonText="Logout"
+                        onLogoutSuccess={this.onGoogleLogoutSuccess.bind(this)}
+                      />
+                    </div>
+                  }
                 </div>
               </div> : ''
             }

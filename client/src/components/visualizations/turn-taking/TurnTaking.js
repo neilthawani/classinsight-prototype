@@ -97,7 +97,7 @@ class TurnTaking extends Component {
     }
 
     render() {
-        var areDatasetsLoaded = Object.keys(this.props.datasets).length > 0;
+        var areDatasetsLoaded = this.props.datasets.activeParser;
 
         if (!areDatasetsLoaded) {
             return null;

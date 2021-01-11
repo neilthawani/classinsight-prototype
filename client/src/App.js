@@ -131,7 +131,6 @@ class App extends Component {
               )}
             />
 
-
             <div className="dashboard-content">
               {/* A <Switch> looks through all its children <Route> elements and
                 renders the first one whose path matches the current URL.
@@ -157,6 +156,7 @@ class App extends Component {
 
 App.propTypes = {
     auth: PropTypes.object.isRequired,
+    listDatasets: PropTypes.func.isRequired
 }
 
 // NOTE: Do not bind admin.datasets to this method.

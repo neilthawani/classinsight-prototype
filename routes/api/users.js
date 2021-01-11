@@ -292,4 +292,44 @@ router.post("/login", (req, res) => {
     });
 });
 
+// @route POST api/users/google-login
+// @desc Login user with Google SSO and return token
+// @access Public
+router.post("/google-login", (req, res) => {
+    var email = req.body.profileObj.email;
+    var tokenId = req.body.tokenId;
+
+    User.findOne({
+        email
+    }).then(user => {
+        if (!user) {
+            return res.status(404).json({
+                emailnotfound: "Email not found"
+            });
+        }
+
+        const payload = {
+            id: parseInt(user.id, 10),
+            name: user.name,
+            email: user.email,
+            userType: user.userType,
+            isGoogleUser: true
+        };
+
+        // Sign token
+        jwt.sign(
+            payload,
+            tokenId, {
+                expiresIn: 31556926 // 1 year in seconds
+            },
+            (err, token) => {
+                res.json({
+                    success: true,
+                    token: "Bearer " + token
+                });
+            }
+        );
+    });
+});
+
 module.exports = router;

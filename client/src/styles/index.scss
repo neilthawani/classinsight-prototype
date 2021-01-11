@@ -58,7 +58,12 @@ p {
 
 .app-container {}
 
+.dashboard-container {}
+
 .dashboard-content {
     margin-top: $navbarMargin;
     margin-left: $sidebarWidth;
+}
+
+.dashboard-content .no-data {
 }

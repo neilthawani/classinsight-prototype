@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import Icon from '@mdi/react';
@@ -37,6 +38,12 @@ class ButtonSelector extends Component {
     }
 
     render() {
+        var areDatasetsLoaded = this.props.datasets.activeParser;
+
+        if (!areDatasetsLoaded) {
+            return null;
+        }
+
         return (
           <div className="button-selector">
             <div className="button-selector-options">
@@ -79,7 +86,17 @@ class ButtonSelector extends Component {
 }
 
 ButtonSelector.propTypes = {
-    buttonSelectorSelectedOption: PropTypes.string.isRequired
+    buttonSelectorSelectedOption: PropTypes.string.isRequired,
+    datasets: PropTypes.object.isRequired
 }
 
-export default withRouter(ButtonSelector);
+function mapStateToProps(state) {
+    return {
+        datasets: state.datasets,
+    }
+};
+
+export default withRouter(connect(
+  mapStateToProps,
+  { }
+)(ButtonSelector));

@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { loginUser } from "../../actions/authActions";
+import { loginUser, loginWithGoogle } from "../../actions/authActions";
 import classnames from "classnames";
+import { GoogleLogin } from 'react-google-login';
+import oauth from '../../config/oauth';
 
 class Login extends Component {
   constructor() {
@@ -52,6 +54,13 @@ class Login extends Component {
     this.props.loginUser(userData);
   };
 
+  onGoogleSuccess(response) {
+      this.props.loginWithGoogle(response);
+  }
+  onGoogleFailure(response) {
+      this.props.loginWithGoogle(response);
+  }
+
   render() {
     const { errors } = this.state;
 
@@ -85,6 +94,7 @@ class Login extends Component {
               error={errors.password}
               id="password"
               type="password"
+              autoComplete="current-password"
               className={classnames("", { invalid: errors.password || errors.passwordincorrect })}/>
             <span className="input-field-error-text">
               {errors.password}
@@ -98,6 +108,23 @@ class Login extends Component {
           </button>
         </form>
 
+        <div className="google-form">
+          <div className="google-form-option">
+            <div className="google-form-option-line"></div>
+            <span className="google-form-option-or">OR</span>
+            <div className="google-form-option-line"></div>
+          </div>
+          <GoogleLogin
+            clientId={oauth.clientId}
+            buttonText="Sign in with Google"
+            theme="dark"
+            onSuccess={this.onGoogleSuccess.bind(this)}
+            onFailure={this.onGoogleFailure.bind(this)}
+            cookiePolicy={'single_host_origin'}
+            isSignedIn={true}
+          />
+        </div>
+
         <span className="text-with-link">
           Don't have an account? &nbsp;
           <Link to="/register" className="link">Register</Link>
@@ -110,7 +137,8 @@ class Login extends Component {
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
+  loginWithGoogle: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -120,5 +148,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { loginUser }
+  { loginUser, loginWithGoogle }
 )(Login);
