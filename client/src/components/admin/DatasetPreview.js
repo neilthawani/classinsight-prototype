@@ -7,7 +7,7 @@ import { listDatasets } from "../../actions/datasetActions";
 import PrivateRoute from "../private-route/PrivateRoute";
 import { Switch } from "react-router-dom";
 
-import Dashboard from "../dashboard/Dashboard";
+import Dashboard from "../visualizations/dashboard/Dashboard";
 import TalkRatio from '../visualizations/talk-ratio/TalkRatio';
 import Transcript from '../visualizations/transcript/Transcript';
 import TurnTaking from '../visualizations/turn-taking/TurnTaking';

@@ -1,4 +1,4 @@
-import Dashboard from "../components/dashboard/Dashboard";
+import Dashboard from "../components/visualizations/dashboard/Dashboard";
 import TalkRatio from '../components/visualizations/talk-ratio/TalkRatio';
 import Transcript from '../components/visualizations/transcript/Transcript';
 import TurnTaking from '../components/visualizations/turn-taking/TurnTaking';

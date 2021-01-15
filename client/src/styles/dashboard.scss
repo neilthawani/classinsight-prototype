@@ -1,0 +1,20 @@
+.overview-container {
+    width: 50%;
+    border: 1px solid $lightGray;
+    margin: calc(#{$navbarMargin} + 10px) 10px 10px 10px;
+}
+
+.overview-heading {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.overview-heading-label {
+    margin: 0;
+    font-weight: 400;
+}
+
+.overview-heading-dropdown {
+    margin: 0 10px;
+}
