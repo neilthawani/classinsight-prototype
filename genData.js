@@ -1,10 +1,3 @@
-Old PR: https://github.com/neilthawani/classinsight-prototype/pull/242
-Port 22 is for SSH.
-Read these docs: https://www.npmjs.com/package/tunnel-ssh
-Next steps: Come up with two table names - one for users, with a prefix (e.g., classinsight_users) and another table with min. 12-character passwords
-Related nginx config for allowing large file sizes: https://github.com/neilthawani/classinsight-prototype/issues/245
-
-
 const MongoClient = require("mongodb").MongoClient;
 var assert = require("assert");
 const url = "mongodb://localhost:27017";
@@ -23,7 +16,7 @@ var config = {
     // Keep the same
     agent: process.env.SSH_AUTH_SOCK,
     host: conf.db_host,
-    port: 22,
+    port: 22, // port 22 is for ssh
     dstPort: 27017
 };
 
