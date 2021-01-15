@@ -1,0 +1,61 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: $sidebarWidth;
+    height: 100%;
+    margin-top: $navbarHeight;
+    z-index: 999;
+    background-color: $blue;
+    color: white;
+}
+
+.sidebar-header {
+    text-align: center;
+    border-bottom: 1px solid $lightGray;
+    border-right: 1px solid $lightGray;
+}
+
+.sidebar-header-icon {
+    text-align: center;
+    color: white;
+    margin: 20px auto 10px auto;
+}
+
+.sidebar-data {
+
+}
+
+.sidebar-data-row {
+    padding: 10px 10px;
+    cursor: pointer;
+}
+
+.sidebar-data-row.active {
+    background-color: white;
+    color: $blue;
+    border-right: white;
+}
+
+.sidebar-data-row-title {
+    font-size: 18px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.sidebar-data-row-descriptor {
+    word-wrap: break-word;
+}
+
+.sidebar-data-row-descriptor-label {
+    font-size: 14px;
+    font-weight: bold;
+
+    &:after {
+        content: "\00a0"; // space
+    }
+}
+
+.sidebar-data-row-descriptor-value {
+    font-size: 14px;
+}

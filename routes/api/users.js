@@ -8,16 +8,72 @@ const passport = require("passport");
 // Load input validation
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
+const validateEditUser = require("../../validation/edit");
 
 // Load User model
 const User = require("../../models/User");
+
+// @route POST api/users/edit
+// @desc Edit user in Users table
+// @access Public
+router.post('/edit', (req, res) => {
+    const id = req.body.user._id;
+    const { errors, isValid } = validateEditUser(req.body.user);
+
+    if (!isValid) {
+        return res.status(400).json(errors);
+    }
+
+    const _id = req.body.user._id;
+    var byQuery = { _id: _id };
+    let toUpdate = { 'name': req.body.user.name, 'email': req.body.user.email, 'userType': req.body.user.userType };
+    var options = { returnNewDocument: true, useFindAndModify: false };
+    
+    User.findOneAndUpdate(byQuery, {$set: toUpdate}, options, function(err, result) {
+        if (err) {
+            return res.status(400).json({ message: 'Unable to update user.' });
+        } else {
+            return res.status(200).json({ message: 'User updated successfully. Refreshing data...', user: result });
+        }
+    });
+});
+
+// @route POST api/users/delete
+// @desc Delete user from Users table
+// @access Public
+router.post('/delete', (req, res) => {
+    const id = req.body.user._id;
+    User.deleteOne({ _id: id }).then(user => {
+        if (user) {
+            return res.status(200).json({ message: "User deleted", user: req.body.user });
+        } else {
+            return res.status(400).json({ nouser: `There is no user with id: ${req.body.user._id}` });
+        }
+    });
+});
+
+// @route GET api/users/list
+// @desc List all users
+// @access Public
+router.get('/list', function(req, res) {
+    User.find({}, function(error, users) {
+        var parsedUsers = users.map((user) => {
+            return {
+                _id: user._id,
+                userType: user.userType,
+                name: user.name,
+                email: user.email
+            }
+        })
+        res.send(parsedUsers);
+    });
+});
 
 // @route POST api/users/register
 // @desc Register user
 // @access Public
 router.post("/register", (req, res) => {
   // Form validation
-
   const { errors, isValid } = validateRegisterInput(req.body);
 
   // Check validation
@@ -32,6 +88,7 @@ router.post("/register", (req, res) => {
       const newUser = new User({
         name: req.body.name,
         email: req.body.email,
+        userType: req.body.userType,
         password: req.body.password
       });
 
@@ -79,8 +136,10 @@ router.post("/login", (req, res) => {
         // User matched
         // Create JWT Payload
         const payload = {
-          id: user.id,
-          name: user.name
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            userType: user.userType
         };
 
         // Sign token

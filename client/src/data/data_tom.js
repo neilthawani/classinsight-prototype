@@ -7,6 +7,11 @@ export default [
       "end_time": "1:53:30",
       "initial_time": "0:00:04",
       "original_csv": "Copy of 20200211_Tom_Per2_Mixed_Tarang_Madisyn_DeletedColumns.csv",
+      "metadata": {
+          "topic": "Earth Science",
+          "period": 2,
+          "date": "2020-02-11"
+      },
       "py/object": "__main__.Period",
       "segments": [
         {

@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 
 import Icon from '@mdi/react';
-import { mdiChevronDown, mdiLogout } from '@mdi/js';
+import { mdiChevronDown, mdiBadgeAccountHorizontalOutline, mdiLogout } from '@mdi/js';
 
 import ClassInSightLogo from "../../assets/images/classinsight-logo.png";
 
@@ -17,6 +17,7 @@ class Navbar extends Component {
 
     render() {
         const { user } = this.props.auth;
+        var isAdmin = user.userType === 100;
         var isLoggedIn = Object.keys(user).length !== 0 ? true : false;
 
         return (
@@ -38,6 +39,15 @@ class Navbar extends Component {
                 <Icon path={mdiChevronDown} className="navbar-dropdown-icon" size={1} />
 
                 <div className="navbar-dropdown-menu">
+                  {isAdmin ?
+                  <Link to="/admin">
+                    <div className="navbar-dropdown-menu-item">
+                      <Icon path={mdiBadgeAccountHorizontalOutline} className="navbar-dropdown-menu-item-icon" size={1} />
+                      <span className="navbar-dropdown-menu-item-link">
+                         Manage Users
+                      </span>
+                    </div>
+                  </Link> : ""}
                   <div className="navbar-dropdown-menu-item">
                     <Icon path={mdiLogout} className="navbar-dropdown-menu-item-icon" size={1} />
                     <span className="navbar-dropdown-menu-item-link" onClick={this.onLogoutClick}>

@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 
-import Parser from '../../../data/parser';
-
 import LegendButtonGroup from '../../legend/LegendButtonGroup';
 import TurnTakingSmall from '../turn-taking/TurnTakingSmall';
 import Script from '../transcript/Script';
-import displayLegendLabels from '../../legend/displayLegendLabels';
 
 import removeArrayValue from '../../../utils/removeArrayValue';
 
@@ -13,10 +10,13 @@ export default class Transcript extends Component {
     constructor(props) {
         super(props);
 
-        // double width - for both left/right side of TurnTakingSmall chart
-        this.chartWidth = 2 * Parser.maxNTokens();
+        var parser = props.activeParser,
+            chartWidth = 2 * parser.maxNTokens(), // double width - for both left/right side of TurnTakingSmall chart
+            talkRatios = parser.talkRatios(),
+            transcript = parser.transcript();
 
         this.state = {
+            parser: parser,
             activeLabels: [],
             focusBox: {
                 topElId: 0,
@@ -24,25 +24,10 @@ export default class Transcript extends Component {
                 y: 0,
                 height: 0
             },
-            chartOffsetWidth: 0,
-            chartHeight: 0
+            chartWidth: chartWidth,
+            talkRatios: talkRatios,
+            transcript: transcript
         };
-    }
-
-    componentDidMount() {
-        // dynamically orient and size TurnTakingSmall chart
-        var legendButtonGroup = document.getElementsByClassName("transcript-visualization-legend")[0],
-            chartOffsetWidth = legendButtonGroup.clientWidth,
-            navbarDiv = document.getElementsByClassName("navbar"),
-            navbar = navbarDiv && navbarDiv[0],
-            buttonSelectorDiv = document.getElementsByClassName("button-selector"),
-            buttonSelector = buttonSelectorDiv && buttonSelectorDiv[0],
-            chartHeight = window.innerHeight - 2.5 * (navbar.clientHeight - buttonSelector.clientHeight); // this is good enough for now; ideally it captures focusBox.height in its sizing of the chart
-
-        this.setState({
-            chartOffsetWidth: chartOffsetWidth,
-            chartHeight: chartHeight
-        });
     }
 
     // same logic as in TurnTaking::handleFilterClick
@@ -77,46 +62,48 @@ export default class Transcript extends Component {
         // focus the box
         turnTakingBarsSmall.scrollTo(0, topElId * this.barHeight);
 
+        var focusBox = {
+            topElId: topElId,
+            bottomElId: bottomElId,
+            height: boxHeight,
+        };
+
         this.setState({
-            focusBox: {
-                topElId: topElId,
-                bottomElId: bottomElId,
-                height: boxHeight,
-            }
+            focusBox: focusBox
         });
     }
 
     render() {
       return (
-        <div className="transcript-visualization-container" style={{ marginLeft: this.state.chartOffsetWidth }}>
+        <div className="transcript-visualization-container">
           <div className="transcript-visualization-legend">
             <LegendButtonGroup
-              labels={displayLegendLabels({ type: "Teacher"})}
+              labels={this.state.parser.legendLabels({ type: "Teacher"})}
               displayRatio={true}
               activeLabels={this.state.activeLabels}
               handleClick={this.handleClick.bind(this)} />
             <LegendButtonGroup
-              labels={displayLegendLabels({ type: "Student"})}
+              labels={this.state.parser.legendLabels({ type: "Student"})}
               displayRatio={true}
               activeLabels={this.state.activeLabels}
               handleClick={this.handleClick.bind(this)} />
             <LegendButtonGroup
-              labels={displayLegendLabels({ type: "Technique"})}
+              labels={this.state.parser.legendLabels({ type: "Technique"})}
               displayRatio={true}
               activeLabels={this.state.activeLabels}
               handleClick={this.handleClick.bind(this)} />
           </div>
 
           <TurnTakingSmall
-            chartOffsetWidth={this.state.chartOffsetWidth}
-            chartWidth={this.chartWidth}
-            chartHeight={this.state.chartHeight}
+            parser={this.state.parser}
+            chartWidth={this.state.chartWidth}
+
             barHeight={this.barHeight}
             focusBox={this.state.focusBox} />
 
-          <div className="transcript-script-container" style={{ marginLeft: `${this.chartWidth}px` }}>
+          <div className="transcript-script-container" style={{ marginLeft: `${this.state.chartWidth}px` }}>
             <Script
-              data={Parser.transcript()}
+              transcript={this.state.transcript}
               activeLabels={this.state.activeLabels}
               focusBox={this.state.focusBox}
               handleScroll={this.handleScroll.bind(this)}
