@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import * as d3 from 'd3';
-import { goalCompletion, recapActivity } from '../../fixtures/journey-map-data';
+// import { goalCompletion, recapActivity } from '../../fixtures/journey-map-data';
 
 class TrendChart extends Component {
     constructor(props) {
@@ -55,8 +55,24 @@ class TrendChart extends Component {
             width = document.getElementById("trend-chart-container").clientWidth,
             height = document.getElementById("trend-chart-container").clientHeight;
 
-        var goalData = this.parseData(goalCompletion)
-        var activityData = this.parseData(recapActivity);
+        var goalData = [
+          {date: '10/09', score: 60},
+          {date: '10/10', score: 65},
+          {date: '10/11', score: 66},
+          {date: '10/12', score: 49},
+          {date: '10/13', score: 30},
+          {date: '10/14', score: 80},
+          {date: '10/15', score: 90}
+        ];
+        var activityData = [
+          {date: '10/09', score: 60},
+          {date: '10/10', score: 65},
+          {date: '10/11', score: 66},
+          {date: '10/12', score: 49},
+          {date: '10/13', score: 30},
+          {date: '10/14', score: 80},
+          {date: '10/15', score: 90}
+        ];
 
         var xScale = d3.scaleTime().range([margin.left, width - margin.right]);
         var yScale = d3.scaleLinear().range([height - margin.bottom, margin.top]);

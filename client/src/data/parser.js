@@ -101,6 +101,7 @@ export default class Parser {
         return filteredTranscript;
     }
 
+    // used in TalkRatio to accumulate utterance types, divided by turn
     drilldownTranscript = function(options) {
         var data = this.transcript(),
             drilldownFilter = options && options.drilldownFilter;
@@ -125,6 +126,7 @@ export default class Parser {
         return drilldownTranscript;
     }
 
+    // used in TurnTaking but only called here
     expandedData = function(options) {
         var activeFilters = options && options.activeFilters;
 
@@ -241,6 +243,7 @@ export default class Parser {
         return studentTalkRatios;
     }
 
+    // only called in this file by speakerTalkTotals
     initializeSpeakerTotals = function() {
         var legendLabels = LegendLabels;
         var speakerTotals = legendLabels.reduce((accumulator, labelObj, index, array) => {
@@ -260,6 +263,8 @@ export default class Parser {
 
         return speakerTotals;
     }
+
+    // headings on TalkRatio: Teacher Talk (%), Student Talk (%)
     speakerTalkTotals = function() {
         var speakerTotals = this.initializeSpeakerTotals(),
             talkRatios = this.talkRatios();
