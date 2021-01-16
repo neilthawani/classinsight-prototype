@@ -157,7 +157,7 @@ class TrendChart extends Component {
         }
 
         return (
-            <div id="trend-chart-container">
+            <div className="overview-trend-chart">
             </div>
         );
     }

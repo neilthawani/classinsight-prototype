@@ -60,8 +60,8 @@ export default function datasetReducer(state, action) {
 
             return {
                 ...state,
-                activeDataset: state.datasets[activeIndex],
-                activeParser: state.dataParsers[activeIndex],
+                activeDataset: state.datasets && state.datasets[activeIndex],
+                activeParser: state.dataParsers && state.dataParsers[activeIndex],
                 activeDataRowIndex: activeIndex
             }
         case CLEAR_VALID_STATE:

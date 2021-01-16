@@ -16,7 +16,7 @@ class Dashboard extends Component {
 
         return (
           <div className="dashboard-container">
-            <Overview />
+            {/*<Overview />*/}
           </div>
         );
     }

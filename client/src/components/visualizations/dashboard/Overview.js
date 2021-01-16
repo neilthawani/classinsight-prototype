@@ -41,9 +41,8 @@ class Overview extends Component {
                     labels={parser.legendLabels({ type: "Teacher" })}
                     displayRatio={false}
                     handleClick={() => {}} />
-                  <div className="overview-trend-chart">
-                    <TrendChart />
-                  </div>
+
+                  <TrendChart />
                 </div>
               </div>
               <div className="even-column">
@@ -55,9 +54,8 @@ class Overview extends Component {
                     labels={parser.legendLabels({ type: "Student" })}
                     displayRatio={false}
                     handleClick={() => {}} />
-                  <div className="overview-trend-chart">
-                    <TrendChart />
-                  </div>
+
+                  <TrendChart />
                 </div>
               </div>
             </div>
