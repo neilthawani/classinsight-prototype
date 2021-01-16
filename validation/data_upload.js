@@ -17,7 +17,7 @@ module.exports = function validateDatasetInput(data) {
     errors.classPeriod = "Class period missing";
   }
 
-  if (isNaN(classPeriod) || !classPeriod.includes(",")) {
+  if (isNaN(parseInt(data.classPeriod, 10)) && !data.classPeriod.includes(",")) {
       errors.classPeriod = "Class period invalid";
   }
 

@@ -74,7 +74,7 @@ class AdminPanelTableRow extends Component {
                   {formatDate(dataset.classDate)}
                 </td>
                 <td className="text-center">
-                  {dataset.classPeriod}
+                  {dataset.classPeriod.join(", ")}
                 </td>
                 <td className="admin-table-dataset-actions">
                   <span className="btn" onClick={this.expandJsonData.bind(this)}>
