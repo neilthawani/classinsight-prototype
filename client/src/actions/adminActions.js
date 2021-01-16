@@ -115,7 +115,7 @@ export const clearIsValidUser = () => {
         dispatch({
             type: GET_ERRORS,
             payload: {}
-        })
+        });
     };
 };
 

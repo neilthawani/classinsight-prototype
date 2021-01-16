@@ -60,7 +60,12 @@ export const clearValidState = () => {
         dispatch({
             type: CLEAR_VALID_STATE,
             payload: false
-        })
+        });
+
+        dispatch({
+            type: GET_ERRORS,
+            payload: {}
+        });
     }
 }
 
