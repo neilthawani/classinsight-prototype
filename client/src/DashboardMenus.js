@@ -15,7 +15,7 @@ class DashboardMenus extends Component {
         var { buttonSelectorSelectedOption, sidebarSelectedOption, admin } = this.props;
 
         return (
-          <div className="dashboard-container">
+          <div className="dashboard-menus-container">
             {/* coarse, medium, and fine-grained visualizations */}
             <ButtonSelector
               admin={admin}

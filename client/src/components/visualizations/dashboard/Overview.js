@@ -5,15 +5,15 @@ class Overview extends Component {
         return (
           <div className="overview-container">
             <div className="overview-heading">
-              <h2 className="overview-heading-label">
+              <h3 className="overview-heading-label">
                 Overview
-              </h2>
+              </h3>
               <select className="overview-heading-dropdown">
                 <option>this week</option>
               </select>
-              <h2 className="overview-heading-label">
+              <h3 className="overview-heading-label">
                 startDate - endDate
-              </h2>
+              </h3>
             </div>
           </div>
         );

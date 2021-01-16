@@ -1,7 +1,15 @@
+.dashboard-container {
+    // width: calc(100% - #{$sidebarWidth});
+    width: 100%;
+}
+
 .overview-container {
-    width: 50%;
+    // width: 50%;
     border: 1px solid $lightGray;
+    // margin: calc(#{$navbarMargin} + 10px) calc(#{$sidebarWidth} + 10px) 10px 10px;
     margin: calc(#{$navbarMargin} + 10px) 10px 10px 10px;
+    padding: 10px;
+    // width: 100%;
 }
 
 .overview-heading {
@@ -17,4 +25,5 @@
 
 .overview-heading-dropdown {
     margin: 0 10px;
+    width: auto;
 }
