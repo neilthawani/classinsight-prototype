@@ -18,6 +18,7 @@ export default function datasetReducer(state, action) {
                 activeIndex = 0;
             }
 
+            // sort by date, descending
             var sortedPayload = action.payload.sort((a, b) => {
                 // console.log("a", a);
                 var splitA = a.classDate.split("-");
