@@ -5,17 +5,94 @@ import { connect } from "react-redux";
 import LegendItemGroup from '../../legend/LegendItemGroup';
 import TrendChart from './TrendChart';
 import calculateLessonDuration from '../../../utils/calculateLessonDuration';
+import legendLabels from '../../../fixtures/legend_labels';
 
 class Overview extends Component {
+    // constructor(props) {
+    //     super(props);
+    //
+    //     this.state = {
+    //
+    //     }
+    // }
+
     aggregatedParserRatios() {
         var dataParsers = this.props.datasets.dataParsers,
-            talkRatios = dataParsers.reduce((prev, parser, index, array) => {
-                debugger;
-                prev.push(parser.talkRatios());
+            trendLineDataObj = dataParsers.reduce((prev, parser, index, array) => {
+                // if (parser.date !== "2020-01-23") return prev;
+                var labelObj = parser.nTokensPerUtteranceType();
+
+                // if (parser.topic === "Sheila") {
+                //     console.log("Sheila labelObj", labelObj);
+                //     debugger;
+                // }
+                //
+                // if (parser.topic === "Bill") {
+                //     console.log("Bill labelObj", labelObj);
+                //     debugger;
+                // }
+
+                // if there is only one data row from a date
+                if (!prev.hasOwnProperty(parser.date)) {
+                    // console.log("doesn't exist");
+                    prev[parser.date] = labelObj;
+                } else { // otherwise if there are multiple data rows with the same date
+                    // console.log("exists already");
+                    var existingData = prev[parser.date];
+
+                    existingData.forEach((existingLabelObj, index) => {
+                        // console.log("adding", existingLabelObj);
+                        existingLabelObj.nTokens += labelObj[index].nTokens;
+                    });
+                }
+
+                // console.log("prev", prev);
                 return prev;
-            }, []);
-        console.log("dataParsers", dataParsers);
-        console.log("talkRatios", talkRatios);
+            }, {});
+
+        var dateArray = Object.keys(trendLineDataObj);//,
+        var allTrendLines = legendLabels.map((labelObj) => {
+            return {
+                ...labelObj,
+                data: []
+            };
+        });
+
+        dateArray.forEach((date, index, array) => {
+            var dateLabelArray = trendLineDataObj[date];
+            var totalNTokens = dateLabelArray.reduce((prev, labelObj) => {
+                prev += labelObj.nTokens;
+                return prev;
+            }, 0);
+            var trendLineDataArray = dateLabelArray.map((labelObj) => {
+                return {
+                    ...labelObj,
+                    date: date,
+                    percentage: labelObj.nTokens / totalNTokens
+                };
+            });
+            allTrendLines.forEach((trendLineDatum) => {
+                var labelObjDatum = trendLineDataArray.filter((datum) => datum.value === trendLineDatum.value)[0];
+                // debugger;
+                trendLineDatum.data.push({
+                    date: labelObjDatum.date,
+                    nTokens: labelObjDatum.nTokens,
+                    percentage: labelObjDatum.percentage
+                    // ...labelObjDatum
+                    // date: trendLineDataArray.
+                });
+            });
+
+            // console.log("")
+            // debugger;
+        });
+
+        // console.log("allTrendLines", allTrendLines);
+        // console.log("dataParsers", dataParsers);
+        // console.log("talkRatios", talkRatios);
+        // console.log("trendLineData", trendLineDataArray);
+        // console.log(dataParsers[0].nTokensPerUtteranceType());
+        return allTrendLines;
     }
 
     averageDuration() {

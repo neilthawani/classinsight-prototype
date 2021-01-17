@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import { listDatasets, showDataset } from "../../actions/datasetActions";
 
 import calculateLessonDuration from '../../utils/calculateLessonDuration';
+import formatDate from '../../utils/formatDate';
 
 class Sidebar extends Component {
     handleSidebarRowClick(index) {
@@ -47,7 +48,7 @@ class Sidebar extends Component {
               {this.props.datasets.dataParsers.map((item, index, array) => {
                   var datum = item.data;
                   var topic = item.topic,
-                      date = item.date,
+                      date = formatDate(item.date),
                       period = item.period;
 
                   return (
@@ -68,10 +69,10 @@ class Sidebar extends Component {
                       </div>
                       <div className="sidebar-data-row-descriptor">
                         <span className="sidebar-data-row-descriptor-label">
-                          Period:
+                          {period.length > 1 ? "Periods:" : "Period:"}
                         </span>
                         <span className="sidebar-data-row-descriptor-value">
-                          {period}
+                          {period.join(", ")}
                         </span>
                       </div>
                       <div className="sidebar-data-row-descriptor">

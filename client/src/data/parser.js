@@ -8,7 +8,7 @@ export default class Parser {
         parsedData = JSON.parse(data.jsonData);
         this.topic = data.classTopic;
         this.period = data.classPeriod;
-        this.date = formatDate(data.classDate);
+        this.date = data.classDate;
         this.data = parsedData;
         this.segments = parsedData.segments;
         this.isActive = false;
@@ -136,6 +136,7 @@ export default class Parser {
             return accumulator.concat(turn.utterances);
         }, []);
     }
+
     maxNTokens = function(options) {
         var activeFilters = options && options.activeFilters;
 
@@ -185,7 +186,7 @@ export default class Parser {
         return parsedData;
     }
 
-    talkRatios = function() {
+    nTokensPerUtteranceType = function() {
         var expandedData = this.expandedData(), // get array of every utterance in the transcript
             legendLabels = LegendLabels,
             talkRatios = legendLabels.map((labelObj, index, array) => { // set up object to be returned
@@ -193,9 +194,7 @@ export default class Parser {
                     ...labelObj,
                     ...{ nTokens: 0, percentage: 0 }
                 };
-            }),
-            // usually just speakerType: {Student, Teacher} with initialized totalNTokens
-            speakerTotals = this.initializeSpeakerTotals();
+            });
 
         // calculate nTokens for each utterance type
         talkRatios.forEach((labelObj, index, array) => {
@@ -206,10 +205,17 @@ export default class Parser {
             });
         });
 
+        return talkRatios;
+    }
+
+    talkRatios = function() {
+        var nTokensPerUtteranceType = this.nTokensPerUtteranceType(),
+            speakerTotals = this.initializeSpeakerTotals();
+
         // populate the initialized speakerTotals object
         // by calculating totalNTokens for each speakerType
         speakerTotals.forEach((totalObj, index, array) => {
-            totalObj.totalNTokens = talkRatios
+            totalObj.totalNTokens = nTokensPerUtteranceType
                                 .filter((ratioObj) => ratioObj.speakerType === totalObj.speakerType)
                                 .map((ratioObj) => ratioObj.nTokens)
                                 .reduce((accumulator, nTokenValue, index, array) => {
@@ -222,11 +228,11 @@ export default class Parser {
         var allSpeakersTotalNTokens = speakerTotals
                                       .reduce((accumulator, item) => accumulator += item.totalNTokens, 0);
 
-        talkRatios.forEach((ratioObj, index, array) => {
+        nTokensPerUtteranceType.forEach((ratioObj, index, array) => {
             ratioObj.percentage = ratioObj.nTokens / allSpeakersTotalNTokens;
         });
 
-        return talkRatios;
+        return nTokensPerUtteranceType;
     }
 
     teacherTalkRatios = function() {
