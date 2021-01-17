@@ -4,8 +4,30 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import LegendItemGroup from '../../legend/LegendItemGroup';
 import TrendChart from './TrendChart';
+import calculateLessonDuration from '../../../utils/calculateLessonDuration';
 
 class Overview extends Component {
+    aggregatedParserRatios() {
+        var dataParsers = this.props.datasets.dataParsers,
+            talkRatios = dataParsers.reduce((prev, parser, index, array) => {
+                debugger;
+                prev.push(parser.talkRatios());
+                return prev;
+            }, []);
+        console.log("dataParsers", dataParsers);
+        console.log("talkRatios", talkRatios);
+    }
+
+    averageDuration() {
+        var dataParsers = this.props.datasets.dataParsers,
+            averageDurationInSecs = dataParsers.reduce((prev, parser) => {
+                prev += parser.data.duration;
+                return prev;
+            }, 0) / dataParsers.length;
+
+        return calculateLessonDuration(averageDurationInSecs);
+    }
+
     render() {
         var areDatasetsLoaded = this.props.datasets.activeParser;
 
@@ -15,6 +37,8 @@ class Overview extends Component {
 
         var parser = this.props.datasets.activeParser;
 
+        console.log("aggregated data", this.aggregatedParserRatios());
+
         return (
           <div className="overview-container">
             <div className="overview-heading">
@@ -22,13 +46,12 @@ class Overview extends Component {
                 Overview
               </h3>
               <select className="overview-heading-dropdown">
-                <option>this lesson</option>
-                <option>today</option>
-                <option>this week</option>
+                <option>all time</option>
                 <option>this month</option>
+                <option>this week</option>
               </select>
               <h3 className="overview-heading-label">
-                startDate - endDate
+                startDate - endDate (Average duration: {this.averageDuration()})
               </h3>
             </div>
             <div className="even-columns-2">
@@ -42,7 +65,7 @@ class Overview extends Component {
                     displayRatio={false}
                     handleClick={() => {}} />
 
-                  <TrendChart />
+                  {/*<TrendChart />*/}
                 </div>
               </div>
               <div className="even-column">
@@ -55,7 +78,7 @@ class Overview extends Component {
                     displayRatio={false}
                     handleClick={() => {}} />
 
-                  <TrendChart />
+                  {/*<TrendChart />*/}
                 </div>
               </div>
             </div>

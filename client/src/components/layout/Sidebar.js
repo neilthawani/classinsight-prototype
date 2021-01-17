@@ -8,6 +8,8 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { listDatasets, showDataset } from "../../actions/datasetActions";
 
+import calculateLessonDuration from '../../utils/calculateLessonDuration';
+
 class Sidebar extends Component {
     handleSidebarRowClick(index) {
         this.props.handleSidebarRowClick(index);
@@ -77,7 +79,7 @@ class Sidebar extends Component {
                           Duration:
                         </span>
                         <span className="sidebar-data-row-descriptor-value">
-                          {new Date(datum.duration * 1000).toISOString().substr(11, 8)}
+                          {calculateLessonDuration(datum.duration)}
                         </span>
                       </div>
                     </div>

@@ -44,6 +44,8 @@
     font-size: 18px;
     margin-bottom: 5px;
     font-weight: bold;
+    overflow: auto;
+    text-overflow: ellipsis;
 }
 
 .sidebar-data-row-descriptor {
