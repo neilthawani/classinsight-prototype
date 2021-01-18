@@ -8,29 +8,12 @@ import calculateLessonDuration from '../../../utils/calculateLessonDuration';
 import legendLabels from '../../../fixtures/legend_labels';
 
 class Overview extends Component {
-    // constructor(props) {
-    //     super(props);
-    //
-    //     this.state = {
-    //
-    //     }
-    // }
-
     aggregatedParserRatios() {
         var dataParsers = this.props.datasets.dataParsers,
+            // trendLineDataObj is of the format: { date: labelObj, date: labelObj, etc. }
             trendLineDataObj = dataParsers.reduce((prev, parser, index, array) => {
                 // if (parser.date !== "2020-01-23") return prev;
                 var labelObj = parser.nTokensPerUtteranceType();
-
-                // if (parser.topic === "Sheila") {
-                //     console.log("Sheila labelObj", labelObj);
-                //     debugger;
-                // }
-                //
-                // if (parser.topic === "Bill") {
-                //     console.log("Bill labelObj", labelObj);
-                //     debugger;
-                // }
 
                 // if there is only one data row from a date
                 if (!prev.hasOwnProperty(parser.date)) {
@@ -49,21 +32,30 @@ class Overview extends Component {
                 // console.log("prev", prev);
                 return prev;
             }, {});
+        // console.log("trendLineDataObj", trendLineDataObj);
 
+        // dateArray is array of all dates
         var dateArray = Object.keys(trendLineDataObj);//,
+        // console.log("dateArray", dateArray);
+        // allTrendLines is array of labelObj's with an empty data array appended to each obj
         var allTrendLines = legendLabels.map((labelObj) => {
             return {
                 ...labelObj,
                 data: []
             };
         });
+        // console.log("allTrendLines", allTrendLines);
 
         dateArray.forEach((date, index, array) => {
             var dateLabelArray = trendLineDataObj[date];
+            // console.log("dateLabelArray", dateLabelArray);
+
             var totalNTokens = dateLabelArray.reduce((prev, labelObj) => {
                 prev += labelObj.nTokens;
                 return prev;
             }, 0);
+            // console.log("totalNTokens", totalNTokens);
+
             var trendLineDataArray = dateLabelArray.map((labelObj) => {
                 return {
                     ...labelObj,
@@ -71,6 +63,8 @@ class Overview extends Component {
                     percentage: labelObj.nTokens / totalNTokens
                 };
             });
+            // console.log("trendLineDataArray", trendLineDataArray);
+
             allTrendLines.forEach((trendLineDatum) => {
                 var labelObjDatum = trendLineDataArray.filter((datum) => datum.value === trendLineDatum.value)[0];
                 // debugger;
@@ -87,12 +81,17 @@ class Overview extends Component {
             // debugger;
         });
 
+        return {
+            Teacher: allTrendLines.filter((legendLabelObj => legendLabelObj.type === "Teacher")),
+            Student: allTrendLines.filter((legendLabelObj => legendLabelObj.type === "Student"))
+        };
+
         // console.log("allTrendLines", allTrendLines);
         // console.log("dataParsers", dataParsers);
         // console.log("talkRatios", talkRatios);
         // console.log("trendLineData", trendLineDataArray);
         // console.log(dataParsers[0].nTokensPerUtteranceType());
-        return allTrendLines;
+        // return allTrendLines;
     }
 
     averageDuration() {
@@ -114,7 +113,7 @@ class Overview extends Component {
 
         var parser = this.props.datasets.activeParser;
 
-        console.log("aggregated data", this.aggregatedParserRatios());
+        // console.log("aggregated data", this.aggregatedParserRatios());
 
         return (
           <div className="overview-container">
@@ -142,7 +141,8 @@ class Overview extends Component {
                     displayRatio={false}
                     handleClick={() => {}} />
 
-                  {/*<TrendChart />*/}
+                  {/*<TrendChart
+                    data={this.aggregatedParserRatios()["Teacher"]}/>*/}
                 </div>
               </div>
               <div className="even-column">
@@ -155,7 +155,8 @@ class Overview extends Component {
                     displayRatio={false}
                     handleClick={() => {}} />
 
-                  {/*<TrendChart />*/}
+                  {/*<TrendChart
+                    data={this.aggregatedParserRatios()["Student"]}/>*/}
                 </div>
               </div>
             </div>

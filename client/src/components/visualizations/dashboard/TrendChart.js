@@ -20,13 +20,13 @@ class TrendChart extends Component {
                     left: 25
                 }
             },
-            goalData: [],
-            activityData: [],
+            // goalData: [],
+            // activityData: [],
             isLoaded: false
         };
     }
 
-    parseTime = d3.timeParse("%d-%B-%Y");
+    parseTime = d3.timeParse("%Y-%m-%d");//%d-%B-%Y");
     parseData = function(data) {
         return data.map((datum) => {
             return {
