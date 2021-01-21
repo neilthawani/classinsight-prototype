@@ -13,19 +13,15 @@ class Overview extends Component {
         var dataParsers = this.props.datasets.dataParsers.reverse(),
             // trendLineDataObj is of the format: { date: labelObj, date: labelObj, etc. }
             trendLineDataObj = dataParsers.reduce((prev, parser, index, array) => {
-                // if (parser.date !== "2020-01-23") return prev;
                 var labelObj = parser.nTokensPerUtteranceType();
 
                 // if there is only one data row from a date
                 if (!prev.hasOwnProperty(parser.date)) {
-                    // console.log("doesn't exist");
                     prev[parser.date] = labelObj;
                 } else { // otherwise if there are multiple data rows with the same date
-                    // console.log("exists already");
                     var existingData = prev[parser.date];
 
                     existingData.forEach((existingLabelObj, index) => {
-                        // console.log("adding", existingLabelObj);
                         existingLabelObj.nTokens += labelObj[index].nTokens;
                     });
                 }
@@ -75,26 +71,14 @@ class Overview extends Component {
                     nTokens: labelObjDatum.nTokens,
                     percentageValue: labelObjDatum.percentageValue,
                     percentageLabel: labelObjDatum.percentageLabel
-                    // ...labelObjDatum
-                    // date: trendLineDataArray.
                 });
             });
-
-            // console.log("")
-            // debugger;
         });
 
         return {
             Teacher: allTrendLines.filter((legendLabelObj => legendLabelObj.type === "Teacher")),
             Student: allTrendLines.filter((legendLabelObj => legendLabelObj.type === "Student"))
         };
-
-        // console.log("allTrendLines", allTrendLines);
-        // console.log("dataParsers", dataParsers);
-        // console.log("talkRatios", talkRatios);
-        // console.log("trendLineData", trendLineDataArray);
-        // console.log(dataParsers[0].nTokensPerUtteranceType());
-        // return allTrendLines;
     }
 
     averageDuration() {

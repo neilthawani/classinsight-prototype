@@ -1,23 +1,14 @@
 #trend-chart-container {
-    height: inherit;//100%;
+    height: inherit;
     width: 100%;
 }
-
-#app {
-  padding: 20px;
-  font-family: robot, arial
-}
-// svg {
-//   fill: #000;
-//   fill-opacity: 0.3;
-// }
 
 .journey-map .col-md-9 {
     padding: 0;
 }
 
 .trend-chart-path {
-  stroke-width: 3px;
+  stroke-width: 2px;
   fill: none;
 }
 
@@ -53,4 +44,8 @@
 // }
 .trend-chart-gridline {
     stroke: $lightestGray;
+}
+
+.circle {
+    fill: red;
 }

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
 
-class TrendLine extends Component {
-  
+export default class TrendLine extends Component {
+
 }
