@@ -73,15 +73,6 @@ class TrendChart extends Component {
         //   {date: '10/14', score: 80},
         //   {date: '10/15', score: 90}
         // ];
-        // var activityData = [
-        //   {date: '10/09', score: 60},
-        //   {date: '10/10', score: 65},
-        //   {date: '10/11', score: 66},
-        //   {date: '10/12', score: 49},
-        //   {date: '10/13', score: 30},
-        //   {date: '10/14', score: 80},
-        //   {date: '10/15', score: 90}
-        // ];
 
         var xScale = d3.scaleTime().range([margin.left, width - margin.right]);
         var yScale = d3.scaleLinear().range([height - margin.bottom, margin.top]);
@@ -139,7 +130,6 @@ class TrendChart extends Component {
                 .attr("transform", `translate(${margin.bottom}, 0)`)
                 .call(yAxis);
 
-            /*
             var ticks = document.getElementsByClassName("y axis")[0].getElementsByClassName("tick");
             for (var i = 1; i < ticks.length; i++) {
                 // debugger;
@@ -153,7 +143,7 @@ class TrendChart extends Component {
                     .attr("x2", width + margin.right)
                     .attr("y1", transformY)
                     .attr("y2", transformY + 1);
-            }*/
+            }
 
             // var trendLine = d3.line().x((d) => goalXScale(d.date)).y((d) => goalYScale(d.score));
             // svg.append("path").attr("class", "trend-chart-path goal").attr("d", trendLine(this.state.goalData));

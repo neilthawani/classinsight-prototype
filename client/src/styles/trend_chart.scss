@@ -30,10 +30,10 @@
 }
 
 .axis {
-  stroke: $lightGray;
+  stroke: black;
 
   path, .tick {
-      stroke: $lightGray;
+      stroke: black;
   }
 }
 
@@ -52,5 +52,5 @@
 //   opacity: 0.2;
 // }
 .trend-chart-gridline {
-    stroke: $darkGray;
+    stroke: $lightestGray;
 }
