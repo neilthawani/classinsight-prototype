@@ -27,7 +27,7 @@ class TrendChart extends Component {
     parseTime = d3.timeParse("%Y-%m-%d");//%d-%B-%Y");
     parseData = function(data) {
         return data.map((datum) => {
-            console.log("datum", datum);
+            // console.log("datum", datum);
             return {
                 date: this.parseTime(datum.date),
                 score: datum.percentageValue
@@ -61,7 +61,8 @@ class TrendChart extends Component {
             width = document.getElementById("trend-chart-container").clientWidth,
             height = document.getElementById("trend-chart-container").clientHeight;
 
-        console.log("data", data);
+        // console.log("data", data);
+        // console.log("width", width);
 
         // var goalData = [
         //   {date: '10/09', score: 60},
@@ -122,11 +123,9 @@ class TrendChart extends Component {
                 svg = state.svg,
                 margin = state.display.margin,
                 height = state.display.height - state.display.margin.top - state.display.margin.bottom,
-                // width = state.display.width - state.display.margin.left - state.display.margin.right,
-                goalXScale = state.scales.goalXScale,
-                goalYScale = state.scales.goalYScale,
-                // activityXScale = state.scales.activityXScale,
-                // activityYScale = state.scales.activityYScale,
+                width = state.display.width - state.display.margin.left - state.display.margin.right,
+                // goalXScale = state.scales.goalXScale,
+                // goalYScale = state.scales.goalYScale,
                 xAxis = state.axes.xAxis,
                 yAxis = state.axes.yAxis;
 
