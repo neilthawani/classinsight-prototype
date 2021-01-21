@@ -89,7 +89,7 @@ class TrendChart extends Component {
         var goalXScale = this.calculateXScale(xScale, data);//goalData);
         var goalYScale = this.calculateYScale(yScale, data);//goalData);
 
-        var xAxis = d3.axisBottom(xScale).tickFormat(d3.timeFormat("%B"));
+        var xAxis = d3.axisBottom(xScale).tickFormat(d3.timeFormat("%m-%d"));
         var yAxis = d3.axisLeft(yScale).ticks(10);
 
         var svg = d3.select("#trend-chart-container").append("svg").attr("width", width).attr("height", height).attr("class", "trend-chart");

@@ -1,4 +1,4 @@
-.hover-box {
+.legend-item .hover-box {
     position: absolute;
     top: 1.66em;
     z-index: 999;
@@ -7,6 +7,7 @@
     border: 1px solid $lightGray;
     padding: 5px;
     word-wrap: break-word;
+    white-space: normal;
 }
 
 .hover-box-title {
