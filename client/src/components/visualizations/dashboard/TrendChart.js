@@ -146,7 +146,7 @@ class TrendChart extends Component {
         }
 
         return (
-            <div id={`trend-chart-container ${this.state.name}`} className="overview-trend-chart">
+            <div className={`overview-trend-chart ${this.state.name}`} id="trend-chart-container">
             </div>
         );
     }
