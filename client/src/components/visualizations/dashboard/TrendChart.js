@@ -20,8 +20,6 @@ class TrendChart extends Component {
                     left: 25
                 }
             },
-            // goalData: [],
-            // activityData: [],
             isLoaded: false
         };
     }
@@ -29,59 +27,66 @@ class TrendChart extends Component {
     parseTime = d3.timeParse("%Y-%m-%d");//%d-%B-%Y");
     parseData = function(data) {
         return data.map((datum) => {
-            return {
-                date: `1-${datum.date.month}-${datum.date.year}`,
-                score: datum.score
-            }
-        }).map((datum, index, array) => {
+            console.log("datum", datum);
             return {
                 date: this.parseTime(datum.date),
-                score: +datum.score
-            };
+                score: datum.percentageValue
+            }
         });
+        // .map((datum, index, array) => {
+        //     return {
+        //         date: this.parseTime(datum.date),
+        //         score: +datum.percentageValue
+        //     };
+        // });
     }
 
     calculateXScale(xScale, data) {
+        // console.log("xScale", xScale, "data", data);
         return xScale.domain(d3.extent(data, (d => d.date)));
     }
 
     calculateYScale(yScale, data) {
+        // console.log("yScale", yScale, "data", data);
         return yScale.domain([0, 100]);
     }
 
     componentDidMount() {
         var state = this.state,
+            data = this.props.data.map((trendLineDatum) => {
+                return trendLineDatum.data;
+            })[0],
+            data = this.parseData(data),
             margin = state.display.margin,
             width = document.getElementById("trend-chart-container").clientWidth,
             height = document.getElementById("trend-chart-container").clientHeight;
 
-        var goalData = [
-          {date: '10/09', score: 60},
-          {date: '10/10', score: 65},
-          {date: '10/11', score: 66},
-          {date: '10/12', score: 49},
-          {date: '10/13', score: 30},
-          {date: '10/14', score: 80},
-          {date: '10/15', score: 90}
-        ];
-        var activityData = [
-          {date: '10/09', score: 60},
-          {date: '10/10', score: 65},
-          {date: '10/11', score: 66},
-          {date: '10/12', score: 49},
-          {date: '10/13', score: 30},
-          {date: '10/14', score: 80},
-          {date: '10/15', score: 90}
-        ];
+        console.log("data", data);
+
+        // var goalData = [
+        //   {date: '10/09', score: 60},
+        //   {date: '10/10', score: 65},
+        //   {date: '10/11', score: 66},
+        //   {date: '10/12', score: 49},
+        //   {date: '10/13', score: 30},
+        //   {date: '10/14', score: 80},
+        //   {date: '10/15', score: 90}
+        // ];
+        // var activityData = [
+        //   {date: '10/09', score: 60},
+        //   {date: '10/10', score: 65},
+        //   {date: '10/11', score: 66},
+        //   {date: '10/12', score: 49},
+        //   {date: '10/13', score: 30},
+        //   {date: '10/14', score: 80},
+        //   {date: '10/15', score: 90}
+        // ];
 
         var xScale = d3.scaleTime().range([margin.left, width - margin.right]);
         var yScale = d3.scaleLinear().range([height - margin.bottom, margin.top]);
 
-        var goalXScale = this.calculateXScale(xScale, goalData);
-        var goalYScale = this.calculateYScale(yScale, goalData);
-
-        var activityXScale = this.calculateXScale(xScale, activityData);
-        var activityYScale = this.calculateYScale(yScale, activityData);
+        var goalXScale = this.calculateXScale(xScale, data);//goalData);
+        var goalYScale = this.calculateYScale(yScale, data);//goalData);
 
         var xAxis = d3.axisBottom(xScale).tickFormat(d3.timeFormat("%B"));
         var yAxis = d3.axisLeft(yScale).ticks(10);
@@ -89,8 +94,8 @@ class TrendChart extends Component {
         var svg = d3.select("#trend-chart-container").append("svg").attr("width", width).attr("height", height).attr("class", "trend-chart");
 
         this.setState({
-            goalData: goalData,
-            activityData: activityData,
+            goalData: data,//goalData,
+            // activityData: activityData,
             svg: svg,
             display: {
                 ...this.state.display,
@@ -100,8 +105,8 @@ class TrendChart extends Component {
             scales: {
                 goalXScale: goalXScale,
                 goalYScale: goalYScale,
-                activityXScale: activityXScale,
-                activityYScale: activityYScale
+                // activityXScale: activityXScale,
+                // activityYScale: activityYScale
             },
             axes: {
                 xAxis: xAxis,
@@ -117,11 +122,11 @@ class TrendChart extends Component {
                 svg = state.svg,
                 margin = state.display.margin,
                 height = state.display.height - state.display.margin.top - state.display.margin.bottom,
-                width = state.display.width - state.display.margin.left - state.display.margin.right,
+                // width = state.display.width - state.display.margin.left - state.display.margin.right,
                 goalXScale = state.scales.goalXScale,
                 goalYScale = state.scales.goalYScale,
-                activityXScale = state.scales.activityXScale,
-                activityYScale = state.scales.activityYScale,
+                // activityXScale = state.scales.activityXScale,
+                // activityYScale = state.scales.activityYScale,
                 xAxis = state.axes.xAxis,
                 yAxis = state.axes.yAxis;
 
@@ -135,6 +140,7 @@ class TrendChart extends Component {
                 .attr("transform", `translate(${margin.bottom}, 0)`)
                 .call(yAxis);
 
+            /*
             var ticks = document.getElementsByClassName("y axis")[0].getElementsByClassName("tick");
             for (var i = 1; i < ticks.length; i++) {
                 // debugger;
@@ -148,16 +154,14 @@ class TrendChart extends Component {
                     .attr("x2", width + margin.right)
                     .attr("y1", transformY)
                     .attr("y2", transformY + 1);
-            }
+            }*/
 
-            var goalLine = d3.line().x((d) => goalXScale(d.date)).y((d) => goalYScale(d.score));
-            var activityLine = d3.line().x((d) => activityXScale(d.date)).y((d) => activityYScale(d.score));
-            svg.append("path").attr("class", "trend-chart-path goal").attr("d", goalLine(this.state.goalData));
-            svg.append("path").attr("class", "trend-chart-path activity").attr("d", activityLine(this.state.activityData));
+            // var trendLine = d3.line().x((d) => goalXScale(d.date)).y((d) => goalYScale(d.score));
+            // svg.append("path").attr("class", "trend-chart-path goal").attr("d", trendLine(this.state.goalData));
         }
 
         return (
-            <div className="overview-trend-chart">
+            <div id="trend-chart-container" className="overview-trend-chart">
             </div>
         );
     }

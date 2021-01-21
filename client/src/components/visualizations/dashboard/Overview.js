@@ -6,10 +6,11 @@ import LegendItemGroup from '../../legend/LegendItemGroup';
 import TrendChart from './TrendChart';
 import calculateLessonDuration from '../../../utils/calculateLessonDuration';
 import legendLabels from '../../../fixtures/legend_labels';
+import formatPercentage from '../../../utils/formatPercentage';
 
 class Overview extends Component {
     aggregatedParserRatios() {
-        var dataParsers = this.props.datasets.dataParsers,
+        var dataParsers = this.props.datasets.dataParsers.reverse(),
             // trendLineDataObj is of the format: { date: labelObj, date: labelObj, etc. }
             trendLineDataObj = dataParsers.reduce((prev, parser, index, array) => {
                 // if (parser.date !== "2020-01-23") return prev;
@@ -60,7 +61,8 @@ class Overview extends Component {
                 return {
                     ...labelObj,
                     date: date,
-                    percentage: labelObj.nTokens / totalNTokens
+                    percentageValue: formatPercentage(labelObj.nTokens / totalNTokens, 2, true, false),
+                    percentageLabel: formatPercentage(labelObj.nTokens / totalNTokens, 0)//, true, false)
                 };
             });
             // console.log("trendLineDataArray", trendLineDataArray);
@@ -71,7 +73,8 @@ class Overview extends Component {
                 trendLineDatum.data.push({
                     date: labelObjDatum.date,
                     nTokens: labelObjDatum.nTokens,
-                    percentage: labelObjDatum.percentage
+                    percentageValue: labelObjDatum.percentageValue,
+                    percentageLabel: labelObjDatum.percentageLabel
                     // ...labelObjDatum
                     // date: trendLineDataArray.
                 });
@@ -141,8 +144,8 @@ class Overview extends Component {
                     displayRatio={false}
                     handleClick={() => {}} />
 
-                  {/*<TrendChart
-                    data={this.aggregatedParserRatios()["Teacher"]}/>*/}
+                  <TrendChart
+                    data={this.aggregatedParserRatios()["Teacher"]}/>
                 </div>
               </div>
               <div className="even-column">
