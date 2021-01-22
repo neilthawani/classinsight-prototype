@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import * as d3 from 'd3';
+import TrendLine from './TrendLine';
 // import { goalCompletion, recapActivity } from '../../fixtures/journey-map-data';
 
 class TrendChart extends Component {
@@ -54,10 +55,10 @@ class TrendChart extends Component {
 
     componentDidMount() {
         var state = this.state,
-            data = this.props.data.map((trendLineDatum) => {
-                return trendLineDatum.data;
-            })[3],
-            data = this.parseData(data),
+            dataRow = this.props.data[3],//.map((trendLineDatum) => {
+                // return trendLineDatum.data;
+            // })[3],
+            data = this.parseData(dataRow.data),
             margin = state.display.margin,
             width = document.getElementById("trend-chart-container").clientWidth,
             height = document.getElementById("trend-chart-container").clientHeight;
@@ -146,7 +147,7 @@ class TrendChart extends Component {
         }
 
         return (
-            <div className={`overview-trend-chart ${this.state.name}`} id="trend-chart-container">
+            <div className="overview-trend-chart" id="trend-chart-container">
             </div>
         );
     }
