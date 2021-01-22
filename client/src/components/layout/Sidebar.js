@@ -40,14 +40,9 @@ class Sidebar extends Component {
 
         return (
           <div className="sidebar">
-            {/*<div className="sidebar-header">
-              <Icon path={mdiDatabase} className="sidebar-header-icon" size={2} />
-            </div>*/}
-            {/*<div className="sidebar-data">*/}
-              <SidebarGroup
-                label="Courses"
-                handleSidebarRowClick={this.handleSidebarRowClick.bind(this)} />
-            {/*</div>*/}
+            <SidebarGroup
+              label="Courses"
+              handleSidebarRowClick={this.handleSidebarRowClick.bind(this)} />
           </div>
         );
     }
