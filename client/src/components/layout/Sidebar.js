@@ -8,8 +8,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { listDatasets, showDataset } from "../../actions/datasetActions";
 
-import calculateLessonDuration from '../../utils/calculateLessonDuration';
-import formatDate from '../../utils/formatDate';
+import SidebarGroup from './SidebarGroup';
 
 class Sidebar extends Component {
     handleSidebarRowClick(index) {
@@ -41,52 +40,14 @@ class Sidebar extends Component {
 
         return (
           <div className="sidebar">
-            <div className="sidebar-header">
+            {/*<div className="sidebar-header">
               <Icon path={mdiDatabase} className="sidebar-header-icon" size={2} />
-            </div>
-            <div className="sidebar-data">
-              {this.props.datasets.dataParsers.map((item, index, array) => {
-                  var datum = item.data;
-                  var topic = item.topic,
-                      date = formatDate(item.date),
-                      period = item.period;
-
-                  return (
-                    <div key={index}
-                      className={this.props.datasets.activeDataRowIndex === index ? "sidebar-data-row active" : "sidebar-data-row"}
-                      onClick={this.handleSidebarRowClick.bind(this, index)}>
-                      <div className="sidebar-data-row-title">
-                        {topic}
-                      </div>
-
-                      <div className="sidebar-data-row-descriptor">
-                        <span className="sidebar-data-row-descriptor-label">
-                          Date:
-                        </span>
-                        <span className="sidebar-data-row-descriptor-value">
-                          {date}
-                        </span>
-                      </div>
-                      <div className="sidebar-data-row-descriptor">
-                        <span className="sidebar-data-row-descriptor-label">
-                          {period.length > 1 ? "Periods:" : "Period:"}
-                        </span>
-                        <span className="sidebar-data-row-descriptor-value">
-                          {period.join(", ")}
-                        </span>
-                      </div>
-                      <div className="sidebar-data-row-descriptor">
-                        <span className="sidebar-data-row-descriptor-label">
-                          Duration:
-                        </span>
-                        <span className="sidebar-data-row-descriptor-value">
-                          {calculateLessonDuration(datum.duration)}
-                        </span>
-                      </div>
-                    </div>
-                  );
-              })}
-            </div>
+            </div>*/}
+            {/*<div className="sidebar-data">*/}
+              <SidebarGroup
+                label="Courses"
+                handleSidebarRowClick={this.handleSidebarRowClick.bind(this)} />
+            {/*</div>*/}
           </div>
         );
     }
