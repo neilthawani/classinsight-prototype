@@ -63,7 +63,7 @@ class TrendChart extends Component {
                 // console.log("dataRow", dataRow);
                 var parsedData = this.parseData(dataRow.data);
                 var metaData = removePropertyFromObject(dataRow, 'data');
-                console.log("metaData", metaData);
+                // console.log("metaData", metaData);
                 var parsedDataRows = parsedData.map((parsedDatum) => {
                     return {
                         ...parsedDatum,
@@ -134,7 +134,8 @@ class TrendChart extends Component {
                 xScale = state.scales.xScale,
                 yScale = state.scales.yScale,
                 xAxis = state.axes.xAxis,
-                yAxis = state.axes.yAxis;
+                yAxis = state.axes.yAxis,
+                trendLineData = [];
 
             // var svg = document.querySelector("#trend-chart-container svg");
             var svg = d3.select("#trend-chart-container").append("svg").attr("width", width).attr("height", height).attr("class", "trend-chart");
@@ -166,13 +167,7 @@ class TrendChart extends Component {
             }
             // end: draw horizontal gridlines
 
-            // TODO: This data isn't being set anywhere...
-            // ***************************************** //
-            // ***************************************** //
-            // ***************************************** //
-            // ***************************************** //
-            // ***************************************** //
-            var trendLineData = data.map((parsedDataRow) => {
+            trendLineData = data.map((parsedDataRow) => {
                 var trendLine = d3.line().x((d) => xScale(parsedDataRow.date)).y((d) => yScale(parsedDataRow.score));
                 // console.log("parsedDataRow", parsedDataRow);
                 // return trendLine;
@@ -183,21 +178,24 @@ class TrendChart extends Component {
             });
         }
 
+        console.log("trendLineData", trendLineData);
+
 // trendLineData={trendLineDatum}
         return (
             <div className="overview-trend-chart" id="trend-chart-container">
-              <svg className="trend-chart" width={width} height={height}>
-                {(trendLineData || []).map((trendLineDatum, index, array) => {
+              {/*<svg className="trend-chart" width={width} height={height}>*/}
+                {/*(trendLineData || []).map((trendLineDatum, index, array) => {
                     return (
                       <TrendLine
+                        key={index}
                         trendLineData={trendLineDatum}
                         trendChartData={data}
                         xScale={xScale}
                         yScale={yScale}
                       />
                     );
-                })}
-              </svg>
+                })*/}
+              {/*</svg>*/}
             </div>
         );
     }

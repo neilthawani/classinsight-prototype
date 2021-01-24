@@ -21,9 +21,13 @@ export default class TrendLine extends Component {
               className="trend-chart-path goal"
               d={this.props.trendLineData.trendLine(this.props.trendChartData)}
            />
-           {this.props.trendLineData.map((point) => {
+           {this.props.trendChartData.map((point, index) => {
              return (
-               <circle r="3" cx={this.props.xScale(point.date)} cy={this.props.yScale(point.score)} />
+               <circle
+                key={`circle-${index}`}
+                r="3"
+                cx={this.props.xScale(point.date)}
+                cy={this.props.yScale(point.score)} />
              )
            })}
           </g>
