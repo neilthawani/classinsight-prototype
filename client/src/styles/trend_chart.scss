@@ -1,51 +1,13 @@
-#trend-chart-container {
+.trend-chart-container {
     height: inherit;
     width: 100%;
 }
 
-.journey-map .col-md-9 {
-    padding: 0;
-}
-
-.trend-chart-path {
-  stroke-width: 2px;
-  fill: none;
-}
-
-.trend-chart-path.goal {
-    stroke: blue;
-}
-
-.trend-chart-path.activity {
-    stroke: green;
-}
-
-.axis {
-  stroke: black;
-
-  path, .tick {
-      stroke: black;
-  }
-}
-
-.axis-labels text {
-  fill: red;//$fourthGray;//red;//#000;
-  fill-opacity: 0.9;
-  font-size: 12px;
-  text-anchor: middle;
-}
-
-// .axis-labels line {
-//   stroke: #000;
-// }
-
-// .gridline {
-//   opacity: 0.2;
-// }
 .trend-chart-gridline {
     stroke: $lightestGray;
 }
 
-.circle {
-    fill: red;
+.trend-chart-path {
+    stroke-width: 2px;
+    fill: none;
 }
