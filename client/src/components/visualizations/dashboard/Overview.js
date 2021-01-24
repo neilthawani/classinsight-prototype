@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import LegendItemGroup from '../../legend/LegendItemGroup';
-import TrendChart from './TrendChart';
+import TrendChartContainer from './TrendChartContainer';
 import calculateLessonDuration from '../../../utils/calculateLessonDuration';
 import legendLabels from '../../../fixtures/legend_labels';
 import formatPercentage from '../../../utils/formatPercentage';
@@ -128,7 +128,7 @@ class Overview extends Component {
                     displayRatio={false}
                     handleClick={() => {}} />
 
-                  <TrendChart
+                  <TrendChartContainer
                     data={this.aggregatedParserRatios()["Teacher"]}/>
                 </div>
               </div>
