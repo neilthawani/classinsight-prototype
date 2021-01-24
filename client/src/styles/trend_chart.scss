@@ -3,8 +3,17 @@
     width: 100%;
 }
 
-.journey-map .col-md-9 {
-    padding: 0;
+.axis {
+    z-index: 999;
+    stroke: black;
+
+    path, .tick {
+        stroke: black;
+    }
+}
+
+.trend-chart-gridline {
+    stroke: $lightestGray;
 }
 
 .trend-chart-path {
@@ -12,28 +21,26 @@
   fill: none;
 }
 
-.trend-chart-path.goal {
-    stroke: blue;
-}
+// .journey-map .col-md-9 {
+//     padding: 0;
+// }
 
-.trend-chart-path.activity {
-    stroke: green;
-}
+// .trend-chart-path.goal {
+//     stroke: blue;
+// }
 
-.axis {
-  stroke: black;
 
-  path, .tick {
-      stroke: black;
-  }
-}
 
-.axis-labels text {
-  fill: red;//$fourthGray;//red;//#000;
-  fill-opacity: 0.9;
-  font-size: 12px;
-  text-anchor: middle;
-}
+// .trend-chart-path.activity {
+//     stroke: green;
+// }
+
+// .axis-labels text {
+//   fill: red;//$fourthGray;//red;//#000;
+//   fill-opacity: 0.9;
+//   font-size: 12px;
+//   text-anchor: middle;
+// }
 
 // .axis-labels line {
 //   stroke: #000;
@@ -42,10 +49,7 @@
 // .gridline {
 //   opacity: 0.2;
 // }
-.trend-chart-gridline {
-    stroke: $lightestGray;
-}
 
-.circle {
-    fill: red;
-}
+// .circle {
+//     fill: red;
+// }

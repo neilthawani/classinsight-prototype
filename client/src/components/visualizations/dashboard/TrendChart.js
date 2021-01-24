@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import * as d3 from 'd3';
 import TrendLine from './TrendLine';
-// import { goalCompletion, recapActivity } from '../../fixtures/journey-map-data';
+import { removePropertyFromObject } from '../../../utils/removePropertyFromObject';
+import flattenArray from '../../../utils/flattenArray';
+import toCamelCase from '../../../utils/toCamelCase';
 
 class TrendChart extends Component {
     constructor(props) {
@@ -26,7 +28,7 @@ class TrendChart extends Component {
         };
     }
 
-    parseTime = d3.timeParse("%Y-%m-%d");//%d-%B-%Y");
+    parseTime = d3.timeParse("%Y-%m-%d");
     parseData = function(data) {
         return data.map((datum) => {
             // console.log("datum", datum);
@@ -35,12 +37,6 @@ class TrendChart extends Component {
                 score: datum.percentageValue
             }
         });
-        // .map((datum, index, array) => {
-        //     return {
-        //         date: this.parseTime(datum.date),
-        //         score: +datum.percentageValue
-        //     };
-        // });
     }
 
     calculateXScale(xScale, data) {
@@ -55,22 +51,28 @@ class TrendChart extends Component {
 
     componentDidMount() {
         var state = this.state,
-            dataRow = this.props.data[3],//.map((trendLineDatum) => {
-                // return trendLineDatum.data;
-            // })[3],
-            data = this.parseData(dataRow.data),
+            trendLineData = this.props.data.map((dataRow) => {
+                var metaData = removePropertyFromObject(dataRow, 'data');
+
+                return this.parseData(dataRow.data).map((datum) => {
+                    return {
+                        ...datum,
+                        ...metaData
+                    };
+                }).reverse();
+            }),
             margin = state.display.margin,
             width = document.getElementById("trend-chart-container").clientWidth,
             height = document.getElementById("trend-chart-container").clientHeight;
-
+        // console.log("parsedData", parsedData);
         // console.log("data", data);
         // console.log("width", width);
 
         var xScale = d3.scaleTime().range([margin.left, width - margin.right]);
         var yScale = d3.scaleLinear().range([height - margin.bottom, margin.top]);
 
-        var goalXScale = this.calculateXScale(xScale, data);
-        var goalYScale = this.calculateYScale(yScale, data);
+        var goalXScale = this.calculateXScale(xScale, flattenArray(trendLineData));
+        var goalYScale = this.calculateYScale(yScale, trendLineData[3]);
 
         var xAxis = d3.axisBottom(xScale).tickFormat(d3.timeFormat("%m-%d"));
         var yAxis = d3.axisLeft(yScale).ticks(10);
@@ -78,7 +80,7 @@ class TrendChart extends Component {
         var svg = d3.select("#trend-chart-container").append("svg").attr("width", width).attr("height", height).attr("class", "trend-chart");
 
         this.setState({
-            goalData: data,
+            trendLineData: trendLineData,
             svg: svg,
             display: {
                 ...this.state.display,
@@ -101,7 +103,7 @@ class TrendChart extends Component {
         if (this.state.isLoaded) {
             var state = this.state,
                 svg = state.svg,
-                data = this.state.goalData,
+                trendLineData = this.state.trendLineData,
                 margin = state.display.margin,
                 height = state.display.height - state.display.margin.top - state.display.margin.bottom,
                 width = state.display.width - state.display.margin.left - state.display.margin.right,
@@ -110,11 +112,13 @@ class TrendChart extends Component {
                 xAxis = state.axes.xAxis,
                 yAxis = state.axes.yAxis;
 
+            // draw x axis
             svg.append("g")
                 .attr("class", "x axis")
                 .attr("transform", "translate(0," + parseInt(height + margin.bottom, 0) + ")")
                 .call(xAxis);
 
+            // draw y axis
             svg.append("g")
                 .attr("class", "y axis")
                 .attr("transform", `translate(${margin.bottom}, 0)`)
@@ -128,26 +132,35 @@ class TrendChart extends Component {
                 var parenIndex = transformYWithParen.indexOf(")");
                 var transformY = transformYWithParen.slice(0, parenIndex);
                 svg.append("line").attr("class", "trend-chart-gridline")
-                    .attr("x1", margin.left)
+                    .attr("x1", margin.left + 1)
                     .attr("x2", width + margin.right)
                     .attr("y1", transformY)
                     .attr("y2", transformY + 1);
             }
             // end: draw horizontal gridlines
 
-            var trendLine = d3.line().x((d) => goalXScale(d.date)).y((d) => goalYScale(d.score));
-            svg.append("path").attr("class", "trend-chart-path goal").attr("d", trendLine(this.state.goalData));
+            trendLineData.forEach((trendLineDatum, index, array) => {
+                var trendLine = d3.line().x((d) => goalXScale(d.date)).y((d) => goalYScale(d.score));
 
-            svg.selectAll("circle")
-                .data(data).enter().append("circle")
-                .attr("class", "circle")
-                .attr("r", 3)
-                .attr("cx", (d) => goalXScale(d.date))
-                .attr("cy", (d) => goalYScale(d.score));
+                svg.append("path")
+                    .data(trendLineDatum)
+                    .attr("class", "trend-chart-path")
+                    .attr("stroke", (d) => d.barColor)
+                    .attr("d", trendLine(trendLineDatum));
+                console.log("trendLineDatum[0]", trendLineDatum[0]);
+
+                svg.selectAll(`circle.${toCamelCase(trendLineDatum[0].text)}`)
+                    .data(trendLineDatum).enter().append("circle")
+                    .attr("r", 4)
+                    .attr("fill", (d) => d.barColor)
+                    .attr("cx", (d) => goalXScale(d.date))
+                    .attr("cy", (d) => goalYScale(d.score));
+            });
         }
 
         return (
             <div className="overview-trend-chart" id="trend-chart-container">
+              
             </div>
         );
     }
