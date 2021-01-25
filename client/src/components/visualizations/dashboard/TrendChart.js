@@ -9,14 +9,14 @@ class TrendChart extends Component {
     }
 
     render() {
-        var xScale = this.props.xScale,
-            yScale = this.props.yScale,
+        var xScale = this.props.scales.xScale,
+            yScale = this.props.scales.yScale,
             trendLine = d3.line().x((d) => xScale(d.date)).y((d) => yScale(d.score));
 
         return (
             <svg className="trend-chart-svg" width={this.props.svgWidth} height={this.props.svgHeight}>
               {this.props.axes.yAxis.scale().ticks().map((tick, index, array) => {
-                  if (index === 0) {
+                  if (index === 0) { // axis line
                       return null;
                   }
 
@@ -24,9 +24,9 @@ class TrendChart extends Component {
                     <line
                       key={`gridline-${tick}-${index}`}
                       className="trend-chart-gridline"
-                      x1={25}
+                      x1={this.props.margin.left}
                       y1={yScale(tick)}
-                      x2={this.props.svgWidth - 25}
+                      x2={this.props.svgWidth - this.props.margin.right}
                       y2={yScale(tick)} />
                   )
               })}
@@ -52,24 +52,24 @@ class TrendChart extends Component {
                     x1={xScale(this.props.circleTooltip.date)}
                     y1={yScale(this.props.circleTooltip.score)}
                     x2={xScale(this.props.circleTooltip.date)}
-                    y2={this.props.svgHeight - 25} />
+                    y2={this.props.svgHeight - this.props.margin.top} />
 
                   <line
                     x1={xScale(this.props.circleTooltip.date) + 1}
                     y1={yScale(this.props.circleTooltip.score) + 1}
-                    x2={25}
+                    x2={this.props.margin.right}
                     y2={yScale(this.props.circleTooltip.score) + 1} />
                 </g>
               : null}
 
               <TrendChartAxis
                 className="x axis"
-                transform={this.props.xAxisTransform}
+                transform={this.props.axes.transforms.x}
                 axis={this.props.axes.xAxis} />
 
               <TrendChartAxis
                 className="y axis"
-                transform={this.props.yAxisTransform}
+                transform={this.props.axes.transforms.y}
                 axis={this.props.axes.yAxis} />
             </svg>
         );

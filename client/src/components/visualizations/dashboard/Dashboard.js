@@ -40,6 +40,8 @@ class Dashboard extends Component {
             )
         }
 
+        var parserCollection = this.props.datasets.parserCollection;
+
         return (
           <div className="dashboard-container">
             <div className="overview-heading">
@@ -52,7 +54,7 @@ class Dashboard extends Component {
                 <option>this week</option>
               </select>
               <h3 className="overview-heading-label">
-                {formatDate(this.props.datasets.parserCollection.dateRange().start)} - {formatDate(this.props.datasets.parserCollection.dateRange().end)} (Average duration: {this.props.datasets.parserCollection.averageDuration()})
+                {formatDate(parserCollection.dateRange().start)} - {formatDate(parserCollection.dateRange().end)} (Average duration: {parserCollection.averageDuration()})
               </h3>
             </div>
             <div className="even-columns-2">
@@ -62,13 +64,13 @@ class Dashboard extends Component {
                 </h4>
                 <div className="overview-trend-chart-container">
                   <LegendItemGroup
-                    labels={this.props.datasets.parserCollection.legendLabels({ type: "Teacher" })}
+                    labels={parserCollection.legendLabels({ type: "Teacher" })}
                     activeFilters={this.state.activeFilters}
                     displayRatio={false}
                     handleClick={this.handleFilterClick.bind(this)} />
 
                   <TrendChartContainer
-                    data={this.props.datasets.parserCollection.aggregatedParserRatios()["Teacher"]}
+                    data={parserCollection.aggregatedParserRatios()["Teacher"]}
                     activeFilters={this.state.activeFilters} />
                 </div>
               </div>
@@ -78,13 +80,13 @@ class Dashboard extends Component {
                 </h4>
                 <div className="overview-trend-chart-container">
                   <LegendItemGroup
-                    labels={this.props.datasets.parserCollection.legendLabels({ type: "Student" })}
+                    labels={parserCollection.legendLabels({ type: "Student" })}
                     activeFilters={this.state.activeFilters}
                     displayRatio={false}
                     handleClick={this.handleFilterClick.bind(this)} />
 
                   <TrendChartContainer
-                    data={this.props.datasets.parserCollection.aggregatedParserRatios()["Student"]}
+                    data={parserCollection.aggregatedParserRatios()["Student"]}
                     activeFilters={this.state.activeFilters} />
                 </div>
               </div>
