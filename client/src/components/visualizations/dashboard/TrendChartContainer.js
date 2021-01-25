@@ -17,8 +17,8 @@ export default class TrendChartContainer extends Component {
             scales: {},
             axes: {},
             display: {
-                // svgWidth: 0,
-                // svgHeight: 0,
+                svgWidth: 0,
+                svgHeight: 0,
                 margin: {
                     top: 25,
                     right: 25,
@@ -61,7 +61,7 @@ export default class TrendChartContainer extends Component {
                         ...datum,
                         ...metaData
                     };
-                }).reverse();
+                });//.reverse();
             }),
             margin = state.display.margin,
             svgWidth = document.getElementById(`trend-chart-container-${this.state.uuid}`).clientWidth,

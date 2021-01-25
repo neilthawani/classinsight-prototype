@@ -10,7 +10,7 @@ import formatPercentage from '../../../utils/formatPercentage';
 
 class Overview extends Component {
     aggregatedParserRatios() {
-        var dataParsers = this.props.datasets.dataParsers.reverse(),
+        var dataParsers = this.props.datasets.dataParsers,//.reverse(),
             // trendLineDataObj is of the format: { date: labelObj, date: labelObj, etc. }
             trendLineDataObj = dataParsers.reduce((prev, parser, index, array) => {
                 var labelObj = parser.nTokensPerUtteranceType();
@@ -81,6 +81,19 @@ class Overview extends Component {
         };
     }
 
+    dateRange() {
+        var teacherData = this.aggregatedParserRatios()["Teacher"];
+        var start = teacherData[0].data[0].date;
+        var end = teacherData[0].data[teacherData[0].data.length - 1].date;
+
+        var dateRange = {
+            start: start,
+            end: end
+        };
+        // console.log("dateRange", dateRange);
+        return dateRange;
+    }
+
     averageDuration() {
         var dataParsers = this.props.datasets.dataParsers,
             averageDurationInSecs = dataParsers.reduce((prev, parser) => {
@@ -114,7 +127,7 @@ class Overview extends Component {
                 <option>this week</option>
               </select>
               <h3 className="overview-heading-label">
-                startDate - endDate (Average duration: {this.averageDuration()})
+                {this.dateRange().start} - {this.dateRange().end} (Average duration: {this.averageDuration()})
               </h3>
             </div>
             <div className="even-columns-2">
