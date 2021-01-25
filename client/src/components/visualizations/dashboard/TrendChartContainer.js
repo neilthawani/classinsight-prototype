@@ -57,9 +57,11 @@ export default class TrendChartContainer extends Component {
 
     calculateYScale(yScale, data) {
         // console.log("yScale", yScale, "data", data);
-        var min = Math.min.apply(Math, data.map(function(row) { return row.score; }))
-        var max = Math.max.apply(Math, data.map(function(row) { return row.score; }))
+        var min = Math.ceil(Math.min.apply(Math, data.map(function(row) { return row.score; })));
+        var max = Math.ceil(Math.max.apply(Math, data.map(function(row) { return row.score; })) / 5) * 5;
 
+        console.log("yScale", yScale.ticks());
+        // console.log("min", min, "max", max);
         return yScale.domain([min, max]);
     }
 
@@ -90,7 +92,7 @@ export default class TrendChartContainer extends Component {
         var yScale = this.calculateYScale(yRange, flattenArray(trendLineData));
 
         var xAxis = d3.axisBottom(xScale).tickFormat(d3.timeFormat("%m-%d"));
-        var yAxis = d3.axisLeft(yScale).ticks(10);
+        var yAxis = d3.axisLeft(yScale);
 
         // var svg = d3.select(`#trend-chart-container-${this.state.uuid}`).append("svg").attr("width", width).attr("height", height).attr("class", "trend-chart");
 
@@ -128,26 +130,8 @@ export default class TrendChartContainer extends Component {
                 xScale = state.scales.xScale,
                 yScale = state.scales.yScale;
 
-            // draw x axis
-            // console.log("height", height);
             var xAxisTransform = "translate(0," + parseInt(height + margin.bottom, 0) + ")",
                 yAxisTransform = `translate(${margin.bottom}, 0)`;
-            // console.log("xAxisTransform", xAxisTransform, "yAxisTransform", yAxisTransform);
-
-            // begin: draw horizontal gridlines
-            // var ticks = document.getElementsByClassName("y axis")[0].getElementsByClassName("tick");
-            // for (var i = 1; i < ticks.length; i++) {
-            //     var commaIndex = ticks[i].getAttribute("transform").indexOf(",");
-            //     var transformYWithParen = ticks[i].getAttribute("transform").slice(commaIndex + 1);
-            //     var parenIndex = transformYWithParen.indexOf(")");
-            //     var transformY = transformYWithParen.slice(0, parenIndex);
-            //     svg.append("line").attr("class", "trend-chart-gridline")
-            //         .attr("x1", margin.left + 1)
-            //         .attr("x2", width + margin.right)
-            //         .attr("y1", transformY)
-            //         .attr("y2", transformY + 1);
-            // }
-            // end: draw horizontal gridlines
 
             return (
                 <div className="trend-chart-container" id={`trend-chart-container-${this.state.uuid}`}>

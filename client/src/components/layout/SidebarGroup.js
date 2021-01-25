@@ -36,7 +36,7 @@ class SidebarGroup extends Component {
                 <Icon path={mdiChevronDown} size={1} />}
             </div>
             <div className="sidebar-group-data">
-              {this.props.datasets.dataParsers.reverse().map((item, index, array) => {
+              {this.props.datasets.dataParsers.map((item, index, array) => {
                   var datum = item.data;
                   var topic = item.topic,
                       date = formatDate(item.date),
