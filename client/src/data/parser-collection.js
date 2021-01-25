@@ -77,8 +77,10 @@ export default class ParserCollection {
 
     dateRange() {
         var teacherData = this.aggregatedParserRatios()["Teacher"];
-        var start = teacherData[0].data[0].date;
-        var end = teacherData[0].data[teacherData[0].data.length - 1].date;
+        // Developer's note: Sidebar classes display in descending order by default.
+        // See datasetReducer::LIST_DATASETS::sortedPayload
+        var end = teacherData[0].data[0].date;
+        var start = teacherData[0].data[teacherData[0].data.length - 1].date;
 
         var dateRange = {
             start: start,
@@ -100,7 +102,7 @@ export default class ParserCollection {
 
     legendLabels = function(options) {
         var legendLabels = LegendLabels.filter((item) => item.type === options.type);
-        
+
         return legendLabels;
     }
 }
