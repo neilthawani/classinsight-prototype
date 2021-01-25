@@ -7,6 +7,7 @@ import {
     CLEAR_VALID_STATE
 } from '../actions/types';
 import Parser from '../data/parser';
+import ParserCollection from '../data/parser-collection';
 
 export default function datasetReducer(state, action) {
     switch (action.type) {
@@ -34,13 +35,16 @@ export default function datasetReducer(state, action) {
                 return Object.assign(parsedData, { isActive: (index === activeIndex) });
             });
 
+            var parserCollection = new ParserCollection(dataParsers);
+
             return {
                 ...state,
                 datasets: sortedPayload,
                 dataParsers: dataParsers,
                 activeDataRowIndex: activeIndex,
                 activeDataset: sortedPayload[activeIndex],
-                activeParser: dataParsers[activeIndex]
+                activeParser: dataParsers[activeIndex],
+                parserCollection: parserCollection
             };
         case EDIT_DATASET:
             return {

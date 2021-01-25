@@ -4,9 +4,9 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import LegendItemGroup from '../../legend/LegendItemGroup';
 import TrendChartContainer from './TrendChartContainer';
-import calculateLessonDuration from '../../../utils/calculateLessonDuration';
-import legendLabels from '../../../fixtures/legend_labels';
-import formatPercentage from '../../../utils/formatPercentage';
+// import calculateLessonDuration from '../../../utils/calculateLessonDuration';
+// import legendLabels from '../../../fixtures/legend_labels';
+// import formatPercentage from '../../../utils/formatPercentage';
 import formatDate from '../../../utils/formatDate';
 
 class Overview extends Component {
@@ -17,102 +17,21 @@ class Overview extends Component {
     //
     //     };
     // }
-    aggregatedParserRatios() {
-        var dataParsers = this.props.datasets.dataParsers,//.reverse(),
-            // trendLineDataObj is of the format: { date: labelObj, date: labelObj, etc. }
-            trendLineDataObj = dataParsers.reduce((prev, parser, index, array) => {
-                var labelObj = parser.nTokensPerUtteranceType();
 
-                // if there is only one data row from a date
-                if (!prev.hasOwnProperty(parser.date)) {
-                    prev[parser.date] = labelObj;
-                } else { // otherwise if there are multiple data rows with the same date
-                    var existingData = prev[parser.date];
+    // dateRange() {
+    //     var teacherData = this.props.parserCollection.aggregatedParserRatios()["Teacher"];
+    //     var start = teacherData[0].data[0].date;
+    //     var end = teacherData[0].data[teacherData[0].data.length - 1].date;
+    //
+    //     var dateRange = {
+    //         start: start,
+    //         end: end
+    //     };
+    //     // console.log("dateRange", dateRange);
+    //     return dateRange;
+    // }
 
-                    existingData.forEach((existingLabelObj, index) => {
-                        existingLabelObj.nTokens += labelObj[index].nTokens;
-                    });
-                }
 
-                // console.log("prev", prev);
-                return prev;
-            }, {});
-        // console.log("trendLineDataObj", trendLineDataObj);
-
-        // dateArray is array of all dates
-        var dateArray = Object.keys(trendLineDataObj);//,
-        // console.log("dateArray", dateArray);
-        // allTrendLines is array of labelObj's with an empty data array appended to each obj
-        var allTrendLines = legendLabels.map((labelObj) => {
-            return {
-                ...labelObj,
-                data: []
-            };
-        });
-        // console.log("allTrendLines", allTrendLines);
-
-        dateArray.forEach((date, index, array) => {
-            var dateLabelArray = trendLineDataObj[date];
-            // console.log("dateLabelArray", dateLabelArray);
-
-            var totalNTokens = dateLabelArray.reduce((prev, labelObj) => {
-                prev += labelObj.nTokens;
-                return prev;
-            }, 0);
-            // console.log("totalNTokens", totalNTokens);
-
-            var trendLineDataArray = dateLabelArray.map((labelObj) => {
-                return {
-                    ...labelObj,
-                    date: date,
-                    percentageValue: labelObj.nTokens / totalNTokens,
-                    formattedPercentageValue: formatPercentage(labelObj.nTokens / totalNTokens, 2, true, false),
-                    percentageLabel: formatPercentage(labelObj.nTokens / totalNTokens, 0)//, true, false)
-                };
-            });
-            // console.log("trendLineDataArray", trendLineDataArray);
-
-            allTrendLines.forEach((trendLineDatum) => {
-                var labelObjDatum = trendLineDataArray.filter((datum) => datum.value === trendLineDatum.value)[0];
-                // debugger;
-                trendLineDatum.data.push({
-                    date: labelObjDatum.date,
-                    nTokens: labelObjDatum.nTokens,
-                    percentageValue: labelObjDatum.percentageValue,
-                    formattedPercentageValue: labelObjDatum.formattedPercentageValue,
-                    percentageLabel: labelObjDatum.percentageLabel
-                });
-            });
-        });
-
-        return {
-            Teacher: allTrendLines.filter((legendLabelObj => legendLabelObj.type === "Teacher")),
-            Student: allTrendLines.filter((legendLabelObj => legendLabelObj.type === "Student"))
-        };
-    }
-
-    dateRange() {
-        var teacherData = this.aggregatedParserRatios()["Teacher"];
-        var start = teacherData[0].data[0].date;
-        var end = teacherData[0].data[teacherData[0].data.length - 1].date;
-
-        var dateRange = {
-            start: start,
-            end: end
-        };
-        // console.log("dateRange", dateRange);
-        return dateRange;
-    }
-
-    averageDuration() {
-        var dataParsers = this.props.datasets.dataParsers,
-            averageDurationInSecs = dataParsers.reduce((prev, parser) => {
-                prev += parser.data.duration;
-                return prev;
-            }, 0) / dataParsers.length;
-
-        return calculateLessonDuration(averageDurationInSecs);
-    }
 
     render() {
         var areDatasetsLoaded = this.props.datasets.activeParser;
@@ -137,7 +56,7 @@ class Overview extends Component {
                 <option>this week</option>
               </select>
               <h3 className="overview-heading-label">
-                {formatDate(this.dateRange().start)} - {formatDate(this.dateRange().end)} (Average duration: {this.averageDuration()})
+                {formatDate(this.props.datasets.parserCollection.dateRange().start)} - {formatDate(this.props.datasets.parserCollection.dateRange().end)} (Average duration: {this.props.datasets.parserCollection.averageDuration()})
               </h3>
             </div>
             <div className="even-columns-2">
@@ -147,13 +66,13 @@ class Overview extends Component {
                 </h4>
                 <div className="overview-trend-chart-container">
                   <LegendItemGroup
-                    labels={parser.legendLabels({ type: "Teacher" })}
+                    labels={this.props.datasets.parserCollection.legendLabels({ type: "Teacher" })}
                     displayRatio={false}
                     handleClick={() => {}} />
 
                   {/*<div>*/}
                     <TrendChartContainer
-                      data={this.aggregatedParserRatios()["Teacher"]} />
+                      data={this.props.datasets.parserCollection.aggregatedParserRatios()["Teacher"]} />
 
 
                   {/*</div>*/}
@@ -165,12 +84,12 @@ class Overview extends Component {
                 </h4>
                 <div className="overview-trend-chart-container">
                   <LegendItemGroup
-                    labels={parser.legendLabels({ type: "Student" })}
+                    labels={this.props.datasets.parserCollection.legendLabels({ type: "Student" })}
                     displayRatio={false}
                     handleClick={() => {}} />
 
                   <TrendChartContainer
-                    data={this.aggregatedParserRatios()["Student"]}/>
+                    data={this.props.datasets.parserCollection.aggregatedParserRatios()["Student"]}/>
                 </div>
               </div>
             </div>
