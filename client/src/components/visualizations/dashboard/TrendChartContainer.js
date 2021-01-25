@@ -12,7 +12,6 @@ export default class TrendChartContainer extends Component {
         this.state = {
             uuid: uuid(),
             circleTooltip: null,
-            // svg: "",
             scales: {},
             axes: {},
             display: {
