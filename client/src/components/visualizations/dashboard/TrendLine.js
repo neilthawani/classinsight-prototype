@@ -1,6 +1,11 @@
 import React, { Component } from "react";
+import TrendLinePoint from './TrendLinePoint';
 
 export default class TrendLine extends Component {
+    handleCircleTooltip(tooltip) {
+        this.props.handleCircleTooltip(tooltip);
+    }
+
     render() {
         var xScale = this.props.xScale,
             yScale = this.props.yScale,
@@ -11,13 +16,18 @@ export default class TrendLine extends Component {
         return (
           <g className="trend-chart-path-group">
             <path
-              className="trend-chart-path"
+              className="trend-chart-line"
               d={trendLine(trendLineDatum)}
               stroke={color} />
 
             {trendLineDatum.map((point, index) => {
               return (
-                <circle key={`circle-${index}`} r="4" fill={point.barColor} cx={xScale(point.date)} cy={yScale(point.score)} />
+                <TrendLinePoint
+                  key={`circle-${index}`}
+                  xScale={xScale}
+                  yScale={yScale}
+                  point={point}
+                  handleCircleTooltip={this.handleCircleTooltip.bind(this)} />
               )
             })}
           </g>

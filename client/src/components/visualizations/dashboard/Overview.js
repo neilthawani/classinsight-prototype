@@ -7,8 +7,16 @@ import TrendChartContainer from './TrendChartContainer';
 import calculateLessonDuration from '../../../utils/calculateLessonDuration';
 import legendLabels from '../../../fixtures/legend_labels';
 import formatPercentage from '../../../utils/formatPercentage';
+import formatDate from '../../../utils/formatDate';
 
 class Overview extends Component {
+    // constructor(props) {
+    //     super(props);
+    //
+    //     this.state = {
+    //
+    //     };
+    // }
     aggregatedParserRatios() {
         var dataParsers = this.props.datasets.dataParsers,//.reverse(),
             // trendLineDataObj is of the format: { date: labelObj, date: labelObj, etc. }
@@ -57,7 +65,8 @@ class Overview extends Component {
                 return {
                     ...labelObj,
                     date: date,
-                    percentageValue: formatPercentage(labelObj.nTokens / totalNTokens, 2, true, false),
+                    percentageValue: labelObj.nTokens / totalNTokens,
+                    formattedPercentageValue: formatPercentage(labelObj.nTokens / totalNTokens, 2, true, false),
                     percentageLabel: formatPercentage(labelObj.nTokens / totalNTokens, 0)//, true, false)
                 };
             });
@@ -70,6 +79,7 @@ class Overview extends Component {
                     date: labelObjDatum.date,
                     nTokens: labelObjDatum.nTokens,
                     percentageValue: labelObjDatum.percentageValue,
+                    formattedPercentageValue: labelObjDatum.formattedPercentageValue,
                     percentageLabel: labelObjDatum.percentageLabel
                 });
             });
@@ -127,7 +137,7 @@ class Overview extends Component {
                 <option>this week</option>
               </select>
               <h3 className="overview-heading-label">
-                {this.dateRange().start} - {this.dateRange().end} (Average duration: {this.averageDuration()})
+                {formatDate(this.dateRange().start)} - {formatDate(this.dateRange().end)} (Average duration: {this.averageDuration()})
               </h3>
             </div>
             <div className="even-columns-2">
@@ -141,8 +151,12 @@ class Overview extends Component {
                     displayRatio={false}
                     handleClick={() => {}} />
 
-                  <TrendChartContainer
-                    data={this.aggregatedParserRatios()["Teacher"]}/>
+                  {/*<div>*/}
+                    <TrendChartContainer
+                      data={this.aggregatedParserRatios()["Teacher"]} />
+
+
+                  {/*</div>*/}
                 </div>
               </div>
               <div className="even-column">

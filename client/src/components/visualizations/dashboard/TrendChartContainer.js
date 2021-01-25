@@ -13,6 +13,7 @@ export default class TrendChartContainer extends Component {
 
         this.state = {
             uuid: uuid(),
+            circleTooltip: null,
             svg: "",
             scales: {},
             axes: {},
@@ -30,13 +31,21 @@ export default class TrendChartContainer extends Component {
         };
     }
 
+    handleCircleTooltip(tooltip) {
+        console.log("tooltip",tooltip);
+        this.setState({
+            circleTooltip: tooltip
+        });
+    }
+
     parseTime = d3.timeParse("%Y-%m-%d");
     parseData = function(data) {
         return data.map((datum) => {
             // console.log("datum", datum);
             return {
                 date: this.parseTime(datum.date),
-                score: datum.percentageValue
+                score: datum.formattedPercentageValue,
+                // percentageValue: datum.percentageValue
             }
         });
     }
@@ -102,6 +111,10 @@ export default class TrendChartContainer extends Component {
         });
     }
 
+    // handleCircleTooltip(text) {
+    //     this.props.handleCircleTooltip(text);
+    // }
+
     render() {
         if (this.state.isLoaded) {
             var state = this.state,
@@ -143,7 +156,15 @@ export default class TrendChartContainer extends Component {
                     yAxisTransform={yAxisTransform}
                     trendLineData={trendLineData}
                     xScale={xScale}
-                    yScale={yScale} />
+                    yScale={yScale}
+                    circleTooltip={this.state.circleTooltip}
+                    handleCircleTooltip={this.handleCircleTooltip.bind(this)} />
+
+                  <span className="trend-chart-container-tooltip">
+                    {this.state.circleTooltip ?
+                      `${this.state.circleTooltip.text} (${parseInt(this.state.circleTooltip.score, 10)}%)`
+                    : null}
+                  </span>
                 </div>
             );
         }

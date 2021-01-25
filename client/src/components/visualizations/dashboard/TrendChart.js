@@ -7,6 +7,10 @@ import TrendLine from './TrendLine';
 import TrendChartAxis from './TrendChartAxis';
 
 class TrendChart extends Component {
+    handleCircleTooltip(tooltip) {
+        this.props.handleCircleTooltip(tooltip);
+    }
+
     render() {
         // console.log("this.props.axes", this.props.axes);
         var xScale = this.props.xScale,
@@ -25,9 +29,26 @@ class TrendChart extends Component {
                         yScale={yScale}
                         trendLine={trendLine}
                         trendLineDatum={trendLineDatum}
-                        color={color} />
+                        color={color}
+                        handleCircleTooltip={this.handleCircleTooltip.bind(this)} />
                     );
                 })}
+
+                {this.props.circleTooltip ?
+                  <g className="trend-chart-tooltip-extent">
+                    <line
+                      x1={xScale(this.props.circleTooltip.date)}
+                      y1={yScale(this.props.circleTooltip.score)}
+                      x2={xScale(this.props.circleTooltip.date)}
+                      y2={this.props.svgHeight - 25} />
+
+                    <line
+                      x1={xScale(this.props.circleTooltip.date) + 1}
+                      y1={yScale(this.props.circleTooltip.score) + 1}
+                      x2={25}
+                      y2={yScale(this.props.circleTooltip.score) + 1} />
+                  </g>
+                : null}
 
                 <TrendChartAxis
                   className="x axis"

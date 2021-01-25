@@ -1,13 +1,29 @@
 .trend-chart-container {
     height: inherit;
     width: 100%;
+    text-align: center;
+}
+
+.trend-chart-container-tooltip {
+    font-size: 14px;
+}
+
+.trend-chart-tooltip-extent {
+    line {
+        stroke: $darkGray;
+        stroke-width: 1px;
+    }
 }
 
 .trend-chart-gridline {
     stroke: $lightestGray;
 }
 
-.trend-chart-path {
+.trend-chart-line {
     stroke-width: 2px;
     fill: none;
+}
+
+.trend-chart-line-point {
+    cursor: pointer;
 }
