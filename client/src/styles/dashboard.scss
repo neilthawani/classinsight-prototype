@@ -1,17 +1,6 @@
 .dashboard-container {
-    // width: calc(100% - #{$sidebarWidth});
-    width: 100%;
-}
-
-.overview-container {
-    // width: 50%;
-    // border: 1px solid $lightGray;
-    // margin: calc(#{$navbarMargin} + 10px) calc(#{$sidebarWidth} + 10px) 10px 10px;
+    padding: 10px ;
     margin: calc(#{$navbarMargin} + 10px) 10px 10px 10px;
-    padding: 10px;
-    // width: 100%;
-    // border-radius: 10px;
-    // box-shadow: 5px 5px 5px $darkGray;
 }
 
 .overview-heading {
@@ -34,11 +23,7 @@
     display: flex;
     flex-direction: row;
     height: 250px;
-    // width: 100%;
 }
 
 .overview-trend-chart {
-    // width: 100%;
-    // display: flex;
-    // flex-direction: row;
 }

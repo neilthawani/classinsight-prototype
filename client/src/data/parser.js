@@ -1,5 +1,4 @@
 import LegendLabels from '../fixtures/legend_labels';
-// import formatDate from '../utils/formatDate';
 
 export default class Parser {
     constructor(data) {

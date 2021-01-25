@@ -10,7 +10,7 @@ export default class TrendChartAxis extends Component<AxisProps> {
 
     constructor(props: AxisProps) {
         super(props);
-        // console.log("props", props);
+
         this.ref = React.createRef();
     }
 
@@ -19,7 +19,7 @@ export default class TrendChartAxis extends Component<AxisProps> {
             d3.select(this.ref.current)
             .attr("class", this.props.className)
             .attr("transform", this.props.transform)
-            .call(this.props.axis);//d3.axisLeft(this.props.scale));
+            .call(this.props.axis);
         }
     }
 
@@ -29,12 +29,11 @@ export default class TrendChartAxis extends Component<AxisProps> {
               .transition()
               .attr("class", this.props.className)
               .attr("transform", this.props.transform)
-              .call(this.props.axis);//d3.axisLeft(this.props.scale));
+              .call(this.props.axis);
         }
     }
 
     render() {
-        // console.log("this.props.style", this.props.style);
         return (
             <g ref={this.ref} />
         );

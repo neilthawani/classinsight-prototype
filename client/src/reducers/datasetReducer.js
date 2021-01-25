@@ -13,7 +13,6 @@ export default function datasetReducer(state, action) {
     switch (action.type) {
         case LIST_DATASETS:
             var activeIndex = parseInt(localStorage.getItem("activeDataRowIndex"), 10) || 0;
-            // console.log("LIST_DATASETS", action.payload);
 
             if (activeIndex >= action.payload.length) {
                 activeIndex = 0;
@@ -21,14 +20,11 @@ export default function datasetReducer(state, action) {
 
             // sort by date, descending
             var sortedPayload = action.payload.sort((a, b) => {
-                // console.log("a", a);
                 var splitA = a.classDate.split("-");
                 var splitB = b.classDate.split("-");
 
                 return splitA[0] - splitB[0] || splitA[1] - splitB[1] || splitA[2] - splitB[2];
             }).reverse();
-
-            // console.log("sortedPayload", sortedPayload);
 
             var dataParsers = sortedPayload.map((dataset, index) => {
                 var parsedData = new Parser(dataset);

@@ -2,10 +2,7 @@ import React, { Component } from "react";
 
 export default class TrendLinePoint extends Component {
     handleCircleTooltip(point) {
-        // var tooltipText = point !== null ?  : null;
-        // console.log("handleCircleTooltip", this.props.point);
         this.props.handleCircleTooltip(point);
-        // console.log("Tooltip:", `${this.props.point.text} (${parseInt(this.props.point.score, 10)}%)`);
     }
 
     render() {

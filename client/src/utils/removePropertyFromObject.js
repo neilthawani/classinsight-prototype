@@ -1,10 +1,6 @@
 var removePropertyFromObject = function(object, propKey) {
     const { [propKey]: propValue, ...rest } = object;
-    // console.log("propValue", propValue);
-    // console.log("rest", rest);
     return rest;
-    // object = rest;
-    // return object;
 }
 
 /*

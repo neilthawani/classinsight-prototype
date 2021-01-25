@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import * as d3 from 'd3';
-// import TrendLine from './TrendLine';
 import TrendChart from './TrendChart';
 import { removePropertyFromObject } from '../../../utils/removePropertyFromObject';
 import flattenArray from '../../../utils/flattenArray';
-// import toCamelCase from '../../../utils/toCamelCase';
 import uuid from 'react-uuid'
 
 export default class TrendChartContainer extends Component {
@@ -32,7 +30,6 @@ export default class TrendChartContainer extends Component {
     }
 
     handleCircleTooltip(tooltip) {
-        // console.log("tooltip",tooltip);
         this.setState({
             circleTooltip: tooltip
         });
@@ -41,27 +38,21 @@ export default class TrendChartContainer extends Component {
     parseTime = d3.timeParse("%Y-%m-%d");
     parseData = function(data) {
         return data.map((datum) => {
-            // console.log("datum", datum);
             return {
                 date: this.parseTime(datum.date),
-                score: datum.formattedPercentageValue,
-                // percentageValue: datum.percentageValue
+                score: datum.formattedPercentageValue
             }
         });
     }
 
     calculateXScale(xScale, data) {
-        // console.log("xScale", xScale, "data", data);
         return xScale.domain(d3.extent(data, (d => d.date)));
     }
 
     calculateYScale(yScale, data) {
-        // console.log("yScale", yScale, "data", data);
         var min = Math.ceil(Math.min.apply(Math, data.map(function(row) { return row.score; })));
         var max = Math.ceil(Math.max.apply(Math, data.map(function(row) { return row.score; })) / 5) * 5;
 
-        // console.log("yScale", yScale.ticks());
-        // console.log("min", min, "max", max);
         return yScale.domain([min, max]);
     }
 
@@ -70,28 +61,18 @@ export default class TrendChartContainer extends Component {
             margin = state.display.margin,
             svgWidth = document.getElementById(`trend-chart-container-${this.state.uuid}`).clientWidth,
             svgHeight = document.getElementById(`trend-chart-container-${this.state.uuid}`).clientHeight;
-        // console.log("parsedData", parsedData);
-        // console.log("data", data);
-        // console.log("width", width);
-        // console.log("svgWidth", svgWidth, "svgHeight", svgHeight);
 
         var xRange = d3.scaleTime().range([margin.left, svgWidth - margin.right]);
         var yRange = d3.scaleLinear().range([svgHeight - margin.bottom, margin.top]);
 
-        // console.log("trendLineData", trendLineData);
         var domainData = this.props.data.map((datum) => this.parseData(datum.data))
-        // console.log("this.props.data", );
         var xScale = this.calculateXScale(xRange, flattenArray(domainData));
         var yScale = this.calculateYScale(yRange, flattenArray(domainData));
 
         var xAxis = d3.axisBottom(xScale).tickFormat(d3.timeFormat("%m-%d"));
         var yAxis = d3.axisLeft(yScale);
 
-        // var svg = d3.select(`#trend-chart-container-${this.state.uuid}`).append("svg").attr("width", width).attr("height", height).attr("class", "trend-chart");
-
         this.setState({
-            // trendLineData: trendLineData,
-            // svg: svg,
             display: {
                 ...this.state.display,
                 svgWidth: svgWidth,
@@ -109,18 +90,11 @@ export default class TrendChartContainer extends Component {
         });
     }
 
-    // handleCircleTooltip(text) {
-    //     this.props.handleCircleTooltip(text);
-    // }
-
     render() {
         if (this.state.isLoaded) {
             var state = this.state,
                 activeFilters = this.props.activeFilters,
                 trendLineData = this.props.data.reduce((prev, dataRow) => {
-                    // console.log("activeFilters", activeFilters);
-                    // console.log("dataRow", dataRow);
-
                     if (!activeFilters.includes(dataRow.value)) {
                         var metaData = removePropertyFromObject(dataRow, 'data');
 
@@ -129,7 +103,7 @@ export default class TrendChartContainer extends Component {
                                 ...datum,
                                 ...metaData
                             };
-                        });//.reverse();
+                        });
 
                         prev.push(newRow);
                     }
@@ -138,7 +112,7 @@ export default class TrendChartContainer extends Component {
                 }, []),
                 margin = state.display.margin,
                 height = state.display.svgHeight - state.display.margin.top - state.display.margin.bottom,
-                width = state.display.svgWidth - state.display.margin.left - state.display.margin.right,
+                // width = state.display.svgWidth - state.display.margin.left - state.display.margin.right,
                 xScale = state.scales.xScale,
                 yScale = state.scales.yScale;
 

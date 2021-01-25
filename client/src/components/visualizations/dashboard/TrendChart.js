@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import * as d3 from 'd3';
 import TrendLine from './TrendLine';
-// import { removePropertyFromObject } from '../../../utils/removePropertyFromObject';
-// import flattenArray from '../../../utils/flattenArray';
-// import toCamelCase from '../../../utils/toCamelCase';
 import TrendChartAxis from './TrendChartAxis';
 
 class TrendChart extends Component {
@@ -12,13 +9,9 @@ class TrendChart extends Component {
     }
 
     render() {
-        // console.log("this.props.axes", this.props.axes);
         var xScale = this.props.xScale,
             yScale = this.props.yScale,
             trendLine = d3.line().x((d) => xScale(d.date)).y((d) => yScale(d.score));
-
-        // console.log("this.props.axes.xAxis", );
-        // console.log("val?", yScale(4));
 
         return (
             <svg className="trend-chart-svg" width={this.props.svgWidth} height={this.props.svgHeight}>
@@ -84,4 +77,3 @@ class TrendChart extends Component {
 }
 
 export default TrendChart;
-// http://bl.ocks.org/dhoboy/3cf1259cd6e10e2e4aa1
