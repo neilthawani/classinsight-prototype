@@ -8,15 +8,16 @@ import TrendChartContainer from './TrendChartContainer';
 // import legendLabels from '../../../fixtures/legend_labels';
 // import formatPercentage from '../../../utils/formatPercentage';
 import formatDate from '../../../utils/formatDate';
+import removeArrayValue from '../../../utils/removeArrayValue';
 
 class Overview extends Component {
-    // constructor(props) {
-    //     super(props);
-    //
-    //     this.state = {
-    //
-    //     };
-    // }
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            activeFilters: []
+        };
+    }
 
     // dateRange() {
     //     var teacherData = this.props.parserCollection.aggregatedParserRatios()["Teacher"];
@@ -31,7 +32,21 @@ class Overview extends Component {
     //     return dateRange;
     // }
 
+    // same logic as in Transcript::handleClick
+    handleFilterClick(label) {
+        var activeFilters = this.state.activeFilters;
 
+        if (activeFilters.includes(label.value)) {
+            activeFilters = removeArrayValue(label.value, activeFilters)
+        } else {
+            activeFilters.push(label.value);
+        }
+
+        this.setState({
+            activeFilters: activeFilters
+        });
+        // console.log("this.state.activeFilters", this.state.activeFilters);
+    }
 
     render() {
         var areDatasetsLoaded = this.props.datasets.activeParser;
@@ -67,15 +82,13 @@ class Overview extends Component {
                 <div className="overview-trend-chart-container">
                   <LegendItemGroup
                     labels={this.props.datasets.parserCollection.legendLabels({ type: "Teacher" })}
+                    activeFilters={this.state.activeFilters}
                     displayRatio={false}
-                    handleClick={() => {}} />
+                    handleClick={this.handleFilterClick.bind(this)} />
 
-                  {/*<div>*/}
-                    <TrendChartContainer
-                      data={this.props.datasets.parserCollection.aggregatedParserRatios()["Teacher"]} />
-
-
-                  {/*</div>*/}
+                  <TrendChartContainer
+                    data={this.props.datasets.parserCollection.aggregatedParserRatios()["Teacher"]}
+                    activeFilters={this.state.activeFilters} />
                 </div>
               </div>
               <div className="even-column">
@@ -85,11 +98,13 @@ class Overview extends Component {
                 <div className="overview-trend-chart-container">
                   <LegendItemGroup
                     labels={this.props.datasets.parserCollection.legendLabels({ type: "Student" })}
+                    activeFilters={this.state.activeFilters}
                     displayRatio={false}
-                    handleClick={() => {}} />
+                    handleClick={this.handleFilterClick.bind(this)} />
 
                   <TrendChartContainer
-                    data={this.props.datasets.parserCollection.aggregatedParserRatios()["Student"]}/>
+                    data={this.props.datasets.parserCollection.aggregatedParserRatios()["Student"]}
+                    activeFilters={this.state.activeFilters} />
                 </div>
               </div>
             </div>

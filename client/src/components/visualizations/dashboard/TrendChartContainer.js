@@ -60,23 +60,13 @@ export default class TrendChartContainer extends Component {
         var min = Math.ceil(Math.min.apply(Math, data.map(function(row) { return row.score; })));
         var max = Math.ceil(Math.max.apply(Math, data.map(function(row) { return row.score; })) / 5) * 5;
 
-        console.log("yScale", yScale.ticks());
+        // console.log("yScale", yScale.ticks());
         // console.log("min", min, "max", max);
         return yScale.domain([min, max]);
     }
 
     componentDidMount() {
         var state = this.state,
-            trendLineData = this.props.data.map((dataRow) => {
-                var metaData = removePropertyFromObject(dataRow, 'data');
-
-                return this.parseData(dataRow.data).map((datum) => {
-                    return {
-                        ...datum,
-                        ...metaData
-                    };
-                });//.reverse();
-            }),
             margin = state.display.margin,
             svgWidth = document.getElementById(`trend-chart-container-${this.state.uuid}`).clientWidth,
             svgHeight = document.getElementById(`trend-chart-container-${this.state.uuid}`).clientHeight;
@@ -88,8 +78,11 @@ export default class TrendChartContainer extends Component {
         var xRange = d3.scaleTime().range([margin.left, svgWidth - margin.right]);
         var yRange = d3.scaleLinear().range([svgHeight - margin.bottom, margin.top]);
 
-        var xScale = this.calculateXScale(xRange, flattenArray(trendLineData));
-        var yScale = this.calculateYScale(yRange, flattenArray(trendLineData));
+        // console.log("trendLineData", trendLineData);
+        var domainData = this.props.data.map((datum) => this.parseData(datum.data))
+        // console.log("this.props.data", );
+        var xScale = this.calculateXScale(xRange, flattenArray(domainData));
+        var yScale = this.calculateYScale(yRange, flattenArray(domainData));
 
         var xAxis = d3.axisBottom(xScale).tickFormat(d3.timeFormat("%m-%d"));
         var yAxis = d3.axisLeft(yScale);
@@ -97,7 +90,7 @@ export default class TrendChartContainer extends Component {
         // var svg = d3.select(`#trend-chart-container-${this.state.uuid}`).append("svg").attr("width", width).attr("height", height).attr("class", "trend-chart");
 
         this.setState({
-            trendLineData: trendLineData,
+            // trendLineData: trendLineData,
             // svg: svg,
             display: {
                 ...this.state.display,
@@ -123,7 +116,26 @@ export default class TrendChartContainer extends Component {
     render() {
         if (this.state.isLoaded) {
             var state = this.state,
-                trendLineData = this.state.trendLineData,
+                activeFilters = this.props.activeFilters,
+                trendLineData = this.props.data.reduce((prev, dataRow) => {
+                    // console.log("activeFilters", activeFilters);
+                    // console.log("dataRow", dataRow);
+
+                    if (!activeFilters.includes(dataRow.value)) {
+                        var metaData = removePropertyFromObject(dataRow, 'data');
+
+                        var newRow = this.parseData(dataRow.data).map((datum) => {
+                            return {
+                                ...datum,
+                                ...metaData
+                            };
+                        });//.reverse();
+
+                        prev.push(newRow);
+                    }
+
+                    return prev;
+                }, []),
                 margin = state.display.margin,
                 height = state.display.svgHeight - state.display.margin.top - state.display.margin.bottom,
                 width = state.display.svgWidth - state.display.margin.left - state.display.margin.right,

@@ -5,7 +5,7 @@ interface AxisProps {
   scale: d3.ScaleLinear<any, any>;
 }
 
-export default class TrendChartAxis extends React.Component<AxisProps> {
+export default class TrendChartAxis extends Component<AxisProps> {
     ref: React.RefObject<SVGGElement>;
 
     constructor(props: AxisProps) {

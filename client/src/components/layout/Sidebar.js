@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
-import Icon from '@mdi/react';
-import { mdiDatabase } from '@mdi/js';
+// import Icon from '@mdi/react';
+// import { mdiDatabase } from '@mdi/js';
 
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
