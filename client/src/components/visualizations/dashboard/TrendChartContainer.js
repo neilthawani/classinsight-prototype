@@ -32,7 +32,7 @@ export default class TrendChartContainer extends Component {
     }
 
     handleCircleTooltip(tooltip) {
-        console.log("tooltip",tooltip);
+        // console.log("tooltip",tooltip);
         this.setState({
             circleTooltip: tooltip
         });
@@ -57,7 +57,10 @@ export default class TrendChartContainer extends Component {
 
     calculateYScale(yScale, data) {
         // console.log("yScale", yScale, "data", data);
-        return yScale.domain([0, 100]);
+        var min = Math.min.apply(Math, data.map(function(row) { return row.score; }))
+        var max = Math.max.apply(Math, data.map(function(row) { return row.score; }))
+
+        return yScale.domain([min, max]);
     }
 
     componentDidMount() {
@@ -84,7 +87,7 @@ export default class TrendChartContainer extends Component {
         var yRange = d3.scaleLinear().range([svgHeight - margin.bottom, margin.top]);
 
         var xScale = this.calculateXScale(xRange, flattenArray(trendLineData));
-        var yScale = this.calculateYScale(yRange, trendLineData[3]);
+        var yScale = this.calculateYScale(yRange, flattenArray(trendLineData));
 
         var xAxis = d3.axisBottom(xScale).tickFormat(d3.timeFormat("%m-%d"));
         var yAxis = d3.axisLeft(yScale).ticks(10);
@@ -162,7 +165,7 @@ export default class TrendChartContainer extends Component {
 
                   <span className="trend-chart-container-tooltip">
                     {this.state.circleTooltip ?
-                      `${this.state.circleTooltip.text} (${parseInt(this.state.circleTooltip.score, 10)}%)`
+                      `${this.state.circleTooltip.text} (${this.state.circleTooltip.score.toFixed(1)}%)`
                     : null}
                   </span>
                 </div>

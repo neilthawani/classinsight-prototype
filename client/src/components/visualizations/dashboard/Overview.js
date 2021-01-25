@@ -169,8 +169,8 @@ class Overview extends Component {
                     displayRatio={false}
                     handleClick={() => {}} />
 
-                  {/*<TrendChart
-                    data={this.aggregatedParserRatios()["Student"]}/>*/}
+                  <TrendChartContainer
+                    data={this.aggregatedParserRatios()["Student"]}/>
                 </div>
               </div>
             </div>
