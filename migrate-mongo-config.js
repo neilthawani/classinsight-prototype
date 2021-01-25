@@ -5,10 +5,8 @@ const keys = require("./config/keys");
 
 const config = {
   mongodb: {
-    // TODO Change (or review) the url to your MongoDB:
     url: keys.mongoURI || "mongodb://localhost:27017",
 
-    // TODO Change this to your database name:
     databaseName: keys.dbName || "YOURDATABASENAME",
 
     options: {

@@ -26,11 +26,14 @@
     cursor: default;
 }
 
+.overview-trend-chart-container .legend-item-container {
+    margin-bottom: 25px;
+}
+
 .legend-item-container {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    margin-bottom: 25px;
 }
 
 // LegendItem.js

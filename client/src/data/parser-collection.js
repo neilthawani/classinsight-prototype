@@ -7,6 +7,7 @@ export default class ParserCollection {
         this.dataParsers = dataParsers;
     }
 
+    // used for Dashboard trend lines
     aggregatedParserRatios() {
         var dataParsers = this.dataParsers,
             // trendLineDataObj is of the format: { date: labelObj, date: labelObj, etc. }
@@ -77,8 +78,11 @@ export default class ParserCollection {
 
     dateRange() {
         var teacherData = this.aggregatedParserRatios()["Teacher"];
-        var start = teacherData[0].data[0].date;
-        var end = teacherData[0].data[teacherData[0].data.length - 1].date;
+
+        // Developer's note: Sidebar classes display in descending order by default.
+        // See datasetReducer::LIST_DATASETS::sortedPayload
+        var end = teacherData[0].data[0].date;
+        var start = teacherData[0].data[teacherData[0].data.length - 1].date;
 
         var dateRange = {
             start: start,
@@ -88,6 +92,7 @@ export default class ParserCollection {
         return dateRange;
     }
 
+    // average lesson duration
     averageDuration() {
         var dataParsers = this.dataParsers,
             averageDurationInSecs = dataParsers.reduce((prev, parser) => {
@@ -98,9 +103,11 @@ export default class ParserCollection {
         return calculateLessonDuration(averageDurationInSecs);
     }
 
+    // aggregated legend labels
+    // options.type is either Teacher or Student
     legendLabels = function(options) {
         var legendLabels = LegendLabels.filter((item) => item.type === options.type);
-        
+
         return legendLabels;
     }
 }

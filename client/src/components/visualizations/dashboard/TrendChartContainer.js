@@ -12,7 +12,6 @@ export default class TrendChartContainer extends Component {
         this.state = {
             uuid: uuid(),
             circleTooltip: null,
-            svg: "",
             scales: {},
             axes: {},
             display: {
@@ -72,6 +71,9 @@ export default class TrendChartContainer extends Component {
         var xAxis = d3.axisBottom(xScale).tickFormat(d3.timeFormat("%m-%d"));
         var yAxis = d3.axisLeft(yScale);
 
+        var xAxisTransform = "translate(0," + parseInt(state.display.svgHeight - margin.top, 0) + ")",
+            yAxisTransform = `translate(${margin.bottom}, 0)`;
+
         this.setState({
             display: {
                 ...this.state.display,
@@ -84,7 +86,11 @@ export default class TrendChartContainer extends Component {
             },
             axes: {
                 xAxis: xAxis,
-                yAxis: yAxis
+                yAxis: yAxis,
+                transforms: {
+                    x: xAxisTransform,
+                    y: yAxisTransform
+                }
             },
             isLoaded: true
         });
@@ -109,27 +115,18 @@ export default class TrendChartContainer extends Component {
                     }
 
                     return prev;
-                }, []),
-                margin = state.display.margin,
-                height = state.display.svgHeight - state.display.margin.top - state.display.margin.bottom,
-                // width = state.display.svgWidth - state.display.margin.left - state.display.margin.right,
-                xScale = state.scales.xScale,
-                yScale = state.scales.yScale;
-
-            var xAxisTransform = "translate(0," + parseInt(height + margin.bottom, 0) + ")",
-                yAxisTransform = `translate(${margin.bottom}, 0)`;
+                }, []);
 
             return (
                 <div className="trend-chart-container" id={`trend-chart-container-${this.state.uuid}`}>
                   <TrendChart
                     svgWidth={this.state.display.svgWidth}
                     svgHeight={this.state.display.svgHeight}
+                    margin={this.state.display.margin}
                     axes={this.state.axes}
-                    xAxisTransform={xAxisTransform}
-                    yAxisTransform={yAxisTransform}
+                    scales={state.scales}
                     trendLineData={trendLineData}
-                    xScale={xScale}
-                    yScale={yScale}
+
                     circleTooltip={this.state.circleTooltip}
                     handleCircleTooltip={this.handleCircleTooltip.bind(this)} />
 
