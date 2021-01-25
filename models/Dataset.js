@@ -37,7 +37,7 @@ const DatasetSchema = new Schema({
     required: true
   },
   classPeriod: {
-    type: Number,
+    type: Array,
     required: true
   },
   jsonData: {

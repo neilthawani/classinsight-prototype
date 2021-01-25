@@ -140,8 +140,6 @@ class TalkRatio extends Component {
     }
 }
 
-
-
 TalkRatio.propTypes = {
     datasets: PropTypes.object.isRequired
 };

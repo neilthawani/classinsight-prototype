@@ -7,6 +7,7 @@ import {
     CLEAR_VALID_STATE
 } from '../actions/types';
 import Parser from '../data/parser';
+import ParserCollection from '../data/parser-collection';
 
 export default function datasetReducer(state, action) {
     switch (action.type) {
@@ -17,18 +18,29 @@ export default function datasetReducer(state, action) {
                 activeIndex = 0;
             }
 
-            var dataParsers = action.payload.map((dataset, index) => {
+            // sort by date, descending
+            var sortedPayload = action.payload.sort((a, b) => {
+                var splitA = a.classDate.split("-");
+                var splitB = b.classDate.split("-");
+
+                return splitA[0] - splitB[0] || splitA[1] - splitB[1] || splitA[2] - splitB[2];
+            }).reverse();
+
+            var dataParsers = sortedPayload.map((dataset, index) => {
                 var parsedData = new Parser(dataset);
                 return Object.assign(parsedData, { isActive: (index === activeIndex) });
             });
 
+            var parserCollection = new ParserCollection(dataParsers);
+
             return {
                 ...state,
-                datasets: action.payload,
+                datasets: sortedPayload,
                 dataParsers: dataParsers,
                 activeDataRowIndex: activeIndex,
-                activeDataset: action.payload[activeIndex],
-                activeParser: dataParsers[activeIndex]
+                activeDataset: sortedPayload[activeIndex],
+                activeParser: dataParsers[activeIndex],
+                parserCollection: parserCollection
             };
         case EDIT_DATASET:
             return {
@@ -60,8 +72,8 @@ export default function datasetReducer(state, action) {
 
             return {
                 ...state,
-                activeDataset: state.datasets[activeIndex],
-                activeParser: state.dataParsers[activeIndex],
+                activeDataset: state.datasets && state.datasets[activeIndex],
+                activeParser: state.dataParsers && state.dataParsers[activeIndex],
                 activeDataRowIndex: activeIndex
             }
         case CLEAR_VALID_STATE:

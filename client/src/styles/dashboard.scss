@@ -1,0 +1,29 @@
+.dashboard-container {
+    padding: 10px ;
+    margin: calc(#{$navbarMargin} + 10px) 10px 10px 10px;
+}
+
+.overview-heading {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.overview-heading-label {
+    margin: 0;
+    font-weight: 400;
+}
+
+.overview-heading-dropdown {
+    margin: 0 10px;
+    width: auto;
+}
+
+.overview-trend-chart-container {
+    display: flex;
+    flex-direction: row;
+    height: 250px;
+}
+
+.overview-trend-chart {
+}

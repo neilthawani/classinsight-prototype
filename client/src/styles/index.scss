@@ -7,11 +7,13 @@
 @import "./hover_box.scss";
 @import "./legend.scss";
 @import "./navbar.scss";
+@import "./dashboard.scss";
 @import "./talk_ratio.scss";
 @import "./turn_taking.scss";
 @import "./script.scss";
 @import "./sidebar.scss";
 @import "./transcript.scss";
+@import "./trend_chart.scss";
 
 body {
     margin: 0;
@@ -58,11 +60,10 @@ p {
 
 .app-container {}
 
-.dashboard-container {}
-
 .dashboard-content {
     margin-top: $navbarMargin;
     margin-left: $sidebarWidth;
+    width: calc(100% - #{$sidebarWidth});
 }
 
 .dashboard-content .no-data {

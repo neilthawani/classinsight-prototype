@@ -174,7 +174,7 @@ class UserDetailsPage extends Component {
                 <tr>
                   <th>Class Topic</th>
                   <th>Date</th>
-                  <th>Period</th>
+                  <th>Period(s)</th>
                   <th>Actions</th>
                 </tr>
               </thead>

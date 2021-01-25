@@ -26,6 +26,13 @@
     cursor: default;
 }
 
+.legend-item-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-bottom: 25px;
+}
+
 // LegendItem.js
 .legend-item {
     margin-bottom: 2px;
@@ -33,6 +40,7 @@
     flex-direction: row;
     align-items: center;
     position: relative;
+    white-space: nowrap;
 }
 
 .legend-item-key {
