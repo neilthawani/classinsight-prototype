@@ -33,11 +33,16 @@ class App extends Component {
 
     // set button selector to match URL on refresh
     componentDidMount() {
-        this.props.listDatasets(this.props.auth.user.id).then((response) => {
-            this.setState({
-                areDatasetsLoaded: true
+        // debugger;
+        // if (!this.props.location.pathname.includes("preview"))  {
+            console.log(this.props.datasets.dataParsers, "this.props.location.pathname", this.props.location.pathname);
+            // console.log("this.props.match", this.props.match);
+            this.props.listDatasets(this.props.auth.user.id).then((response) => {
+                this.setState({
+                    areDatasetsLoaded: true
+                });
             });
-        });
+        // }
 
         var buttonSelectorSelectedOption = localStorage.getItem("buttonSelectorSelectedOption");
         var transcriptLocationHash = localStorage.getItem("transcriptLocationHash");

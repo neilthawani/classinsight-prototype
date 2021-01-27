@@ -17,7 +17,7 @@ class DatasetPreview extends Component {
         super(props);
 
         var userId = props.match.params.userId;
-
+        // console.log("userId", userId);
         this.state = {
             sidebarSelectedOption: 0,
             buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption") || "dashboard",
