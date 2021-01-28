@@ -138,14 +138,14 @@ class App extends Component {
               )}
             />
 
-            <PrivateRoute
-              path='/dashboard'
-              component={(props) => (
-                <Dashboard />
-              )}
-            />
-
             <div className="dashboard-content">
+              <PrivateRoute
+                path='/dashboard'
+                component={(props) => (
+                  <Dashboard {...props} />
+                )}
+              />
+              
               {/* A <Switch> looks through all its children <Route> elements and
                 renders the first one whose path matches the current URL.
                 Use a <Switch> any time you have multiple routes,
