@@ -28,9 +28,9 @@ class Sidebar extends Component {
     }
 
     componentDidMount() {
-        if (typeof this.props.datasets.activeDataRowIndex !== "number") {
+        {/*if (typeof this.props.datasets.activeDataRowIndex !== "number") {
             this.handleSidebarRowClick(0);
-        }
+        }*/}
 
         this.props.listDatasets(this.props.auth.user.id);
     }
@@ -42,10 +42,14 @@ class Sidebar extends Component {
             return null;
         }
 
+        var isDashboard = this.props.location.pathname.includes("dashboard");
+
+        // console.log("isDashboard", isDashboard);
+
         return (
           <div className="sidebar">
             <div
-              className={this.props.location.pathname.includes("dashboard") ? "sidebar-item active" : "sidebar-item"}
+              className={isDashboard ? "sidebar-item active" : "sidebar-item"}
               onClick={this.transitionToDashboard.bind(this)}
             >
               <span className="sidebar-item-title">Dashboard</span>
@@ -53,6 +57,7 @@ class Sidebar extends Component {
             </div>
             <SidebarGroup
               label="Courses"
+              hideActive={isDashboard}
               handleSidebarRowClick={this.handleSidebarRowClick.bind(this)} />
           </div>
         );

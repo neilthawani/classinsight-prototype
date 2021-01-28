@@ -44,7 +44,7 @@ class SidebarGroup extends Component {
 
                   return (
                     <div key={index}
-                      className={this.props.datasets.activeDataRowIndex === index ? "sidebar-data-row active" : "sidebar-data-row"}
+                      className={(this.props.datasets.activeDataRowIndex === index) && !this.props.hideActive ? "sidebar-data-row active" : "sidebar-data-row"}
                       onClick={this.handleSidebarRowClick.bind(this, index)}>
                       <div className="sidebar-data-row-title">
                         {topic}
