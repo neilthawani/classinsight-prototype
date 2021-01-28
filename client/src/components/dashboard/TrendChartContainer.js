@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import * as d3 from 'd3';
 import TrendChart from './TrendChart';
-import { removePropertyFromObject } from '../../../utils/removePropertyFromObject';
-import flattenArray from '../../../utils/flattenArray';
+import { removePropertyFromObject } from '../../utils/removePropertyFromObject';
+import flattenArray from '../../utils/flattenArray';
 import uuid from 'react-uuid'
 
 export default class TrendChartContainer extends Component {

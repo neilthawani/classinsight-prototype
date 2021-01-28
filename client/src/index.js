@@ -10,7 +10,7 @@ import setAuthToken from "./utils/setAuthToken";
 
 import { setCurrentUser, logoutUser } from "./actions/authActions";
 
-import App from './App';
+import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 
 // Check for token to keep user logged in

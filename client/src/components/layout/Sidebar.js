@@ -7,6 +7,9 @@ import { listDatasets, showDataset } from "../../actions/datasetActions";
 
 import SidebarGroup from './SidebarGroup';
 
+import Icon from '@mdi/react';
+import { mdiViewDashboardVariantOutline } from '@mdi/js';
+
 class Sidebar extends Component {
     handleSidebarRowClick(index) {
         this.props.handleSidebarRowClick(index);
@@ -18,6 +21,10 @@ class Sidebar extends Component {
         if (this.props.location.hash !== "") {
             this.props.history.push(this.props.location.pathname);
         }
+    }
+
+    transitionToDashboard() {
+        this.props.history.push("/dashboard");
     }
 
     componentDidMount() {
@@ -37,6 +44,13 @@ class Sidebar extends Component {
 
         return (
           <div className="sidebar">
+            <div
+              className={this.props.location.pathname.includes("dashboard") ? "sidebar-item active" : "sidebar-item"}
+              onClick={this.transitionToDashboard.bind(this)}
+            >
+              <span className="sidebar-item-title">Dashboard</span>
+              <Icon path={mdiViewDashboardVariantOutline} className="sidebar-item-icon" size={1} />
+            </div>
             <SidebarGroup
               label="Courses"
               handleSidebarRowClick={this.handleSidebarRowClick.bind(this)} />

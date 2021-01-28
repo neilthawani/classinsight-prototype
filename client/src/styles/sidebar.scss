@@ -5,10 +5,25 @@
     width: $sidebarWidth;
     height: calc(100% - #{$navbarHeight});
     margin-top: $navbarHeight;
+    border-right: 1px solid white;
     z-index: 999;
     background-color: $blue;
     color: white;
     overflow: auto;
+}
+
+.sidebar-item {
+    padding: 9px 10px 8px 10px;
+    font-weight: bold;
+    cursor: pointer;
+    border-bottom: 1px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sidebar-item-title {
+    font-size: 18px;
 }
 
 .sidebar-group-dropdown {

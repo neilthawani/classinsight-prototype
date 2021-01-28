@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import LegendItemGroup from '../../legend/LegendItemGroup';
+import LegendItemGroup from '../legend/LegendItemGroup';
 import TrendChartContainer from './TrendChartContainer';
-import formatDate from '../../../utils/formatDate';
-import removeArrayValue from '../../../utils/removeArrayValue';
+import formatDate from '../../utils/formatDate';
+import removeArrayValue from '../../utils/removeArrayValue';
 
 class Dashboard extends Component {
     constructor(props) {

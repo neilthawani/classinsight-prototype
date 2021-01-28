@@ -5,20 +5,22 @@ import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import Navbar from "./components/layout/Navbar";
+import Navbar from "./layout/Navbar";
 
-import Landing from "./components/layout/Landing";
-import Register from "./components/auth/Register";
-import Login from "./components/auth/Login";
-import PrivateRoute from "./components/private-route/PrivateRoute";
+import Landing from "./layout/Landing";
+import Register from "./auth/Register";
+import Login from "./auth/Login";
+import PrivateRoute from "./private-route/PrivateRoute";
 import DashboardMenus from './DashboardMenus';
 
-import AdminPanel from './components/admin/AdminPanel';
-import UserDetailsPage from './components/admin/UserDetailsPage';
-import DatasetPreview from './components/admin/DatasetPreview';
+import Dashboard from './dashboard/Dashboard';
 
-import { listDatasets } from "./actions/datasetActions";
-import dashboardRoutes from './fixtures/dashboardRoutes';
+import AdminPanel from './admin/AdminPanel';
+import UserDetailsPage from './admin/UserDetailsPage';
+import DatasetPreview from './admin/DatasetPreview';
+
+import { listDatasets } from "../actions/datasetActions";
+import dashboardRoutes from '../fixtures/dashboardRoutes';
 
 class App extends Component {
     constructor(props) {
@@ -35,7 +37,7 @@ class App extends Component {
     componentDidMount() {
         // debugger;
         // if (!this.props.location.pathname.includes("preview"))  {
-            console.log(this.props.datasets.dataParsers, "this.props.location.pathname", this.props.location.pathname);
+            // console.log(this.props.datasets.dataParsers, "this.props.location.pathname", this.props.location.pathname);
             // console.log("this.props.match", this.props.match);
             this.props.listDatasets(this.props.auth.user.id).then((response) => {
                 this.setState({
@@ -133,6 +135,13 @@ class App extends Component {
               path='/admin/user/:userId/preview'
               component={(props) => (
                 <DatasetPreview {...props} />
+              )}
+            />
+
+            <PrivateRoute
+              path='/dashboard'
+              component={(props) => (
+                <Dashboard />
               )}
             />
 

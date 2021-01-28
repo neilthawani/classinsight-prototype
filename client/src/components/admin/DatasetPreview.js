@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import DashboardMenus from '../../DashboardMenus';
+import DashboardMenus from '../DashboardMenus';
 import { listDatasets } from "../../actions/datasetActions";
 import PrivateRoute from "../private-route/PrivateRoute";
 import { Switch } from "react-router-dom";
 
-import Dashboard from "../visualizations/dashboard/Dashboard";
-import TalkRatio from '../visualizations/talk-ratio/TalkRatio';
-import Transcript from '../visualizations/transcript/Transcript';
-import TurnTaking from '../visualizations/turn-taking/TurnTaking';
+import Dashboard from "../dashboard/Dashboard";
+import TalkRatio from '../visualization/talk-ratio/TalkRatio';
+import Transcript from '../visualization/transcript/Transcript';
+import TurnTaking from '../visualization/turn-taking/TurnTaking';
 
 class DatasetPreview extends Component {
     constructor(props) {

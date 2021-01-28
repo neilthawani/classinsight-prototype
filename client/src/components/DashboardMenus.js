@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import ButtonSelector from './components/ButtonSelector';
-import Sidebar from "./components/layout/Sidebar";
+import ButtonSelector from './ButtonSelector';
+import Sidebar from "./layout/Sidebar";
 
 class DashboardMenus extends Component {
     handleButtonSelectorClick(value) {
