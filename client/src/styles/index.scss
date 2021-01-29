@@ -46,25 +46,12 @@ p {
     text-align: right;
 }
 
-.text-with-link {
-    display: block;
-    margin: 5px 0;
-    font-size: 10px;
-}
-
 .hidden {
     display: none;
 }
-
-.app {}
-
-.app-container {}
 
 .dashboard-content {
     margin-top: $navbarMargin;
     margin-left: $sidebarWidth;
     width: calc(100% - #{$sidebarWidth});
-}
-
-.dashboard-content .no-data {
 }

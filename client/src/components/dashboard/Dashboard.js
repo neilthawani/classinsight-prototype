@@ -34,7 +34,7 @@ class Dashboard extends Component {
     render() {
         if (!this.props.datasets.activeParser) {
             return (
-              <div className="no-data">
+              <div>
                 <h2>Please upload data to use ClassInSight.</h2>
               </div>
             )

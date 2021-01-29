@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Route, Switch } from "react-router-dom";
+import { Route } from "react-router-dom"; // Switch
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -11,32 +11,21 @@ import Landing from "./layout/Landing";
 import Register from "./auth/Register";
 import Login from "./auth/Login";
 import PrivateRoute from "./private-route/PrivateRoute";
-import DashboardMenus from './DashboardMenus';
+// import DashboardMenus from './DashboardMenus';
 
 import Dashboard from './dashboard/Dashboard';
+import Visualization from './visualization/Visualization';
 
 import AdminPanel from './admin/AdminPanel';
-import UserDetailsPage from './admin/UserDetailsPage';
-import DatasetPreview from './admin/DatasetPreview';
 
 import { listDatasets } from "../actions/datasetActions";
 import dashboardRoutes from '../fixtures/dashboardRoutes';
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            areDatasetsLoaded: false,
-            sidebarSelectedOption: localStorage.getItem("sidebarSelectedOption"),
-            buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption")
-        };
-    }
-
     // set button selector to match URL on refresh
     componentDidMount() {
         // debugger;
-        // if (!this.props.location.pathname.includes("preview"))  {
+        if (!this.props.location.pathname.includes("preview"))  {
             // console.log(this.props.datasets.dataParsers, "this.props.location.pathname", this.props.location.pathname);
             // console.log("this.props.match", this.props.match);
             this.props.listDatasets(this.props.auth.user.id).then((response) => {
@@ -44,7 +33,7 @@ class App extends Component {
                     areDatasetsLoaded: true
                 });
             });
-        // }
+        }
 
         var buttonSelectorSelectedOption = localStorage.getItem("buttonSelectorSelectedOption");
         var transcriptLocationHash = localStorage.getItem("transcriptLocationHash");
@@ -73,43 +62,11 @@ class App extends Component {
         this.unlisten();
     }
 
-    handleSidebarRowClick(value) {
-        localStorage.setItem("sidebarSelectedOption", value);
-
-        this.setState({
-            sidebarSelectedOption: value
-        });
-    }
-
-    handleButtonSelectorClick(value) {
-        localStorage.setItem("buttonSelectorSelectedOption", value);
-
-        this.setState({
-            buttonSelectorSelectedOption: value
-        });
-    }
-
-    dashboardRoutes(admin) {
-        return dashboardRoutes.definitions();
-    }
-
     render() {
-        if (!this.state.areDatasetsLoaded) {
-            return null;
-        }
-
         return (
-          <div className="app">
+          <div>
             <Navbar
               datasets={this.props.datasets}/>
-
-            {dashboardRoutes.paths.includes(window.location.pathname) ?
-              <DashboardMenus
-                sidebarSelectedOption={this.state.sidebarSelectedOption}
-                handleSidebarRowClick={this.handleSidebarRowClick.bind(this)}
-                buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
-                handleButtonSelectorClick={this.handleButtonSelectorClick.bind(this)}
-                datasets={this.props.datasets} /> : null}
 
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
@@ -124,45 +81,17 @@ class App extends Component {
             />
 
             <PrivateRoute
-              exact
-              path='/admin/user/:userId'
+              path='/visualization'
               component={(props) => (
-                <UserDetailsPage {...props} />
+                <Visualization {...props} />
               )}
             />
-
             <PrivateRoute
-              path='/admin/user/:userId/preview'
+              path='/dashboard'
               component={(props) => (
-                <DatasetPreview {...props} />
+                <Dashboard {...props} />
               )}
             />
-
-            <div className="dashboard-content">
-              <PrivateRoute
-                path='/dashboard'
-                component={(props) => (
-                  <Dashboard {...props} />
-                )}
-              />
-              
-              {/* A <Switch> looks through all its children <Route> elements and
-                renders the first one whose path matches the current URL.
-                Use a <Switch> any time you have multiple routes,
-                but you want only one of them to render at a time. */}
-              <Switch>
-                {this.dashboardRoutes().map((routeObj, index) => {
-                    return (
-                        <PrivateRoute
-                          exact
-                          key={index}
-                          path={routeObj.path}
-                          component={routeObj.component}
-                        />
-                    )
-                })}
-              </Switch>
-            </div>
           </div>
         );
     }
