@@ -8,38 +8,31 @@ import { listDatasets, showDataset } from "../../actions/datasetActions";
 import SidebarGroup from './SidebarGroup';
 
 class Sidebar extends Component {
-    handleSidebarRowClick(index) {
-        this.props.handleSidebarRowClick(index);
-
-        localStorage.setItem("activeDataRowIndex", index);
-
-        this.props.showDataset(index);
-
-        if (this.props.location.hash !== "") {
-            this.props.history.push(this.props.location.pathname);
-        }
-    }
-
-    componentDidMount() {
-        if (typeof this.props.datasets.activeDataRowIndex !== "number") {
-            this.handleSidebarRowClick(0);
-        }
-
-        this.props.listDatasets(this.props.auth.user.id);
+    transitionToDashboard() {
+        this.props.history.push("/dashboard");
     }
 
     render() {
-        var areDatasetsLoaded = this.props.datasets.activeParser;
+        // Note 1/31/21: Leave this here for now in case something breaks.
+        // var areDatasetsLoaded = this.props.datasets.activeParser;
+        //
+        // if (!areDatasetsLoaded) {
+        //     return null;
+        // }
 
-        if (!areDatasetsLoaded) {
-            return null;
-        }
+        var isDashboard = this.props.location.pathname.includes("dashboard");
+
+        var { buttonSelectorSelectedOption, sidebarSelectedCourse } = this.props;
 
         return (
           <div className="sidebar">
             <SidebarGroup
               label="Courses"
-              handleSidebarRowClick={this.handleSidebarRowClick.bind(this)} />
+              hideActive={isDashboard}
+              buttonSelectorSelectedOption={buttonSelectorSelectedOption}
+              sidebarSelectedCourse={sidebarSelectedCourse}
+              handleSidebarRowCourseClick={this.props.handleSidebarRowCourseClick.bind(this)}
+              />
           </div>
         );
     }

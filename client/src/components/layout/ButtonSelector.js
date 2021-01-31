@@ -4,26 +4,9 @@ import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import Icon from '@mdi/react';
 import { mdiAccount } from '@mdi/js';
-import dashboardRoutes from '../fixtures/dashboardRoutes';
+import dashboardRoutes from '../../fixtures/dashboardRoutes';
 
 class ButtonSelector extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            admin: {}
-        };
-
-        var userId = props.match.params.userId;
-
-        if (userId) {
-            this.state = {
-                admin: {
-                    userId: userId
-                }
-            };
-        }
-    }
-
     shouldComponentUpdate(nextProps, nextState) {
         var buttonSelectorSelectedOption = nextProps.location.pathname.slice(nextProps.location.pathname.lastIndexOf("/") + 1);
         if (buttonSelectorSelectedOption !== nextProps.buttonSelectorSelectedOption) {
@@ -38,16 +21,17 @@ class ButtonSelector extends Component {
     }
 
     render() {
-        var areDatasetsLoaded = this.props.datasets.activeParser;
-
-        if (!areDatasetsLoaded) {
-            return null;
-        }
+        // Note 1/31/21: Leave this here for now in case something breaks.
+        // var areDatasetsLoaded = this.props.datasets.activeParser;
+        //
+        // if (!areDatasetsLoaded) {
+        //     return null;
+        // }
 
         return (
           <div className="button-selector">
             <div className="button-selector-options">
-              {dashboardRoutes.definitions(this.state.admin).map((definitionObj, index, array) => {
+              {dashboardRoutes.definitions(this.props.admin).map((definitionObj, index, array) => {
                   return (
                     <Link
                       key={index}

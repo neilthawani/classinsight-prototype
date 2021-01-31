@@ -9,7 +9,8 @@
     }
 }
 
-.preview-container .button-selector {
+// .preview-container 
+.button-selector {
     margin-top: -$navbarMargin;
 }
 
@@ -18,12 +19,12 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: calc(100% - #{$sidebarWidth} - 1px);
+    width: calc(100% - #{$sidebarWidth});
     flex: 1;
     background-color: $blue;
     font-size: 16px;
     font-weight: 300;
-    margin-left: $sidebarWidth;
+    margin-left: calc(#{$sidebarWidth});
     z-index: 999;
     position: fixed;
 }

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import * as d3 from 'd3';
 import TrendChart from './TrendChart';
-import { removePropertyFromObject } from '../../../utils/removePropertyFromObject';
-import flattenArray from '../../../utils/flattenArray';
+import { removePropertyFromObject } from '../../utils/removePropertyFromObject';
+import flattenArray from '../../utils/flattenArray';
 import uuid from 'react-uuid'
 
 export default class TrendChartContainer extends Component {
@@ -71,7 +71,7 @@ export default class TrendChartContainer extends Component {
         var xAxis = d3.axisBottom(xScale).tickFormat(d3.timeFormat("%m-%d"));
         var yAxis = d3.axisLeft(yScale);
 
-        var xAxisTransform = "translate(0," + parseInt(state.display.svgHeight - margin.top, 0) + ")",
+        var xAxisTransform = "translate(0," + parseInt(svgHeight - margin.top, 0) + ")",
             yAxisTransform = `translate(${margin.bottom}, 0)`;
 
         this.setState({
