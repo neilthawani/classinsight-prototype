@@ -3,14 +3,6 @@ import ButtonSelector from './ButtonSelector';
 import Sidebar from "./Sidebar";
 
 class DashboardMenus extends Component {
-    handleButtonSelectorClick(value) {
-        this.props.handleButtonSelectorClick(value);
-    }
-
-    // handleSidebarRowClick(value) {
-    //     this.props.handleSidebarRowClick(value);
-    // }
-
     render() {
         var { buttonSelectorSelectedOption, sidebarSelectedCourse, admin } = this.props;
 

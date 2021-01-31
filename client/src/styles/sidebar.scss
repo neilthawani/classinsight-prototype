@@ -12,16 +12,10 @@
     overflow: auto;
 }
 
-// .sidebar-header-item {
-//     padding: 12px 10px 11px 10px;
-//     border-bottom: 1px solid white;
-// }
-
 .sidebar-item {
     padding: 9px 10px 8px 10px;
     font-weight: bold;
     cursor: pointer;
-    // border-bottom: 1px solid white;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -44,7 +38,6 @@
     font-weight: bold;
     justify-content: space-between;
     cursor: pointer;
-    // border-bottom: 1px solid white;
 }
 
 .sidebar-group-dropdown.expanded + .sidebar-group-data {
@@ -73,7 +66,6 @@
 .sidebar-data-row.active {
     background-color: white;
     color: $blue;
-    // border-right: white;
 }
 
 .sidebar-data-row-title {

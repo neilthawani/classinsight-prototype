@@ -20,23 +20,10 @@ class SidebarGroup extends Component {
         this.setState({ isCollapsed: !isCollapsed });
     }
 
-    // handleSidebarRowCourseClick(index) {
-    //     this.props.handleSidebarRowCourseClick(index);
-    // }
-
     render() {
         var isCollapsed = this.state.isCollapsed;
-        // var { sidebarSelectedCourse } = this.props;
-        // console.log("this.props.datasets.activeDataRowIndex", this.props.datasets.activeDataRowIndex, "sidebarSelectedCourse", sidebarSelectedCourse);
 
-        // console.log("this.props.buttonSelectorSelectedOption", this.props.buttonSelectorSelectedOption);
-        // console.log("this.props.match", this.props.match);
-        var linkTo = this.props.buttonSelectorSelectedOption === "dashboard" ? `${this.props.match.url}/talk-ratio` : `${this.props.match.url}/${this.props.buttonSelectorSelectedOption}`
-        // console.log("linkTo", linkTo);
-      //) {
-        //     console.log("this.props.history", this.props.history);
-        //     this.props.history.push(`/visualization/talk-ratio`);
-        // }
+        var linkTo = this.props.buttonSelectorSelectedOption === "dashboard" ? `${this.props.match.url}/talk-ratio` : `${this.props.match.url}/${this.props.buttonSelectorSelectedOption}`;
 
         return (
           <div className="sidebar-group-container">

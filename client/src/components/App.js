@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Route } from "react-router-dom"; // Switch
+import { Route } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -11,20 +11,12 @@ import Landing from "./Landing";
 import Register from "./auth/Register";
 import Login from "./auth/Login";
 import PrivateRoute from "./private-route/PrivateRoute";
-// import DashboardMenus from './DashboardMenus';
 
-// import Dashboard from './dashboard/Dashboard';
-// import BaseViz from './visualization/BaseViz';
 import AdminViz from './visualization/AdminViz';
 import UserViz from './visualization/UserViz';
 
 import AdminPanel from './admin/AdminPanel';
 import UserDetailsPage from './admin/UserDetailsPage';
-// import DatasetPreview from './admin/DatasetPreview';
-
-
-// import { listDatasets } from "../actions/datasetActions";
-// import dashboardRoutes from '../fixtures/dashboardRoutes';
 
 class App extends Component {
     render() {
@@ -53,13 +45,6 @@ class App extends Component {
               )}
             />
 
-            {/*<PrivateRoute
-              path='/admin/user/:userId/preview'
-              component={(props) => (
-                <DatasetPreview {...props} />
-              )}
-            />*/}
-
             <PrivateRoute
               path='/admin/user/:userId/preview'
               component={(props) => (
@@ -79,8 +64,7 @@ class App extends Component {
 }
 
 App.propTypes = {
-    auth: PropTypes.object.isRequired,
-    // listDatasets: PropTypes.func.isRequired
+    auth: PropTypes.object.isRequired
 }
 
 // NOTE: Do not bind admin.datasets to this method.
@@ -93,5 +77,5 @@ function mapStateToProps(state) {
 
 export default withRouter(connect(
   mapStateToProps,
-  { }//listDatasets
+  {}
 )(App));

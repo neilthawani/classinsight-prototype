@@ -77,7 +77,6 @@ export const listDatasets = (userId) => {
                 }
             })
             .then(response => {
-                // console.trace("response", response);
                 return response && response.data;
             })
             .then(ret => {

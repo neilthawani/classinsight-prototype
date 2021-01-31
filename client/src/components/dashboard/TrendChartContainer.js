@@ -71,7 +71,6 @@ export default class TrendChartContainer extends Component {
         var xAxis = d3.axisBottom(xScale).tickFormat(d3.timeFormat("%m-%d"));
         var yAxis = d3.axisLeft(yScale);
 
-        // console.log("state.display.svgHeight", svgHeight);
         var xAxisTransform = "translate(0," + parseInt(svgHeight - margin.top, 0) + ")",
             yAxisTransform = `translate(${margin.bottom}, 0)`;
 

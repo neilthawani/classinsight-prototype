@@ -32,7 +32,6 @@ class Dashboard extends Component {
     }
 
     render() {
-        // console.log("here");
         if (!this.props.datasets.activeParser) {
             return (
               <div className="dashboard-container">
@@ -42,9 +41,6 @@ class Dashboard extends Component {
         }
 
         var parserCollection = this.props.datasets.parserCollection;
-
-        // if (parserCollection.dataParsers.length)
-        // console.log(parserCollection.dataParsers.length);
 
         if (parserCollection.dataParsers.length < 2) {
             return (
