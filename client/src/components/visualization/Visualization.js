@@ -27,7 +27,7 @@ class Visualization extends Component {
 
     handleSidebarRowCourseClick(value) {
         this.props.showDataset(value);
-        console.log("handleSidebarRowCourseClick", value);
+        // console.log("handleSidebarRowCourseClick", value);
         // handleSidebarRowClick
         localStorage.setItem("activeDataRowIndex", value);
 

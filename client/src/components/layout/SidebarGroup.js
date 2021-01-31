@@ -29,8 +29,8 @@ class SidebarGroup extends Component {
         var { sidebarSelectedCourse } = this.props;
         // console.log("this.props.datasets.activeDataRowIndex", this.props.datasets.activeDataRowIndex, "sidebarSelectedCourse", sidebarSelectedCourse);
 
-        console.log("this.props.buttonSelectorSelectedOption", this.props.buttonSelectorSelectedOption);
-        console.log("this.props.match", this.props.match);
+        // console.log("this.props.buttonSelectorSelectedOption", this.props.buttonSelectorSelectedOption);
+        // console.log("this.props.match", this.props.match);
         var linkTo = this.props.buttonSelectorSelectedOption === "dashboard" ? `${this.props.match.url}/talk-ratio` : `${this.props.match.url}/${this.props.buttonSelectorSelectedOption}`
         // console.log("linkTo", linkTo);
       //) {

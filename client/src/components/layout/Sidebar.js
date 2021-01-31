@@ -68,7 +68,7 @@ class Sidebar extends Component {
 
         return (
           <div className="sidebar">
-            <div className="sidebar-header-item">&nbsp;</div>
+            {/*<div className="sidebar-header-item">&nbsp;</div>*/}
             {/*<Link
               className={isDashboard ? "sidebar-item active" : "sidebar-item"}
               to="/visualization/dashboard"
