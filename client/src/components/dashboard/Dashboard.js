@@ -49,7 +49,7 @@ class Dashboard extends Component {
         if (parserCollection.dataParsers.length < 2) {
             return (
               <div className="dashboard-container">
-                <h3>Please upload more than one data set to view aggregated data.</h3>
+                <h2>Please upload more than one data set to view aggregated data.</h2>
               </div>
             )
         }
