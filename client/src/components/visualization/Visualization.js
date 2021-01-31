@@ -104,12 +104,12 @@ class Visualization extends Component {
               datasets={this.props.datasets} />
 
             <div className="dashboard-content">
-              <PrivateRoute
+              {/*<PrivateRoute
                 path='/visualization/dashboard'
                 component={(props) => (
                   <Dashboard {...props} />
                 )}
-              />
+              />*/}
               {/* A <Switch> looks through all its children <Route> elements and
                 renders the first one whose path matches the current URL.
                 Use a <Switch> any time you have multiple routes,
