@@ -69,13 +69,13 @@ class Sidebar extends Component {
         return (
           <div className="sidebar">
             <div className="sidebar-header-item">&nbsp;</div>
-            <Link
+            {/*<Link
               className={isDashboard ? "sidebar-item active" : "sidebar-item"}
               to="/visualization/dashboard"
               onClick={this.transitionToDashboard.bind(this)}>
               <span className="sidebar-item-title">Dashboard</span>
               <Icon path={mdiViewDashboardVariantOutline} className="sidebar-item-icon" size={1} />
-            </Link>
+            </Link>*/}
             <SidebarGroup
               label="Courses"
               hideActive={isDashboard}

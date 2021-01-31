@@ -1,21 +1,20 @@
-// import Dashboard from "../components/dashboard/Dashboard";
-// mdiViewDashboardVariantOutline,
+import Dashboard from "../components/dashboard/Dashboard";
 import TalkRatio from '../components/visualization/talk-ratio/TalkRatio';
 import Transcript from '../components/visualization/transcript/Transcript';
 import TurnTaking from '../components/visualization/turn-taking/TurnTaking';
 
 import Icon from '@mdi/react';
-import { mdiBarcode, mdiChartGantt, mdiCommentTextMultipleOutline } from '@mdi/js';
+import { mdiViewDashboardVariantOutline, mdiBarcode, mdiChartGantt, mdiCommentTextMultipleOutline } from '@mdi/js';
 
 var definitions = function(admin) {
     return [
-      // {
-        // path: `/dashboard`,
-        // component: (props) => ( <Dashboard {...props} /> ),
-        // buttonValue: "dashboard",
-        // label: "Dashboard",
-        // icon: <Icon path={mdiViewDashboardVariantOutline} className="button-selector-item-icon" size={1} />
-    // },
+      {
+        path: `/visualization/dashboard`,
+        component: (props) => ( <Dashboard {...props} /> ),
+        buttonValue: "dashboard",
+        label: "Dashboard",
+        icon: <Icon path={mdiViewDashboardVariantOutline} className="button-selector-item-icon" size={1} />
+    },
     {
         path: `/visualization/talk-ratio`,
         component: (props) => ( <TalkRatio {...props} /> ),
@@ -40,7 +39,7 @@ var definitions = function(admin) {
 var paths = definitions().reduce((prev, routeObj) => {
     prev.push(routeObj.path);
     return prev;
-}, ["/dashboard"]);
+}, []);
 
 var dashboardRoutes = { definitions, paths };
 
