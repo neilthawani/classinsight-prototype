@@ -22,11 +22,11 @@ import dashboardRoutes from '../../fixtures/dashboardRoutes';
 
 class AdminViz extends Component {
     constructor(props) {
-        console.log("AdminViz constructor", props);
+        // console.log("AdminViz constructor", props);
         // debugger;
         super(props);
 
-        console.log("Viz userId", props.match.params.userId);
+        // console.log("Viz userId", props.match.params.userId);
         // var isAdmin = false;//props.match.params.hasOwnProperty("userId");
         // console.log("isAdmin", isAdmin);
 
@@ -82,7 +82,7 @@ class AdminViz extends Component {
 
     // set button selector to match URL on refresh
     componentDidMount() {
-        console.log("this.props", this.props);
+        // console.log("this.props", this.props);
 
         this.props.listDatasets(this.state.admin.userId).then((response) => {
             this.setState({
@@ -163,7 +163,7 @@ class AdminViz extends Component {
                 })}*/}
 
                 {this.dashboardRoutes(this.state.admin).map((routeObj, index) => {
-                    console.log("routeObj.path", routeObj.path);
+                    // console.log("routeObj.path", routeObj.path);
                     return (
                         <PrivateRoute
                           exact

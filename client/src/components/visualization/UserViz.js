@@ -22,7 +22,7 @@ import dashboardRoutes from '../../fixtures/dashboardRoutes';
 
 class UserViz extends Component {
     constructor(props) {
-        console.log("UserViz constructor", props);
+        // console.log("UserViz constructor", props);
         // debugger;
         super(props);
 
@@ -68,7 +68,7 @@ class UserViz extends Component {
 
     // set button selector to match URL on refresh
     componentDidMount() {
-        console.log("this.props", this.props);
+        // console.log("this.props", this.props);
 
         this.props.listDatasets(this.props.auth.user.id).then((response) => {
             this.setState({

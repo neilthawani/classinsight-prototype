@@ -43,6 +43,17 @@ class Dashboard extends Component {
 
         var parserCollection = this.props.datasets.parserCollection;
 
+        // if (parserCollection.dataParsers.length)
+        // console.log(parserCollection.dataParsers.length);
+
+        if (parserCollection.dataParsers.length < 2) {
+            return (
+              <div className="dashboard-container">
+                <h3>Please upload more than one data set to view aggregated data.</h3>
+              </div>
+            )
+        }
+
         return (
           <div className="dashboard-container">
             <div className="overview-heading">

@@ -8,9 +8,9 @@ import { mdiViewDashboardVariantOutline, mdiBarcode, mdiChartGantt, mdiCommentTe
 
 var definitions = function(admin) {
     var routePrefix = "/visualization";
-    console.trace("admin exists?", admin);
+    // console.trace("admin exists?", admin);
     if (admin) {
-        console.log("admin exists?");
+        // console.log("admin exists?");
         routePrefix = `/admin/user/${admin.userId}/preview`;
     }
 

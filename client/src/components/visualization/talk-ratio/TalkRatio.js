@@ -35,7 +35,7 @@ Each object in the array has this structure:
 
 class TalkRatio extends Component {
     constructor(props) {
-        console.log("TalkRatio constructor");
+        // console.log("TalkRatio constructor");
         super(props);
 
         this.state = {
