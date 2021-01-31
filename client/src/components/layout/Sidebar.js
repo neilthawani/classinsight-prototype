@@ -55,11 +55,11 @@ class Sidebar extends Component {
     // }
 
     render() {
-        var areDatasetsLoaded = this.props.datasets.activeParser;
-
-        if (!areDatasetsLoaded) {
-            return null;
-        }
+        // var areDatasetsLoaded = this.props.datasets.activeParser;
+        //
+        // if (!areDatasetsLoaded) {
+        //     return null;
+        // }
 
         var isDashboard = this.props.location.pathname.includes("dashboard");
 

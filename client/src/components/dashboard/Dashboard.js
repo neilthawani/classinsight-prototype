@@ -35,7 +35,7 @@ class Dashboard extends Component {
         // console.log("here");
         if (!this.props.datasets.activeParser) {
             return (
-              <div>
+              <div className="dashboard-container">
                 <h2>Please upload data to use ClassInSight.</h2>
               </div>
             )

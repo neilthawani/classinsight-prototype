@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import DashboardMenus from '../layout/DashboardMenus';
 import { listDatasets, showDataset } from "../../actions/datasetActions";
 import PrivateRoute from "../private-route/PrivateRoute";
-import { Switch } from "react-router-dom";
+// import { Switch } from "react-router-dom";
 // import BaseViz from './BaseViz';
 
 // import Dashboard from "../dashboard/Dashboard";
