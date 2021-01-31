@@ -94,6 +94,9 @@ class AdminPanel extends Component {
               </thead>
               <tbody>
                 {(users || []).map((user, index) => {
+                    // console.log("user", user);
+                    if (!user) return null;
+
                     var isCurrentUser = this.props.auth.user.id === user._id,
                         isDeletingUser = user._id && (this.state.userToDelete._id === user._id);
 

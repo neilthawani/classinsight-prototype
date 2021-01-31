@@ -51,14 +51,14 @@ export default function adminReducer(state, action) {
                 ...state,
                 errors: action.payload
             }
-            case SHOW_USER:
+        case SHOW_USER:
+            return {
+                ...state,
+                user: action.payload
+            }
+            default:
                 return {
-                    ...state,
-                    user: action.payload
-                }
-                default:
-                    return {
-                        ...state
-                    };
+                    ...state
+                };
     }
 }

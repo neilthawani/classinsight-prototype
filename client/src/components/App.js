@@ -13,16 +13,16 @@ import Login from "./auth/Login";
 import PrivateRoute from "./private-route/PrivateRoute";
 // import DashboardMenus from './DashboardMenus';
 
-import Dashboard from './dashboard/Dashboard';
+// import Dashboard from './dashboard/Dashboard';
 import Visualization from './visualization/Visualization';
 
 import AdminPanel from './admin/AdminPanel';
 import UserDetailsPage from './admin/UserDetailsPage';
-import DatasetPreview from './admin/DatasetPreview';
+// import DatasetPreview from './admin/DatasetPreview';
 
 
-import { listDatasets } from "../actions/datasetActions";
-import dashboardRoutes from '../fixtures/dashboardRoutes';
+// import { listDatasets } from "../actions/datasetActions";
+// import dashboardRoutes from '../fixtures/dashboardRoutes';
 
 class App extends Component {
     render() {
@@ -51,12 +51,12 @@ class App extends Component {
               )}
             />
 
-            <PrivateRoute
+            {/*<PrivateRoute
               path='/admin/user/:userId/preview'
               component={(props) => (
                 <DatasetPreview {...props} />
               )}
-            />
+            />*/}
 
             <PrivateRoute
               path='/visualization'

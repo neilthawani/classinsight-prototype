@@ -14,14 +14,22 @@ import TurnTaking from './turn-taking/TurnTaking';
 
 import dashboardRoutes from '../../fixtures/dashboardRoutes';
 
+// under componentDidMount:
+// listDatasets
+// this.props.auth.user.id
+// props.match.params.userId
+
 class Visualization extends Component {
     constructor(props) {
+        console.log("Visualization constructor", props);
         super(props);
 
         this.state = {
-            areDatasetsLoaded: false,
             sidebarSelectedCourse: localStorage.getItem("activeDataRowIndex"),
-            buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption")
+            buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption"),
+            areDatasetsLoaded: false,
+
+
         };
     }
 
@@ -65,35 +73,48 @@ class Visualization extends Component {
         // }
 
     // set button selector to match URL on refresh
-    // componentDidMount() {
-    //     var buttonSelectorSelectedOption = localStorage.getItem("buttonSelectorSelectedOption");
-    //     var transcriptLocationHash = localStorage.getItem("transcriptLocationHash");
-    //
-    //     if (dashboardRoutes.paths.includes(this.props.location.pathname)) {
-    //         this.props.history.push(`${buttonSelectorSelectedOption}${transcriptLocationHash}`);
-    //     }
-    //
-    //     this.unlisten = this.props.history.listen((location, action) => {
-    //         var buttonSelectorSelectedOption = location.pathname;
-    //         var transcriptLocationHash = window.location.hash || "";
-    //
-    //         if (dashboardRoutes.paths.includes(buttonSelectorSelectedOption)) {
-    //             this.setState({
-    //                 buttonSelectorSelectedOption: buttonSelectorSelectedOption.slice(1),
-    //                 transcriptLocationHash: transcriptLocationHash
-    //             });
-    //
-    //             localStorage.setItem("buttonSelectorSelectedOption", buttonSelectorSelectedOption.slice(1));
-    //             localStorage.setItem("transcriptLocationHash", transcriptLocationHash);
-    //         }
-    //     }).bind(this);
-    // }
-    //
-    // componentWillUnmount() {
-    //     this.unlisten();
-    // }
+    componentDidMount() {
+        console.log("this.props", this.props);
+
+
+        // var buttonSelectorSelectedOption = localStorage.getItem("buttonSelectorSelectedOption");
+        // var transcriptLocationHash = localStorage.getItem("transcriptLocationHash");
+        //
+        // if (dashboardRoutes.paths.includes(this.props.location.pathname)) {
+        //     this.props.history.push(`${buttonSelectorSelectedOption}${transcriptLocationHash}`);
+        // }
+        //
+        // this.unlisten = this.props.history.listen((location, action) => {
+        //     var buttonSelectorSelectedOption = location.pathname;
+        //     var transcriptLocationHash = window.location.hash || "";
+        //
+        //     if (dashboardRoutes.paths.includes(buttonSelectorSelectedOption)) {
+        //         this.setState({
+        //             buttonSelectorSelectedOption: buttonSelectorSelectedOption.slice(1),
+        //             transcriptLocationHash: transcriptLocationHash
+        //         });
+        //
+        //         localStorage.setItem("buttonSelectorSelectedOption", buttonSelectorSelectedOption.slice(1));
+        //         localStorage.setItem("transcriptLocationHash", transcriptLocationHash);
+        //     }
+        // }).bind(this);
+    }
+
+    componentWillUnmount() {
+        // this.unlisten();
+    }
 
     render() {
+        // console.log("Visualization");
+        // var areDatasetsLoaded = Object.keys(this.props.datasets).length > 0;
+        //
+        // if (!areDatasetsLoaded) {
+        //     return null;
+        // }
+
+        // TODO: How is this calculated?
+        // admin={{ userId: this.state.userId }}
+        // datasets={this.props.datasets}
         return (
           <div>
             <DashboardMenus
@@ -125,6 +146,41 @@ class Visualization extends Component {
                         />
                     )
                 })}
+
+                {/*{this.dashboardRoutes(true).map((routeObj, index) => {
+                    return (
+                        <PrivateRoute
+                          exact
+                          key={index}
+                          path={routeObj.path}
+                          component={routeObj.component}
+                        />
+                    )
+                })}*/}
+
+                <PrivateRoute
+                  exact
+                  path='/visualization/admin/user/:userId/preview/dashboard'
+                  component={(props) => ( <Dashboard {...props} /> )}
+                />
+
+                <PrivateRoute
+                  exact
+                  path='/visualization/admin/user/:userId/preview/talk-ratio'
+                  component={(props) => ( <TalkRatio {...props} /> )}
+                />
+
+                <PrivateRoute
+                  exact
+                  path='/visualization/admin/user/:userId/preview/turn-taking'
+                  component={(props) => ( <TurnTaking {...props} /> )}
+                />
+
+                <PrivateRoute
+                  exact
+                  path='/visualization/admin/user/:userId/preview/transcript'
+                  component={(props) => ( <Transcript {...props} /> )}
+                />
               </Switch>
             </div>
           </div>
@@ -133,14 +189,18 @@ class Visualization extends Component {
 }
 
 Visualization.propTypes = {
+    admin: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired,
+    datasets: PropTypes.object.isRequired,
     listDatasets: PropTypes.func.isRequired,
     showDataset: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
     return {
+        admin: state.admin,
         auth: state.auth,
+        datasets: state.datasets,
     }
 };
 

@@ -6,29 +6,33 @@ import TurnTaking from '../components/visualization/turn-taking/TurnTaking';
 import Icon from '@mdi/react';
 import { mdiViewDashboardVariantOutline, mdiBarcode, mdiChartGantt, mdiCommentTextMultipleOutline } from '@mdi/js';
 
-var definitions = function(admin) {
-    return [
-      {
-        path: `/visualization/dashboard`,
+var definitions = function(isAdmin) {
+    var routePrefix = "/visualization";
+
+    if (isAdmin) {
+        routePrefix = "/visualization/admin/user/:userId/preview";
+    }
+
+    return [{
+        path: `${routePrefix}/dashboard`,
         component: (props) => ( <Dashboard {...props} /> ),
         buttonValue: "dashboard",
         label: "Dashboard",
         icon: <Icon path={mdiViewDashboardVariantOutline} className="button-selector-item-icon" size={1} />
-    },
-    {
-        path: `/visualization/talk-ratio`,
+    }, {
+        path: `${routePrefix}/talk-ratio`,
         component: (props) => ( <TalkRatio {...props} /> ),
         buttonValue: "talk-ratio",
         label: "Talk Ratio",
         icon: <Icon path={mdiBarcode} className="button-selector-item-icon" size={1.5} />
     }, {
-        path: `/visualization/turn-taking`,
+        path: `${routePrefix}/turn-taking`,
         component: (props) => ( <TurnTaking {...props} /> ),
         buttonValue: "turn-taking",
         label: "Turn Taking",
         icon: <Icon path={mdiChartGantt} className="button-selector-item-icon" size={1} />
     }, {
-        path: `/visualization/transcript`,
+        path: `${routePrefix}/transcript`,
         component: (props) => ( <Transcript {...props} /> ),
         buttonValue: "transcript",
         label: "Transcript",
