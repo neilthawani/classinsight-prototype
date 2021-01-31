@@ -9,20 +9,20 @@ import dashboardRoutes from '../../fixtures/dashboardRoutes';
 class ButtonSelector extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            admin: {}
-        };
+        // this.state = {
+        //     admin: {}
+        // };
 
-        var userId = props.match.params.userId;
-        console.log("userId", userId, )
-
-        if (userId) {
-            this.state = {
-                admin: {
-                    userId: userId
-                }
-            };
-        }
+        // var userId = props.match.params.userId;
+        // console.log("userId", userId, )
+        //
+        // if (userId) {
+        //     this.state = {
+        //         admin: {
+        //             userId: userId
+        //         }
+        //     };
+        // }
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -48,7 +48,7 @@ class ButtonSelector extends Component {
         return (
           <div className="button-selector">
             <div className="button-selector-options">
-              {dashboardRoutes.definitions(this.state.admin).map((definitionObj, index, array) => {
+              {dashboardRoutes.definitions(this.props.admin).map((definitionObj, index, array) => {
                   return (
                     <Link
                       key={index}

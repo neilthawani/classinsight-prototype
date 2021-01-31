@@ -68,6 +68,7 @@ class App extends Component {
             />
 
             <PrivateRoute
+              exact
               path='/visualization/:userId/preview'
               component={(props) => (
                 <AdminViz {...props} />

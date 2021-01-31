@@ -26,7 +26,7 @@ class UserViz extends Component {
         // debugger;
         super(props);
 
-        console.log("Viz userId", props.match.params.userId);
+
         // var isAdmin = false;//props.match.params.hasOwnProperty("userId");
         // console.log("isAdmin", isAdmin);
 
@@ -34,9 +34,6 @@ class UserViz extends Component {
             sidebarSelectedCourse: localStorage.getItem("activeDataRowIndex"),
             buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption"),
             areDatasetsLoaded: false,
-            admin: {
-                userId: props.match.params.userId
-            }
             // isAdmin: isAdmin
         };
     }
@@ -69,21 +66,15 @@ class UserViz extends Component {
         return dashboardRoutes.definitions();
     }
 
-        // debugger;
-        // if (!this.props.location.pathname.includes("preview"))  {
-        //     console.log(this.props.datasets.dataParsers, "this.props.location.pathname", this.props.location.pathname);
-        //     // console.log("this.props.match", this.props.match);
-        //     this.props.listDatasets(this.props.auth.user.id).then((response) => {
-        //         this.setState({
-        //             areDatasetsLoaded: true
-        //         });
-        //     });
-        // }
-
     // set button selector to match URL on refresh
     componentDidMount() {
         console.log("this.props", this.props);
 
+        this.props.listDatasets(this.props.auth.user.id).then((response) => {
+            this.setState({
+                areDatasetsLoaded: true
+            });
+        });
 
         // var buttonSelectorSelectedOption = localStorage.getItem("buttonSelectorSelectedOption");
         // var transcriptLocationHash = localStorage.getItem("transcriptLocationHash");
@@ -125,12 +116,10 @@ class UserViz extends Component {
         return (
           <div>
             <DashboardMenus
-              admin={this.state.admin}
               sidebarSelectedCourse={this.state.sidebarSelectedCourse}
               handleSidebarRowCourseClick={this.handleSidebarRowCourseClick.bind(this)}
               buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
-              handleButtonSelectorClick={this.handleButtonSelectorClick.bind(this)}
-              datasets={this.props.datasets} />
+              handleButtonSelectorClick={this.handleButtonSelectorClick.bind(this)} />
 
             <div className="dashboard-content">
               {/*<PrivateRoute
