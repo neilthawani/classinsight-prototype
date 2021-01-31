@@ -6,11 +6,11 @@ import TurnTaking from '../components/visualization/turn-taking/TurnTaking';
 import Icon from '@mdi/react';
 import { mdiViewDashboardVariantOutline, mdiBarcode, mdiChartGantt, mdiCommentTextMultipleOutline } from '@mdi/js';
 
-var definitions = function(isAdmin) {
+var definitions = function(admin) {
     var routePrefix = "/visualization";
 
-    if (isAdmin) {
-        routePrefix = "/visualization/:userId/preview";
+    if (admin) {
+        routePrefix = `/visualization/${admin.userId}/preview`;
     }
 
     return [{

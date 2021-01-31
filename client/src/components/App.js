@@ -14,7 +14,9 @@ import PrivateRoute from "./private-route/PrivateRoute";
 // import DashboardMenus from './DashboardMenus';
 
 // import Dashboard from './dashboard/Dashboard';
-import Visualization from './visualization/Visualization';
+// import BaseViz from './visualization/BaseViz';
+import AdminViz from './visualization/AdminViz';
+import UserViz from './visualization/UserViz';
 
 import AdminPanel from './admin/AdminPanel';
 import UserDetailsPage from './admin/UserDetailsPage';
@@ -59,18 +61,16 @@ class App extends Component {
             />*/}
 
             <PrivateRoute
-
-              path='/visualization/:userId/preview'
+              path='/visualization'
               component={(props) => (
-                <Visualization {...props} />
+                <UserViz {...props} />
               )}
             />
 
             <PrivateRoute
-              
-              path='/visualization'
+              path='/visualization/:userId/preview'
               component={(props) => (
-                <Visualization {...props} />
+                <AdminViz {...props} />
               )}
             />
 

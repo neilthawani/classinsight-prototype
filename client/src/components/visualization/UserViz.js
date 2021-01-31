@@ -5,7 +5,8 @@ import { connect } from "react-redux";
 import DashboardMenus from '../layout/DashboardMenus';
 import { listDatasets, showDataset } from "../../actions/datasetActions";
 import PrivateRoute from "../private-route/PrivateRoute";
-import { Switch } from "react-router-dom";
+// import { Switch } from "react-router-dom";
+// import BaseViz from './BaseViz';
 
 // import Dashboard from "../dashboard/Dashboard";
 // import TalkRatio from './talk-ratio/TalkRatio';
@@ -19,17 +20,24 @@ import dashboardRoutes from '../../fixtures/dashboardRoutes';
 // this.props.auth.user.id
 // props.match.params.userId
 
-class Visualization extends Component {
+class UserViz extends Component {
     constructor(props) {
-        console.log("Visualization constructor", props);
-        debugger;
+        console.log("UserViz constructor", props);
+        // debugger;
         super(props);
+
+        console.log("Viz userId", props.match.params.userId);
+        // var isAdmin = false;//props.match.params.hasOwnProperty("userId");
+        // console.log("isAdmin", isAdmin);
 
         this.state = {
             sidebarSelectedCourse: localStorage.getItem("activeDataRowIndex"),
             buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption"),
             areDatasetsLoaded: false,
-            // userId:
+            admin: {
+                userId: props.match.params.userId
+            }
+            // isAdmin: isAdmin
         };
     }
 
@@ -117,7 +125,7 @@ class Visualization extends Component {
         return (
           <div>
             <DashboardMenus
-              admin={{ userId: this.state.userId }}
+              admin={this.state.admin}
               sidebarSelectedCourse={this.state.sidebarSelectedCourse}
               handleSidebarRowCourseClick={this.handleSidebarRowCourseClick.bind(this)}
               buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
@@ -135,11 +143,13 @@ class Visualization extends Component {
                 renders the first one whose path matches the current URL.
                 Use a <Switch> any time you have multiple routes,
                 but you want only one of them to render at a time. */}
-              <Switch>
+              {/*<Switch>*/}
+
+
                 {this.dashboardRoutes().map((routeObj, index) => {
                     return (
                         <PrivateRoute
-                          exact="true"
+                          exact
                           key={index}
                           path={routeObj.path}
                           component={routeObj.component}
@@ -147,16 +157,17 @@ class Visualization extends Component {
                     )
                 })}
 
-                {this.dashboardRoutes(true).map((routeObj, index) => {
+                {/*{this.dashboardRoutes(this.state.admin).map((routeObj, index) => {
                     return (
                         <PrivateRoute
-                          exact="true"
+                          exact
                           key={index}
                           path={routeObj.path}
                           component={routeObj.component}
                         />
                     )
-                })}
+                })}*/}
+
 
                 {/*<PrivateRoute
                   exact
@@ -181,14 +192,14 @@ class Visualization extends Component {
                   path='/visualization/admin/user/:userId/preview/transcript'
                   component={(props) => ( <Transcript {...props} /> )}
                 />*/}
-              </Switch>
+              {/*</Switch>*/}
             </div>
           </div>
         );
     }
 }
 
-Visualization.propTypes = {
+UserViz.propTypes = {
     admin: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired,
     datasets: PropTypes.object.isRequired,
@@ -207,4 +218,4 @@ function mapStateToProps(state) {
 export default withRouter(connect(
   mapStateToProps,
   { listDatasets, showDataset }
-)(Visualization));
+)(UserViz));
