@@ -53,7 +53,7 @@
 }
 
 .sidebar-group-data {
-    height: calc(100% - $sidebarHeaderImageHeight);
+    height: calc(100% - #{$sidebarHeaderImageHeight});
     position: relative;
 }
 
