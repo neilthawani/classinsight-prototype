@@ -59,19 +59,22 @@ class App extends Component {
             />*/}
 
             <PrivateRoute
-              path='/visualization'
+
+              path='/visualization/:userId/preview'
               component={(props) => (
                 <Visualization {...props} />
               )}
             />
 
             <PrivateRoute
-              exact
-              path='/visualization/:userId/preview'
+              
+              path='/visualization'
               component={(props) => (
                 <Visualization {...props} />
               )}
             />
+
+
           </div>
         );
     }
