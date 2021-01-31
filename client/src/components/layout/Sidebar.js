@@ -7,8 +7,8 @@ import { listDatasets, showDataset } from "../../actions/datasetActions";
 
 import SidebarGroup from './SidebarGroup';
 
-import Icon from '@mdi/react';
-import { mdiViewDashboardVariantOutline } from '@mdi/js';
+// import Icon from '@mdi/react';
+// import { mdiViewDashboardVariantOutline } from '@mdi/js';
 
 class Sidebar extends Component {
     // handleSidebarRowClick(index) {
@@ -41,13 +41,13 @@ class Sidebar extends Component {
         this.props.history.push("/dashboard");
     }
 
-    componentDidMount() {
-        {/*if (typeof this.props.datasets.activeDataRowIndex !== "number") {
-            // this.handleSidebarRowClick(0);
-        }*/}
+    // componentDidMount() {
+        // if (typeof this.props.datasets.activeDataRowIndex !== "number") {
+        //     // this.handleSidebarRowClick(0);
+        // }
 
-        this.props.listDatasets(this.props.auth.user.id);
-    }
+        // this.props.listDatasets(this.props.auth.user.id);
+    // }
 
     // handleSidebarRowClick(value) {
     //     console.log("handleSidebarRowClick", value);

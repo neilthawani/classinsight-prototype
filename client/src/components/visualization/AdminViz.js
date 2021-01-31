@@ -66,7 +66,7 @@ class AdminViz extends Component {
     }
 
     dashboardRoutes(admin) {
-        return dashboardRoutes.definitions();
+        return dashboardRoutes.definitions(this.state.admin);
     }
 
         // debugger;
@@ -84,6 +84,11 @@ class AdminViz extends Component {
     componentDidMount() {
         console.log("this.props", this.props);
 
+        this.props.listDatasets(this.state.admin.userId).then((response) => {
+            this.setState({
+                areDatasetsLoaded: true
+            });
+        });
 
         // var buttonSelectorSelectedOption = localStorage.getItem("buttonSelectorSelectedOption");
         // var transcriptLocationHash = localStorage.getItem("transcriptLocationHash");
@@ -158,6 +163,7 @@ class AdminViz extends Component {
                 })}*/}
 
                 {this.dashboardRoutes(this.state.admin).map((routeObj, index) => {
+                    console.log("routeObj.path", routeObj.path);
                     return (
                         <PrivateRoute
                           exact

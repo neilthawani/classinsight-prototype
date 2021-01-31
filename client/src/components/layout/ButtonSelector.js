@@ -7,8 +7,8 @@ import { mdiAccount } from '@mdi/js';
 import dashboardRoutes from '../../fixtures/dashboardRoutes';
 
 class ButtonSelector extends Component {
-    constructor(props) {
-        super(props);
+    // constructor(props) {
+    //     super(props);
         // this.state = {
         //     admin: {}
         // };
@@ -23,7 +23,7 @@ class ButtonSelector extends Component {
         //         }
         //     };
         // }
-    }
+    // }
 
     shouldComponentUpdate(nextProps, nextState) {
         var buttonSelectorSelectedOption = nextProps.location.pathname.slice(nextProps.location.pathname.lastIndexOf("/") + 1);
