@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { fetchUsers, deleteUserById, clearIsValidUser } from '../../actions/adminActions';
-import UserDetailsPage from './UserDetailsPage';
-import DatasetPreview from './DatasetPreview';
-import PrivateRoute from "../private-route/PrivateRoute";
+// import PrivateRoute from "../private-route/PrivateRoute";
 import AdminPanelTableRow from './AdminPanelTableRow';
 import CreateUserForm from './CreateUserForm';
 
@@ -76,21 +74,6 @@ class AdminPanel extends Component {
 
         return (
           <div className="admin">
-            <PrivateRoute
-              exact
-              path='/admin/user/:userId'
-              component={(props) => (
-                <UserDetailsPage {...props} />
-              )}
-            />
-
-            <PrivateRoute
-              path='/admin/user/:userId/preview'
-              component={(props) => (
-                <DatasetPreview {...props} />
-              )}
-            />
-
             <div className="admin-header">
               <span className="btn" onClick={this.toggleCreateUser.bind(this)}>
                 {this.state.isCreatingUser ? "Cancel" : "Create new user"}

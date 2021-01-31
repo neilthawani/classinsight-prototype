@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { listDatasets, showDataset } from "../../actions/datasetActions";
 
@@ -11,17 +11,31 @@ import Icon from '@mdi/react';
 import { mdiViewDashboardVariantOutline } from '@mdi/js';
 
 class Sidebar extends Component {
-    handleSidebarRowClick(index) {
-        this.props.handleSidebarRowClick(index);
+    // handleSidebarRowClick(index) {
+    //     console.log("handleSidebarRowClick", index);
+    //     // this.props.handleSidebarRowClick(index);
+    //
+    //     localStorage.setItem("sidebarSelectedOption", index);
+    //
+    //     this.setState({
+    //         sidebarSelectedOption: index
+    //     });
+    //
+    //     localStorage.setItem("activeDataRowIndex", index);
+    //
+    //     this.props.showDataset(index);
 
-        localStorage.setItem("activeDataRowIndex", index);
-
-        this.props.showDataset(index);
-
-        if (this.props.location.hash !== "") {
-            this.props.history.push(this.props.location.pathname);
-        }
-    }
+        // console.log("this.props.location.hash", this.props.location.hash);
+        //
+        // if (this.props.location.pathname.includes("dashboard")) {
+        //     console.log("this.props.location", this.props.location);
+        //     // this.props.history.push("/visualization/talk-ratio");
+        // }
+        //
+        // if (this.props.location.hash !== "") {
+        //     this.props.history.push(this.props.location.pathname);
+        // }
+    // }
 
     transitionToDashboard() {
         this.props.history.push("/dashboard");
@@ -29,11 +43,16 @@ class Sidebar extends Component {
 
     componentDidMount() {
         {/*if (typeof this.props.datasets.activeDataRowIndex !== "number") {
-            this.handleSidebarRowClick(0);
+            // this.handleSidebarRowClick(0);
         }*/}
 
         this.props.listDatasets(this.props.auth.user.id);
     }
+
+    // handleSidebarRowClick(value) {
+    //     console.log("handleSidebarRowClick", value);
+    //
+    // }
 
     render() {
         var areDatasetsLoaded = this.props.datasets.activeParser;
@@ -44,21 +63,26 @@ class Sidebar extends Component {
 
         var isDashboard = this.props.location.pathname.includes("dashboard");
 
+        var { buttonSelectorSelectedOption, sidebarSelectedCourse } = this.props;
         // console.log("isDashboard", isDashboard);
 
         return (
           <div className="sidebar">
-            <div
+            <div className="sidebar-header-item">&nbsp;</div>
+            <Link
               className={isDashboard ? "sidebar-item active" : "sidebar-item"}
-              onClick={this.transitionToDashboard.bind(this)}
-            >
+              to="/visualization/dashboard"
+              onClick={this.transitionToDashboard.bind(this)}>
               <span className="sidebar-item-title">Dashboard</span>
               <Icon path={mdiViewDashboardVariantOutline} className="sidebar-item-icon" size={1} />
-            </div>
+            </Link>
             <SidebarGroup
               label="Courses"
               hideActive={isDashboard}
-              handleSidebarRowClick={this.handleSidebarRowClick.bind(this)} />
+              buttonSelectorSelectedOption={buttonSelectorSelectedOption}
+              sidebarSelectedCourse={sidebarSelectedCourse}
+              handleSidebarRowCourseClick={this.props.handleSidebarRowCourseClick.bind(this)}
+              />
           </div>
         );
     }

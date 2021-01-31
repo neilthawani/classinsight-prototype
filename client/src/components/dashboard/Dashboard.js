@@ -32,6 +32,7 @@ class Dashboard extends Component {
     }
 
     render() {
+        // console.log("here");
         if (!this.props.datasets.activeParser) {
             return (
               <div>

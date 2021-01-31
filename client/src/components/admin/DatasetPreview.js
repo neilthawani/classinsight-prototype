@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import DashboardMenus from '../DashboardMenus';
+import DashboardMenus from '../layout/DashboardMenus';
 import { listDatasets } from "../../actions/datasetActions";
 import PrivateRoute from "../private-route/PrivateRoute";
 import { Switch } from "react-router-dom";

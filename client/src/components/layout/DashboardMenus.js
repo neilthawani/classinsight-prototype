@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 import ButtonSelector from './ButtonSelector';
-import Sidebar from "./layout/Sidebar";
+import Sidebar from "./Sidebar";
 
 class DashboardMenus extends Component {
     handleButtonSelectorClick(value) {
         this.props.handleButtonSelectorClick(value);
     }
 
-    handleSidebarRowClick(value) {
-        this.props.handleSidebarRowClick(value);
-    }
+    // handleSidebarRowClick(value) {
+    //     this.props.handleSidebarRowClick(value);
+    // }
 
     render() {
-        var { buttonSelectorSelectedOption, sidebarSelectedOption, admin } = this.props;
+        var { buttonSelectorSelectedOption, sidebarSelectedCourse, admin } = this.props;
 
         return (
           <div>
@@ -23,8 +23,10 @@ class DashboardMenus extends Component {
               handleClick={this.props.handleButtonSelectorClick.bind(this)} />
 
             <Sidebar
-              sidebarSelectedOption={sidebarSelectedOption}
-              handleSidebarRowClick={this.props.handleSidebarRowClick.bind(this)} />
+              buttonSelectorSelectedOption={buttonSelectorSelectedOption}
+              sidebarSelectedCourse={sidebarSelectedCourse}
+              handleSidebarRowCourseClick={this.props.handleSidebarRowCourseClick.bind(this)}
+              />
           </div>
         )
     }

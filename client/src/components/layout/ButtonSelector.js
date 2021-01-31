@@ -4,7 +4,7 @@ import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import Icon from '@mdi/react';
 import { mdiAccount } from '@mdi/js';
-import dashboardRoutes from '../fixtures/dashboardRoutes';
+import dashboardRoutes from '../../fixtures/dashboardRoutes';
 
 class ButtonSelector extends Component {
     constructor(props) {

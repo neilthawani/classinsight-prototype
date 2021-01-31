@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 
 import Navbar from "./layout/Navbar";
 
-import Landing from "./layout/Landing";
+import Landing from "./Landing";
 import Register from "./auth/Register";
 import Login from "./auth/Login";
 import PrivateRoute from "./private-route/PrivateRoute";
@@ -17,51 +17,14 @@ import Dashboard from './dashboard/Dashboard';
 import Visualization from './visualization/Visualization';
 
 import AdminPanel from './admin/AdminPanel';
+import UserDetailsPage from './admin/UserDetailsPage';
+import DatasetPreview from './admin/DatasetPreview';
+
 
 import { listDatasets } from "../actions/datasetActions";
 import dashboardRoutes from '../fixtures/dashboardRoutes';
 
 class App extends Component {
-    // set button selector to match URL on refresh
-    componentDidMount() {
-        // debugger;
-        if (!this.props.location.pathname.includes("preview"))  {
-            // console.log(this.props.datasets.dataParsers, "this.props.location.pathname", this.props.location.pathname);
-            // console.log("this.props.match", this.props.match);
-            this.props.listDatasets(this.props.auth.user.id).then((response) => {
-                this.setState({
-                    areDatasetsLoaded: true
-                });
-            });
-        }
-
-        var buttonSelectorSelectedOption = localStorage.getItem("buttonSelectorSelectedOption");
-        var transcriptLocationHash = localStorage.getItem("transcriptLocationHash");
-
-        if (dashboardRoutes.paths.includes(this.props.location.pathname)) {
-            this.props.history.push(`${buttonSelectorSelectedOption}${transcriptLocationHash}`);
-        }
-
-        this.unlisten = this.props.history.listen((location, action) => {
-            var buttonSelectorSelectedOption = location.pathname;
-            var transcriptLocationHash = window.location.hash || "";
-
-            if (dashboardRoutes.paths.includes(buttonSelectorSelectedOption)) {
-                this.setState({
-                    buttonSelectorSelectedOption: buttonSelectorSelectedOption.slice(1),
-                    transcriptLocationHash: transcriptLocationHash
-                });
-
-                localStorage.setItem("buttonSelectorSelectedOption", buttonSelectorSelectedOption.slice(1));
-                localStorage.setItem("transcriptLocationHash", transcriptLocationHash);
-            }
-        }).bind(this);
-    }
-
-    componentWillUnmount() {
-        this.unlisten();
-    }
-
     render() {
         return (
           <div>
@@ -81,15 +44,24 @@ class App extends Component {
             />
 
             <PrivateRoute
+              exact
+              path='/admin/user/:userId'
+              component={(props) => (
+                <UserDetailsPage {...props} />
+              )}
+            />
+
+            <PrivateRoute
+              path='/admin/user/:userId/preview'
+              component={(props) => (
+                <DatasetPreview {...props} />
+              )}
+            />
+
+            <PrivateRoute
               path='/visualization'
               component={(props) => (
                 <Visualization {...props} />
-              )}
-            />
-            <PrivateRoute
-              path='/dashboard'
-              component={(props) => (
-                <Dashboard {...props} />
               )}
             />
           </div>
@@ -99,7 +71,7 @@ class App extends Component {
 
 App.propTypes = {
     auth: PropTypes.object.isRequired,
-    listDatasets: PropTypes.func.isRequired
+    // listDatasets: PropTypes.func.isRequired
 }
 
 // NOTE: Do not bind admin.datasets to this method.
@@ -112,5 +84,5 @@ function mapStateToProps(state) {
 
 export default withRouter(connect(
   mapStateToProps,
-  { listDatasets }
+  { }//listDatasets
 )(App));
