@@ -120,7 +120,7 @@ class UserDetailsPage extends Component {
             <div className="admin-header">
               <Link to={{
                 pathname: `/visualization/admin/user/${this.state.userId}/preview/dashboard`
-              }}>
+              }} params={{ userId: this.state.userId }}>
                 <span className="btn">
                   Preview Teacher View
                 </span>

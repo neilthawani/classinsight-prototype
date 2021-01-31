@@ -14,6 +14,7 @@ class ButtonSelector extends Component {
         };
 
         var userId = props.match.params.userId;
+        console.log("userId", userId, )
 
         if (userId) {
             this.state = {

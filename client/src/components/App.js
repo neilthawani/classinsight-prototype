@@ -64,6 +64,14 @@ class App extends Component {
                 <Visualization {...props} />
               )}
             />
+
+            <PrivateRoute
+              exact
+              path='/visualization/:userId/preview'
+              component={(props) => (
+                <Visualization {...props} />
+              )}
+            />
           </div>
         );
     }

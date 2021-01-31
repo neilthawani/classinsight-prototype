@@ -7,10 +7,10 @@ import { listDatasets, showDataset } from "../../actions/datasetActions";
 import PrivateRoute from "../private-route/PrivateRoute";
 import { Switch } from "react-router-dom";
 
-import Dashboard from "../dashboard/Dashboard";
-import TalkRatio from './talk-ratio/TalkRatio';
-import Transcript from './transcript/Transcript';
-import TurnTaking from './turn-taking/TurnTaking';
+// import Dashboard from "../dashboard/Dashboard";
+// import TalkRatio from './talk-ratio/TalkRatio';
+// import Transcript from './transcript/Transcript';
+// import TurnTaking from './turn-taking/TurnTaking';
 
 import dashboardRoutes from '../../fixtures/dashboardRoutes';
 
@@ -22,14 +22,14 @@ import dashboardRoutes from '../../fixtures/dashboardRoutes';
 class Visualization extends Component {
     constructor(props) {
         console.log("Visualization constructor", props);
+        debugger;
         super(props);
 
         this.state = {
             sidebarSelectedCourse: localStorage.getItem("activeDataRowIndex"),
             buttonSelectorSelectedOption: localStorage.getItem("buttonSelectorSelectedOption"),
             areDatasetsLoaded: false,
-
-
+            // userId:
         };
     }
 
@@ -113,11 +113,11 @@ class Visualization extends Component {
         // }
 
         // TODO: How is this calculated?
-        // admin={{ userId: this.state.userId }}
         // datasets={this.props.datasets}
         return (
           <div>
             <DashboardMenus
+              admin={{ userId: this.state.userId }}
               sidebarSelectedCourse={this.state.sidebarSelectedCourse}
               handleSidebarRowCourseClick={this.handleSidebarRowCourseClick.bind(this)}
               buttonSelectorSelectedOption={this.state.buttonSelectorSelectedOption}
@@ -139,7 +139,7 @@ class Visualization extends Component {
                 {this.dashboardRoutes().map((routeObj, index) => {
                     return (
                         <PrivateRoute
-                          exact
+                          exact="true"
                           key={index}
                           path={routeObj.path}
                           component={routeObj.component}
@@ -147,18 +147,18 @@ class Visualization extends Component {
                     )
                 })}
 
-                {/*{this.dashboardRoutes(true).map((routeObj, index) => {
+                {this.dashboardRoutes(true).map((routeObj, index) => {
                     return (
                         <PrivateRoute
-                          exact
+                          exact="true"
                           key={index}
                           path={routeObj.path}
                           component={routeObj.component}
                         />
                     )
-                })}*/}
+                })}
 
-                <PrivateRoute
+                {/*<PrivateRoute
                   exact
                   path='/visualization/admin/user/:userId/preview/dashboard'
                   component={(props) => ( <Dashboard {...props} /> )}
@@ -180,7 +180,7 @@ class Visualization extends Component {
                   exact
                   path='/visualization/admin/user/:userId/preview/transcript'
                   component={(props) => ( <Transcript {...props} /> )}
-                />
+                />*/}
               </Switch>
             </div>
           </div>

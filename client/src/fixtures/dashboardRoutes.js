@@ -10,7 +10,7 @@ var definitions = function(isAdmin) {
     var routePrefix = "/visualization";
 
     if (isAdmin) {
-        routePrefix = "/visualization/admin/user/:userId/preview";
+        routePrefix = "/visualization/:userId/preview";
     }
 
     return [{
