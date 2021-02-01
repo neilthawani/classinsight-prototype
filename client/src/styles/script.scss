@@ -32,6 +32,10 @@
     padding-right: 10px;
 }
 
+.script-turn-utterance-text {
+    overflow: visible;
+}
+
 .script-turn-utterance-text.inspectable { // td
     cursor: pointer;
 
