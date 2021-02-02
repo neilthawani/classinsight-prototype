@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/static/css/main.62fb2bde.chunk.css",
+    "main.js": "/static/js/main.187f05e0.chunk.js",
+    "main.js.map": "/static/js/main.187f05e0.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.af055121.js",
+    "runtime-main.js.map": "/static/js/runtime-main.af055121.js.map",
+    "static/js/2.4e113a61.chunk.js": "/static/js/2.4e113a61.chunk.js",
+    "static/js/2.4e113a61.chunk.js.map": "/static/js/2.4e113a61.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.62fb2bde.chunk.css.map": "/static/css/main.62fb2bde.chunk.css.map",
+    "static/js/2.4e113a61.chunk.js.LICENSE.txt": "/static/js/2.4e113a61.chunk.js.LICENSE.txt",
+    "static/media/classinsight-logo.db9a2834.png": "/static/media/classinsight-logo.db9a2834.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.af055121.js",
+    "static/js/2.4e113a61.chunk.js",
+    "static/css/main.62fb2bde.chunk.css",
+    "static/js/main.187f05e0.chunk.js"
+  ]
+}
