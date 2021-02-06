@@ -1,0 +1,1940 @@
+{
+    "subject": "Science",
+    "period": "5",
+    "lesson": "Energy and Motion",
+    "filename": "20201209_Bonnie_Per5_ZoomObs_FieldNotes_Gates",
+    "teacher": "Bonnie",
+    "segments": {
+        "speaking_turns": [
+            {
+                "speaker_pseudonym": "Observer",
+                "initial_time": "0:35:01",
+                "duration": 4.0,
+                "end_time": "0:35:05",
+                "utterances": [
+                    {
+                        "utterance": "Yeah. It's an Arabic name. Like your name [Student_20's name].",
+                        "utterance_type": [
+                            "OT"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Observer",
+                "initial_time": "0:35:05",
+                "duration": 4.0,
+                "end_time": "0:35:09",
+                "utterances": [
+                    {
+                        "utterance": "Mm-hmm (affirmative) That's really nice.",
+                        "utterance_type": [
+                            "OT"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Observer",
+                "initial_time": "0:35:10",
+                "duration": 6.0,
+                "end_time": "0:35:16",
+                "utterances": [
+                    {
+                        "utterance": "See you.",
+                        "utterance_type": [
+                            "OT"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_1",
+                "initial_time": "0:02:41",
+                "duration": 3.0,
+                "end_time": "0:02:44",
+                "utterances": [
+                    {
+                        "utterance": "Um, I used the one in the dashboard. The Zoom thing.",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_1",
+                "initial_time": "0:02:44",
+                "duration": 3.0,
+                "end_time": "0:02:47",
+                "utterances": [
+                    {
+                        "utterance": "It works today, it wasn't working yesterday.",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_1",
+                "initial_time": "0:03:38",
+                "duration": 2.0,
+                "end_time": "0:03:40",
+                "utterances": [
+                    {
+                        "utterance": "Um, that's what I meant the homepage.",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_11",
+                "initial_time": "0:14:58",
+                "duration": 4.0,
+                "end_time": "0:15:02",
+                "utterances": [
+                    {
+                        "utterance": "Our group is in slide eight and nine.",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_11",
+                "initial_time": "0:15:41",
+                "duration": 38.0,
+                "end_time": "0:16:19",
+                "utterances": [
+                    {
+                        "utterance": "Um, I wrote down that, I didn't really understand how the marble relates to energy, but I, so I wrote down that the energy, um, the energy that relates to the marble and the ramp is the energy that is pulling the marble down or pushing it down.",
+                        "utterance_type": [
+                            "E"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_11",
+                "initial_time": "0:16:49",
+                "duration": 7.0,
+                "end_time": "0:16:56",
+                "utterances": [
+                    {
+                        "utterance": "I think we'll have to write it down now. I'll write mine down and then you can write yours down if you want we to do bullet points or just...",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_12",
+                "initial_time": "0:15:02",
+                "duration": 39.0,
+                "end_time": "0:15:41",
+                "utterances": [
+                    {
+                        "utterance": "(silence) Do you want to start?",
+                        "utterance_type": [
+                            "E"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_12",
+                "initial_time": "0:16:19",
+                "duration": 30.0,
+                "end_time": "0:16:49",
+                "utterances": [
+                    {
+                        "utterance": "Okay. So something I wrote is that the energy, it is related to the marble and the ramp because the marble will need, um, so technically like the energy's like pulling down the marble for it to move. And what I wrote for the ramp, the ramp needs energy in order to make, to make it work against the gravity, easier since the force decreases. And that's what I wrote.",
+                        "utterance_type": [
+                            "E"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_12",
+                "initial_time": "0:16:56",
+                "duration": 82.0,
+                "end_time": "0:18:18",
+                "utterances": [
+                    {
+                        "utterance": "Okay. (silence)",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_12",
+                "initial_time": "0:27:41",
+                "duration": 3.0,
+                "end_time": "0:27:44",
+                "utterances": [
+                    {
+                        "utterance": "I did a mistake on that. I'm going to fix it right now.",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_12",
+                "initial_time": "0:27:48",
+                "duration": 0.0,
+                "end_time": "0:27:48",
+                "utterances": [
+                    {
+                        "utterance": "Yes.",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_13",
+                "initial_time": "0:18:18",
+                "duration": 33.0,
+                "end_time": "0:18:51",
+                "utterances": [
+                    {
+                        "utterance": "I feel like we should add all this stuff and say, \"we think\" instead of \"I think\".",
+                        "utterance_type": [
+                            "E"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_13",
+                "initial_time": "0:18:54",
+                "duration": 4.0,
+                "end_time": "0:18:58",
+                "utterances": [
+                    {
+                        "utterance": "I think we should just add all this stuff into one paragraph.",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_13",
+                "initial_time": "0:19:02",
+                "duration": 3.0,
+                "end_time": "0:19:05",
+                "utterances": [
+                    {
+                        "utterance": "Okay. I will add mine after you are done.",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_13",
+                "initial_time": "0:19:54",
+                "duration": 6.0,
+                "end_time": "0:20:00",
+                "utterances": [
+                    {
+                        "utterance": "Okay. I'm going to start writing my stuff down.",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_14",
+                "initial_time": "0:18:51",
+                "duration": 3.0,
+                "end_time": "0:18:54",
+                "utterances": [
+                    {
+                        "utterance": "Wait, what did you say?",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_14",
+                "initial_time": "0:18:58",
+                "duration": 4.0,
+                "end_time": "0:19:02",
+                "utterances": [
+                    {
+                        "utterance": "Um, yeah, sure. I was just writing down what I wrote.",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_14",
+                "initial_time": "0:19:05",
+                "duration": 39.0,
+                "end_time": "0:19:44",
+                "utterances": [
+                    {
+                        "utterance": "Okay, cool. (silence) Okay. I've finished.",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_14",
+                "initial_time": "0:19:51",
+                "duration": 3.0,
+                "end_time": "0:19:54",
+                "utterances": [
+                    {
+                        "utterance": "Oh yeah, sure. Yeah. I'll change that.",
+                        "utterance_type": [
+                            "E"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_15",
+                "initial_time": "0:19:44",
+                "duration": 7.0,
+                "end_time": "0:19:51",
+                "utterances": [
+                    {
+                        "utterance": "Wait. So are we going to say \"we\", rather than \"I\", so it makes it sound like we as a group, kind of think that?",
+                        "utterance_type": [
+                            "E"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_16",
+                "initial_time": "0:22:26",
+                "duration": 10.0,
+                "end_time": "0:22:36",
+                "utterances": [
+                    {
+                        "utterance": "Oh, we put that energy helps the marble roll down and also yeah, with friction as well.",
+                        "utterance_type": [
+                            "E"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_16",
+                "initial_time": "0:22:42",
+                "duration": 4.0,
+                "end_time": "0:22:46",
+                "utterances": [
+                    {
+                        "utterance": "We could.",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_16",
+                "initial_time": "0:23:10",
+                "duration": 2.0,
+                "end_time": "0:23:12",
+                "utterances": [
+                    {
+                        "utterance": "Yeah, and the marble going down.",
+                        "utterance_type": [
+                            "B"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_16",
+                "initial_time": "0:23:17",
+                "duration": 30.0,
+                "end_time": "0:23:47",
+                "utterances": [
+                    {
+                        "utterance": "Yeah.",
+                        "utterance_type": [
+                            "EV"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_17",
+                "initial_time": "0:22:36",
+                "duration": 6.0,
+                "end_time": "0:22:42",
+                "utterances": [
+                    {
+                        "utterance": "Mm-hmm (affirmative). We can look what other teams put?",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_17",
+                "initial_time": "0:22:53",
+                "duration": 9.0,
+                "end_time": "0:23:02",
+                "utterances": [
+                    {
+                        "utterance": "Wait. Doesn't like everything or anything that you, what if you do something like if you walk or talk, it requires energy.",
+                        "utterance_type": [
+                            "E"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_17",
+                "initial_time": "0:24:19",
+                "duration": 29.0,
+                "end_time": "0:24:48",
+                "utterances": [
+                    {
+                        "utterance": "You guys breakout room number three wrote a lot. And it's just like, it's also like pretty, pretty cool, how they wrote it. Wait, am I on mute? No, no, no. All right. They wrote down that when the marble leaves the ramp, the stored energy releases and the ramp helps the marble build up speed. This connects to force.",
+                        "utterance_type": [
+                            "EV"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_18",
+                "initial_time": "0:22:46",
+                "duration": 7.0,
+                "end_time": "0:22:53",
+                "utterances": [
+                    {
+                        "utterance": "Woah, they put a lot. What the heck. Well, we got straight the point, so that's all that matters.",
+                        "utterance_type": [
+                            "EV"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_18",
+                "initial_time": "0:23:02",
+                "duration": 8.0,
+                "end_time": "0:23:10",
+                "utterances": [
+                    {
+                        "utterance": "Yeah. Like, I mean, like, that's kind of what we said with the friction.",
+                        "utterance_type": [
+                            "B"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_18",
+                "initial_time": "0:23:12",
+                "duration": 5.0,
+                "end_time": "0:23:17",
+                "utterances": [
+                    {
+                        "utterance": "That's where the energy is so.",
+                        "utterance_type": [
+                            "B"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_18",
+                "initial_time": "0:23:47",
+                "duration": 8.0,
+                "end_time": "0:23:55",
+                "utterances": [
+                    {
+                        "utterance": "So does anybody else have anything to add or you think we're good?",
+                        "utterance_type": [
+                            "E"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_18",
+                "initial_time": "0:23:58",
+                "duration": 1.0,
+                "end_time": "0:23:59",
+                "utterances": [
+                    {
+                        "utterance": "Kinetic energy?",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_18",
+                "initial_time": "0:24:00",
+                "duration": 14.0,
+                "end_time": "0:24:14",
+                "utterances": [
+                    {
+                        "utterance": "Okay. We can, let's write that down real quick. You want to write that down, Student_19 on the slide?",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_18",
+                "initial_time": "0:24:16",
+                "duration": 3.0,
+                "end_time": "0:24:19",
+                "utterances": [
+                    {
+                        "utterance": "Oh, okay.",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_19",
+                "initial_time": "0:23:55",
+                "duration": 3.0,
+                "end_time": "0:23:58",
+                "utterances": [
+                    {
+                        "utterance": "What about kinetic energy?",
+                        "utterance_type": [
+                            "E"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_19",
+                "initial_time": "0:23:59",
+                "duration": 1.0,
+                "end_time": "0:24:00",
+                "utterances": [
+                    {
+                        "utterance": "Yeah.",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_19",
+                "initial_time": "0:24:14",
+                "duration": 2.0,
+                "end_time": "0:24:16",
+                "utterances": [
+                    {
+                        "utterance": "It doesn't let me type.",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_19",
+                "initial_time": "0:41:36",
+                "duration": 0.0,
+                "end_time": "0:41:36",
+                "utterances": [
+                    {
+                        "utterance": "Are we doing the notes?",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_19",
+                "initial_time": "0:41:37",
+                "duration": 1.0,
+                "end_time": "0:41:38",
+                "utterances": [
+                    {
+                        "utterance": "Okay.",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_2",
+                "initial_time": "0:39:10",
+                "duration": 4.0,
+                "end_time": "0:39:14",
+                "utterances": [
+                    {
+                        "utterance": "Um, I wasn't sure where to put a lot of them, but I put the-",
+                        "utterance_type": [
+                            "E"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_2",
+                "initial_time": "0:39:20",
+                "duration": 10.0,
+                "end_time": "0:39:30",
+                "utterances": [
+                    {
+                        "utterance": "Okay. I put the rubber band and the spring together, because if you took out one of the fingers from either side, both of those items would hit the other finger.",
+                        "utterance_type": [
+                            "R"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_2",
+                "initial_time": "0:39:33",
+                "duration": 11.0,
+                "end_time": "0:39:44",
+                "utterances": [
+                    {
+                        "utterance": "Yeah. And then I put the boulder and the book together because in the photo, the book looks like it's balancing. I'm not sure if it would like if it was real time, if it would fall over or not.",
+                        "utterance_type": [
+                            "R"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_2",
+                "initial_time": "0:39:47",
+                "duration": 11.0,
+                "end_time": "0:39:58",
+                "utterances": [
+                    {
+                        "utterance": "Mm-hmm (affirmative) I put the train and the planes together and I put those because they're both like being pushed forward by mechanics.",
+                        "utterance_type": [
+                            "R"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_2",
+                "initial_time": "0:40:01",
+                "duration": 11.0,
+                "end_time": "0:40:12",
+                "utterances": [
+                    {
+                        "utterance": "And then I put the ball and the, the rollercoaster together because I thought they're both being pushed and they're going to fall at some point.",
+                        "utterance_type": [
+                            "R"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_20",
+                "initial_time": "0:32:50",
+                "duration": 7.0,
+                "end_time": "0:32:57",
+                "utterances": [
+                    {
+                        "utterance": "Okay. So, um, we're basically sharing the, the SWOT thingy, right?",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_20",
+                "initial_time": "0:33:03",
+                "duration": 5.0,
+                "end_time": "0:33:08",
+                "utterances": [
+                    {
+                        "utterance": "Okay. Um, can we like share our screen or something?",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_20",
+                "initial_time": "0:33:09",
+                "duration": 4.0,
+                "end_time": "0:33:13",
+                "utterances": [
+                    {
+                        "utterance": "Okay. I guess, wait, what?",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_20",
+                "initial_time": "0:33:16",
+                "duration": 4.0,
+                "end_time": "0:33:20",
+                "utterances": [
+                    {
+                        "utterance": "I guess I'll go first.",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_20",
+                "initial_time": "0:33:20",
+                "duration": 43.0,
+                "end_time": "0:34:03",
+                "utterances": [
+                    {
+                        "utterance": "This is what I did. I'm not too sure. It's correct or not, but like, I, I kind of tried. So I did like, um, these ones, because I figured that there might be like friction involved in it in some way. And then these ones like normal force, because like, obviously this one would be normally forced because that's like an example that she's used before. So I figured that would be the same for this at the same time. And then this one is like, it's like, it's like going upwards, but it's also saying down at the same time. So I figured that would be normal force. I'm like, I don't really have an explanation for each one because like I'm a bad explainer. But like I tried, you know. And then I don't know like-",
+                        "utterance_type": [
+                            "E"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_20",
+                "initial_time": "0:34:06",
+                "duration": 13.0,
+                "end_time": "0:34:19",
+                "utterances": [
+                    {
+                        "utterance": "Yeah, I guess for friction, these ones friction. Because like if there wasn't any, they would just keep on going forever. But then at one point they stopped, I guess so. Yeah.",
+                        "utterance_type": [
+                            "B"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_20",
+                "initial_time": "0:34:32",
+                "duration": 3.0,
+                "end_time": "0:34:35",
+                "utterances": [
+                    {
+                        "utterance": "Um...",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_20",
+                "initial_time": "0:34:36",
+                "duration": 0.0,
+                "end_time": "0:34:36",
+                "utterances": [
+                    {
+                        "utterance": "Click.",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_20",
+                "initial_time": "0:34:37",
+                "duration": 24.0,
+                "end_time": "0:35:01",
+                "utterances": [
+                    {
+                        "utterance": "According to that. Okay. We still have like 45 seconds left, so Oh, okay. I like your name by the way. My cousin's name is [Student_21's name] too.",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_20",
+                "initial_time": "0:35:05",
+                "duration": 0.0,
+                "end_time": "0:35:05",
+                "utterances": [
+                    {
+                        "utterance": "Yeah.",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_20",
+                "initial_time": "0:35:09",
+                "duration": 1.0,
+                "end_time": "0:35:10",
+                "utterances": [
+                    {
+                        "utterance": "Have a good day.",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_21",
+                "initial_time": "0:32:57",
+                "duration": 6.0,
+                "end_time": "0:33:03",
+                "utterances": [
+                    {
+                        "utterance": "Yeah. Why, what and why you did that?",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_21",
+                "initial_time": "0:33:08",
+                "duration": 1.0,
+                "end_time": "0:33:09",
+                "utterances": [
+                    {
+                        "utterance": "Yeah, [crosstalk 00:33:09]",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_21",
+                "initial_time": "0:33:13",
+                "duration": 3.0,
+                "end_time": "0:33:16",
+                "utterances": [
+                    {
+                        "utterance": "Who wants to go first?",
+                        "utterance_type": [
+                            "E"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_21",
+                "initial_time": "0:33:20",
+                "duration": 0.0,
+                "end_time": "0:33:20",
+                "utterances": [
+                    {
+                        "utterance": "Okay.",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_21",
+                "initial_time": "0:34:03",
+                "duration": 3.0,
+                "end_time": "0:34:06",
+                "utterances": [
+                    {
+                        "utterance": "Yeah, it doesn't have to be right, so...",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_21",
+                "initial_time": "0:34:19",
+                "duration": 13.0,
+                "end_time": "0:34:32",
+                "utterances": [
+                    {
+                        "utterance": "Okay. I'll go next. Can you see my cursor?",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_21",
+                "initial_time": "0:34:35",
+                "duration": 1.0,
+                "end_time": "0:34:36",
+                "utterances": [
+                    {
+                        "utterance": "No?",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_21",
+                "initial_time": "0:34:36",
+                "duration": 1.0,
+                "end_time": "0:34:37",
+                "utterances": [
+                    {
+                        "utterance": "Oh, okay.",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_21",
+                "initial_time": "0:35:28",
+                "duration": 3.0,
+                "end_time": "0:35:31",
+                "utterances": [
+                    {
+                        "utterance": "Yes. I used the link that you emailed me.",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_21",
+                "initial_time": "0:35:46",
+                "duration": 2.0,
+                "end_time": "0:35:48",
+                "utterances": [
+                    {
+                        "utterance": "Oh, okay. Thank you.",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_21",
+                "initial_time": "0:35:51",
+                "duration": 2.0,
+                "end_time": "0:35:53",
+                "utterances": [
+                    {
+                        "utterance": "Okay, thank you.",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_21",
+                "initial_time": "0:35:56",
+                "duration": 1.0,
+                "end_time": "0:35:57",
+                "utterances": [
+                    {
+                        "utterance": "Yeah. That's where I clicked.",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_22",
+                "initial_time": "0:36:24",
+                "duration": 14.0,
+                "end_time": "0:36:38",
+                "utterances": [
+                    {
+                        "utterance": "Um, I grouped the train, the jets, the, uh, rollercoaster and uh, people control them.",
+                        "utterance_type": [
+                            "E"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_22",
+                "initial_time": "0:36:41",
+                "duration": 2.0,
+                "end_time": "0:36:43",
+                "utterances": [
+                    {
+                        "utterance": "The horses with the [inaudible 00:36:41] on it.",
+                        "utterance_type": [
+                            "B"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_22",
+                "initial_time": "0:36:52",
+                "duration": 0.0,
+                "end_time": "0:36:52",
+                "utterances": [
+                    {
+                        "utterance": "Uh, because they were like being controlled by people, I guess.",
+                        "utterance_type": [
+                            "R"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_22",
+                "initial_time": "0:36:53",
+                "duration": 1.0,
+                "end_time": "0:36:54",
+                "utterances": [
+                    {
+                        "utterance": "They're like being controlled by people.",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_22",
+                "initial_time": "0:37:03",
+                "duration": 13.0,
+                "end_time": "0:37:16",
+                "utterances": [
+                    {
+                        "utterance": "Um, I put the rocks and the books and the book together because they're in motion or about, or I guess they're like falling without anything touching it.",
+                        "utterance_type": [
+                            "E"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_22",
+                "initial_time": "0:37:21",
+                "duration": 5.0,
+                "end_time": "0:37:26",
+                "utterances": [
+                    {
+                        "utterance": "And I put the spring, the rubber band and the baseball together",
+                        "utterance_type": [
+                            "B"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_22",
+                "initial_time": "0:37:29",
+                "duration": 18.0,
+                "end_time": "0:37:47",
+                "utterances": [
+                    {
+                        "utterance": "Yeah, the baseball, because they're being, uh, uh, I don't really know. I just put them together because I saw a [inaudible 00:37:46].",
+                        "utterance_type": [
+                            "R"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_22",
+                "initial_time": "0:37:50",
+                "duration": 7.0,
+                "end_time": "0:37:57",
+                "utterances": [
+                    {
+                        "utterance": "Uh, I don't really know why I put the last things together. I just put them together because they weren't like fingers are not there.",
+                        "utterance_type": [
+                            "R"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_23",
+                "initial_time": "0:38:11",
+                "duration": 10.0,
+                "end_time": "0:38:21",
+                "utterances": [
+                    {
+                        "utterance": "Um, I grouped the, the train, the jack and the horses together. Because they're all going like the same direction.",
+                        "utterance_type": [
+                            "R"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_23",
+                "initial_time": "0:38:21",
+                "duration": 9.0,
+                "end_time": "0:38:30",
+                "utterances": [
+                    {
+                        "utterance": "And then I grouped the roller coaster, and the roller coaster and I believe the baseball together because they're both going to fall down through gravity.",
+                        "utterance_type": [
+                            "R"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_23",
+                "initial_time": "0:38:33",
+                "duration": 12.0,
+                "end_time": "0:38:45",
+                "utterances": [
+                    {
+                        "utterance": "Yeah. Almost like a ramp shape and then a book and the rock I put together because they're both like, they're both, like Student_22 said, they're both falling down and touching them.",
+                        "utterance_type": [
+                            "R"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_23",
+                "initial_time": "0:38:48",
+                "duration": 2.0,
+                "end_time": "0:38:50",
+                "utterances": [
+                    {
+                        "utterance": "Yeah. The books were like in the locker before falling.",
+                        "utterance_type": [
+                            "B"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_23",
+                "initial_time": "0:38:50",
+                "duration": 9.0,
+                "end_time": "0:38:59",
+                "utterances": [
+                    {
+                        "utterance": "And I picked the string and the rubber band because they both, like the persons are both pulling them and then they'll go back to normal.",
+                        "utterance_type": [
+                            "R"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Student_5",
+                "initial_time": "0:12:51",
+                "duration": 1.0,
+                "end_time": "0:12:52",
+                "utterances": [
+                    {
+                        "utterance": "All right. Thank you.",
+                        "utterance_type": [
+                            "OST"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:00:03",
+                "duration": 75.0,
+                "end_time": "0:01:18",
+                "utterances": [
+                    {
+                        "utterance": "Good morning, everyone. So just to let you know, Um, I haven't opened up the module yet. Okay. And that is why you can't get to it yet, but that's for a reason. So, um, I will do that shortly. What you need to do is make sure you have your weekly agenda open. I missed and just for a little bit, I can, um, message students who are having trouble getting in. I think some students still had issues trying to figure out link to join. On there, good. All right. So as you're joining in let me go ahead and get you started on the PGQ. So, um, as you go on our weekly agenda, here's what we're doing for today.",
+                        "utterance_type": [
+                            "OTT"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:01:18",
+                "duration": 46.0,
+                "end_time": "0:02:04",
+                "utterances": [
+                    {
+                        "utterance": "We're going to be, um, moving into energy and motion. How energy is tied into motion. Do our PGQ. You'll go into breakout rooms to discuss your PGQ and record the answers. And then we're going to see if we can get to the energy sorts. Um, I know we got it started in a period one, but we didn't exactly finish remember it's minimum day-to-day. So our class goes from, you know, 10:02 to 10:43. And so we were going to see what we can get done today. Notice that, um, tomorrow it's the same module. Okay. So it's not like we're doing a new module and what will happen is we'll likely just finish, um, energy sort and a little bit of discussion about it.",
+                        "utterance_type": [
+                            "OTT"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:02:04",
+                "duration": 37.0,
+                "end_time": "0:02:41",
+                "utterances": [
+                    {
+                        "utterance": "And then you're going to do notes from slides three through seven. And that's what you're going to submit tomorrow, it's the same thing tomorrow. So when we meet tomorrow, we'll just kind of recap today and let you work on notes. Okay. Um, so that's our plan for today. Remember for students who can't log on, um, you know, it's, it's always a good idea to let them know, hey, look on the weekly agenda. She has everything listed there and to just keep reminding each other that. Yeah, Student_1, you made it today. What link did you use today?",
+                        "utterance_type": [
+                            "G"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:02:44",
+                "duration": 0.0,
+                "end_time": "0:02:44",
+                "utterances": [
+                    {
+                        "utterance": "Okay.",
+                        "utterance_type": [
+                            "OTT"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:02:47",
+                "duration": 51.0,
+                "end_time": "0:03:38",
+                "utterances": [
+                    {
+                        "utterance": "Okay. Maybe it was something off. Yeah, you know Canvas is a little strange. Um, so it's a quick reminder and let me let a few more students in before I explain this again. Okay. Welcome everyone. Welcome. Welcome. Okay. So here is what's going on, when you go on to the navigation bar, which is the side left bar right here, the only link showing there is our Monday meeting link, the link start date link, okay? Now to go to our regular day or regular schedule, even though today is, you know, a conference schedule minimum day, to go to our Tuesday through Friday meetings. You go to the homepage. Is that what you mean by dashboard? Or did you mean like when you could see all your courses, Student_1?",
+                        "utterance_type": [
+                            "OTT"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:03:40",
+                "duration": 36.0,
+                "end_time": "0:04:16",
+                "utterances": [
+                    {
+                        "utterance": "Okay. Yeah. So at the bottom that Zoom meeting button should work. It's the same, um, ID and same link as if you were to go to previous meetings, you know, before it disappeared. Right. It disappeared, I think on Friday. So the last time you'll see it in previous meetings is on Thursday. But it's that same link, it should end in a 4146, okay? That's how you know, you're on like a Tuesday through Friday link. Um, otherwise all the Monday meetings links are showing up. We've been having a little bit of trouble, uh, by the way, everyone here is Ms. Gates here. She's here to join us from UCSD. Um, you know, we've been working with UCSD for the last two years now, and this is our third year.",
+                        "utterance_type": [
+                            "OTT"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:04:16",
+                "duration": 34.0,
+                "end_time": "0:04:50",
+                "utterances": [
+                    {
+                        "utterance": "And what it is, is like there's like three sides classes are participating in a study about how conversations take place. Um, your video's not going to be recorded. Your names are not going to be recording, nothing like that. I think I mentioned this to you. Um, it's simply the kind of conversations that are taking place and how we're navigating through them. Okay. So it's not necessarily about you, but more like what we're talking about, you know, between, um, student to student or student to teacher. So that's what this is about. Um, you know, she's going to be going in from, um, she has, you know, co-host rights, she'll be going in from breakout room to breakout room.",
+                        "utterance_type": [
+                            "OTT"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:04:50",
+                "duration": 46.0,
+                "end_time": "0:05:36",
+                "utterances": [
+                    {
+                        "utterance": "If, when we go there, um, just make sure you're, you know, um, being, um, you know, your normal self, but you know, as well as polite. So what we talked about today was our cameras. Um, yesterday what happened was at the Zoom, um, conferences, the number one feedback that parents gave us was they would like their child to have their cameras on. And you know, it, it became an issue not about, um, you know, showing what's in your background and stuff, but you know, about being a good communicator. And so to have the camera on is really useful, okay? It really is. So in breakout rooms, definitely have it on, but why the suggestion was that I gave yesterday, was that choose a day.",
+                        "utterance_type": [
+                            "OTT"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:05:36",
+                "duration": 35.0,
+                "end_time": "0:06:11",
+                "utterances": [
+                    {
+                        "utterance": "If you're one of the students that, you know, feels a little bit, you know, shy still about not sure, what you can do is choose one, two or three days of the week that you're going to challenge yourself to have the camera on. Okay. Um, I know that, that's more of an issue with just the seventh and eighth grade, more eighth grade, but that's kind of like where you're at. Just know that, um, you know, you will need to build that confidence, um, in order to be successful in high school as well. Right. So, um, had a camera's on for sure in the breakout rooms, um, to be a good communicator, but also throughout the week, you know, uh, we're going to do that.",
+                        "utterance_type": [
+                            "OTT"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:06:11",
+                "duration": 33.0,
+                "end_time": "0:06:44",
+                "utterances": [
+                    {
+                        "utterance": "Eventually, I think after winter break, we're going to have like a feedback for the groups when we go to breakout rooms for your group to rate you on your communication skills, you know, did you have your camera on? Did you have your mic on? Were you participating in the discussion? And, um, you know, how like what your group feels about how you participated? Um, so that will help us kind of figure out your citizenship and work habits grades as well. You know, how you're challenging yourself and growing from where you started in the beginning of the year. So, um, anyways, that's my, um, quick little spiel about, you know, what the parents were saying and I totally agree with them.",
+                        "utterance_type": [
+                            "OTT"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:06:44",
+                "duration": 38.0,
+                "end_time": "0:07:22",
+                "utterances": [
+                    {
+                        "utterance": "Let's go ahead and get started. It did say on our weekly agenda, look for motion, energy, and motion. We're going to go ahead and find that in our modules. So when you go into modules, there it is right there. You're going to click on it. Um, actually not yet, because it might not be open yet. Don't do it yet. Um, you're going to go and just get your comp books right now because we're going to get started right now. So here we go. First slide, I'm going to go ahead and present it. It's not open to you yet, by the way. Um, you're going to write this pre GQ down. Okay, the title is energy and motion. Pre GQs.",
+                        "utterance_type": [
+                            "OTT"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:07:22",
+                "duration": 100.0,
+                "end_time": "0:09:02",
+                "utterances": [
+                    {
+                        "utterance": "How do you think the energy is related to the marble and the ramp? Now, this is of course going back to our exploration that we did earlier this week. Okay. Remember that ramp I created with the card stock, right? The card stock and the marble rolling down it. Um, how do you think energy is related to this marble and the ramp? You know, what type of energy conduct talk about that, write chance in your comp book and be prepared to discuss in the breakout room. Here are five minutes for you to jot your answers down before you are put in breakout rooms, I'm going to be taking attendance while you are responding in your comp books.",
+                        "utterance_type": [
+                            "C"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:09:02",
+                "duration": 213.0,
+                "end_time": "0:12:35",
+                "utterances": [
+                    {
+                        "utterance": "Welcome, Student_2, make sure you write this PGQ down, get ready to be in a breakout room to discuss them. Okay, about three more minutes. Okay. Let me check the following students are here. Is Student_3 here? Student_4, Student_5, Student_6, Student_7, Student_8, Student_9 or Student_10. Okay. How do you think energy is related to the marble and the ramp? I'm going to go ahead and stop sharing just for a moment. As I continue taking attendance all the way. You have another one minute. Hi, Student_5. I know you're just joining us. Um, let me go ahead and show you what we've been doing. We've been talking about PGQ, not talking writing down PGQ and since the slides are not shared with you yet, I'm going to go ahead and share with you right now.",
+                        "utterance_type": [
+                            "OTT"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:12:35",
+                "duration": 16.0,
+                "end_time": "0:12:51",
+                "utterances": [
+                    {
+                        "utterance": "So, um, how do you think energy is related to the marble on the ramp from that exploration we did on Monday. You're writing your answers in your comp book and you're going to be in breakout rooms in just a little bit.",
+                        "utterance_type": [
+                            "E"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:12:52",
+                "duration": 80.0,
+                "end_time": "0:14:12",
+                "utterances": [
+                    {
+                        "utterance": "You're welcome. Okay. That's our timer. So here is what we're going to do. Um, we're going to use our breakout room slides. This is prepared five, six. Let me go ahead and get the link to you right now. You do have editing rights. And so let me go ahead and put it in chat. Okay. Give me a thumbs up if you see it. Okay. Good. All right. Um, you're going to go ahead and get them to that, um, slide deck right now. And I also need to put you in breakout rooms, so let's create breakout rooms. Let's see. There's how many of us here right now? Sorry, I got move a few things around to see it. There's um, about 26, 27 of us, 26 of us here. So I'm going to go ahead and create seven breakout rooms, okay?",
+                        "utterance_type": [
+                            "OTT"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:14:12",
+                "duration": 46.0,
+                "end_time": "0:14:58",
+                "utterances": [
+                    {
+                        "utterance": "And actually let me do eight in case other people join us. Um, and then you're going to go ahead and join it and get your thoughts down. Remember to write your names at the top and use bullet points to include all ideas. You don't have to put people's names, but each person needs to contribute. Make sure you have your camera's on and you're being good communicators. Okay, here we go. Go and accept them.",
+                        "utterance_type": [
+                            "OTT"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:20:00",
+                "duration": 146.0,
+                "end_time": "0:22:26",
+                "utterances": [
+                    {
+                        "utterance": "All right. I know there are two people in there, but only one of them is on a slide. We're going to find out, I'll see you guys. (silence)",
+                        "utterance_type": [
+                            "OTT"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:24:48",
+                "duration": 42.0,
+                "end_time": "0:25:30",
+                "utterances": [
+                    {
+                        "utterance": "Let's go ahead and look at what the common themes are here. So in breakout room one, um, here is what this group said. Energy helps the marble go down the ramp, is created when the marble goes down the ramp is friction. So friction mentioned energy created, um, let's see, force of gravity being mentioned and kinetic energy. So a type of energy being mentioned. Good. Now, remember, this is more like a pre GQ, so you don't have to have all correct answers. Right. But we're going to go ahead and explore this topic. Further entities should be able to kind of revise your thinking when that happens. Um, energy make some molecules around the marble and the ramp move quickly.",
+                        "utterance_type": [
+                            "EV"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:25:30",
+                "duration": 45.0,
+                "end_time": "0:26:15",
+                "utterances": [
+                    {
+                        "utterance": "Um, there's also some thing that heats up like we have friction maybe. Maybe you can't feel it, but that is what happens. Okay. Um, so there's some friction being discussed there in that group. In group three or room three, there is stored energy being mentioned here, building up speed, the pulling force gravity again. Okay, good. I liked how this team mentioned that we let it go at the top of the ramp that we didn't push it down. Good. Because that would change the expiration. It would just depend on how much each person's pushing the marble. It would make it go faster or not. Right. So we want to just let it go from that top of the ramp and see the, and calculate the speed of a corner that, okay, good.",
+                        "utterance_type": [
+                            "EV ",
+                            "B"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:26:15",
+                "duration": 50.0,
+                "end_time": "0:27:05",
+                "utterances": [
+                    {
+                        "utterance": "So some common themes here, um, something about steeper the ramp. Good. We're going to explore that on Friday, by the way, change that height. Um, and how that relates to speed that, hey, could this group, um, [Student_names in Breakout Room 4], could you guys put these in a bulleted format while I go through the other groups right now? So all you do is like you go on there, right. Do this and this put a bulleted format right now. That'd be awesome. Um, here comes Student_6. Uh, let's see, energy being mentioned here. Okay. Force, good. Um, that it gains energy as it goes down the ramp. Excellent. Around me to go a little bit faster. Something about that ramp did make a difference. Okay.",
+                        "utterance_type": [
+                            "EV",
+                            "C"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:27:05",
+                "duration": 36.0,
+                "end_time": "0:27:41",
+                "utterances": [
+                    {
+                        "utterance": "And this last group right here, marble's energy, because energy is playing the marble down. What do you mean? The ramp needs energy in order for the ramp to make it work against gravity easier since the force is decreasing. What do you mean about that? Um, breakout room seven, Student_11, Student_12. Who wants to explain that thinking? [crosstalk 00:27:36] Um, say that again Student_12.",
+                        "utterance_type": [
+                            "EV",
+                            "E"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:27:44",
+                "duration": 4.0,
+                "end_time": "0:27:48",
+                "utterances": [
+                    {
+                        "utterance": "Okay. [crosstalk 00:27:44] You want to revise some of that maybe. Okay. All right.",
+                        "utterance_type": [
+                            "OTT"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:27:48",
+                "duration": 44.0,
+                "end_time": "0:28:32",
+                "utterances": [
+                    {
+                        "utterance": "I'll check it later. Good. So, um, good job discussing, you know, we've used these slides before they really help us get our ideas down. Now, this is more of, like I said, a PGQ. So you don't have to have your answers, um, perfectly done. Okay. So here is what we're going to do. Um, we're going to go ahead and go on to the next slide and here are the instructions on it. So at this point you should have, um, you know, this slide shared with you, um, what's, you're going to do so all these slides are there in the module. You are going to make a copy. See this link is basically like, it'll take you to this and it'll help you make a copy and you should have something like this open. Okay.",
+                        "utterance_type": [
+                            "OTT"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:28:32",
+                "duration": 40.0,
+                "end_time": "0:29:12",
+                "utterances": [
+                    {
+                        "utterance": "So, um, go ahead and, you know, take a look at, um, that card sort. Here are the instructions. You're going to sort the images of each system into categories based on the type of energy that you think they possess. And you're going to record in your comp up. Make sure to explain the reason for the way you're categorizing each system. So you can group some of them together, be prepared to share your explanation. So here's what the card sort should look like. If you have your own copy, what will happen is, um, you will basically, is this a copy of it. I can't tell, hold on a second. Let me, let me make my own copy right now. There you go, copy of.",
+                        "utterance_type": [
+                            "OTT"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:29:12",
+                "duration": 102.0,
+                "end_time": "0:30:54",
+                "utterances": [
+                    {
+                        "utterance": "So you can actually move these around group of you together. Whichever, ones you think they are. Uh, some people had a question about this image. This is really a book like on a shelf. So that red book is the one we're looking at in that system. Um, and then just go ahead and sort them. Um, there's no right or wrong answer yet. I just want you to be able to explain why you're grouping some together and grouping others together. Okay. I'm going to give you three minutes right now to do that. Go ahead and begin, you are doing this individually. Again, the way you make a copy, this is the link. Okay?",
+                        "utterance_type": [
+                            "OTT"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:30:54",
+                "duration": 94.0,
+                "end_time": "0:32:28",
+                "utterances": [
+                    {
+                        "utterance": "About one more minute. Student_5, I know you joined us a little bit later. Um, what's going to happen is you're just going to, um, make sure that you do the PGQ. That's what we missed a little bit. You can, don't worry about having on a slide, your answer. Just make sure it's in your comp book. (silence) Excuse me. All right. That is our timer. So here's, what's going to happen. You are going to go into the same breakout rooms and you're going to exchange your ideas. Okay? Take about two minutes now. Here's the thing. You don't have to agree on your answers. What you need to do is share why you grouped them the way you group them. Okay. Give each person about 30 seconds to explain their thinking.",
+                        "utterance_type": [
+                            "G"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:32:28",
+                "duration": 22.0,
+                "end_time": "0:32:50",
+                "utterances": [
+                    {
+                        "utterance": "Now, remember when you're building on each other's knowledge, you can say I had similar idea. I did also group business together, but this one was different. Okay. That's how you can say it, but you don't have to come to an agreement yet. All right, go ahead and go to your rooms. Student_6, I'm putting you in breakout room seven.",
+                        "utterance_type": [
+                            "G"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:35:16",
+                "duration": 12.0,
+                "end_time": "0:35:28",
+                "utterances": [
+                    {
+                        "utterance": "Another group to join us again. About four more students. 11 seconds. Student_21 welcome, did you figure out which link to use Student_21, to join our meeting?",
+                        "utterance_type": [
+                            "OTT"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:35:31",
+                "duration": 15.0,
+                "end_time": "0:35:46",
+                "utterances": [
+                    {
+                        "utterance": "Okay. So that link Student_21 is actually the same link as the button, um, on our home page. Okay. So that Zoom meeting button down here. That's the link.",
+                        "utterance_type": [
+                            "OTT"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:35:48",
+                "duration": 3.0,
+                "end_time": "0:35:51",
+                "utterances": [
+                    {
+                        "utterance": "And this button will work for Tuesday through Friday. Okay?",
+                        "utterance_type": [
+                            "OTT"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:35:53",
+                "duration": 3.0,
+                "end_time": "0:35:56",
+                "utterances": [
+                    {
+                        "utterance": "They are where you saw them in the Zoom right here?",
+                        "utterance_type": [
+                            "OTT"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:35:57",
+                "duration": 27.0,
+                "end_time": "0:36:24",
+                "utterances": [
+                    {
+                        "utterance": "Yeah. So that one only has a Monday meeting link. Sorry about that. All right. So everyone that's here. Let's go ahead and talk about this energy card sort. I want to see how you group them. Um, it's 10:38. Gosh, we're here till 10:43. I want to see how much I can hear from you guys while we're here. Okay. Student_22, what is your idea? How did you group these?",
+                        "utterance_type": [
+                            "E"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:36:38",
+                "duration": 3.0,
+                "end_time": "0:36:41",
+                "utterances": [
+                    {
+                        "utterance": "What else do you have? The train, the jets, the rollercoaster. And what else?",
+                        "utterance_type": [
+                            "I"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:36:43",
+                "duration": 9.0,
+                "end_time": "0:36:52",
+                "utterances": [
+                    {
+                        "utterance": "Okay. How come?",
+                        "utterance_type": [
+                            "I"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:36:52",
+                "duration": 1.0,
+                "end_time": "0:36:53",
+                "utterances": [
+                    {
+                        "utterance": "They were what?",
+                        "utterance_type": [
+                            "OTT"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:36:54",
+                "duration": 9.0,
+                "end_time": "0:37:03",
+                "utterances": [
+                    {
+                        "utterance": "Okay. All right. There are somehow control by people.[crosstalk 00:36:58]. Like driven by people. All right. Okay. I'll take that. Good. What about other categories? Other pictures?",
+                        "utterance_type": [
+                            "EV",
+                            "E"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:37:16",
+                "duration": 5.0,
+                "end_time": "0:37:21",
+                "utterances": [
+                    {
+                        "utterance": "Okay. All right. Good. What else? There's a couple others left. Two or three left.",
+                        "utterance_type": [
+                            "EV",
+                            "I"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:37:26",
+                "duration": 3.0,
+                "end_time": "0:37:29",
+                "utterances": [
+                    {
+                        "utterance": "Baseball?",
+                        "utterance_type": [
+                            "EV"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:37:47",
+                "duration": 3.0,
+                "end_time": "0:37:50",
+                "utterances": [
+                    {
+                        "utterance": "In any way Student_22... No, no. I'm sorry. Go ahead. Keep talking. There's a little bit left.",
+                        "utterance_type": [
+                            "I"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:37:57",
+                "duration": 14.0,
+                "end_time": "0:38:11",
+                "utterances": [
+                    {
+                        "utterance": "Oh, there's fingers involved somehow like with our hands. Okay. All right. And the ball too. Okay. All right. I can take that. Okay. Let's hear from somebody else. Thank you, Student_22. Student_23, what did you group and why did you group yours that way?",
+                        "utterance_type": [
+                            "EV",
+                            "E"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:38:21",
+                "duration": 0.0,
+                "end_time": "0:38:21",
+                "utterances": [
+                    {
+                        "utterance": "Okay.",
+                        "utterance_type": [
+                            "EV"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:38:30",
+                "duration": 3.0,
+                "end_time": "0:38:33",
+                "utterances": [
+                    {
+                        "utterance": "Okay. So somehow gravity involved with those. Okay.",
+                        "utterance_type": [
+                            "EV"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:38:45",
+                "duration": 3.0,
+                "end_time": "0:38:48",
+                "utterances": [
+                    {
+                        "utterance": "They're both on solid ground, like a surface and touching them.",
+                        "utterance_type": [
+                            "EV"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:38:50",
+                "duration": 0.0,
+                "end_time": "0:38:50",
+                "utterances": [
+                    {
+                        "utterance": "Okay.",
+                        "utterance_type": [
+                            "OTT"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:38:59",
+                "duration": 11.0,
+                "end_time": "0:39:10",
+                "utterances": [
+                    {
+                        "utterance": "Okay. Something about pulling and going back to normal. Okay. All right, interesting. Okay. Okay. I'll take that. Definitely good. Student_2. Let's hear yours.",
+                        "utterance_type": [
+                            "EV",
+                            "E"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:39:14",
+                "duration": 6.0,
+                "end_time": "0:39:20",
+                "utterances": [
+                    {
+                        "utterance": "Student_2, I want to have you speak a little bit louder. Okay? I know you said you weren't sure, but go ahead. Speak a little louder for the rest.",
+                        "utterance_type": [
+                            "OTT"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:39:30",
+                "duration": 3.0,
+                "end_time": "0:39:33",
+                "utterances": [
+                    {
+                        "utterance": "They were like contract and hit the other. Okay.",
+                        "utterance_type": [
+                            "EV"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:39:44",
+                "duration": 3.0,
+                "end_time": "0:39:47",
+                "utterances": [
+                    {
+                        "utterance": "Okay. So that idea of falling down, okay, all right.",
+                        "utterance_type": [
+                            "EV"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:39:58",
+                "duration": 3.0,
+                "end_time": "0:40:01",
+                "utterances": [
+                    {
+                        "utterance": "Okay. Mechanics. All right. Okay.",
+                        "utterance_type": [
+                            "EV"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:40:12",
+                "duration": 40.0,
+                "end_time": "0:40:52",
+                "utterances": [
+                    {
+                        "utterance": "Okay. So the idea of falling. Okay, good. And being pushed. All right. This is really good. So it's 10:43. Here's how we're going to handle what we need to do. Okay. Um, the next slide, let me go ahead and exit this really quickly. Um, the next slides are slides need to take notes on, so you do have access to these slides now, by the way, as you could tell, you're going to take notes on slides three through seven. And that is what our weekly agenda also says. You're taking notes on those slides, but when we come back together, I want to recap that energy card sort a little bit and see how that ties into our notes. Okay. So we're going to do that tomorrow.",
+                        "utterance_type": [
+                            "EV"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:40:52",
+                "duration": 44.0,
+                "end_time": "0:41:36",
+                "utterances": [
+                    {
+                        "utterance": "Um, and talk about those different systems on those, um, uh, you know, pictures, those images. Um, so I'm stopping with that. Um, you know, there's conferences today. You're going to go to your next class period seven. Period seven, we'll go from 10:48. So you have a little bit of like five minute break in between 10:48 to 11:29. And, um, you know, you're going to then of course, have your lunch and be preparing for your conferences. Remember you going to have those slides ready for your conferences. Um, you did great. Good job. I'm going to release you while your camera's on. Remember Student_24. Thank you, [List of Student_names].",
+                        "utterance_type": [
+                            "OTT"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:41:36",
+                "duration": 1.0,
+                "end_time": "0:41:37",
+                "utterances": [
+                    {
+                        "utterance": "You're doing the notes. Yes. Bye.",
+                        "utterance_type": [
+                            "OTT"
+                        ]
+                    }
+                ]
+            },
+            {
+                "speaker_pseudonym": "Teacher",
+                "initial_time": "0:41:38",
+                "duration": 0.0,
+                "end_time": "",
+                "utterances": [
+                    {
+                        "utterance": "[List of Student_names]. Thank you. [List of Student_names], of course. Let's see who else? Um, Student_2 and Student_5. Student_5, woo hoo. Okay. All right. Bye Student_25, see you. Bye, Student_2. So Ms. Gates, how did that go for you? Were you able to get what you needed?",
+                        "utterance_type": [
+                            "OTT"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "title": "20201209",
+    "duration": 2495.0,
+    "end_time": "",
+    "initial_time": "0:00:00"
+}

@@ -9,6 +9,7 @@ export default class Parser {
         this.period = data.classPeriod;
         this.date = data.classDate;
         this.data = parsedData;
+        // debugger;
         this.segments = parsedData.segments;
         this.isActive = false;
     }

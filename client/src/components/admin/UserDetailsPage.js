@@ -128,7 +128,7 @@ class UserDetailsPage extends Component {
               <span
                 className={this.state.isResettingPassword ? "hidden" : "btn"}
                 onClick={this.toggleUploadData.bind(this)}>
-                {this.state.isUploadingData ? "Cancel" : "Upload data"}
+                {this.state.isUploadingData ? "Cancel" : "Upload JSON data"}
               </span>
               <span
                 className={this.state.isUploadingData ? "hidden" : "btn"}

@@ -107,6 +107,9 @@ class UploadDataForm extends Component {
               <h2 className="text-center">
                 Upload data
               </h2>
+              <h3 className="text-center">
+                If this data is from 2019 and does not use the new coding scheme, <br />please upload your raw file to the CSV uploader instead.
+              </h3>
             </div>
 
             <form noValidate onSubmit={this.onSubmit}>
