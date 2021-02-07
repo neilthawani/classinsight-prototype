@@ -115,27 +115,3 @@ export const uploadDataset = (dataset) => dispatch => {
             });
         });
 };
-
-export const uploadCsvData = (data) => dispatch => {
-    axios
-    .post("/api/datasets/upload-csv", data)
-    .then(res => {
-        console.log("Success. Uploaded data:", res);
-
-        dispatch({
-            type: UPLOAD_CSV_DATA,
-            payload: {
-                dataset: res.data
-            }
-        });
-    })
-    .catch(error => {
-        console.error(error);
-        console.error(error.response && error.response.data);
-
-        dispatch({
-            type: GET_ERRORS,
-            payload: error.response && error.response.data
-        });
-    });
-};

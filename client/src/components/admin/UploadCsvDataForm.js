@@ -3,7 +3,8 @@ import classnames from "classnames";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { uploadCsvData } from '../../actions/datasetActions';
+import { uploadDataset } from '../../actions/datasetActions';
+import { readString } from 'react-papaparse';
 
 class UploadCsvDataForm extends Component {
     constructor(props) {
@@ -54,22 +55,26 @@ class UploadCsvDataForm extends Component {
 
         var userId = this.state.userId;
         var jsonData = {};
+        var props = this.props;
 
         var f = evt.target.files[0];
         if (f) {
             var r = new FileReader();
 
             r.onload = function(e) {
-                var contents = e.target.result;
+                debugger;
 
-                var lines = contents.split("\n");
-                var metadataHeaders = lines[0].split(",");
-                var metadata = lines[1].split(",");
+                var contents = e.target.result;
+                var parsedCsv = readString(contents);
+                console.log("parsedCsv", parsedCsv);
+                var lines = parsedCsv.data;
+                var metadataHeaders = lines[0];
+                var metadata = lines[1];
                 var metaContents = metadataHeaders.reduce((prev, item, index, array) => {
                     var key = metadataHeaders[index]
                     var value = metadata[index];
 
-                    if (value.trim().length) {
+                    if (value) {
                         prev[key] = value;
                     }
 
@@ -84,40 +89,19 @@ class UploadCsvDataForm extends Component {
                         speaking_turns: []
                     }]
                 };
-                console.log("lines[2]", lines[2]);
-                var headers = lines[2].match(/(".*?")/g);//|[^",\s]+)(?=\s*,|\s*$)/g);
+                var headers = lines[2];
                 console.log("headers", headers);
-                var csvHeaders = lines[2].replaceAll(headers[0], "").split(",").filter((header) => header).concat(headers);
-                console.log("csvHeaders", csvHeaders);
-                var lineData = lines.splice(3).map((line) => {
-                    return line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
-                });
+                var lineData = lines.splice(3);
                 console.log("lineData", lineData);
 
                 var dataRows = lineData.map((lineDatum, index, array) => {
                     var dataRow = {};
                     lineDatum.forEach((value, jindex, jarray) => {
-                        var key = "";//,
-                            // value = "";
-
-                        if (jindex <= 4) {
-                            key = headers[jindex];
-                            // value = array[jindex];
-
-                        } else if (jindex === 4 && jarray.length > 5) {
-                            value = jarray.slice(4);
-                            console.log("value", value);
-                        } else if (jindex > 4) {
-
-                        }
+                        var key = headers[jindex];
 
                         if (value) {
                             dataRow[key] = value;
                         }
-                        // debugger;
-                        // console.log("headers", headers);
-
-                        // return prev;
                     });
 
                     return dataRow;
@@ -125,13 +109,13 @@ class UploadCsvDataForm extends Component {
 
                 console.log("dataRows", dataRows);
                 data.segments[0].speaking_turns.push(dataRows);
-                //
-                // console.log("data", data);
 
-                // jsonData = {
-                //     ...metaContents,
-                //     ...data
-                // };
+                jsonData = {
+                    ...metaContents,
+                    ...data
+                };
+
+                console.log("jsonData", jsonData);
             }
 
             r.readAsText(f);
@@ -229,7 +213,7 @@ class UploadCsvDataForm extends Component {
 }
 
 UploadCsvDataForm.propTypes = {
-    uploadCsvData: PropTypes.func.isRequired,
+    uploadDataset: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
     datasets: PropTypes.object.isRequired
@@ -246,5 +230,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { uploadCsvData }
+  { uploadDataset }
 )(withRouter(UploadCsvDataForm));
