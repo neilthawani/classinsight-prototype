@@ -49,6 +49,38 @@ class UploadCsvDataForm extends Component {
         });
     }
 
+    parseFile = async (evt) => {
+        evt.preventDefault();
+
+        var userId = this.state.userId;
+        var output = [];
+
+        var f = evt.target.files[0];
+        if (f) {
+            var r = new FileReader();
+
+            r.onload = function(e) {
+                var contents = e.target.result;
+              // document.write("File Uploaded! <br />" + "name: " + f.name + "<br />" + "content: " + contents + "<br />" + "type: " + f.type + "<br />" + "size: " + f.size + " bytes <br />");
+
+                var lines = contents.split("\n"), output = [];
+                for (var i=0; i<lines.length; i++){
+                    console.log("lines[i].split(,)", lines[i].split(","));
+                    output.push("<tr><td>" + lines[i].split(",").join("</td><td>") + "</td></tr>");
+                }
+                output = "<table>" + output.join("") + "</table>";
+                console.log("output", output);
+                // document.write(output);
+            }
+
+            r.readAsText(f);
+            // document.write(output);
+            console.log("output", output);
+        } else {
+            alert("Failed to load file");
+        }
+    }
+
     onSubmit = e => {
         e.preventDefault();
 
@@ -69,7 +101,7 @@ class UploadCsvDataForm extends Component {
             </div>
 
             <form noValidate onSubmit={this.onSubmit}>
-              <input id="data-upload-input" type="file" accept=".csv" onChange={(e) => this.parseFile(e)} />
+              <input id="data-upload-input" type="file" accept="text/csv" onChange={(e) => this.parseFile(e)} />
 
               {/*{this.state.isUploaded ?
               <div className="even-columns-2">
