@@ -6,6 +6,7 @@ import UserTypes from '../../fixtures/user_types';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import UploadJsonDataForm from './UploadJsonDataForm';
+import UploadCsvDataForm from './UploadCsvDataForm';
 import UserDatasetTableRow from './UserDatasetTableRow';
 import ResetPasswordForm from './ResetPasswordForm';
 
@@ -16,7 +17,8 @@ class UserDetailsPage extends Component {
         var userId = props.match.params.userId;
 
         this.state = {
-            isUploadingData: false,
+            isUploadingCsvData: false,
+            isUploadingJsonData: false,
             isResettingPassword: false,
             userId: userId,
             datasets: [],
@@ -55,10 +57,16 @@ class UserDetailsPage extends Component {
                 UserTypes.filter(obj => obj.value === type)[0].label;
     }
 
-    toggleUploadData() {
+    toggleUploadJsonData() {
         this.setState(prevState => ({
-            isUploadingData: !prevState.isUploadingData
+            isUploadingJsonData: !prevState.isUploadingJsonData
         }));
+    }
+
+    toggleUploadCsvData() {
+      this.setState(prevState => ({
+          isUploadingCsvData: !prevState.isUploadingCsvData
+      }));
     }
 
     toggleResetPassword() {
@@ -106,7 +114,7 @@ class UserDetailsPage extends Component {
         }
 
         this.setState({
-            isUploadingData: false,
+            isUploadingJsonData: false,
             isResettingPassword: false
         });
     }
@@ -126,18 +134,29 @@ class UserDetailsPage extends Component {
                 </span>
               </Link>
               <span
-                className={this.state.isResettingPassword ? "hidden" : "btn"}
-                onClick={this.toggleUploadData.bind(this)}>
-                {this.state.isUploadingData ? "Cancel" : "Upload JSON data"}
+                className={(this.state.isResettingPassword || this.state.isUploadingJsonData) ? "hidden" : "btn"}
+                onClick={this.toggleUploadCsvData.bind(this)}>
+                {this.state.isUploadingCsvData ? "Cancel" : "Upload CSV data"}
               </span>
               <span
-                className={this.state.isUploadingData ? "hidden" : "btn"}
+                className={(this.state.isResettingPassword || this.state.isUploadingCsvData) ? "hidden" : "btn"}
+                onClick={this.toggleUploadJsonData.bind(this)}>
+                {this.state.isUploadingJsonData ? "Cancel" : "Upload JSON data"}
+              </span>
+              <span
+                className={(this.state.isUploadingCsvData || this.state.isUploadingJsonData) ? "hidden" : "btn"}
                 onClick={this.toggleResetPassword.bind(this)}>
                 {this.state.isResettingPassword ? "Cancel" : "Reset password"}
               </span>
             </div>
 
-            {this.state.isUploadingData ?
+            {this.state.isUploadingCsvData ?
+              <UploadCsvDataForm
+                userId={user._id}
+                dismountForm={this.dismountForm.bind(this)} />
+            : ""}
+
+            {this.state.isUploadingJsonData ?
               <UploadJsonDataForm
                 userId={user._id}
                 dismountForm={this.dismountForm.bind(this)} />

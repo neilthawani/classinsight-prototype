@@ -3,9 +3,9 @@ import classnames from "classnames";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { uploadDataset } from '../../actions/datasetActions';
+import { uploadCsvData } from '../../actions/datasetActions';
 
-class UploadJsonDataForm extends Component {
+class UploadCsvDataForm extends Component {
     constructor(props) {
         super(props);
 
@@ -49,47 +49,6 @@ class UploadJsonDataForm extends Component {
         });
     }
 
-    parseFile = async (evt) => {
-        var userId = this.state.userId;
-        evt.preventDefault();
-        const reader = new FileReader();
-
-        try {
-            reader.readAsText(evt.target.files[0]);
-        } catch(e) {
-            console.error(e);
-            this.setState({
-                isUploaded: false,
-                fileData: {}
-            });
-        }
-
-        reader.onload = async (e) => {
-            const text = e.target.result;
-            var jsonData = JSON.parse(text);
-
-            var el = document.getElementById("data-upload-input");
-            var fileName = el.value.split("\\")[2];
-
-            var fileMetadata = fileName.split("_");
-            var classDate = fileMetadata[1],
-                classDate = classDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
-            var classPeriod = fileMetadata[2].replace("Per", "").replace(".json", "").replace("_", ", ");
-
-            this.setState({
-                isUploaded: true,
-                fileData: {
-                    userId: userId,
-                    filename: fileName,
-                    classTopic: "",
-                    classDate: classDate,
-                    classPeriod: classPeriod,
-                    jsonData: jsonData
-                }
-            })
-        };
-    }
-
     onSubmit = e => {
         e.preventDefault();
 
@@ -105,17 +64,14 @@ class UploadJsonDataForm extends Component {
           <div className="form-container wide">
             <div>
               <h2 className="text-center">
-                Upload data
+                Upload CSV data
               </h2>
-              <h3 className="text-center">
-                If this data is from 2019 and does not use the new coding scheme, <br />please upload your raw file to the CSV uploader instead.
-              </h3>
             </div>
 
             <form noValidate onSubmit={this.onSubmit}>
-              <input id="data-upload-input" type="file" accept="application/JSON" onChange={(e) => this.parseFile(e)} />
+              <input id="data-upload-input" type="file" accept=".csv" onChange={(e) => this.parseFile(e)} />
 
-              {this.state.isUploaded ?
+              {/*{this.state.isUploaded ?
               <div className="even-columns-2">
                 <div className="even-column">
                   <span className="data-upload-label">Preview</span>
@@ -172,15 +128,15 @@ class UploadJsonDataForm extends Component {
                   </button>
                 </div>
               </div>
-              : ""}
+              : ""}*/}
             </form>
           </div>
         )
     }
 }
 
-UploadJsonDataForm.propTypes = {
-    uploadDataset: PropTypes.func.isRequired,
+UploadCsvDataForm.propTypes = {
+    uploadCsvData: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
     datasets: PropTypes.object.isRequired
@@ -197,5 +153,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { uploadDataset }
-)(withRouter(UploadJsonDataForm));
+  { uploadCsvData }
+)(withRouter(UploadCsvDataForm));

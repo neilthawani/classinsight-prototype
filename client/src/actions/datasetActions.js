@@ -138,3 +138,4 @@ export const uploadCsvData = (data) => dispatch => {
             payload: error.response && error.response.data
         });
     });
+};
