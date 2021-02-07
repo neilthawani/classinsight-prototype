@@ -53,9 +53,9 @@ class UploadCsvDataForm extends Component {
     parseFile = async (evt) => {
         evt.preventDefault();
 
-        var userId = this.state.userId;
+        // var userId = this.state.userId;
         var jsonData = {};
-        var props = this.props;
+        // var props = this.props;
 
         var f = evt.target.files[0];
         if (f) {
@@ -66,7 +66,7 @@ class UploadCsvDataForm extends Component {
 
                 var contents = e.target.result;
                 var parsedCsv = readString(contents);
-                console.log("parsedCsv", parsedCsv);
+                // console.log("parsedCsv", parsedCsv);
                 var lines = parsedCsv.data;
                 var metadataHeaders = lines[0];
                 var metadata = lines[1];
@@ -82,7 +82,7 @@ class UploadCsvDataForm extends Component {
                 }, {});
 
 
-                console.log("metaContents", metaContents);
+                // console.log("metaContents", metaContents);
 
                 var data = {
                     segments: [{
@@ -90,9 +90,9 @@ class UploadCsvDataForm extends Component {
                     }]
                 };
                 var headers = lines[2];
-                console.log("headers", headers);
+                // console.log("headers", headers);
                 var lineData = lines.splice(3);
-                console.log("lineData", lineData);
+                // console.log("lineData", lineData);
 
                 var dataRows = lineData.map((lineDatum, index, array) => {
                     var dataRow = {};
@@ -107,7 +107,7 @@ class UploadCsvDataForm extends Component {
                     return dataRow;
                 });
 
-                console.log("dataRows", dataRows);
+                // console.log("dataRows", dataRows);
                 data.segments[0].speaking_turns = dataRows;
 
                 jsonData = {
