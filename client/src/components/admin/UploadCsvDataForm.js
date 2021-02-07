@@ -84,7 +84,7 @@ class UploadCsvDataForm extends Component {
                         speaking_turns: []
                     }]
                 };
-                var headers = lines[2].split(",");
+                var headers = lines[2].match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
                 var lineData = lines.splice(3).map((line) => {
                     return line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
                 });
@@ -92,19 +92,20 @@ class UploadCsvDataForm extends Component {
 
                 var dataRow = lineData.reduce((prev, lineDatum, index, array) => {
                     // debugger;
+                    // console.log("headers", headers);
                     var key = headers[index];
                     var value = array[index];
-                    console.log("key", key, "value", value);
+                    // console.log("key", key, "value", value);
 
-                    if (value && value.trim().length) {
-                        prev[key] = prev[value];
+                    if (value) {
+                        prev[key] = value;
                     }
 
                     return prev;
                 }, {});
 
                 console.log("dataRow", dataRow);
-                // data.segments[0].speaking_turns.push(dataRow);
+                data.segments[0].speaking_turns.push(dataRow);
                 //
                 // console.log("data", data);
 
