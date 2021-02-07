@@ -53,7 +53,7 @@ class UploadCsvDataForm extends Component {
         evt.preventDefault();
 
         var userId = this.state.userId;
-        var output = [];
+        var jsonData = {};
 
         var f = evt.target.files[0];
         if (f) {
@@ -61,24 +61,65 @@ class UploadCsvDataForm extends Component {
 
             r.onload = function(e) {
                 var contents = e.target.result;
-              // document.write("File Uploaded! <br />" + "name: " + f.name + "<br />" + "content: " + contents + "<br />" + "type: " + f.type + "<br />" + "size: " + f.size + " bytes <br />");
 
-                var lines = contents.split("\n"), output = [];
-                for (var i=0; i<lines.length; i++){
-                    console.log("lines[i].split(,)", lines[i].split(","));
-                    output.push("<tr><td>" + lines[i].split(",").join("</td><td>") + "</td></tr>");
-                }
-                output = "<table>" + output.join("") + "</table>";
-                console.log("output", output);
-                // document.write(output);
+                var lines = contents.split("\n");
+                var metadataHeaders = lines[0].split(",");
+                var metadata = lines[1].split(",");
+                var metaContents = metadataHeaders.reduce((prev, item, index, array) => {
+                    var key = metadataHeaders[index]
+                    var value = metadata[index];
+
+                    if (value.trim().length) {
+                        prev[key] = value;
+                    }
+
+                    return prev;
+                }, {});
+
+
+                console.log("metaContents", metaContents);
+
+                var data = {
+                    segments: [{
+                        speaking_turns: []
+                    }]
+                };
+                var headers = lines[2].split(",");
+                var lineData = lines.splice(3).map((line) => {
+                    return line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
+                });
+                console.log("lineData", lineData);
+
+                var dataRow = lineData.reduce((prev, lineDatum, index, array) => {
+                    // debugger;
+                    var key = headers[index];
+                    var value = array[index];
+                    console.log("key", key, "value", value);
+
+                    if (value && value.trim().length) {
+                        prev[key] = prev[value];
+                    }
+
+                    return prev;
+                }, {});
+
+                console.log("dataRow", dataRow);
+                // data.segments[0].speaking_turns.push(dataRow);
+                //
+                // console.log("data", data);
+
+                // jsonData = {
+                //     ...metaContents,
+                //     ...data
+                // };
             }
 
             r.readAsText(f);
-            // document.write(output);
-            console.log("output", output);
         } else {
             alert("Failed to load file");
         }
+
+        // console.log("jsonData", jsonData);
     }
 
     onSubmit = e => {

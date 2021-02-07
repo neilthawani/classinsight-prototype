@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const keys = require("../../config/keys");
 const passport = require("passport");
-const spawn = require("child_process").spawn;
 
 // Load Dataset model
 const Dataset = require("../../models/Dataset");
@@ -119,13 +118,7 @@ router.post("/upload", (req, res) => {
 // @access Public
 router.post("/upload-csv", (req, res) => {
     var data = req.query.data
-    var process = spawn("python", ["../scripts/csv_to_json.py", "--filecontents", data]);
-
-    // Takes stdout data from script which executed
-    // with arguments and send this data to res object
-    process.stdout.on('data', function(data) {
-        res.send(data.toString());
-    });
+    
     // Dataset.findOne({
     //     _id: req.body._id
     // }).then(dataset => {
