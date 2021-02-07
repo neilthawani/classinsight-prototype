@@ -5,7 +5,8 @@ import {
     EDIT_DATASET,
     UPLOAD_DATASET,
     SHOW_DATASET,
-    CLEAR_VALID_STATE
+    CLEAR_VALID_STATE,
+    UPLOAD_CSV_DATA,
 } from './types';
 import axios from 'axios';
 
@@ -102,7 +103,7 @@ export const uploadDataset = (dataset) => dispatch => {
                 payload: {
                     dataset: res.data
                 }
-            })
+            });
         })
         .catch(error => {
             console.error(error);
@@ -111,6 +112,29 @@ export const uploadDataset = (dataset) => dispatch => {
             dispatch({
                 type: GET_ERRORS,
                 payload: error.response && error.response.data
-            })
+            });
         });
 };
+
+export const uploadCsvData = (data) => dispatch => {
+    axios
+    .post("/api/datasets/upload-csv", data)
+    .then(res => {
+        console.log("Success. Uploaded data:", res);
+
+        dispatch({
+            type: UPLOAD_CSV_DATA,
+            payload: {
+                dataset: res.data
+            }
+        });
+    })
+    .catch(error => {
+        console.error(error);
+        console.error(error.response && error.response.data);
+
+        dispatch({
+            type: GET_ERRORS,
+            payload: error.response && error.response.data
+        });
+    });

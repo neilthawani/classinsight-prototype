@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { uploadDataset } from '../../actions/datasetActions';
 
-class UploadDataForm extends Component {
+class UploadJsonDataForm extends Component {
     constructor(props) {
         super(props);
 
@@ -179,7 +179,7 @@ class UploadDataForm extends Component {
     }
 }
 
-UploadDataForm.propTypes = {
+UploadJsonDataForm.propTypes = {
     uploadDataset: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
@@ -198,4 +198,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   { uploadDataset }
-)(withRouter(UploadDataForm));
+)(withRouter(UploadJsonDataForm));

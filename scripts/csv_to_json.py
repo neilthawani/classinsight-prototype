@@ -1,7 +1,3 @@
-# Ask UCSD postdocs to make period values comma-separated
-# Will we use "Lesson" in our visualizations or as part of the app's architecture?
-# Filename field is inconsistent: pre-interview and 'field notes file name'; would be nice if this were just "filename"
-
 import argparse
 import csv
 import pandas as pd
@@ -16,12 +12,12 @@ import os
 import numpy as np
 from pathlib import Path
 
-def convert_to_json(csv_path_list, json_folder_path):
+def convert_to_json(files):
     """Function that takes a list of .csv file(s) and a path to a destination folder as input,
     converts the .csv file contents into .json format and stores it in the destination folder
     to be used for visualization.
     """
-    for file in csv_path_list:
+    for file in files:
 
         print("Processing file ", file)
 
@@ -51,11 +47,9 @@ def convert_to_json(csv_path_list, json_folder_path):
         # Metadata is stored in a separate dictionary and data is stored in a dataframe that are combined later
         meta_dict = dict(zip(meta_idx, meta_vals))
 
-        print('meta_dict', meta_dict, '\n')
+        # print('meta_dict', meta_dict, '\n')
 
         meta_dict["teacher"] = meta_dict.pop('Instructor')
-
-        # meta_dict["original_csv"] = meta_dict.pop('Field Notes File Name')
 
         def uniquify(seq, suffs = count(1)):
             """Make all the items unique by adding a suffix (1, 2, etc).
@@ -163,33 +157,35 @@ def convert_to_json(csv_path_list, json_folder_path):
         #     outfile.write(json.dumps(meta_dict, indent=4, sort_keys=False))
 
 if __name__ == "__main__":
-
-
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("-i","--inputdir", help="directory that contains all input CSV files. \
-                       If not specified, the current directory is considered the output directory")
-    parser.add_argument("-o","--outputdir", help="directory where all JSON files will be placed. \
-                        If not specified, the current directory is considered the output directory")
+    parser.add_argument("-f", "--file", help="CSV file, read in from Node.js")
 
-    arguments= parser.parse_args()
+    # parser.add_argument("-i","--inputdir", help="directory that contains all input CSV files. \
+    #                    If not specified, the current directory is considered the output directory")
+    # parser.add_argument("-o","--outputdir", help="directory where all JSON files will be placed. \
+    #                     If not specified, the current directory is considered the output directory")
+    #
+    arguments = parser.parse_args()
 
 
-    if arguments.inputdir:# If input directory is provided
-        csv_folder=arguments.inputdir
-    else: # If no input file/directory is provided, use current directory
-        dirname, filename = os.path.split(os.path.abspath(__file__))
-        csv_folder=dirname
-    filenames=glob.glob(csv_folder+"/*.csv")
-    print("filenames", filenames)
-
-    if arguments.outputdir:
-        json_folder=arguments.outputdir
-    else:
-        dirname, filename = os.path.split(os.path.abspath(__file__))
-        json_folder=dirname
-
-    return convert_to_json(filenames,json_folder)
+    #
+    #
+    # if arguments.inputdir:# If input directory is provided
+    #     csv_folder=arguments.inputdir
+    # else: # If no input file/directory is provided, use current directory
+    #     dirname, filename = os.path.split(os.path.abspath(__file__))
+    #     csv_folder=dirname
+    # filenames=glob.glob(csv_folder+"/*.csv")
+    # print("filenames", filenames)
+    #
+    # if arguments.outputdir:
+    #     json_folder=arguments.outputdir
+    # else:
+    #     dirname, filename = os.path.split(os.path.abspath(__file__))
+    #     json_folder=dirname
+    return convert_to_json([arguments.file])
+    # return convert_to_json(filenames, json_folder)
 
 
 # Input and output folder locations cana lso be hardcoded like so:

@@ -5,7 +5,7 @@ import { listDatasets, deleteDatasetById, clearValidState } from "../../actions/
 import UserTypes from '../../fixtures/user_types';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import UploadDataForm from './UploadDataForm';
+import UploadJsonDataForm from './UploadJsonDataForm';
 import UserDatasetTableRow from './UserDatasetTableRow';
 import ResetPasswordForm from './ResetPasswordForm';
 
@@ -138,7 +138,7 @@ class UserDetailsPage extends Component {
             </div>
 
             {this.state.isUploadingData ?
-              <UploadDataForm
+              <UploadJsonDataForm
                 userId={user._id}
                 dismountForm={this.dismountForm.bind(this)} />
             : ""}

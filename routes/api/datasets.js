@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const keys = require("../../config/keys");
 const passport = require("passport");
+const spawn = require("child_process").spawn;
 
 // Load Dataset model
 const Dataset = require("../../models/Dataset");
@@ -111,6 +112,47 @@ router.post("/upload", (req, res) => {
                 return console.log(err)
             });
     });
+});
+
+// @route POST api/datasets/upload-csv
+// @desc Upload CSV file for parsing
+// @access Public
+router.post("/upload-csv", (req, res) => {
+    var data = req.query.data
+    var process = spawn("python", ["../scripts/csv_to_json.py", "--filecontents", data]);
+
+    // Takes stdout data from script which executed
+    // with arguments and send this data to res object
+    process.stdout.on('data', function(data) {
+        res.send(data.toString());
+    });
+    // Dataset.findOne({
+    //     _id: req.body._id
+    // }).then(dataset => {
+    //     // if multiple class periods, parse as multi-entry array
+    //     // otherwise, parse as single-entry array
+    //     var classPeriod = req.body.classPeriod.includes(",") ?
+    //         req.body.classPeriod.split(",").map((period) => parseInt(period.trim(), 10)) : [parseInt(req.body.classPeriod, 10)];
+    //
+    //     const newDataset = new Dataset({
+    //         userId: req.body.userId,
+    //         filename: req.body.filename,
+    //         classTopic: req.body.classTopic,
+    //         classDate: req.body.classDate,
+    //         classPeriod: classPeriod,
+    //         jsonData: JSON.stringify(req.body.jsonData)
+    //     });
+    //
+    //     // Hash password before saving in database
+    //     newDataset
+    //         .save()
+    //         .then((dataset) => {
+    //             return res.json(dataset)
+    //         })
+    //         .catch((err) => {
+    //             return console.log(err)
+    //         });
+    // });
 });
 
 module.exports = router;
