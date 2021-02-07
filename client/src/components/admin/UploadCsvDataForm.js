@@ -108,7 +108,7 @@ class UploadCsvDataForm extends Component {
                 });
 
                 console.log("dataRows", dataRows);
-                data.segments[0].speaking_turns.push(dataRows);
+                data.segments[0].speaking_turns = dataRows;
 
                 jsonData = {
                     ...metaContents,
