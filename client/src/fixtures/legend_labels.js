@@ -3,14 +3,14 @@
 // G-Guide direction of dialogue or activity
 // C-Connect
 // E-Express or Invite Ideas
-// I-
+// I-Invite Elaboration or Reasoning
 // EV-Evaluation
 // B-Build on Ideas
 // OT-Other Talk
 // R-Make Reasoning Explicit
 // P
 // RD
-// Invite Elaboration or Reasoning
+//
 // OST, OTT (below)
 
 var legendLabels = [{

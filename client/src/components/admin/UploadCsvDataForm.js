@@ -84,28 +84,47 @@ class UploadCsvDataForm extends Component {
                         speaking_turns: []
                     }]
                 };
-                var headers = lines[2].match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
+                console.log("lines[2]", lines[2]);
+                var headers = lines[2].match(/(".*?")/g);//|[^",\s]+)(?=\s*,|\s*$)/g);
+                console.log("headers", headers);
+                var csvHeaders = lines[2].replaceAll(headers[0], "").split(",").filter((header) => header).concat(headers);
+                console.log("csvHeaders", csvHeaders);
                 var lineData = lines.splice(3).map((line) => {
                     return line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
                 });
                 console.log("lineData", lineData);
 
-                var dataRow = lineData.reduce((prev, lineDatum, index, array) => {
-                    // debugger;
-                    // console.log("headers", headers);
-                    var key = headers[index];
-                    var value = array[index];
-                    // console.log("key", key, "value", value);
+                var dataRows = lineData.map((lineDatum, index, array) => {
+                    var dataRow = {};
+                    lineDatum.forEach((value, jindex, jarray) => {
+                        var key = "";//,
+                            // value = "";
 
-                    if (value) {
-                        prev[key] = value;
-                    }
+                        if (jindex <= 4) {
+                            key = headers[jindex];
+                            // value = array[jindex];
 
-                    return prev;
-                }, {});
+                        } else if (jindex === 4 && jarray.length > 5) {
+                            value = jarray.slice(4);
+                            console.log("value", value);
+                        } else if (jindex > 4) {
 
-                console.log("dataRow", dataRow);
-                data.segments[0].speaking_turns.push(dataRow);
+                        }
+
+                        if (value) {
+                            dataRow[key] = value;
+                        }
+                        // debugger;
+                        // console.log("headers", headers);
+
+                        // return prev;
+                    });
+
+                    return dataRow;
+                });
+
+                console.log("dataRows", dataRows);
+                data.segments[0].speaking_turns.push(dataRows);
                 //
                 // console.log("data", data);
 
