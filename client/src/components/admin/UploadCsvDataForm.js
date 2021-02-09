@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { uploadDataset } from '../../actions/datasetActions';
 import { readString } from 'react-papaparse';
+import { headerDict } from '../../data/new_coding_scheme/csv_to_json';
 
 class UploadCsvDataForm extends Component {
     constructor(props) {
@@ -53,9 +54,8 @@ class UploadCsvDataForm extends Component {
     parseFile = async (evt) => {
         evt.preventDefault();
 
-        // var userId = this.state.userId;
+        var that = this;
         var jsonData = {};
-        // var props = this.props;
 
         var f = evt.target.files[0];
         if (f) {
@@ -65,9 +65,10 @@ class UploadCsvDataForm extends Component {
                 debugger;
 
                 var contents = e.target.result;
+
                 var parsedCsv = readString(contents);
-                // console.log("parsedCsv", parsedCsv);
                 var lines = parsedCsv.data;
+
                 var metadataHeaders = lines[0];
                 var metadata = lines[1];
                 var metaContents = metadataHeaders.reduce((prev, item, index, array) => {
@@ -81,49 +82,58 @@ class UploadCsvDataForm extends Component {
                     return prev;
                 }, {});
 
-
-                // console.log("metaContents", metaContents);
-
                 var data = {
                     segments: [{
                         speaking_turns: []
                     }]
                 };
                 var headers = lines[2];
-                // console.log("headers", headers);
                 var lineData = lines.splice(3);
-                // console.log("lineData", lineData);
 
                 var dataRows = lineData.map((lineDatum, index, array) => {
                     var dataRow = {};
                     lineDatum.forEach((value, jindex, jarray) => {
                         var key = headers[jindex];
+                        // console.log("key", key);
 
-                        if (value) {
+                        if (dataRow.hasOwnProperty(key)) {
+                            console.log("uh oh");
+                            dataRow[key] = [ dataRow[key], value ];
+                        } else if (value) {
                             dataRow[key] = value;
                         }
                     });
 
+                    // nTokens !!!
+
                     return dataRow;
                 });
 
-                // console.log("dataRows", dataRows);
                 data.segments[0].speaking_turns = dataRows;
 
                 jsonData = {
                     ...metaContents,
-                    ...data
+                    ...data,
+                    isFromCsv: true
                 };
 
-                console.log("jsonData", jsonData);
+                that.setState({
+                    isUploaded: true,
+                    fileData: {
+                        userId: userId,
+                        filename: fileName,
+                        classTopic: "",
+                        classDate: classDate,
+                        classPeriod: classPeriod,
+                        jsonData: jsonData
+                    }
+                });
             }
 
             r.readAsText(f);
         } else {
             alert("Failed to load file");
         }
-
-        // console.log("jsonData", jsonData);
     }
 
     onSubmit = e => {
@@ -148,12 +158,12 @@ class UploadCsvDataForm extends Component {
             <form noValidate onSubmit={this.onSubmit}>
               <input id="data-upload-input" type="file" accept="text/csv" onChange={(e) => this.parseFile(e)} />
 
-              {/*{this.state.isUploaded ?
+              {this.state.isUploaded ?
               <div className="even-columns-2">
                 <div className="even-column">
                   <span className="data-upload-label">Preview</span>
                   <pre className="data-upload-json">
-                    {JSON.stringify(this.state.fileData.jsonData, null, 2)}
+                    {JSON.stringify(this.state.jsonData, null, 2)}
                   </pre>
                 </div>
 
@@ -205,7 +215,7 @@ class UploadCsvDataForm extends Component {
                   </button>
                 </div>
               </div>
-              : ""}*/}
+              : ""}
             </form>
           </div>
         )
