@@ -5,8 +5,13 @@ const initialState = {};
 export default function errorReducer(state = initialState, action) {
     switch (action.type) {
         case GET_ERRORS:
+          console.log("action.payload", action.payload);
+            if (!typeof action.payload !== "object") {
+                return { errors: action.payload };
+            }
             return action.payload;
         default:
+        console.log("state", state);
             return state;
     }
 }
