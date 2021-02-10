@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 const users = require("./routes/api/users");
 const datasets = require("./routes/api/datasets");
@@ -19,9 +20,8 @@ app.use(express.static('dist'));
 
 app.use(cookieParser());
 var corsOptions = {
-    origin: conf.allowed_domains,
     allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token', 'Authorization'],
-    origin: 'http://localhost:3000',
+    origin: ['http://localhost:3000','https://app.classinsight.io'],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true // allow session cookie from browser to pass through
 }
