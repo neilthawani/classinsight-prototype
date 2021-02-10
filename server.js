@@ -2,8 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
-// TODO: what is dotenv? is it useful?
-// TODO: what is cookie-parser? is it useful?
+const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser');
 
 const users = require("./routes/api/users");
 const datasets = require("./routes/api/datasets");
@@ -16,6 +16,16 @@ const app = express();
 app.use(bodyParser.json());
 
 app.use(express.static('dist'));
+
+app.use(cookieParser());
+var corsOptions = {
+    origin: conf.allowed_domains,
+    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token', 'Authorization'],
+    origin: 'http://localhost:3000',
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true // allow session cookie from browser to pass through
+}
+app.use(cors(corsOptions));
 
 app.use(express.json({limit: '25mb'}));
 app.use(express.urlencoded({extended: true, limit: '25mb'}));
@@ -36,6 +46,7 @@ mongoose
 
 // Passport middleware
 app.use(passport.initialize());
+app.use(passport.session());
 
 // Passport config
 require("./config/passport")(passport);
