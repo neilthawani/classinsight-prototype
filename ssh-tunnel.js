@@ -2,7 +2,7 @@ const MongoClient = require('mongodb').MongoClient;
 const url = "mongodb://localhost:27017";
 var tunnel = require('tunnel-ssh');
 const keychain = require('./keychain');
-const fs = require('fs');
+const fs = require('file-system');
 let privateKey;
 
 try {

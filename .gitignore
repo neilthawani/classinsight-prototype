@@ -1,5 +1,13 @@
-package-lock.json
+# package-lock.json
 node_modules
 .DS_Store
 Icon?
 client/.eslintcache
+# keychain.js
+
+# var keychain = {
+#     "username": "dbHost username",
+#     "keyPath": "/home/classinsight/.ssh/id_rsa",
+#     "password": "dbHost password",
+#     "dbHost": "edusense-dev-1.andrew.cmu.edu",
+# }

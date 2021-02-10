@@ -1,5 +1,7 @@
 const express = require("express");
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
+const mongoose = require('mongoose/browser');
+
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const dotenv = require('dotenv');
@@ -10,6 +12,9 @@ const users = require("./routes/api/users");
 const datasets = require("./routes/api/datasets");
 
 const initializeDb = require('./ssh-tunnel').connectToServer;
+
+var httpProxy = require('http-proxy');
+var apiProxy = httpProxy.createProxyServer();
 
 const app = express();
 
@@ -58,6 +63,10 @@ app.use("/api/datasets", datasets);
 const port = 8802 || process.env.PORT; // process.env.port is Heroku's port if you choose to deploy the app there
 // Developer's note:
 // Run `killall node` in the Terminal if server doesn't refresh successfully and says EADDRINUSE.
+
+app.all("/api/*", function(req, res) {
+    apiProxy.web(req, res, {target: 'http://localhost:3000'});
+});
 
 initializeDb(function(err) {
     app.listen(port, () => console.log(`Server up and running on port ${port} !`));

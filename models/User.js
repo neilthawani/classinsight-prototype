@@ -1,4 +1,6 @@
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
+const mongoose = require('mongoose/browser');
+
 const AutoIncrement = require('mongoose-sequence')(mongoose);
 // Developer's note:
 // AutoIncrement causes these warnings:
