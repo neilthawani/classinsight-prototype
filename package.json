@@ -11,7 +11,7 @@
     "client": "npm start --prefix client",
     "app_install": "rm -rf node_modules && rm -rf client/node_modules && npm install && npm run client-install",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "kill-ports": "npx kill-port 3000 8802 && killall node",
+    "kill-ports": "npx kill-port 3000 8802 27017 && killall node",
     "migrate:up": "migrate-mongo up",
     "migrate:down": "migrate-mongo down"
   },

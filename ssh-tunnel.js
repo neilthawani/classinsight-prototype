@@ -35,7 +35,7 @@ module.exports = {
                 console.log("SSH Connection Successful");
             }
 
-            MongoClient.connect(url, { useNewUrlParser: true }, function (err, client) {
+            MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, client) {
                 if(err){
                     console.log("Error connecting to database");
                 }
