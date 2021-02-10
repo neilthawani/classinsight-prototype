@@ -2,17 +2,25 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
+// TODO: what is dotenv? is it useful?
+// TODO: what is cookie-parser? is it useful?
 
 const users = require("./routes/api/users");
 const datasets = require("./routes/api/datasets");
 
+const initializeDb = require('./ssh-tunnel').connectToServer;
+
 const app = express();
+
+// Bodyparser middleware
+app.use(bodyParser.json());
+
+app.use(express.static('dist'));
 
 app.use(express.json({limit: '25mb'}));
 app.use(express.urlencoded({extended: true, limit: '25mb'}));
 
-// Bodyparser middleware
-app.use(bodyParser.json());
+// TODO: CORS options go here for cookie-parser?
 
 // DB Config
 const db = require("./config/keys").mongoURI;
@@ -40,4 +48,6 @@ const port = 8802 || process.env.PORT; // process.env.port is Heroku's port if y
 // Developer's note:
 // Run `killall node` in the Terminal if server doesn't refresh successfully and says EADDRINUSE.
 
-app.listen(port, () => console.log(`Server up and running on port ${port} !`));
+initializeDb(function(err) {
+    app.listen(port, () => console.log(`Server up and running on port ${port} !`));
+});
