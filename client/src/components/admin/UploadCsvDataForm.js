@@ -4,8 +4,7 @@ import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { uploadDataset } from '../../actions/datasetActions';
-import { readString } from 'react-papaparse';
-import { headerDict } from '../../data/new_coding_scheme/csv_to_json';
+import csvToJson from '../../data/new_coding_scheme/csv_to_json';
 
 class UploadCsvDataForm extends Component {
     constructor(props) {
@@ -55,72 +54,28 @@ class UploadCsvDataForm extends Component {
         evt.preventDefault();
 
         var that = this;
-        var jsonData = {};
 
         var f = evt.target.files[0];
         if (f) {
             var r = new FileReader();
 
             r.onload = function(e) {
-                debugger;
+                var el = document.getElementById("data-upload-input");
+                var fileName = el.value.split("\\")[2];
+
+                var fileMetadata = fileName.split("_");
+                var classDate = fileMetadata[1],
+                    classDate = classDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
+                var classPeriod = fileMetadata[2].replace("Per", "").replace(".json", "").replace("_", ", ");
+                // debugger;
 
                 var contents = e.target.result;
-
-                var parsedCsv = readString(contents);
-                var lines = parsedCsv.data;
-
-                var metadataHeaders = lines[0];
-                var metadata = lines[1];
-                var metaContents = metadataHeaders.reduce((prev, item, index, array) => {
-                    var key = metadataHeaders[index]
-                    var value = metadata[index];
-
-                    if (value) {
-                        prev[key] = value;
-                    }
-
-                    return prev;
-                }, {});
-
-                var data = {
-                    segments: [{
-                        speaking_turns: []
-                    }]
-                };
-                var headers = lines[2];
-                var lineData = lines.splice(3);
-
-                var dataRows = lineData.map((lineDatum, index, array) => {
-                    var dataRow = {};
-                    lineDatum.forEach((value, jindex, jarray) => {
-                        var key = headers[jindex];
-                        // console.log("key", key);
-
-                        if (dataRow.hasOwnProperty(key)) {
-                            console.log("uh oh");
-                            dataRow[key] = [ dataRow[key], value ];
-                        } else if (value) {
-                            dataRow[key] = value;
-                        }
-                    });
-
-                    // nTokens !!!
-
-                    return dataRow;
-                });
-
-                data.segments[0].speaking_turns = dataRows;
-
-                jsonData = {
-                    ...metaContents,
-                    ...data,
-                    isFromCsv: true
-                };
+                var jsonData = csvToJson(contents);
 
                 that.setState({
                     isUploaded: true,
                     fileData: {
-                        userId: userId,
+                        // userId: that.state.userId,
                         filename: fileName,
                         classTopic: "",
                         classDate: classDate,

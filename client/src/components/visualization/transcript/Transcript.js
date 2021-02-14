@@ -91,11 +91,11 @@ class Transcript extends Component {
                 displayRatio={true}
                 activeLabels={this.state.activeLabels}
                 handleClick={this.handleClick.bind(this)} />
-              <LegendButtonGroup
+              {/*<LegendButtonGroup
                 labels={parser.legendLabels({ type: "Technique"})}
                 displayRatio={true}
                 activeLabels={this.state.activeLabels}
-                handleClick={this.handleClick.bind(this)} />
+                handleClick={this.handleClick.bind(this)} />*/}
             </div>
 
             <TurnTakingSmall

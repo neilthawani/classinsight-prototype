@@ -113,10 +113,10 @@ class TurnTaking extends Component {
                   labels={parser.legendLabels({ type: "Teacher"})}
                   activeFilters={this.state.activeFilters}
                   handleClick={this.handleFilterClick.bind(this) }/>
-                <LegendItemGroup
+                {/*<LegendItemGroup
                   labels={parser.legendLabels({ type: "Technique"})}
                   activeFilters={this.state.activeFilters}
-                  handleClick={this.handleFilterClick.bind(this) }/>
+                  handleClick={this.handleFilterClick.bind(this) }/>*/}
               </div>
               <div className="turn-taking-visualization">
                 <div className="turn-taking-visualization-headings">
