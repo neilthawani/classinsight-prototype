@@ -6,7 +6,7 @@ import {
     UPLOAD_DATASET,
     SHOW_DATASET,
     CLEAR_VALID_STATE,
-    UPLOAD_CSV_DATA,
+    // UPLOAD_CSV_DATA,
 } from './types';
 import axios from 'axios';
 
@@ -93,6 +93,7 @@ export const listDatasets = (userId) => {
 };
 
 export const uploadDataset = (dataset) => dispatch => {
+    // debugger;
     axios
         .post("/api/datasets/upload", dataset)
         .then(res => {

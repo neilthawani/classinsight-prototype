@@ -89,16 +89,17 @@ router.post("/upload", (req, res) => {
     }).then(dataset => {
         // if multiple class periods, parse as multi-entry array
         // otherwise, parse as single-entry array
-        var classPeriod = req.body.classPeriod.includes(",") ?
-            req.body.classPeriod.split(",").map((period) => parseInt(period.trim(), 10)) : [parseInt(req.body.classPeriod, 10)];
+        // var classPeriod = req.body.classPeriod.includes(",") ?
+        //     req.body.classPeriod.split(",").map((period) => parseInt(period.trim(), 10)) : [parseInt(req.body.classPeriod, 10)];
+        // debugger;
 
         const newDataset = new Dataset({
             userId: req.body.userId,
             filename: req.body.filename,
             classTopic: req.body.classTopic,
             classDate: req.body.classDate,
-            classPeriod: classPeriod,
-            jsonData: JSON.stringify(req.body.jsonData)
+            classPeriod: req.body.classPeriod,
+            utterances: req.body.utterances
         });
 
         // Hash password before saving in database

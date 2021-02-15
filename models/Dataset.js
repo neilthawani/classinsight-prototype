@@ -40,8 +40,8 @@ const DatasetSchema = new Schema({
     type: Array,
     required: true
   },
-  jsonData: {
-    type: String,
+  utterances: {
+    type: Array,
     required: true
   },
   isActive: {

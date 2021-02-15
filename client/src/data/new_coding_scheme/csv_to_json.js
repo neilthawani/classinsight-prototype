@@ -4,16 +4,21 @@ var metaHeaderDict = {
     "Field Notes File Name": "filename",//"20201210_Evan_Per3_4_FieldNotes_Dennis"
     "Instructor": "instructor",//"Evan"
     "Lesson": "lessonName",//"Project Check-in"
-    "Period": "periods",//"3/4"
+    "Period": "classPeriod",//"3/4"
     "Pre-interview": "",//"Today I am just checking in with students on their project/assessment to see if they have any questions or need help. Goal is to make sure that they are ready to turn the assignment in this week."
-    "Subject": "subject"//"Science"
+    "Subject": "classTopic"//"Science"
 };
 
 var headerDict = {
+    "CHAT": "utterance",
+    "CHAT WRITER": "speakerPseudonym",
     "CLUSTER CODES (R, E, I, B, P, C)": "utteranceCodes",
+    "COMMENTS": "comments",
     // "CLUSTER CODES": "utteranceTypes",
+    "EPISODES": "episodes", // not sure what this is
+    "SEQUENCES": "sequences", // not sure what this is
     "SPEAKER": "speakerPseudonym",
-    "TIME STAMP": "timestamp",
+    "TIME STAMP": "timestamp", // no timestamp for online entries
     "TURN #": "id",
     "UTTERANCE": "utterance"
 };
@@ -24,18 +29,35 @@ var csvToJson = function(contents) {
 
     var metadataHeaders = lines[0];
     var metadata = lines[1];
+
     var metaContents = metadataHeaders.reduce((prev, item, index, array) => {
-        var key = metaHeaderDict[metadataHeaders[index]];
+        var key = metadataHeaders[index];
+        var replacementKey = metaHeaderDict[key];
         var value = metadata[index];
 
-        if (key && value) {
-            prev[key] = value;
+        // parse and flatten as array
+        if (replacementKey === "classPeriod") {
+            value = [ ...value.split("/") ];
+            // console.log("value", value);
+        }
+
+        if (replacementKey && value) {
+            prev[replacementKey] = value;
         }
 
         return prev;
     }, {});
 
-    console.log("metaContents", metaContents);
+    // var fileMetadata = ;
+    //     var classDate = fileMetadata[0],
+    //         classDate =
+    // }
+
+    // grab filename, split by _
+    // date is at index 0, parse date
+    metaContents["classDate"] = metaContents["filename"].split("_")[0].replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
+
+    // console.log("metaContents", metaContents);
 
     // var data = {
     //     // segments: [{
@@ -51,15 +73,22 @@ var csvToJson = function(contents) {
         lineDatum.forEach((value, jindex, jarray) => {
             var key = headers[jindex];
             var replacementKey = headerDict[key];
-            // console.log("key", key);
+            // if (replacementKey === undefined)
+            //     console.log("key", key, "replacementKey", replacementKey);
 
             if (replacementKey === "speakerPseudonym") {
-                value = value.replace(":", "");
+                value = value.replace(":", "").replace("_", " ");
             }
 
-            if (dataRow.hasOwnProperty(key) && value) {
-                console.log("uh oh");
+            if (replacementKey === "utteranceCodes" && !dataRow[replacementKey]) {
+                value = [ value ];
+            }
+
+            if (dataRow[replacementKey] && value) {
+                // console.log("uh oh");
                 dataRow[replacementKey] = [ dataRow[replacementKey], ...value ];
+            // } else if (replacementKey === "utteranceCodes" && value) {
+                // dataRow[replacementKey] = [ value ];
             } else if (value) {
                 dataRow[replacementKey] = value;
             }

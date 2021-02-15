@@ -13,7 +13,7 @@ class UploadCsvDataForm extends Component {
         this.state = {
             errors: {},
             userId: props.userId,
-            classTopic: "",
+            // classTopic: "",
             isUploaded: false,
             isValid: false
         };
@@ -60,13 +60,13 @@ class UploadCsvDataForm extends Component {
             var r = new FileReader();
 
             r.onload = function(e) {
-                var el = document.getElementById("data-upload-input");
-                var fileName = el.value.split("\\")[2];
+                // var el = document.getElementById("data-upload-input");
+                // var fileName = el.value.split("\\")[2];
 
-                var fileMetadata = fileName.split("_");
-                var classDate = fileMetadata[1],
-                    classDate = classDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
-                var classPeriod = fileMetadata[2].replace("Per", "").replace(".json", "").replace("_", ", ");
+                // var fileMetadata = fileName.split("_");
+                // var classDate = fileMetadata[1],
+                //     classDate = classDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
+                // var classPeriod = fileMetadata[2].replace("Per", "").replace(".json", "").replace("_", ", ");
                 // debugger;
 
                 var contents = e.target.result;
@@ -75,12 +75,13 @@ class UploadCsvDataForm extends Component {
                 that.setState({
                     isUploaded: true,
                     fileData: {
-                        // userId: that.state.userId,
-                        filename: fileName,
-                        classTopic: "",
-                        classDate: classDate,
-                        classPeriod: classPeriod,
-                        jsonData: jsonData
+                        userId: that.state.userId,
+                        ...jsonData,
+                        // filename: fileName,
+                        // classTopic: "",
+                        // classDate: classDate,
+                        // classPeriod: classPeriod,
+                        // jsonData: jsonData
                     }
                 });
             }
@@ -118,7 +119,7 @@ class UploadCsvDataForm extends Component {
                 <div className="even-column">
                   <span className="data-upload-label">Preview</span>
                   <pre className="data-upload-json">
-                    {JSON.stringify(this.state.jsonData, null, 2)}
+                    {JSON.stringify(this.state.fileData, null, 2)}
                   </pre>
                 </div>
 
