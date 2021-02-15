@@ -93,7 +93,9 @@ export default class ParserCollection {
     }
 
     // average lesson duration
+    // TODO: Fix Duration.
     averageDuration() {
+        return "";
         var dataParsers = this.dataParsers,
             averageDurationInSecs = dataParsers.reduce((prev, parser) => {
                 prev += parser.data.duration;
