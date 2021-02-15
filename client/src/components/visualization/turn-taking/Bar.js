@@ -39,14 +39,15 @@ export default class Bar extends Component {
     }
 
     render() {
-        var item = this.props.data,
-            timeStamp = "";
-
-        switch (item.timestamp.length) {
-            case 0: break;
-            case 1: timeStamp = item.timestamp[0]; break;
-            default: timeStamp = `${item.timestamp[0]} - ${item.timestamp[item.timestamp.length - 1]}`;
-        }
+        var item = this.props.data;
+        // ,
+        //     timeStamp = "";
+        //
+        // switch (item.timestamp.length) {
+        //     case 0: break;
+        //     case 1: timeStamp = item.timestamp[0]; break;
+        //     default: timeStamp = `${item.timestamp[0]} - ${item.timestamp[item.timestamp.length - 1]}`;
+        // }
 
         var { teacherStyle, studentStyle } = drawBarStyles(item);
 
@@ -57,8 +58,8 @@ export default class Bar extends Component {
           onMouseOver={this.handleMouseOver.bind(this, item)}
           onMouseOut={this.handleMouseOut.bind(this, item)}
           onClick={this.handleBarClick.bind(this, item)}>
-            <div className={item.timestamp.length > 1 ? "turn-taking-bar-timestamp-range" : "turn-taking-bar-timestamp-time"}>
-              {timeStamp}
+            <div className="turn-taking-bar-timestamp-time">
+              {item.timestamp}
             </div>
             <div key={item.id} className={isActive ? "turn-taking-bar active" : "turn-taking-bar"}>
               <div className="turn-taking-bar-teacher-outer">

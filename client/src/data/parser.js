@@ -208,7 +208,7 @@ export default class Parser {
             });
         });
 
-        console.log("nTokensPerUtteranceType", talkRatios);
+        // console.log("nTokensPerUtteranceType", talkRatios);
         return talkRatios;
     }
 

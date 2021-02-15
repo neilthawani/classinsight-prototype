@@ -4,6 +4,7 @@
     display: flex;
     flex-direction: row;
     position: relative;
+    padding-bottom: 40px;
 }
 
 .turn-taking-visualization {
@@ -47,11 +48,11 @@
     z-index: -1;
 }
 
-.turn-taking-bar-timestamp-range {
-    @extend .turn-taking-bar-timestamp;
-    right: 100%;
-    z-index: -1;
-}
+// .turn-taking-bar-timestamp-range {
+//     @extend .turn-taking-bar-timestamp;
+//     right: 100%;
+//     z-index: -1;
+// }
 
 .turn-taking-bar {
     display: flex;
