@@ -45,6 +45,7 @@ var csvToJson = function(contents) {
     var headers = lines[2];
     var lineData = lines.splice(3);
 
+    // TODO: Utterance key dict is resulting in undefined. Why?
     var dataRows = lineData.map((lineDatum, index, array) => {
         var dataRow = {};
         lineDatum.forEach((value, jindex, jarray) => {
