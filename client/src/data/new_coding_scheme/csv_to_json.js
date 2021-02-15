@@ -67,9 +67,14 @@ var csvToJson = function(contents) {
     var headers = lines[2];
     var lineData = lines.splice(3);
 
-    // TODO: Utterance key dict is resulting in undefined. Why?
-    var dataRows = lineData.map((lineDatum, index, array) => {
+    var dataRows = lineData.reduce((prev, lineDatum, index, array) => {
+        // console.log("lineDatum", lineDatum);
+        if (!lineDatum.toString().length) {
+            return prev;
+        }
+
         var dataRow = {};
+
         lineDatum.forEach((value, jindex, jarray) => {
             var key = headers[jindex];
             var replacementKey = headerDict[key];
@@ -101,8 +106,9 @@ var csvToJson = function(contents) {
 
         // nTokens !!!
 
-        return dataRow;
-    });
+        prev.push(dataRow);
+        return prev;
+    }, []);
 
     // data.segments[0].speaking_turns = dataRows;
     // data.utterances = dataRows;
@@ -112,7 +118,7 @@ var csvToJson = function(contents) {
         utterances: dataRows
     };
 
-    console.log("jsonData", jsonData);
+    // console.log("jsonData", jsonData);
 
     return jsonData;// };
 };

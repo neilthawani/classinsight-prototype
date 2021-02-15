@@ -70,7 +70,8 @@ class SidebarGroup extends Component {
                             Duration:
                           </span>
                           <span className="sidebar-data-row-descriptor-value">
-                            {calculateLessonDuration(datum.duration)}
+                            PENDING PARSE
+                            {/*{calculateLessonDuration(datum.duration)}*/}
                           </span>
                         </div>
                       </div>

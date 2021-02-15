@@ -8,6 +8,7 @@ var legendLabels = [{
     value: "Connect",
     text: "Connect",
     type: "Student",
+    speakerType: "Student",
     barColor: "#370617",
     textColor: "white",
     description: ""
@@ -16,6 +17,7 @@ var legendLabels = [{
     value: "Guide Direction of Dialogue or Activity",
     text: "Guide Direction of Dialogue or Activity",
     type: "Student",
+    speakerType: "Student",
     barColor: "#6A040F",
     textColor: "white",
     description: ""
@@ -24,6 +26,7 @@ var legendLabels = [{
     value: "Invite Elaboration or Reasoning",
     text: "Invite Elaboration or Reasoning",
     type: "Student",
+    speakerType: "Student",
     barColor: "#9D0208",
     textColor: "white",
     description: ""
@@ -32,6 +35,7 @@ var legendLabels = [{
     value: "Make Reasoning Explicit",
     text: "Make Reasoning Explicit",
     type: "Student",
+    speakerType: "Student",
     barColor: "#D00000",
     textColor: "white",
     description: ""
@@ -40,6 +44,7 @@ var legendLabels = [{
     value: "Build on Ideas",
     text: "Build on Ideas",
     type: "Student",
+    speakerType: "Student",
     barColor: "#E85D04",
     textColor: "white",
     description: ""
@@ -48,6 +53,7 @@ var legendLabels = [{
     value: "Evaluation",
     text: "Evaluation",
     type: "Student",
+    speakerType: "Student",
     barColor: "#F48C06",
     textColor: "white",
     description: ""
@@ -56,6 +62,7 @@ var legendLabels = [{
     value: "Express or Invite Ideas",
     text: "Express or Invite Ideas",
     type: "Student",
+    speakerType: "Student",
     barColor: "#FAA307",
     textColor: "black",
     description: ""
@@ -64,6 +71,7 @@ var legendLabels = [{
     value: "Other Student Talk",
     text: "Other Student Talk",
     type: "Student",
+    speakerType: "Student",
     barColor: "#FFBA08",
     textColor: "black",
     description: ""
@@ -72,6 +80,7 @@ var legendLabels = [{
     value: "Connect",
     text: "Connect",
     type: "Teacher",
+    speakerType: "Teacher",
     barColor: "#03045E",
     textColor: "white",
     description: ""
@@ -80,6 +89,7 @@ var legendLabels = [{
     value: "Guide Direction of Dialogue or Activity",
     text: "Guide Direction of Dialogue or Activity",
     type: "Teacher",
+    speakerType: "Teacher",
     barColor: "#023E8A",
     textColor: "white",
     description: ""
@@ -88,6 +98,7 @@ var legendLabels = [{
     value: "Invite Elaboration or Reasoning",
     text: "Invite Elaboration or Reasoning",
     type: "Teacher",
+    speakerType: "Teacher",
     barColor: "#0077B6",
     textColor: "white",
     description: ""
@@ -96,6 +107,7 @@ var legendLabels = [{
     value: "Make Reasoning Explicit",
     text: "Make Reasoning Explicit",
     type: "Teacher",
+    speakerType: "Teacher",
     barColor: "#0096C7",
     textColor: "white",
     description: ""
@@ -104,6 +116,7 @@ var legendLabels = [{
     value: "Build on Ideas",
     text: "Build on Ideas",
     type: "Teacher",
+    speakerType: "Teacher",
     barColor: "#00B4D8",
     textColor: "white",
     description: ""
@@ -112,6 +125,7 @@ var legendLabels = [{
     value: "Evaluation",
     text: "Evaluation",
     type: "Teacher",
+    speakerType: "Teacher",
     barColor: "#48CAE4",
     textColor: "black",
     description: ""
@@ -120,6 +134,7 @@ var legendLabels = [{
     value: "Express or Invite Ideas",
     text: "Express or Invite Ideas",
     type: "Teacher",
+    speakerType: "Teacher",
     barColor: "#90E0EF",
     textColor: "black",
     description: ""
@@ -128,6 +143,7 @@ var legendLabels = [{
     value: "Other Teacher Talk",
     text: "Other Teacher Talk",
     type: "Teacher",
+    speakerType: "Teacher",
     barColor: "#ADE8F4",
     textColor: "black",
     description: ""
@@ -136,6 +152,7 @@ var legendLabels = [{
     value: "Other Talk",
     text: "Other Talk",
     type: "Teacher",
+    speakerType: "Teacher",
     barColor: "#CAF0F8",
     textColor: "black",
     description: ""
