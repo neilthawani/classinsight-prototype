@@ -96,7 +96,7 @@ var csvToJson = function(contents) {
 
             if (dataRow[replacementKey] && value) {
                 // console.log("uh oh");
-                dataRow[replacementKey] = [ dataRow[replacementKey], ...value ];
+                dataRow[replacementKey] = [ ...dataRow[replacementKey], ...value ];
             // } else if (replacementKey === "utteranceCodes" && value) {
                 // dataRow[replacementKey] = [ value ];
             } else if (value) {

@@ -21,7 +21,9 @@ class TalkRatio extends Component {
     calculateSpeakerTotal(type) {
         var parser = this.props.datasets.activeParser;
         var speakerTalkTotals = parser.speakerTalkTotals();
+        // console.log("speakerTalkTotals", speakerTalkTotals);
         var speakerTotalObj = speakerTalkTotals.filter((item) => item.speakerType === type);
+        // console.log("speakerTotalObj", speakerTotalObj);
         return speakerTotalObj[0].totalTalkPercentage;
     }
 

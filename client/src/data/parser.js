@@ -32,74 +32,30 @@ export default class Parser {
     //   ]
     // },
     transcript = function() {
-      // return null;
-        // var transcript = [];
-        // var utteranceIndex = 0;
-        // console.log("this.utterances.length", this.utterances);
         var transcript = this.utterances.map((utterance, index, array) => {
             // console.log("utterance.utterance", utterance);
             var nTokens = utterance.utterance.split(" ").length;
 
-            var utteranceTypes = utterance.utteranceCodes.map((code) => {
-                return LegendLabels.filter((label) => {
-                    return code === label.code;
-                   // ) {
-                    //   return label.value;
-                    // }
-                })[0];
+            // console.log("utterance.utteranceCodes", utterance.utteranceCodes);
+            var utteranceTypes = utterance.utteranceCodes.map((code, jindex) => {
+                var legendLabels = LegendLabels;
+
+                return legendLabels.filter((labelObj) => {
+                    if (utterance.utteranceCodes.length === 2 && code === labelObj.code) {
+                        console.log("index", index, labelObj);
+                    }
+                    return code === labelObj.code;
+                })[0].value;
             });
+
+            // if (utterance.utteranceCodes.length === 2)
+            //     console.log("utteranceTypes", utteranceTypes);
 
             return {
                 ...utterance,
                 nTokens: nTokens,
                 utteranceTypes: utteranceTypes
             };
-            // if (segment.participation_type !== "Other") {
-            //     var speakingTurns = segment.speaking_turns;
-            //
-            //     speakingTurns.forEach((speakingTurn, jindex, jarray) => {
-                    // transcript.push({
-                    //     speakerPseudonym: speakingTurn.speaker_pseudonym,
-                    //     speakerType: speakingTurn.speaker_type,
-                    //     initialTime: speakingTurn.initial_time,
-                    //     endTime: speakingTurn.end_time,
-                    //     utterances: []
-                    // });
-
-                    // speakingTurn.utterances.forEach((utterance, kindex, karray) => {
-                    //     var unclassifiedStudentTalk = utterance.utterance_type.length === 0 &&
-                    //             (speakingTurn.speaker_pseudonym.includes("Class") ||
-                    //             speakingTurn.speaker_pseudonym.includes("Student")),
-                    //         unclassifiedTeacherTalk = utterance.utterance_type.length === 0 &&
-                    //             !speakingTurn.speaker_pseudonym.includes("Student") && !speakingTurn.speaker_pseudonym.includes("Class") && !speakingTurn.speaker_pseudonym.includes("Video"),
-                    //         videoTeacherTalk = speakingTurn.speaker_pseudonym.includes("Video"),
-                    //         speakerPseudonym = speakingTurn.speaker_pseudonym.includes("Video") ? "Teacher (Video)" : speakingTurn.speaker_pseudonym,
-                            // dataRow = {
-                            //     id: utteranceIndex++,
-                                // timestamp: [],
-                            //     speakerPseudonym: speakerPseudonym,
-                            //     speakerUtterances: [utterance.utterance],
-                                // nTokens: utterance.n_tokens
-                            // };
-
-                        // if (utterance.timestamp.length) {
-                        //     dataRow.timestamp.push(utterance.timestamp);
-                        // }
-
-                        // if (unclassifiedStudentTalk) {
-                        //     dataRow = { ...dataRow, ...{ utteranceTypes: ["Assorted Student Talk"] } };
-                        // } else if (unclassifiedTeacherTalk) {
-                        //     dataRow = { ...dataRow, ...{ utteranceTypes: ["Assorted Teacher Talk"] } };
-                        // } else if (videoTeacherTalk) {
-                        //     dataRow = { ...dataRow, ...{ utteranceTypes: ["Video"] } };
-                        // } else {
-                        //     dataRow = { ...dataRow, ...{ utteranceTypes: utterance.utterance_type } };
-                        // }
-
-                        // transcript[transcript.length - 1].utterances.push(dataRow);
-            //         });
-            //     });
-            // }
         });
 
         // console.log("transcript", transcript);
@@ -229,21 +185,28 @@ export default class Parser {
                 };
             });
 
+        // console.log("talkRatios", talkRatios);
+
         // calculate nTokens for each utterance type
         talkRatios.forEach((labelObj, index, array) => {
             transcript.forEach((utterance, index, array) => {
+                // console.log("utterance.utteranceTypes", utterance.utteranceTypes, "labelObj.value", labelObj.value)
                 if (utterance.utteranceTypes.includes(labelObj.value)) {
                     labelObj.nTokens += utterance.nTokens;
                 }
             });
         });
 
+        console.log("nTokensPerUtteranceType", talkRatios);
         return talkRatios;
     }
 
     talkRatios = function() {
         var nTokensPerUtteranceType = this.nTokensPerUtteranceType(),
             speakerTotals = this.initializeSpeakerTotals();
+
+        // console.log("nTokensPerUtteranceType", nTokensPerUtteranceType);
+        // console.log("speakerTotals", speakerTotals);
 
         // populate the initialized speakerTotals object
         // by calculating totalNTokens for each speakerType
@@ -307,6 +270,8 @@ export default class Parser {
     speakerTalkTotals = function() {
         var speakerTotals = this.initializeSpeakerTotals(),
             talkRatios = this.talkRatios();
+
+        // console.log("talkRatios", talkRatios);
 
         speakerTotals.forEach((speakerTotalObj, index, array) => {
             talkRatios.forEach((talkRatioObj, jindex, jarray) => {
