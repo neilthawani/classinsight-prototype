@@ -5,12 +5,12 @@ import { connect } from "react-redux";
 import { editDataset } from "../../actions/datasetActions";
 import formatDate from '../../utils/formatDate';
 
-class AdminPanelTableRow extends Component {
+class UserDatasetTableRow extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            isJsonDataExpanded: false
+            areUtterancesExpanded: false
         };
     }
 
@@ -18,9 +18,9 @@ class AdminPanelTableRow extends Component {
         this.props.deleteDataset(dataset, confirmation);
     }
 
-    expandJsonData() {
+    expandUtterances() {
         this.setState({
-            isJsonDataExpanded: !this.state.isJsonDataExpanded
+            areUtterancesExpanded: !this.state.areUtterancesExpanded
         });
     }
 
@@ -36,8 +36,20 @@ class AdminPanelTableRow extends Component {
 
     render() {
         var { isDeletingDataset, dataset } = this.props;
+        // console.log("dataset.utterances", dataset.utterances);
+        // var utterancePreview = 
+        // console.log("dataset.utterances", dataset.utterances);
+        // console.log("utterancePreview", utterancePreview);
 
-        var parsedJson = JSON.stringify(JSON.parse(dataset.jsonData), null, 2);
+        var parsedUtterances = JSON.stringify({
+            "utterances": dataset.utterances
+        }, null, 2);
+        // var parsedUtterances = dataset.utterances.map((utteranceRow) => {
+        //     return JSON.stringify(JSON.parse(utteranceRow));
+        // });
+
+        // console.log("JSON parse", JSON.parse(utterancePreview));
+        // console.log("parsedUtterances", parsedUtterances);
 
         if (isDeletingDataset) {
             return (
@@ -77,8 +89,8 @@ class AdminPanelTableRow extends Component {
                   {dataset.classPeriod.join(", ")}
                 </td>
                 <td className="admin-table-dataset-actions">
-                  <span className="btn" onClick={this.expandJsonData.bind(this)}>
-                    {this.state.isJsonDataExpanded ? "Hide Raw JSON" : "View Raw JSON"}
+                  <span className="btn" onClick={this.expandUtterances.bind(this)}>
+                    {this.state.areUtterancesExpanded ? "Hide Utterances" : "View Utterances"}
                   </span>
                   <span className="btn" onClick={this.toggleActive.bind(this, dataset)}>
                     {dataset.isActive ? "Mark inactive" : "Mark active"}
@@ -88,11 +100,13 @@ class AdminPanelTableRow extends Component {
                   </span>
                 </td>
               </tr>
-            , this.state.isJsonDataExpanded &&
+            , this.state.areUtterancesExpanded &&
               <tr key={`${dataset._id}-data`}>
                 <td colSpan="4">
                   <pre className="admin-table-json">
-                    {parsedJson}
+                    {/*{[dataset.utterances]}*/}
+                    {/*{typeof dataset.utterances}*/}
+                    {parsedUtterances}
                   </pre>
                 </td>
               </tr>
@@ -101,7 +115,7 @@ class AdminPanelTableRow extends Component {
     }
 }
 
-AdminPanelTableRow.propTypes = {
+UserDatasetTableRow.propTypes = {
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
     editDataset: PropTypes.func.isRequired
@@ -115,4 +129,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { editDataset }
-)(withRouter(AdminPanelTableRow));
+)(withRouter(UserDatasetTableRow));

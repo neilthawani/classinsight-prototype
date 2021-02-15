@@ -84,6 +84,11 @@ var csvToJson = function(contents) {
                 value = [ value ];
             }
 
+            // console.log("key", key, value);
+            if (key === "CHAT" && value) {
+                dataRow["isChat"] = true;
+            }
+
             if (dataRow[replacementKey] && value) {
                 // console.log("uh oh");
                 dataRow[replacementKey] = [ dataRow[replacementKey], ...value ];

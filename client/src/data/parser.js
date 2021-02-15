@@ -2,15 +2,18 @@ import LegendLabels from '../fixtures/legend_labels';
 
 export default class Parser {
     constructor(data) {
-        var parsedData = {};
+        // var parsedData = {};
 
-        parsedData = JSON.parse(data.jsonData);
+        // console.log("data", data);
+        // debugger;
+
+        // parsedData = JSON.parse(data.jsonData);
         this.topic = data.classTopic;
         this.period = data.classPeriod;
         this.date = data.classDate;
-        this.data = parsedData;
+        // this.data = parsedData;
         // debugger;
-        this.segments = parsedData.segments;
+        this.utterances = data.utterances;//parsedData.segments;
         this.isActive = false;
     }
 

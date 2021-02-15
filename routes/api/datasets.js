@@ -60,7 +60,7 @@ router.get('/list', function(req, res) {
                     classTopic: dataset.classTopic,
                     classDate: dataset.classDate,
                     classPeriod: dataset.classPeriod,
-                    jsonData: dataset.jsonData
+                    utterances: dataset.utterances
                 });
             }
         });
