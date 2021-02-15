@@ -34,6 +34,7 @@ var csvToJson = function(contents) {
         var key = metadataHeaders[index];
         var replacementKey = metaHeaderDict[key];
         var value = metadata[index];
+        value = value.trim();
 
         // parse and flatten as array
         if (replacementKey === "classPeriod") {
@@ -78,6 +79,7 @@ var csvToJson = function(contents) {
         lineDatum.forEach((value, jindex, jarray) => {
             var key = headers[jindex];
             var replacementKey = headerDict[key];
+            value = value.trim();
             // if (replacementKey === undefined)
             //     console.log("key", key, "replacementKey", replacementKey);
 

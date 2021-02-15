@@ -37,16 +37,27 @@ export default class Parser {
             var nTokens = utterance.utterance.split(" ").length;
 
             // console.log("utterance.utteranceCodes", utterance.utteranceCodes);
-            var utteranceTypes = utterance.utteranceCodes.map((code, jindex) => {
+            var utteranceTypes = utterance.utteranceCodes.reduce((prev, code, jindex) => {
                 var legendLabels = LegendLabels;
 
-                return legendLabels.filter((labelObj) => {
-                    if (utterance.utteranceCodes.length === 2 && code === labelObj.code) {
-                        console.log("index", index, labelObj);
-                    }
+                var filteredLabels = legendLabels.filter((labelObj) => {
+                    // if (utterance.utteranceCodes.length === 2 && code === labelObj.code) {
+                    //     console.log("index", index, labelObj);
+                    // }
                     return code === labelObj.code;
-                })[0].value;
-            });
+                });
+
+                // if (index === 54) debugger;
+                // if (!filteredLabels) {
+                //     debugger;
+                //     console.log('utterance', utterance);
+                // }
+                var filteredLabel = filteredLabels[0] && filteredLabels[0].value;
+                // console.log("filteredLabels", filteredLabels, index, array.length);
+                prev.push(filteredLabel);
+                return prev;
+                // return filteredLabels.value;
+            }, []);
 
             // if (utterance.utteranceCodes.length === 2)
             //     console.log("utteranceTypes", utteranceTypes);
