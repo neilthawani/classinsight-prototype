@@ -42,6 +42,7 @@ class Transcript extends Component {
     barHeight = 3
 
     handleScroll(topElId, bottomElId) {
+        return;
         // calculate focusBox.height
         var turnTakingBarsSmall = document.getElementsByClassName("turn-taking-bars-small-visualization")[0];
 
@@ -101,7 +102,6 @@ class Transcript extends Component {
             <TurnTakingSmall
               parser={parser}
               chartWidth={chartWidth}
-
               barHeight={this.barHeight}
               focusBox={this.state.focusBox} />
 

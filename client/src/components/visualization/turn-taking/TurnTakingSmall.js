@@ -4,7 +4,7 @@ import drawBarStyles from './drawBarStyles';
 
 export default class TurnTakingSmall extends Component {
     render() {
-        var chartData = this.props.parser.parsedData().expanded,
+        var chartData = this.props.parser.filteredTranscript(),
             chartWidth = this.props.chartWidth,
             barHeight = this.props.barHeight,
             focusBox = this.props.focusBox,

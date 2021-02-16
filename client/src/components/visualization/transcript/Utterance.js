@@ -9,7 +9,6 @@ export default class Utterance extends Component {
     }
 
     render() {
-        var timeStamp = this.props.timeStamp;
         var utterance = this.props.utterance;
         var activeLabels = this.props.activeLabels;
         var isLineHighlighted = false;
@@ -23,23 +22,30 @@ export default class Utterance extends Component {
             }
         }
 
-        return (
-          <tr className="script-turn-utterance" data-attr-utterance-id={utterance.id} id={utterance.id} onClick={this.handleUtteranceClick.bind(this, utterance.id)}>
-            <td className="script-turn-utterance-timestamp">
-              {timeStamp}
-            </td>
+        // console.log("utterance.timestamp", utterance.timestamp);
+        var hasTimestamp = utterance.timestamp && utterance.timestamp.length > 0;
+        var timeStamp = hasTimestamp ? utterance.timestamp : "";
 
-            {utterance.speakerUtterances.map((utteranceItem, index, utteranceArray) => {
-              return (
+        return (
+          <table className="script-turn">
+            <tbody className="script-turn-rows">
+              <tr className="script-turn-speaker">
+                <td className="script-turn-speaker-timestamp">
+                  {timeStamp}
+                </td>
+                <td className="script-turn-speaker-text">
+                  {utterance.speakerPseudonym}
+                </td>
+              </tr>
+              <tr className="script-turn-utterance" data-attr-utterance-id={utterance.id} id={utterance.id} onClick={this.handleUtteranceClick.bind(this, utterance.id)}>
                 <td
-                  key={index}
                   className={this.props.canInspect ? "script-turn-utterance-text inspectable" : "script-turn-utterance-text"}
                   style={isLineHighlighted ? defineInitialStyle(utterance) : {}}>
-                  {utteranceItem}
+                  {utterance.utterance}
                 </td>
-              );
-            })}
-          </tr>
+              </tr>
+            </tbody>
+          </table>
         )
     }
 }

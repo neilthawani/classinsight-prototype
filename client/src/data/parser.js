@@ -139,7 +139,7 @@ export default class Parser {
     maxNTokens = function(options) {
         var activeFilters = options && options.activeFilters;
 
-        var expandedData = this.expandedData({ activeFilters: activeFilters });
+        var expandedData = this.filteredTranscript({ activeFilters: activeFilters });
 
         return Math.max.apply(Math, expandedData.map((utterance) => utterance.nTokens));
     }
