@@ -38,7 +38,6 @@ class UploadCsvDataForm extends Component {
         return true;
     }
 
-    // NOTE: This is broken for some reason.
     dismountForm() {
         this.props.dismountForm();
     }

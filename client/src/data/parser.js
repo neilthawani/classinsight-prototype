@@ -14,7 +14,17 @@ export default class Parser {
         // this.data = parsedData;
         // debugger;
         this.utterances = data.utterances;//parsedData.segments;
-        this.isActive = false;
+        // debugger;
+        var duration;
+        for (var i = this.utterances.length - 1; i > 0; i--) {
+            var utteranceObj = this.utterances[i];
+            if (utteranceObj.hasOwnProperty("timestamp") && utteranceObj.timestamp.length) {
+                duration = utteranceObj.timestamp;
+                break;
+            }
+        }
+
+        this.duration = duration;
     }
 
     legendLabels = function(options) {

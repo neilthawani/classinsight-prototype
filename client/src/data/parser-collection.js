@@ -1,6 +1,6 @@
 import LegendLabels from '../fixtures/legend_labels';
 import formatPercentage from '../utils/formatPercentage';
-import calculateLessonDuration from '../utils/calculateLessonDuration';
+import { convertTimestampToSeconds, calculateLessonDuration } from '../utils/calculateLessonDuration';
 
 export default class ParserCollection {
     constructor(dataParsers) {
@@ -93,12 +93,13 @@ export default class ParserCollection {
     }
 
     // average lesson duration
-    // TODO: Fix Duration.
+
     averageDuration() {
-        return "";
+        // return "";
         var dataParsers = this.dataParsers,
             averageDurationInSecs = dataParsers.reduce((prev, parser) => {
-                prev += parser.data.duration;
+                // console.log("collection parser.duration", parser.duration);
+                prev += convertTimestampToSeconds(parser.duration);
                 return prev;
             }, 0) / dataParsers.length;
 
