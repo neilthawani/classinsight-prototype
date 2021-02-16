@@ -114,7 +114,7 @@ class UserDetailsPage extends Component {
         }
 
         this.setState({
-            // isUploadingJsonData: false,
+            isUploadingCsvData: false,
             isResettingPassword: false
         });
     }

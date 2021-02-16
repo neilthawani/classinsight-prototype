@@ -30,6 +30,7 @@ class UploadCsvDataForm extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
+        console.log("nextProps.datasets", nextProps.datasets);
         if (nextProps.datasets.isValid) {
             this.dismountForm();
         }
