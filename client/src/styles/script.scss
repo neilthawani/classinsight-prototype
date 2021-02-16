@@ -1,45 +1,22 @@
-.script-turn-container {
-    // font-size: 14px;
-    // display: table;
-}
-
 .script-turn {
     margin-top: 15px;
     color: $darkGray;
     font-size: 16px;
 }
 
-// .script-turn-rows {} // tbody
-
-// .script-turn-speaker {} // tr
-
-.script-turn-speaker-timestamp { // td
-
-    // text-align: right;
-    margin-right: 10px;
-    // white-space: nowrap;
-}
-
-.script-turn-speaker-text { // td
-    // color: $darkGray;
-    // font-size: 16px;
-}
-
-// .script-turn-utterance {} // tr
-
-.script-turn-utterance-timestamp { // td
+.script-turn-speaker-timestamp {
     font-weight: bold;
-    text-align: right;
-    padding-right: 10px;
+    margin-right: 10px;
 }
 
-.script-turn-utterance-text { // td
+.script-turn-utterance-text {
     overflow: visible;
     color: black;
     font-size: 14px;
+    line-height: 1.2;
 }
 
-.script-turn-utterance-text.inspectable { // td
+.script-turn-utterance-text.inspectable {
     cursor: pointer;
 
     &:hover {

@@ -5,7 +5,6 @@ import formatPercentage from '../../../utils/formatPercentage';
 export default class TalkRatioSection extends Component {
     formatStyle(item) {
         return {
-            height: "50px",
             width: formatPercentage(item.percentage, 2, false),
             backgroundColor: item.barColor
         }
@@ -17,6 +16,7 @@ export default class TalkRatioSection extends Component {
 
     render() {
       var item = this.props.data;
+      // console.log("item", item);
 
       return (
         <div

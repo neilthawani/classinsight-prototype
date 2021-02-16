@@ -33,7 +33,7 @@ export default class Utterance extends Component {
                 <span className="script-turn-speaker-timestamp">
                   {timeStamp}
                 </span>
-                <span className="script-turn-speaker-text">
+                <span>
                   {utterance.speakerPseudonym}
                 </span>
               {/*</tr>*/}
