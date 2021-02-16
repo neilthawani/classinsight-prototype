@@ -3,9 +3,101 @@
 // 2020 - 2021 ClassInSight Classroom Discourse Coding Manual
 // New codes:
 
+var legendDict = {
+    "Student": {
+        "C": {
+            value: "Connect",
+            barColor: "#370617",
+            textColor: "white",
+        },
+        "G": {
+            value: "Guide Direction of Dialogue or Activity",
+            barColor: "#6A040F",
+            textColor: "white",
+        },
+        "I": {
+            value: "Invite Elaboration or Reasoning",
+            barColor: "#9D0208",
+            textColor: "white",
+        },
+        "R": {
+            value: "Make Reasoning Explicit",
+            barColor: "#D00000",
+            textColor: "white",
+        },
+        "B": {
+            value: "Build on Ideas",
+            barColor: "#E85D04",
+            textColor: "white",
+        },
+        "EV": {
+            value: "Evaluation",
+            barColor: "#F48C06",
+            textColor: "white",
+        },
+        "E": {
+            value: "Express or Invite Ideas",
+            barColor: "#FAA307",
+            textColor: "black",
+        },
+        "OST": {
+            value: "Other Student Talk",
+            barColor: "#FFBA08",
+            textColor: "black",
+        },
+    },
+    "Teacher": {
+        "C": {
+            value: "Connect",
+            barColor: "#03045E",
+            textColor: "white",
+        },
+        "G": {
+            value: "Guide Direction of Dialogue or Activity",
+            barColor: "#023E8A",
+            textColor: "white",
+        },
+        "I": {
+            value: "Invite Elaboration or Reasoning",
+            barColor: "#0077B6",
+            textColor: "white",
+        },
+        "R": {
+            value: "Make Reasoning Explicit",
+            barColor: "#0096C7",
+            textColor: "white",
+        },
+        "B": {
+            value: "Build on Ideas",
+            barColor: "#00B4D8",
+            textColor: "white",
+        },
+        "EV": {
+            value: "Evaluation",
+            barColor: "#48CAE4",
+            textColor: "black",
+        },
+        "E": {
+            value: "Express or Invite Ideas",
+            barColor: "#90E0EF",
+            textColor: "black",
+        },
+        "OTT": {
+            value: "Other Teacher Talk",
+            barColor: "#ADE8F4",
+            textColor: "black",
+        },
+        "OT": {
+            value: "Other Talk",
+            barColor: "#CAF0F8",
+            textColor: "black",
+        },
+    }
+};
+
 var legendLabels = [{
     code: "C",
-    value: "Connect",
+    value: "Student - Connect",
     text: "Connect",
     type: "Student",
     speakerType: "Student",
@@ -14,7 +106,7 @@ var legendLabels = [{
     description: ""
 }, {
     code: "G",
-    value: "Guide Direction of Dialogue or Activity",
+    value: "Student - Guide Direction of Dialogue or Activity",
     text: "Guide Direction of Dialogue or Activity",
     type: "Student",
     speakerType: "Student",
@@ -23,7 +115,7 @@ var legendLabels = [{
     description: ""
 }, {
     code: "I",
-    value: "Invite Elaboration or Reasoning",
+    value: "Student - Invite Elaboration or Reasoning",
     text: "Invite Elaboration or Reasoning",
     type: "Student",
     speakerType: "Student",
@@ -32,7 +124,7 @@ var legendLabels = [{
     description: ""
 }, {
     code: "R",
-    value: "Make Reasoning Explicit",
+    value: "Student - Make Reasoning Explicit",
     text: "Make Reasoning Explicit",
     type: "Student",
     speakerType: "Student",
@@ -41,7 +133,7 @@ var legendLabels = [{
     description: ""
 }, {
     code: "B",
-    value: "Build on Ideas",
+    value: "Student - Build on Ideas",
     text: "Build on Ideas",
     type: "Student",
     speakerType: "Student",
@@ -50,7 +142,7 @@ var legendLabels = [{
     description: ""
 }, {
     code: "EV",
-    value: "Evaluation",
+    value: "Student - Evaluation",
     text: "Evaluation",
     type: "Student",
     speakerType: "Student",
@@ -59,7 +151,7 @@ var legendLabels = [{
     description: ""
 }, {
     code: "E",
-    value: "Express or Invite Ideas",
+    value: "Student - Express or Invite Ideas",
     text: "Express or Invite Ideas",
     type: "Student",
     speakerType: "Student",
@@ -77,7 +169,7 @@ var legendLabels = [{
     description: ""
 }, {
     code: "C",
-    value: "Connect",
+    value: "Teacher - Connect",
     text: "Connect",
     type: "Teacher",
     speakerType: "Teacher",
@@ -86,7 +178,7 @@ var legendLabels = [{
     description: ""
 }, {
     code: "G",
-    value: "Guide Direction of Dialogue or Activity",
+    value: "Teacher - Guide Direction of Dialogue or Activity",
     text: "Guide Direction of Dialogue or Activity",
     type: "Teacher",
     speakerType: "Teacher",
@@ -95,7 +187,7 @@ var legendLabels = [{
     description: ""
 }, {
     code: "I",
-    value: "Invite Elaboration or Reasoning",
+    value: "Teacher - Invite Elaboration or Reasoning",
     text: "Invite Elaboration or Reasoning",
     type: "Teacher",
     speakerType: "Teacher",
@@ -104,7 +196,7 @@ var legendLabels = [{
     description: ""
 }, {
     code: "R",
-    value: "Make Reasoning Explicit",
+    value: "Teacher - Make Reasoning Explicit",
     text: "Make Reasoning Explicit",
     type: "Teacher",
     speakerType: "Teacher",
@@ -113,7 +205,7 @@ var legendLabels = [{
     description: ""
 }, {
     code: "B",
-    value: "Build on Ideas",
+    value: "Teacher - Build on Ideas",
     text: "Build on Ideas",
     type: "Teacher",
     speakerType: "Teacher",
@@ -122,7 +214,7 @@ var legendLabels = [{
     description: ""
 }, {
     code: "EV",
-    value: "Evaluation",
+    value: "Teacher - Evaluation",
     text: "Evaluation",
     type: "Teacher",
     speakerType: "Teacher",
@@ -131,7 +223,7 @@ var legendLabels = [{
     description: ""
 }, {
     code: "E",
-    value: "Express or Invite Ideas",
+    value: "Teacher - Express or Invite Ideas",
     text: "Express or Invite Ideas",
     type: "Teacher",
     speakerType: "Teacher",
@@ -291,4 +383,4 @@ var legendLabels = [{
 //     code: ""
 // }];
 
-export default legendLabels;
+export { legendLabels, legendDict };

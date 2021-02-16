@@ -1,4 +1,4 @@
-import LegendLabels from '../fixtures/legend_labels';
+import { legendLabels, legendDict } from '../fixtures/legend_labels';
 
 export default class Parser {
     constructor(data) {
@@ -44,36 +44,49 @@ export default class Parser {
     transcript = function() {
         var transcript = this.utterances.map((utterance, index, array) => {
             // console.log("utterance.utterance", utterance);
+            var speakerType = utterance.speakerPseudonym.includes("Student") ? "Student" : "Teacher";
+
             var nTokens = utterance.utterance.split(" ").length;
 
-            // console.log("utterance.utteranceCodes", utterance.utteranceCodes);
-            var utteranceTypes = utterance.utteranceCodes.reduce((prev, code, jindex) => {
-                var legendLabels = LegendLabels;
+            // console.log("utterance.speakerPseudonym", utterance.speakerPseudonym, "utterance.utteranceCodes", utterance.utteranceCodes);
+            var utteranceTypes = utterance.utteranceCodes.map((code) => {
 
-                var filteredLabels = legendLabels.filter((labelObj) => {
-                    // if (utterance.utteranceCodes.length === 2 && code === labelObj.code) {
-                    //     console.log("index", index, labelObj);
-                    // }
-                    return code === labelObj.code;
-                });
-
-                // if (index === 54) debugger;
-                // if (!filteredLabels) {
-                //     debugger;
-                //     console.log('utterance', utterance);
-                // }
-                var filteredLabel = filteredLabels[0] && filteredLabels[0].value;
-                // console.log("filteredLabels", filteredLabels, index, array.length);
-                prev.push(filteredLabel);
-                return prev;
-                // return filteredLabels.value;
-            }, []);
+                // console.log("code", code);
+                return legendDict[speakerType][code];
+            });
+            // var utteranceTypes = utterance.utteranceCodes.reduce((prev, code, jindex, jarray) => {
+            //     // console.log("jarray", jarray);
+            //
+            //
+            //     var filteredLabels = legendLabels.filter((labelObj) => {
+            //         // if (utterance.utteranceCodes.length === 2 && code === labelObj.code) {
+            //         //     console.log("index", index, labelObj);
+            //         // }
+            //         if (index === 19 && code === labelObj.code) {
+            //             // console.log("utterance", utterance, "code", code);
+            //         }
+            //         return code === labelObj.code;
+            //     });
+            //
+            //     // if (index === 54) debugger;
+            //     // if (!filteredLabels) {
+            //     //     debugger;
+            //     //     console.log('utterance', utterance);
+            //     // }
+            //     var filteredLabel = filteredLabels[0] && filteredLabels[0].value;
+            //     // console.log("filteredLabels", filteredLabels, index, array.length);
+            //     // console.log("filteredLabel", filteredLabel);
+            //     prev.push(filteredLabel);
+            //     return prev;
+            //     // return filteredLabels.value;
+            // }, []);
 
             // if (utterance.utteranceCodes.length === 2)
             //     console.log("utteranceTypes", utteranceTypes);
 
             return {
                 ...utterance,
+                speakerType: speakerType,
                 nTokens: nTokens,
                 utteranceTypes: utteranceTypes
             };
@@ -88,23 +101,13 @@ export default class Parser {
         var activeFilters = options && options.activeFilters;
 
         var filteredTranscript = data.reduce((accumulator, utterance, index, array) => {
+            var shouldBeFiltered = activeFilters && activeFilters.some(filter => utterance.utteranceTypes.includes(filter));
 
-            // var newUtterances = turn.utterances.reduce((jaccumulator, utterance, jindex, jarray) => {
-                var shouldBeFiltered = activeFilters && activeFilters.some(filter => utterance.utteranceTypes.includes(filter));
+            if (!shouldBeFiltered) {
+                accumulator.push(utterance);
+            }
 
-                if (!shouldBeFiltered) {
-                    accumulator.push(utterance);
-                }
-
-                return accumulator;
-            // }, []);
-
-            // if (newUtterances.length) {
-            //     turn.utterances = newUtterances;
-            //     accumulator.push(turn);
-            // }
-            //
-            // return accumulator;
+            return accumulator;
         }, []);
 
         return filteredTranscript;
@@ -197,7 +200,6 @@ export default class Parser {
 
     nTokensPerUtteranceType = function() {
         var transcript = this.transcript(),
-            legendLabels = LegendLabels,
             talkRatios = legendLabels.map((labelObj, index, array) => { // set up object to be returned
                 return {
                     ...labelObj,
@@ -206,7 +208,7 @@ export default class Parser {
                 };
             });
 
-        console.log("talkRatios", talkRatios);
+        // console.log("talkRatios", talkRatios);
 
         // calculate nTokens for each utterance type
         talkRatios.forEach((labelObj, index, array) => {
@@ -269,7 +271,6 @@ export default class Parser {
 
     // only called in this file by speakerTalkTotals
     initializeSpeakerTotals = function() {
-        var legendLabels = LegendLabels;
         var speakerTotals = legendLabels.reduce((accumulator, labelObj, index, array) => {
             var speakerIsInArray = accumulator.filter((accumObj) => {
                 return accumObj.speakerType === labelObj.speakerType;

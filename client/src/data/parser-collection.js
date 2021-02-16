@@ -1,4 +1,4 @@
-import LegendLabels from '../fixtures/legend_labels';
+import { legendLabels } from '../fixtures/legend_labels';
 import formatPercentage from '../utils/formatPercentage';
 import { convertTimestampToSeconds, calculateLessonDuration } from '../utils/calculateLessonDuration';
 
@@ -32,7 +32,7 @@ export default class ParserCollection {
         var dateArray = Object.keys(trendLineDataObj);
 
         // allTrendLines is array of labelObj's with an empty data array appended to each obj
-        var allTrendLines = LegendLabels.map((labelObj) => {
+        var allTrendLines = legendLabels.map((labelObj) => {
             return {
                 ...labelObj,
                 data: []
@@ -109,8 +109,6 @@ export default class ParserCollection {
     // aggregated legend labels
     // options.type is either Teacher or Student
     legendLabels = function(options) {
-        var legendLabels = LegendLabels.filter((item) => item.type === options.type);
-
-        return legendLabels;
+        return legendLabels.filter((item) => item.type === options.type);
     }
 }
