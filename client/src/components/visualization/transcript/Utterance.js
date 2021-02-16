@@ -27,25 +27,25 @@ export default class Utterance extends Component {
         var timeStamp = hasTimestamp ? utterance.timestamp : "";
 
         return (
-          <table className="script-turn">
-            <tbody className="script-turn-rows">
-              <tr className="script-turn-speaker">
-                <td className="script-turn-speaker-timestamp">
+          <div className="script-turn" data-attr-utterance-id={utterance.id} id={utterance.id} onClick={this.handleUtteranceClick.bind(this, utterance.id)}>
+            {/*<tbody className="script-turn-rows">*/}
+              {/*<tr className="script-turn-speaker">*/}
+                <span className="script-turn-speaker-timestamp">
                   {timeStamp}
-                </td>
-                <td className="script-turn-speaker-text">
+                </span>
+                <span className="script-turn-speaker-text">
                   {utterance.speakerPseudonym}
-                </td>
-              </tr>
-              <tr className="script-turn-utterance" data-attr-utterance-id={utterance.id} id={utterance.id} onClick={this.handleUtteranceClick.bind(this, utterance.id)}>
-                <td
+                </span>
+              {/*</tr>*/}
+              {/*<tr className="script-turn-utterance">*/}
+                <p
                   className={this.props.canInspect ? "script-turn-utterance-text inspectable" : "script-turn-utterance-text"}
                   style={isLineHighlighted ? defineInitialStyle(utterance) : {}}>
                   {utterance.utterance}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                </p>
+              {/*</tr>*/}
+            {/*</tbody>*/}
+          </div>
         )
     }
 }

@@ -105,7 +105,7 @@ class Transcript extends Component {
               barHeight={this.barHeight}
               focusBox={this.state.focusBox} />
 
-            <div className="transcript-script-container" style={{ marginLeft: `${chartWidth}px` }}>
+            <div className="transcript-script-container" style={{ marginLeft: `${chartWidth - 20}px` }}>
               <Script
                 transcript={transcript}
                 activeLabels={this.state.activeLabels}
