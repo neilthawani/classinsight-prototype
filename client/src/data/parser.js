@@ -196,13 +196,14 @@ export default class Parser {
                 };
             });
 
-        // console.log("talkRatios", talkRatios);
+        console.log("talkRatios", talkRatios);
 
         // calculate nTokens for each utterance type
         talkRatios.forEach((labelObj, index, array) => {
             transcript.forEach((utterance, index, array) => {
                 // console.log("utterance.utteranceTypes", utterance.utteranceTypes, "labelObj.value", labelObj.value)
-                if (utterance.utteranceTypes.includes(labelObj.value)) {
+                // debugger;
+                if (utterance.speakerPseudonym.includes(labelObj.speakerType) && utterance.utteranceTypes.includes(labelObj.value)) {
                     labelObj.nTokens += utterance.nTokens;
                 }
             });
