@@ -82,7 +82,7 @@ class TurnTaking extends Component {
 
         var parser = this.props.datasets.activeParser,
             chartData = parser.filteredTranscript({activeFilters: this.state.activeFilters}) || [];
-        // Next step: Fix filteredTranscript
+
         // console.log("chartData", chartData);
         // console.log("parser", parser);
         return (

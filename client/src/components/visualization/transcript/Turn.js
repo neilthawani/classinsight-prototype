@@ -8,7 +8,7 @@ export default class HoverScript extends Component {
 
     render() {
         var turn = this.props.data;
-        console.log("turn", turn);
+        // console.log("turn", turn);
 
         return (
           <div className="script-turn-container" id={turn.id} onClick={this.handleTextClick.bind(this, turn.id)}>

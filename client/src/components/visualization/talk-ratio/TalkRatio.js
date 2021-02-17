@@ -67,10 +67,10 @@ class TalkRatio extends Component {
                 labels={parser.legendLabels({ type: "Teacher" })}
                 displayRatio={true}
                 handleClick={() => {}} />
-              <LegendItemGroup
+              {/*<LegendItemGroup
                 labels={parser.legendLabels({ type: "Media" })}
                 displayRatio={true}
-                handleClick={() => {}} />
+                handleClick={() => {}} />*/}
             </div>
             <div className="talk-ratio-visualization">
               <div className="talk-ratio-visualization-chart">
