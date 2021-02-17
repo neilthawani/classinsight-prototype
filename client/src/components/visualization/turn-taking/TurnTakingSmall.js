@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
-import drawBarStyles from './drawBarStyles';
+import { drawBarStyles } from './barStyles';
 
 export default class TurnTakingSmall extends Component {
     render() {

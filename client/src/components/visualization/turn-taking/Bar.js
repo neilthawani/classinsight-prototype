@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Turn from '../transcript/Turn';
 
-import drawBarStyles from './drawBarStyles';
+import { drawBarStyles } from './barStyles';
 import isObjectEmpty from '../../../utils/isObjectEmpty';
 
 export default class Bar extends Component {

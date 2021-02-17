@@ -8,6 +8,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import removeArrayValue from '../../../utils/removeArrayValue';
+import { smallBarHeight } from '../turn-taking/barStyles';
 
 class Transcript extends Component {
     constructor(props) {
@@ -61,19 +62,30 @@ class Transcript extends Component {
         });
     }
 
-    barHeight = 3
+    barHeight = smallBarHeight;
 
     handleScroll(topElId, bottomElId) {
-        return;
+        // return;
         // calculate focusBox.height
         var turnTakingBarsSmall = document.getElementsByClassName("turn-taking-bars-small-visualization")[0];
 
+        console.log("turnTakingBarsSmall", turnTakingBarsSmall);
         if (!turnTakingBarsSmall) return;
 
         var topOfBox = turnTakingBarsSmall.querySelectorAll(`.turn-taking-bars-small-visualization [data-attr-utterance-id='${topElId}']`)[0];
+
+        console.log("topOfBox", topOfBox);
         var bottomOfBox = turnTakingBarsSmall.querySelectorAll(`.turn-taking-bars-small-visualization [data-attr-utterance-id='${bottomElId}']`)[0];
+        console.log("bottomOfBox", bottomOfBox);
+
+        if (!topOfBox || !bottomOfBox) {
+            return;
+        }
+
         var topOfBoxY = topOfBox.getBoundingClientRect().y;
+        // console.log("topOfBoxY", topOfBoxY);
         var bottomOfBoxY = bottomOfBox.getBoundingClientRect().y;
+        // console.log("bottomOfBoxY", bottomOfBoxY);
         var boxHeight = bottomOfBoxY - topOfBoxY + 1;
 
         // focus the box

@@ -29,8 +29,10 @@ export default class Script extends Component {
     }
 
     getElementIdsForFocusWindow() {
-        var scriptTurnContainer = document.getElementsByClassName('script-turn-utterance'),
+        var scriptTurnContainer = document.getElementsByClassName('script-turn'),
             elementsInBounds = [];
+
+        // console.log("scriptTurnContainer", scriptTurnContainer);
 
         for (var i = 0; i < scriptTurnContainer.length; i++) {
             var el = scriptTurnContainer[i];
@@ -53,6 +55,7 @@ export default class Script extends Component {
             bottomElId = 0;
 
         if (elementsInBounds.length) {
+            console.log("elementsInBounds.length");
             topElId = parseInt(elementsInBounds[0].getAttribute('data-attr-utterance-id'), 10);
             bottomElId = parseInt(elementsInBounds[elementsInBounds.length - 1].getAttribute('data-attr-utterance-id'), 10);
         }
@@ -65,6 +68,8 @@ export default class Script extends Component {
 
     handleScroll(event) {
         var { topElId, bottomElId } = this.getElementIdsForFocusWindow();
+
+        console.log("topElId", topElId, "bottomElId", bottomElId);
 
         this.props.handleScroll(topElId, bottomElId);
     }

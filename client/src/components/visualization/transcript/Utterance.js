@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 
 import React, { Component } from 'react';
-import defineInitialStyle from '../turn-taking/defineInitialStyle';
+import { defineInitialStyle } from '../turn-taking/barStyles';
 
 export default class Utterance extends Component {
     handleUtteranceClick(utteranceId) {

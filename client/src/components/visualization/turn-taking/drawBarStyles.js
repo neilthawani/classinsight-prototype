@@ -1,3 +1,5 @@
+// TODO: Delete this file.
+
 import defineInitialStyle from './defineInitialStyle';
 
 export default function drawBarStyles(item, areBarsSmall = false) {
@@ -9,7 +11,7 @@ export default function drawBarStyles(item, areBarsSmall = false) {
         barHeight = "14px";
 
     if (areBarsSmall) {
-        barHeight = "3px";
+        barHeight = "12px";
     }
 
     var baseStyle = { height: barHeight },
