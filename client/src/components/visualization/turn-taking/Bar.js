@@ -40,14 +40,6 @@ export default class Bar extends Component {
 
     render() {
         var item = this.props.data;
-        // ,
-        //     timeStamp = "";
-        //
-        // switch (item.timestamp.length) {
-        //     case 0: break;
-        //     case 1: timeStamp = item.timestamp[0]; break;
-        //     default: timeStamp = `${item.timestamp[0]} - ${item.timestamp[item.timestamp.length - 1]}`;
-        // }
 
         var { teacherStyle, studentStyle } = drawBarStyles(item);
 

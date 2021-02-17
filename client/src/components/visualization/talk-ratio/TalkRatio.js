@@ -21,9 +21,8 @@ class TalkRatio extends Component {
     calculateSpeakerTotal(type) {
         var parser = this.props.datasets.activeParser;
         var speakerTalkTotals = parser.speakerTalkTotals();
-        // console.log("speakerTalkTotals", speakerTalkTotals);
         var speakerTotalObj = speakerTalkTotals.filter((item) => item.speakerType === type);
-        // console.log("speakerTotalObj", speakerTotalObj);
+
         return speakerTotalObj[0].totalTalkPercentage;
     }
 
@@ -67,10 +66,6 @@ class TalkRatio extends Component {
                 labels={parser.legendLabels({ type: "Teacher" })}
                 displayRatio={true}
                 handleClick={() => {}} />
-              {/*<LegendItemGroup
-                labels={parser.legendLabels({ type: "Media" })}
-                displayRatio={true}
-                handleClick={() => {}} />*/}
             </div>
             <div className="talk-ratio-visualization">
               <div className="talk-ratio-visualization-chart">

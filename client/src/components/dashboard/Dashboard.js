@@ -16,23 +16,17 @@ class Dashboard extends Component {
         };
     }
 
-    // same logic as in Transcript::handleClick
+    // TODO: same logic as in Transcript::handleClick
     handleFilterClick(label) {
         var activeFilters = this.state.activeFilters;
 
-        // debugger;
         var isFilterActive = activeFilters.some(filter => label.speakerType === filter.speakerType && label.code === filter.code);
-        // console.log("isFilterActive", isFilterActive);
 
         if (isFilterActive) {
-            // console.log('remove filter');
             activeFilters = removeArrayValue(label, activeFilters)
         } else {
-            // console.log('add filter');
             activeFilters.push(label);
         }
-
-        console.log("activeFilters", activeFilters);
 
         this.setState({
             activeFilters: activeFilters

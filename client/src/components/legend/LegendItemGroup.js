@@ -13,10 +13,6 @@ export default class LegendItemGroup extends Component {
       return (
         <div className="legend-item-container">
         {labels.map((label, index) => {
-            // if (label.value === "Video" && label.percentage === 0) {
-            //     return null;
-            // }
-
             return (
               <LegendItem
                 key={index}

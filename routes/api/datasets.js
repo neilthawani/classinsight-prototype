@@ -87,12 +87,6 @@ router.post("/upload", (req, res) => {
     Dataset.findOne({
         _id: req.body._id
     }).then(dataset => {
-        // if multiple class periods, parse as multi-entry array
-        // otherwise, parse as single-entry array
-        // var classPeriod = req.body.classPeriod.includes(",") ?
-        //     req.body.classPeriod.split(",").map((period) => parseInt(period.trim(), 10)) : [parseInt(req.body.classPeriod, 10)];
-        // debugger;
-
         const newDataset = new Dataset({
             userId: req.body.userId,
             filename: req.body.filename,

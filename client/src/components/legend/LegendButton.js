@@ -7,9 +7,6 @@ export default class LegendButton extends Component {
     styles(label) {
         var styles = {};
         var index = this.props.activeLabels.findIndex(item => {
-            // console.log("item", item, "value", value);
-            // debugger;
-            // console.log("item.speakerType === value.speakerType && item.code === value.code", item.speakerType === value.speakerType && item.code === value.code);
             return item.speakerType === label.speakerType && label.code === item.code;
         });
 
@@ -19,13 +16,6 @@ export default class LegendButton extends Component {
                 color: label.textColor
             };
         }
-
-        // if (this.props.activeLabels.includes(label.value)) {
-        //     styles = {
-        //         backgroundColor: label.barColor,
-        //         color: label.textColor
-        //     };
-        // }
 
         return styles;
     }

@@ -48,12 +48,6 @@
     z-index: -1;
 }
 
-// .turn-taking-bar-timestamp-range {
-//     @extend .turn-taking-bar-timestamp;
-//     right: 100%;
-//     z-index: -1;
-// }
-
 .turn-taking-bar {
     display: flex;
     flex-direction: row;
@@ -104,7 +98,7 @@
     overflow-y: scroll;
     position: fixed;
     left: calc(#{$sidebarWidth} + #{$legendButtonWidth} + #{$legendButtonPadding});
-    height: calc(100% - #{$navbarHeight} - #{$buttonSelectorHeight});// - 12px);
+    height: calc(100% - #{$navbarHeight} - #{$buttonSelectorHeight});
 }
 
 .turn-taking-bar-small {

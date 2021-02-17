@@ -36,20 +36,10 @@ class UserDatasetTableRow extends Component {
 
     render() {
         var { isDeletingDataset, dataset } = this.props;
-        // console.log("dataset.utterances", dataset.utterances);
-        // var utterancePreview = 
-        // console.log("dataset.utterances", dataset.utterances);
-        // console.log("utterancePreview", utterancePreview);
 
         var parsedUtterances = JSON.stringify({
             "utterances": dataset.utterances
         }, null, 2);
-        // var parsedUtterances = dataset.utterances.map((utteranceRow) => {
-        //     return JSON.stringify(JSON.parse(utteranceRow));
-        // });
-
-        // console.log("JSON parse", JSON.parse(utterancePreview));
-        // console.log("parsedUtterances", parsedUtterances);
 
         if (isDeletingDataset) {
             return (
@@ -104,8 +94,6 @@ class UserDatasetTableRow extends Component {
               <tr key={`${dataset._id}-data`}>
                 <td colSpan="4">
                   <pre className="admin-table-json">
-                    {/*{[dataset.utterances]}*/}
-                    {/*{typeof dataset.utterances}*/}
                     {parsedUtterances}
                   </pre>
                 </td>

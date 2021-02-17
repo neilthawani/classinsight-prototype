@@ -5,7 +5,6 @@ import { listDatasets, deleteDatasetById, clearValidState } from "../../actions/
 import UserTypes from '../../fixtures/user_types';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-// import UploadJsonDataForm from './UploadJsonDataForm';
 import UploadCsvDataForm from './UploadCsvDataForm';
 import UserDatasetTableRow from './UserDatasetTableRow';
 import ResetPasswordForm from './ResetPasswordForm';
@@ -18,7 +17,6 @@ class UserDetailsPage extends Component {
 
         this.state = {
             isUploadingCsvData: false,
-            // isUploadingJsonData: false,
             isResettingPassword: false,
             userId: userId,
             datasets: [],
@@ -56,12 +54,6 @@ class UserDetailsPage extends Component {
         return UserTypes.filter(obj => obj.value === type)[0] &&
                 UserTypes.filter(obj => obj.value === type)[0].label;
     }
-
-    // toggleUploadJsonData() {
-    //     this.setState(prevState => ({
-    //         isUploadingJsonData: !prevState.isUploadingJsonData
-    //     }));
-    // }
 
     toggleUploadCsvData() {
       this.setState(prevState => ({
@@ -133,16 +125,13 @@ class UserDetailsPage extends Component {
                   Preview Teacher View
                 </span>
               </Link>
+
               <span
                 className={(this.state.isResettingPassword || this.state.isUploadingJsonData) ? "hidden" : "btn"}
                 onClick={this.toggleUploadCsvData.bind(this)}>
                 {this.state.isUploadingCsvData ? "Cancel" : "Upload CSV data"}
               </span>
-              {/*<span
-                className={(this.state.isResettingPassword || this.state.isUploadingCsvData) ? "hidden" : "btn"}
-                onClick={this.toggleUploadJsonData.bind(this)}>
-                {this.state.isUploadingJsonData ? "Cancel" : "Upload JSON data"}
-              </span>*/}
+
               <span
                 className={(this.state.isUploadingCsvData || this.state.isUploadingJsonData) ? "hidden" : "btn"}
                 onClick={this.toggleResetPassword.bind(this)}>
@@ -155,12 +144,6 @@ class UserDetailsPage extends Component {
                 userId={user._id}
                 dismountForm={this.dismountForm.bind(this)} />
             : ""}
-
-            {/*this.state.isUploadingJsonData ?
-              <UploadJsonDataForm
-                userId={user._id}
-                dismountForm={this.dismountForm.bind(this)} />
-            : ""*/}
 
             {this.state.isResettingPassword ?
               <ResetPasswordForm

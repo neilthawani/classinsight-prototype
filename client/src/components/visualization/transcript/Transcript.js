@@ -25,37 +25,17 @@ class Transcript extends Component {
         };
     }
 
-    // same logic as in TurnTaking::handleFilterClick
-    // handleClick(label) {
-    //     var activeLabels = this.state.activeLabels;
-    //
-    //     if (activeLabels.includes(label.value)) {
-    //         activeLabels = removeArrayValue(label.value, activeLabels)
-    //     } else {
-    //         activeLabels.push(label.value);
-    //     }
-    //
-    //     this.setState({
-    //         activeLabels: activeLabels
-    //     });
-    // }
-
+    // TODO: Refactor.
     handleClick(label) {
         var activeFilters = this.state.activeFilters;
 
-        // debugger;
         var isFilterActive = activeFilters.some(filter => label.speakerType === filter.speakerType && label.code === filter.code);
-        // console.log("isFilterActive", isFilterActive);
 
         if (isFilterActive) {
-            // console.log('remove filter');
             activeFilters = removeArrayValue(label, activeFilters)
         } else {
-            // console.log('add filter');
             activeFilters.push(label);
         }
-
-        // console.log("activeFilters", activeFilters);
 
         this.setState({
             activeFilters: activeFilters
@@ -65,27 +45,17 @@ class Transcript extends Component {
     barHeight = smallBarHeight;
 
     handleScroll(topElId, bottomElId) {
-        // return;
         // calculate focusBox.height
         var turnTakingBarsSmall = document.getElementsByClassName("turn-taking-bars-small-visualization")[0];
 
-        // console.log("turnTakingBarsSmall", turnTakingBarsSmall);
         if (!turnTakingBarsSmall) return;
 
         var topOfBox = turnTakingBarsSmall.querySelectorAll(`.turn-taking-bars-small-visualization [data-attr-utterance-id='${topElId}']`)[0];
 
-        // console.log("topOfBox", topOfBox);
         var bottomOfBox = turnTakingBarsSmall.querySelectorAll(`.turn-taking-bars-small-visualization [data-attr-utterance-id='${bottomElId}']`)[0];
-        // console.log("bottomOfBox", bottomOfBox);
-
-        if (!topOfBox || !bottomOfBox) {
-            return;
-        }
 
         var topOfBoxY = topOfBox.getBoundingClientRect().y;
-        // console.log("topOfBoxY", topOfBoxY);
         var bottomOfBoxY = bottomOfBox.getBoundingClientRect().y;
-        // console.log("bottomOfBoxY", bottomOfBoxY);
         var boxHeight = bottomOfBoxY - topOfBoxY + 1;
 
         // focus the box
@@ -126,11 +96,6 @@ class Transcript extends Component {
                 displayRatio={true}
                 activeLabels={this.state.activeFilters}
                 handleClick={this.handleClick.bind(this)} />
-              {/*<LegendButtonGroup
-                labels={parser.legendLabels({ type: "Technique"})}
-                displayRatio={true}
-                activeLabels={this.state.activeLabels}
-                handleClick={this.handleClick.bind(this)} />*/}
             </div>
 
             <TurnTakingSmall

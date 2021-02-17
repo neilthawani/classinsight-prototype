@@ -32,7 +32,6 @@ class TrendChart extends Component {
               })}
 
               {this.props.trendLineData.map((trendLineDatum, index, array) => {
-                  // console.log("trendLineDatum", trendLineDatum);
                   var color = trendLineDatum[0].barColor;
 
                   return (

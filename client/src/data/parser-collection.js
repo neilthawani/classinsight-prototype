@@ -93,12 +93,10 @@ export default class ParserCollection {
     }
 
     // average lesson duration
-
     averageDuration() {
         // return "";
         var dataParsers = this.dataParsers,
             averageDurationInSecs = dataParsers.reduce((prev, parser) => {
-                // console.log("collection parser.duration", parser.duration);
                 prev += convertTimestampToSeconds(parser.duration);
                 return prev;
             }, 0) / dataParsers.length;

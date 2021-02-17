@@ -25,18 +25,11 @@ export default class Parser {
     }
 
     transcript = function() {
-        // console.log("this.utterances", this.utterances);
         var transcript = this.utterances.map((utterance, index, array) => {
-
             var speakerType = utterance.speakerPseudonym.includes("Student") ? "Student" : "Teacher";
-            // console.log("utterance", utterance);
             var nTokens = utterance.utterance.split(" ").length;
 
-            // console.log("utterance.speakerPseudonym", utterance.speakerPseudonym, "utterance.utteranceCodes", utterance.utteranceCodes);
             var utteranceTypes = utterance.utteranceCodes.map((code) => {
-                // console.log("utterance.utterance", utterance);
-                // console.log("speakerType", speakerType, "code", code);
-                // console.log("legendD")
                 return legendDict[speakerType][code].value;
             });
 
@@ -48,7 +41,6 @@ export default class Parser {
             };
         });
 
-        // console.log("transcript", transcript);
         return transcript;
     }
 
@@ -56,11 +48,7 @@ export default class Parser {
         var data = this.transcript();
         var activeFilters = options && options.activeFilters;
 
-        // console.log("filteredTranscript");
-        // console.log("activeFilters", activeFilters);
-
         var filteredTranscript = data.reduce((accumulator, utterance, index, array) => {
-            // console.log("utterance.utteranceTypes", utterance.utteranceTypes);
             var shouldBeFiltered = activeFilters && activeFilters.some(filter => utterance.speakerType === filter.speakerType && utterance.utteranceCodes.includes(filter.code));
 
             if (!shouldBeFiltered) {
@@ -69,8 +57,6 @@ export default class Parser {
 
             return accumulator;
         }, []);
-
-        // console.log("filteredTranscript", filteredTranscript);
 
         return filteredTranscript;
     }
@@ -81,19 +67,9 @@ export default class Parser {
             drilldownFilter = options && options.drilldownFilter;
 
         var drilldownTranscript = data.reduce((accumulator, utterance, index, array) => {
-            // var newUtterances = turn.utterances.reduce((jaccumulator, utterance, jindex, jarray) => {
-            // debugger;
             if (utterance.speakerType === drilldownFilter.speakerType && utterance.utteranceCodes.includes(drilldownFilter.code)) {
                 accumulator.push(utterance);
             }
-            //
-            //     return jaccumulator;
-            // }, []);
-
-            // if (newUtterances.length) {
-            //     turn.utterances = newUtterances;
-            //     accumulator.push(turn);
-            // }
 
             return accumulator;
         }, []);
@@ -119,34 +95,21 @@ export default class Parser {
                 };
             });
 
-        // console.log("talkRatios", talkRatios);
-
         // calculate nTokens for each utterance type
         talkRatios.forEach((labelObj, index, array) => {
             transcript.forEach((utterance, index, array) => {
-                // console.log("utterance.utteranceTypes", utterance.utteranceTypes, "labelObj.value", labelObj.value)
-                // debugger;
-                // console.log("utterance.speakerPseudonym", utterance.speakerPseudonym);
-                // console.log("labelObj.speakerType", labelObj.speakerType);
-                // console.log("utterance.utteranceTypes", utterance.utteranceTypes);
-                // console.log("labelObj.speakerType", labelObj.speakerType);
-                // console.log("\n");
                 if (utterance.speakerPseudonym.includes(labelObj.speakerType) && utterance.utteranceCodes.includes(labelObj.code)) {
                     labelObj.nTokens += utterance.nTokens;
                 }
             });
         });
 
-        // console.log("nTokensPerUtteranceType", talkRatios);
         return talkRatios;
     }
 
     talkRatios = function() {
         var nTokensPerUtteranceType = this.nTokensPerUtteranceType(),
             speakerTotals = this.initializeSpeakerTotals();
-
-        // console.log("nTokensPerUtteranceType", nTokensPerUtteranceType);
-        // console.log("speakerTotals", speakerTotals);
 
         // populate the initialized speakerTotals object
         // by calculating totalNTokens for each speakerType
@@ -209,8 +172,6 @@ export default class Parser {
     speakerTalkTotals = function() {
         var speakerTotals = this.initializeSpeakerTotals(),
             talkRatios = this.talkRatios();
-
-        // console.log("talkRatios", talkRatios);
 
         speakerTotals.forEach((speakerTotalObj, index, array) => {
             talkRatios.forEach((talkRatioObj, jindex, jarray) => {

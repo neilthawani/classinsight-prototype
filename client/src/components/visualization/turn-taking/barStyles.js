@@ -1,16 +1,11 @@
-import { legendDict, legendLabels } from '../../../fixtures/legend_labels';
+import { legendDict } from '../../../fixtures/legend_labels';
 
 const smallBarHeight = 12;
 
 var defineInitialStyle = function(item) {
-    // var legendLabelValue = item.utteranceTypes[item.utteranceTypes.length - 1],
-    //     matchingLegendObj = legendLabels.find(item => item.text === legendLabelValue);
-    // debugger;
     var matchingLegendObjs = item.utteranceCodes.map((code) => {
         return legendDict[item.speakerType][code];
     });
-    // var matchingLegendObj = legendDict[item.speakerType][item.utteranceCodes[0]];
-    // console.log("matchingLegendObj", matchingLegendObj);
 
     var textColor = matchingLegendObjs[0].textColor;
     var barColor = matchingLegendObjs[0].barColor;
@@ -22,17 +17,6 @@ var defineInitialStyle = function(item) {
         boxSizing = "border-box";
     }
 
-    // if (item.utteranceTypes.length > 1) { // if it has multiple utterance types, draw a border around the bar
-        // var borderValue = matchingLegendObjs && matchingLegendObjs.utteranceTypes[0];
-
-    // }
-
-    // console.log("ret", {
-    //     color: textColor,
-    //     backgroundColor: barColor,
-    //     border: barBorder,
-    //     boxSizing: boxSizing
-    // })
     return {
         color: textColor,
         backgroundColor: barColor,

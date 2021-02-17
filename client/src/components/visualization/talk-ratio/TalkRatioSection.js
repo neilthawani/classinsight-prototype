@@ -16,7 +16,6 @@ export default class TalkRatioSection extends Component {
 
     render() {
       var item = this.props.data;
-      // console.log("item", item);
 
       return (
         <div

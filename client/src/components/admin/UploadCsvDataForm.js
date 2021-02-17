@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { uploadDataset } from '../../actions/datasetActions';
-import csvToJson from '../../data/new_coding_scheme/csv_to_json';
+import csvToJson from '../../data/csv_to_json';
 
 class UploadCsvDataForm extends Component {
     constructor(props) {
@@ -13,7 +13,6 @@ class UploadCsvDataForm extends Component {
         this.state = {
             errors: {},
             userId: props.userId,
-            // classTopic: "",
             isUploaded: false,
             isValid: false
         };
@@ -30,7 +29,6 @@ class UploadCsvDataForm extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        // console.log("nextProps.datasets", nextProps.datasets);
         if (nextProps.datasets.isValid) {
             this.dismountForm();
         }
@@ -61,15 +59,6 @@ class UploadCsvDataForm extends Component {
             var r = new FileReader();
 
             r.onload = function(e) {
-                // var el = document.getElementById("data-upload-input");
-                // var fileName = el.value.split("\\")[2];
-
-                // var fileMetadata = fileName.split("_");
-                // var classDate = fileMetadata[1],
-                //     classDate = classDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
-                // var classPeriod = fileMetadata[2].replace("Per", "").replace(".json", "").replace("_", ", ");
-                // debugger;
-
                 var contents = e.target.result;
                 var jsonData = csvToJson(contents);
 
@@ -78,11 +67,6 @@ class UploadCsvDataForm extends Component {
                     fileData: {
                         userId: that.state.userId,
                         ...jsonData,
-                        // filename: fileName,
-                        // classTopic: "",
-                        // classDate: classDate,
-                        // classPeriod: classPeriod,
-                        // jsonData: jsonData
                     }
                 });
             }

@@ -6,7 +6,6 @@ import {
     UPLOAD_DATASET,
     SHOW_DATASET,
     CLEAR_VALID_STATE,
-    // UPLOAD_CSV_DATA,
 } from './types';
 import axios from 'axios';
 
