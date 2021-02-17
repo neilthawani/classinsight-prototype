@@ -55,8 +55,12 @@ export default class Parser {
         var data = this.transcript();
         var activeFilters = options && options.activeFilters;
 
+        // console.log("filteredTranscript");
+        // console.log("activeFilters", activeFilters);
+
         var filteredTranscript = data.reduce((accumulator, utterance, index, array) => {
-            var shouldBeFiltered = activeFilters && activeFilters.some(filter => utterance.utteranceTypes.includes(filter));
+            // console.log("utterance.utteranceTypes", utterance.utteranceTypes);
+            var shouldBeFiltered = activeFilters && activeFilters.some(filter => utterance.speakerType === filter.speakerType && utterance.utteranceCodes.includes(filter.code));
 
             if (!shouldBeFiltered) {
                 accumulator.push(utterance);
