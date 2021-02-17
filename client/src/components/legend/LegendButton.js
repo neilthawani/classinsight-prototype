@@ -6,12 +6,26 @@ import formatPercentage from '../../utils/formatPercentage';
 export default class LegendButton extends Component {
     styles(label) {
         var styles = {};
-        if (this.props.activeLabels.includes(label.value)) {
+        var index = this.props.activeLabels.findIndex(item => {
+            // console.log("item", item, "value", value);
+            // debugger;
+            // console.log("item.speakerType === value.speakerType && item.code === value.code", item.speakerType === value.speakerType && item.code === value.code);
+            return item.speakerType === label.speakerType && label.code === item.code;
+        });
+
+        if (index > -1) {
             styles = {
                 backgroundColor: label.barColor,
                 color: label.textColor
             };
         }
+
+        // if (this.props.activeLabels.includes(label.value)) {
+        //     styles = {
+        //         backgroundColor: label.barColor,
+        //         color: label.textColor
+        //     };
+        // }
 
         return styles;
     }

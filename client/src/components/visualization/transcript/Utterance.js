@@ -41,7 +41,7 @@ export default class Utterance extends Component {
           <div className="script-turn" data-attr-utterance-id={utterance.id} id={utterance.id} onClick={this.handleUtteranceClick.bind(this, utterance.id)}>
             {/*<tbody className="script-turn-rows">*/}
               {/*<tr className="script-turn-speaker">*/}
-                <span className="script-turn-speaker-timestamp">
+                <span className="script-turn-speaker-timestamp" style={timeStamp ? {marginRight: "10px"} : {}}>
                   {timeStamp}
                 </span>
                 <span>

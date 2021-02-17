@@ -35,9 +35,9 @@ export default class LegendButtonGroup extends Component {
           </div>
           <div className="legend-buttons">
             {labels.map((label, index) => {
-                if (label.value === "Video" && label.percentage === 0) {
-                    return null;
-                }
+                // if (label.value === "Video" && label.percentage === 0) {
+                //     return null;
+                // }
 
                 return (
                   <LegendButton
