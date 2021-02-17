@@ -55,7 +55,7 @@ export default class Script extends Component {
             bottomElId = 0;
 
         if (elementsInBounds.length) {
-            console.log("elementsInBounds.length");
+            // console.log("elementsInBounds.length");
             topElId = parseInt(elementsInBounds[0].getAttribute('data-attr-utterance-id'), 10);
             bottomElId = parseInt(elementsInBounds[elementsInBounds.length - 1].getAttribute('data-attr-utterance-id'), 10);
         }
@@ -69,7 +69,7 @@ export default class Script extends Component {
     handleScroll(event) {
         var { topElId, bottomElId } = this.getElementIdsForFocusWindow();
 
-        console.log("topElId", topElId, "bottomElId", bottomElId);
+        // console.log("topElId", topElId, "bottomElId", bottomElId);
 
         this.props.handleScroll(topElId, bottomElId);
     }

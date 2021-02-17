@@ -24,7 +24,10 @@ export default class LegendItem extends Component {
         // debugger;
         // this.props.activeFilters.speakerType === drilldownFilter.speakerType && utterance.utteranceCodes.includes(drilldownFilter.code)
 
-        return (this.props.activeFilters && !this.props.activeFilters.some(filter => this.props.label.speakerType === filter.speakerType && this.props.label.code === filter.code)) || !this.props.activeFilters;
+        var isActive = (this.props.activeFilters && !this.props.activeFilters.some(filter => this.props.label.speakerType === filter.speakerType && this.props.label.code === filter.code)) || !this.props.activeFilters;
+
+        // console.log("isActive", isActive);
+        return isActive;
     }
 
     handleClick(value) {

@@ -27,15 +27,16 @@ export default class Parser {
     transcript = function() {
         // console.log("this.utterances", this.utterances);
         var transcript = this.utterances.map((utterance, index, array) => {
-            // console.log("utterance.utterance", utterance);
-            var speakerType = utterance.speakerPseudonym.includes("Student") ? "Student" : "Teacher";
 
+            var speakerType = utterance.speakerPseudonym.includes("Student") ? "Student" : "Teacher";
+            // console.log("utterance", utterance);
             var nTokens = utterance.utterance.split(" ").length;
 
             // console.log("utterance.speakerPseudonym", utterance.speakerPseudonym, "utterance.utteranceCodes", utterance.utteranceCodes);
             var utteranceTypes = utterance.utteranceCodes.map((code) => {
-
-                // console.log("code", code);
+                // console.log("utterance.utterance", utterance);
+                // console.log("speakerType", speakerType, "code", code);
+                // console.log("legendD")
                 return legendDict[speakerType][code].value;
             });
 

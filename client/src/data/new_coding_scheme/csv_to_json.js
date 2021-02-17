@@ -10,7 +10,7 @@ var metaHeaderDict = {
 };
 
 var headerDict = {
-    "CHAT": "utterance",
+    "CHAT": "breakoutRoom",
     "CHAT WRITER": "speakerPseudonym",
     "CLUSTER CODES (R, E, I, B, P, C)": "utteranceCodes",
     "COMMENTS": "comments",
@@ -98,7 +98,7 @@ var csvToJson = function(contents) {
 
             if (dataRow[replacementKey] && value) {
                 // console.log("uh oh");
-                dataRow[replacementKey] = [ ...dataRow[replacementKey], ...value ];
+                dataRow[replacementKey] = dataRow[replacementKey].concat(value);
             // } else if (replacementKey === "utteranceCodes" && value) {
                 // dataRow[replacementKey] = [ value ];
             } else if (value) {

@@ -101,7 +101,9 @@ export default class TrendChartContainer extends Component {
             var state = this.state,
                 activeFilters = this.props.activeFilters,
                 trendLineData = this.props.data.reduce((prev, dataRow) => {
-                    if (!activeFilters.includes(dataRow.value)) {
+                    // if (!activeFilters.includes(dataRow.value)) {
+                    // debugger;
+                    if (!activeFilters.some(filter => dataRow.speakerType === filter.speakerType && dataRow.code === filter.code)) {
                         var metaData = removePropertyFromObject(dataRow, 'data');
 
                         var newRow = this.parseData(dataRow.data).map((datum) => {
@@ -126,7 +128,6 @@ export default class TrendChartContainer extends Component {
                     axes={this.state.axes}
                     scales={state.scales}
                     trendLineData={trendLineData}
-
                     circleTooltip={this.state.circleTooltip}
                     handleCircleTooltip={this.handleCircleTooltip.bind(this)} />
 

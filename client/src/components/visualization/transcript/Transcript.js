@@ -55,7 +55,7 @@ class Transcript extends Component {
             activeFilters.push(label);
         }
 
-        console.log("activeFilters", activeFilters);
+        // console.log("activeFilters", activeFilters);
 
         this.setState({
             activeFilters: activeFilters
@@ -69,14 +69,14 @@ class Transcript extends Component {
         // calculate focusBox.height
         var turnTakingBarsSmall = document.getElementsByClassName("turn-taking-bars-small-visualization")[0];
 
-        console.log("turnTakingBarsSmall", turnTakingBarsSmall);
+        // console.log("turnTakingBarsSmall", turnTakingBarsSmall);
         if (!turnTakingBarsSmall) return;
 
         var topOfBox = turnTakingBarsSmall.querySelectorAll(`.turn-taking-bars-small-visualization [data-attr-utterance-id='${topElId}']`)[0];
 
-        console.log("topOfBox", topOfBox);
+        // console.log("topOfBox", topOfBox);
         var bottomOfBox = turnTakingBarsSmall.querySelectorAll(`.turn-taking-bars-small-visualization [data-attr-utterance-id='${bottomElId}']`)[0];
-        console.log("bottomOfBox", bottomOfBox);
+        // console.log("bottomOfBox", bottomOfBox);
 
         if (!topOfBox || !bottomOfBox) {
             return;
