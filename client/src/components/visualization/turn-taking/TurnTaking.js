@@ -14,20 +14,20 @@ class TurnTaking extends Component {
     constructor(props) {
         super(props);
 
-        var bars = localStorage.getItem("bars") || "expanded",
-            activeFilters = [];
+        // var bars = localStorage.getItem("bars") || "expanded",
+            // activeFilters = [];
 
         this.state = {
-            bars: bars,
-            activeFilters: activeFilters,
+            // bars: bars,
+            activeFilters: [],//activeFilters,
             activeTurn: {}
         };
     }
 
-    toggleExpandedBars = function(value, context) {
-        this.setState({ "bars": value });
-        localStorage.setItem("bars", value);
-    }
+    // toggleExpandedBars = function(value, context) {
+    //     this.setState({ "bars": value });
+    //     localStorage.setItem("bars", value);
+    // }
 
     // barsStateIcon = {
     //     "expanded": <Icon
@@ -82,7 +82,9 @@ class TurnTaking extends Component {
 
         var parser = this.props.datasets.activeParser,
             chartData = parser.filteredTranscript({activeFilters: this.state.activeFilters}) || [];
-
+        // Next step: Fix filteredTranscript
+        // console.log("chartData", chartData);
+        // console.log("parser", parser);
         return (
             <div className="turn-taking-visualization-container">
               <div className="turn-taking-legend-teacher">

@@ -25,6 +25,12 @@ export default function defineInitialStyle(item) {
 
     // }
 
+    console.log("ret", {
+        color: textColor,
+        backgroundColor: barColor,
+        border: barBorder,
+        boxSizing: boxSizing
+    })
     return {
         color: textColor,
         backgroundColor: barColor,
