@@ -14,12 +14,23 @@ export default class Utterance extends Component {
         var isLineHighlighted = false;
 
         if (activeLabels) {
-            for (var i = 0; i < utterance.utteranceTypes.length; i++) {
-                if (activeLabels.includes(utterance.utteranceTypes[i])) {
-                    isLineHighlighted = true;
-                    break;
-                }
+            var index = activeLabels.findIndex(item => {
+                // console.log("item", item, "value", value);
+                // debugger;
+                // console.log("item.speakerType === value.speakerType && item.code === value.code", item.speakerType === value.speakerType && item.code === value.code);
+                return item.speakerType === utterance.speakerType && utterance.utteranceCodes.includes(item.code);
+            });
+
+            if (index > -1) {
+                isLineHighlighted = true;
             }
+
+            // for (var i = 0; i < utterance.utteranceTypes.length; i++) {
+            //     if (activeLabels.includes(utterance.utteranceTypes[i])) {
+            //         isLineHighlighted = true;
+            //         break;
+            //     }
+            // }
         }
 
         // console.log("utterance.timestamp", utterance.timestamp);

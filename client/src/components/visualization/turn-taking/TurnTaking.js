@@ -48,17 +48,17 @@ class TurnTaking extends Component {
 
         // debugger;
         var isFilterActive = activeFilters.some(filter => label.speakerType === filter.speakerType && label.code === filter.code);
-        console.log("isFilterActive", isFilterActive);
+        // console.log("isFilterActive", isFilterActive);
 
         if (isFilterActive) {
-            console.log('remove filter');
+            // console.log('remove filter');
             activeFilters = removeArrayValue(label, activeFilters)
         } else {
-            console.log('add filter');
+            // console.log('add filter');
             activeFilters.push(label);
         }
 
-        console.log("activeFilters", activeFilters);
+        // console.log("activeFilters", activeFilters);
 
         this.setState({
             activeFilters: activeFilters

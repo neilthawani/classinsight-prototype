@@ -14,7 +14,7 @@ class Transcript extends Component {
         super(props);
 
         this.state = {
-            activeLabels: [],
+            activeFilters: [],
             focusBox: {
                 topElId: 0,
                 bottomElId: 0,
@@ -25,17 +25,39 @@ class Transcript extends Component {
     }
 
     // same logic as in TurnTaking::handleFilterClick
-    handleClick(label) {
-        var activeLabels = this.state.activeLabels;
+    // handleClick(label) {
+    //     var activeLabels = this.state.activeLabels;
+    //
+    //     if (activeLabels.includes(label.value)) {
+    //         activeLabels = removeArrayValue(label.value, activeLabels)
+    //     } else {
+    //         activeLabels.push(label.value);
+    //     }
+    //
+    //     this.setState({
+    //         activeLabels: activeLabels
+    //     });
+    // }
 
-        if (activeLabels.includes(label.value)) {
-            activeLabels = removeArrayValue(label.value, activeLabels)
+    handleClick(label) {
+        var activeFilters = this.state.activeFilters;
+
+        // debugger;
+        var isFilterActive = activeFilters.some(filter => label.speakerType === filter.speakerType && label.code === filter.code);
+        // console.log("isFilterActive", isFilterActive);
+
+        if (isFilterActive) {
+            // console.log('remove filter');
+            activeFilters = removeArrayValue(label, activeFilters)
         } else {
-            activeLabels.push(label.value);
+            // console.log('add filter');
+            activeFilters.push(label);
         }
 
+        console.log("activeFilters", activeFilters);
+
         this.setState({
-            activeLabels: activeLabels
+            activeFilters: activeFilters
         });
     }
 
@@ -85,12 +107,12 @@ class Transcript extends Component {
               <LegendButtonGroup
                 labels={parser.legendLabels({ type: "Teacher"})}
                 displayRatio={true}
-                activeLabels={this.state.activeLabels}
+                activeLabels={this.state.activeFilters}
                 handleClick={this.handleClick.bind(this)} />
               <LegendButtonGroup
                 labels={parser.legendLabels({ type: "Student"})}
                 displayRatio={true}
-                activeLabels={this.state.activeLabels}
+                activeLabels={this.state.activeFilters}
                 handleClick={this.handleClick.bind(this)} />
               {/*<LegendButtonGroup
                 labels={parser.legendLabels({ type: "Technique"})}
@@ -108,7 +130,7 @@ class Transcript extends Component {
             <div className="transcript-script-container" style={{ marginLeft: `${chartWidth - 20}px` }}>
               <Script
                 transcript={transcript}
-                activeLabels={this.state.activeLabels}
+                activeLabels={this.state.activeFilters}
                 focusBox={this.state.focusBox}
                 handleScroll={this.handleScroll.bind(this)}
                 handleUtteranceClick={() => {}} />
