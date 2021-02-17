@@ -10,19 +10,20 @@ export default function defineInitialStyle(item) {
     // var matchingLegendObj = legendDict[item.speakerType][item.utteranceCodes[0]];
     // console.log("matchingLegendObj", matchingLegendObj);
 
-    if (matchingLegendObjs.length > 1) {  // if it has multiple utterance types, draw a border around the bar
-
-    }
-
-    var textColor = matchingLegendObj.textColor;
-    var barColor = matchingLegendObj.barColor;
+    var textColor = matchingLegendObjs[0].textColor;
+    var barColor = matchingLegendObjs[0].barColor;
     var barBorder = "";
     var boxSizing = "";
-    if (item.utteranceTypes.length > 1) { // if it has multiple utterance types, draw a border around the bar
-        var borderValue = item.utteranceTypes && item.utteranceTypes[0];
-        barBorder = `3px solid ${legendLabels.find(item => item.value === borderValue).barColor}`;
+
+    if (matchingLegendObjs.length > 1) {  // if it has multiple utterance types, draw a border around the bar
+        barBorder = `3px solid ${matchingLegendObjs[1].barColor}`;
         boxSizing = "border-box";
     }
+
+    // if (item.utteranceTypes.length > 1) { // if it has multiple utterance types, draw a border around the bar
+        // var borderValue = matchingLegendObjs && matchingLegendObjs.utteranceTypes[0];
+
+    // }
 
     return {
         color: textColor,
