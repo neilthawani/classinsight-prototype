@@ -75,19 +75,20 @@ export default class Parser {
         var data = this.transcript(),
             drilldownFilter = options && options.drilldownFilter;
 
-        var drilldownTranscript = data.reduce((accumulator, turn, index, array) => {
-            var newUtterances = turn.utterances.reduce((jaccumulator, utterance, jindex, jarray) => {
-                if (utterance.utteranceTypes.includes(drilldownFilter)) {
-                    jaccumulator.push(utterance);
-                }
-
-                return jaccumulator;
-            }, []);
-
-            if (newUtterances.length) {
-                turn.utterances = newUtterances;
-                accumulator.push(turn);
+        var drilldownTranscript = data.reduce((accumulator, utterance, index, array) => {
+            // var newUtterances = turn.utterances.reduce((jaccumulator, utterance, jindex, jarray) => {
+            // debugger;
+            if (utterance.speakerType === drilldownFilter.speakerType && utterance.utteranceCodes.includes(drilldownFilter.code)) {
+                accumulator.push(utterance);
             }
+            //
+            //     return jaccumulator;
+            // }, []);
+
+            // if (newUtterances.length) {
+            //     turn.utterances = newUtterances;
+            //     accumulator.push(turn);
+            // }
 
             return accumulator;
         }, []);

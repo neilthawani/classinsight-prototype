@@ -28,7 +28,7 @@ class TalkRatio extends Component {
     }
 
     handleTalkRatioSectionClick(label) {
-        var drilldownFilter = label.value === this.state.drilldownFilter ? "" : label.value;
+        var drilldownFilter = label === this.state.drilldownFilter ? "" : label;
 
         if (drilldownFilter === this.state.drilldownFilter) {
             drilldownFilter = "";
