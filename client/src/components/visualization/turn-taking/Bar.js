@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
-import Turn from '../transcript/Turn';
+// import Turn from '../transcript/Turn';
+import Utterance from '../transcript/Utterance';
 
 import { drawBarStyles } from './barStyles';
 import isObjectEmpty from '../../../utils/isObjectEmpty';
@@ -63,10 +64,10 @@ export default class Bar extends Component {
             </div>
 
             {isActive ?
-              <Turn
-                data={item}
-                handleTextClick={this.handleTextClick.bind(this)}
-                canInspect={true} />
+              <Utterance
+                utterance={item}
+                canInspect={true}
+                handleUtteranceClick={this.handleTextClick.bind(this)} />
             : ""}
           </div>
       );
