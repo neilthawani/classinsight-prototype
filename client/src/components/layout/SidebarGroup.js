@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
-import calculateLessonDuration from '../../utils/calculateLessonDuration';
 import formatDate from '../../utils/formatDate';
 import Icon from '@mdi/react';
 import { mdiChevronDown, mdiChevronUp } from '@mdi/js';
@@ -35,7 +34,6 @@ class SidebarGroup extends Component {
             </div>
             <div className="sidebar-group-data">
               {(this.props.datasets.dataParsers || []).map((item, index, array) => {
-                  var datum = item.data;
                   var topic = item.topic,
                       date = formatDate(item.date),
                       period = item.period;
@@ -70,7 +68,7 @@ class SidebarGroup extends Component {
                             Duration:
                           </span>
                           <span className="sidebar-data-row-descriptor-value">
-                            {calculateLessonDuration(datum.duration)}
+                            {item.duration}
                           </span>
                         </div>
                       </div>

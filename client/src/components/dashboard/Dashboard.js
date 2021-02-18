@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import LegendItemGroup from '../legend/LegendItemGroup';
 import TrendChartContainer from './TrendChartContainer';
 import formatDate from '../../utils/formatDate';
-import removeArrayValue from '../../utils/removeArrayValue';
+import { changeActiveFilters } from '../legend/labelFilters';
 
 class Dashboard extends Component {
     constructor(props) {
@@ -16,18 +16,9 @@ class Dashboard extends Component {
         };
     }
 
-    // same logic as in Transcript::handleClick
     handleFilterClick(label) {
-        var activeFilters = this.state.activeFilters;
-
-        if (activeFilters.includes(label.value)) {
-            activeFilters = removeArrayValue(label.value, activeFilters)
-        } else {
-            activeFilters.push(label.value);
-        }
-
         this.setState({
-            activeFilters: activeFilters
+            activeFilters: changeActiveFilters(this.state.activeFilters, label)
         });
     }
 
@@ -72,7 +63,7 @@ class Dashboard extends Component {
                 </h4>
                 <div className="overview-trend-chart-container">
                   <LegendItemGroup
-                    labels={parserCollection.legendLabels({ type: "Teacher" })}
+                    labels={parserCollection.legendLabels({ speakerType: "Teacher" })}
                     activeFilters={this.state.activeFilters}
                     displayRatio={false}
                     handleClick={this.handleFilterClick.bind(this)} />
@@ -88,7 +79,7 @@ class Dashboard extends Component {
                 </h4>
                 <div className="overview-trend-chart-container">
                   <LegendItemGroup
-                    labels={parserCollection.legendLabels({ type: "Student" })}
+                    labels={parserCollection.legendLabels({ speakerType: "Student" })}
                     activeFilters={this.state.activeFilters}
                     displayRatio={false}
                     handleClick={this.handleFilterClick.bind(this)} />

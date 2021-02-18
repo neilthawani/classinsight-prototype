@@ -4,6 +4,7 @@ import TrendChart from './TrendChart';
 import { removePropertyFromObject } from '../../utils/removePropertyFromObject';
 import flattenArray from '../../utils/flattenArray';
 import uuid from 'react-uuid'
+import { filtersIncludeLabel } from '../legend/labelFilters';
 
 export default class TrendChartContainer extends Component {
     constructor(props) {
@@ -101,7 +102,7 @@ export default class TrendChartContainer extends Component {
             var state = this.state,
                 activeFilters = this.props.activeFilters,
                 trendLineData = this.props.data.reduce((prev, dataRow) => {
-                    if (!activeFilters.includes(dataRow.value)) {
+                    if (!filtersIncludeLabel(activeFilters, dataRow)) {
                         var metaData = removePropertyFromObject(dataRow, 'data');
 
                         var newRow = this.parseData(dataRow.data).map((datum) => {
@@ -126,7 +127,6 @@ export default class TrendChartContainer extends Component {
                     axes={this.state.axes}
                     scales={state.scales}
                     trendLineData={trendLineData}
-
                     circleTooltip={this.state.circleTooltip}
                     handleCircleTooltip={this.handleCircleTooltip.bind(this)} />
 

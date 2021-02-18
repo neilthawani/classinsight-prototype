@@ -1,75 +1,52 @@
-import LegendLabels from '../fixtures/legend_labels';
+import { legendLabels, legendDict } from '../fixtures/legend_labels';
+import { utteranceMatchesLabel } from '../components/legend/labelFilters';
 
 export default class Parser {
     constructor(data) {
-        var parsedData = {};
-
-        parsedData = JSON.parse(data.jsonData);
         this.topic = data.classTopic;
         this.period = data.classPeriod;
         this.date = data.classDate;
-        this.data = parsedData;
-        this.segments = parsedData.segments;
-        this.isActive = false;
+        this.utterances = data.utterances;
+
+        var duration;
+        for (var i = this.utterances.length - 1; i > 0; i--) {
+            var utteranceObj = this.utterances[i];
+            if (utteranceObj.hasOwnProperty("timestamp") && utteranceObj.timestamp.length) {
+                duration = utteranceObj.timestamp;
+                break;
+            }
+        }
+
+        this.duration = duration;
     }
 
     legendLabels = function(options) {
-        var legendLabels = this.talkRatios().filter((item) => item.type === options.type);
+        var legendLabels = this.talkRatios().filter((item) => item.speakerType === options.speakerType);
         return legendLabels;
     }
 
     transcript = function() {
-        var transcript = [];
-        var utteranceIndex = 0;
-
-        this.segments.forEach((segment, index, array) => {
-            if (segment.participation_type !== "Other") {
-                var speakingTurns = segment.speaking_turns;
-
-                speakingTurns.forEach((speakingTurn, jindex, jarray) => {
-                    transcript.push({
-                        speakerPseudonym: speakingTurn.speaker_pseudonym,
-                        speakerType: speakingTurn.speaker_type,
-                        initialTime: speakingTurn.initial_time,
-                        endTime: speakingTurn.end_time,
-                        utterances: []
-                    });
-
-                    speakingTurn.utterances.forEach((utterance, kindex, karray) => {
-                        var unclassifiedStudentTalk = utterance.utterance_type.length === 0 &&
-                                (speakingTurn.speaker_pseudonym.includes("Class") ||
-                                speakingTurn.speaker_pseudonym.includes("Student")),
-                            unclassifiedTeacherTalk = utterance.utterance_type.length === 0 &&
-                                !speakingTurn.speaker_pseudonym.includes("Student") && !speakingTurn.speaker_pseudonym.includes("Class") && !speakingTurn.speaker_pseudonym.includes("Video"),
-                            videoTeacherTalk = speakingTurn.speaker_pseudonym.includes("Video"),
-                            speakerPseudonym = speakingTurn.speaker_pseudonym.includes("Video") ? "Teacher (Video)" : speakingTurn.speaker_pseudonym,
-                            dataRow = {
-                                id: utteranceIndex++,
-                                timestamp: [],
-                                speakerPseudonym: speakerPseudonym,
-                                speakerUtterances: [utterance.utterance],
-                                nTokens: utterance.n_tokens
-                            };
-
-                        if (utterance.timestamp.length) {
-                            dataRow.timestamp.push(utterance.timestamp);
-                        }
-
-                        if (unclassifiedStudentTalk) {
-                            dataRow = { ...dataRow, ...{ utteranceTypes: ["Assorted Student Talk"] } };
-                        } else if (unclassifiedTeacherTalk) {
-                            dataRow = { ...dataRow, ...{ utteranceTypes: ["Assorted Teacher Talk"] } };
-                        } else if (videoTeacherTalk) {
-                            dataRow = { ...dataRow, ...{ utteranceTypes: ["Video"] } };
-                        } else {
-                            dataRow = { ...dataRow, ...{ utteranceTypes: utterance.utterance_type } };
-                        }
-
-                        transcript[transcript.length - 1].utterances.push(dataRow);
-                    });
-                });
+        var transcript = this.utterances.reduce((prev, utterance, index, array) => {
+            if (utterance.utteranceCodes.includes("OT")) {
+                return prev;
             }
-        });
+
+            var speakerType = utterance.speakerPseudonym.includes("Student") ? "Student" : "Teacher";
+            var nTokens = utterance.utterance.split(" ").length;
+
+            var utteranceTypes = utterance.utteranceCodes.map((code) => {
+                return legendDict[speakerType][code].value;
+            });
+
+            prev.push({
+                ...utterance,
+                speakerType: speakerType,
+                nTokens: nTokens,
+                utteranceTypes: utteranceTypes
+            });
+
+            return prev;
+        }, []);
 
         return transcript;
     }
@@ -78,20 +55,11 @@ export default class Parser {
         var data = this.transcript();
         var activeFilters = options && options.activeFilters;
 
-        var filteredTranscript = data.reduce((accumulator, turn, index, array) => {
-            var newUtterances = turn.utterances.reduce((jaccumulator, utterance, jindex, jarray) => {
-                var shouldBeFiltered = activeFilters && activeFilters.some(filter => utterance.utteranceTypes.includes(filter));
+        var filteredTranscript = data.reduce((accumulator, utterance, index, array) => {
+            var shouldBeFiltered = activeFilters && activeFilters.some(filter => utterance.speakerType === filter.speakerType && utterance.utteranceCodes.includes(filter.code));
 
-                if (!shouldBeFiltered) {
-                    jaccumulator.push(utterance);
-                }
-
-                return jaccumulator;
-            }, []);
-
-            if (newUtterances.length) {
-                turn.utterances = newUtterances;
-                accumulator.push(turn);
+            if (!shouldBeFiltered) {
+                accumulator.push(utterance);
             }
 
             return accumulator;
@@ -105,18 +73,9 @@ export default class Parser {
         var data = this.transcript(),
             drilldownFilter = options && options.drilldownFilter;
 
-        var drilldownTranscript = data.reduce((accumulator, turn, index, array) => {
-            var newUtterances = turn.utterances.reduce((jaccumulator, utterance, jindex, jarray) => {
-                if (utterance.utteranceTypes.includes(drilldownFilter)) {
-                    jaccumulator.push(utterance);
-                }
-
-                return jaccumulator;
-            }, []);
-
-            if (newUtterances.length) {
-                turn.utterances = newUtterances;
-                accumulator.push(turn);
+        var drilldownTranscript = data.reduce((accumulator, utterance, index, array) => {
+            if (utterance.speakerType === drilldownFilter.speakerType && utterance.utteranceCodes.includes(drilldownFilter.code)) {
+                accumulator.push(utterance);
             }
 
             return accumulator;
@@ -125,80 +84,28 @@ export default class Parser {
         return drilldownTranscript;
     }
 
-    // used in TurnTaking but only called here
-    expandedData = function(options) {
-        var activeFilters = options && options.activeFilters;
-
-        var transcript = this.filteredTranscript({ activeFilters: activeFilters });
-
-        return transcript.reduce((accumulator, turn, index, array) => {
-            return accumulator.concat(turn.utterances);
-        }, []);
-    }
-
     maxNTokens = function(options) {
         var activeFilters = options && options.activeFilters;
 
-        var expandedData = this.expandedData({ activeFilters: activeFilters });
+        var expandedData = this.filteredTranscript({ activeFilters: activeFilters });
 
         return Math.max.apply(Math, expandedData.map((utterance) => utterance.nTokens));
     }
-    collapsedData = function(options) {
-        var activeFilters = options && options.activeFilters;
-        var expandedData = this.expandedData({ activeFilters: activeFilters }),
-            collapsedData = [];
-
-        expandedData.forEach((utterance, index, array) => {
-            var dataRow = { ...utterance },
-                sameUtteranceTypesAsPrevious = false,
-                previousDataRow = {};
-
-            if (collapsedData.length > 0) {
-                previousDataRow = { ...collapsedData[collapsedData.length - 1] };
-                sameUtteranceTypesAsPrevious = JSON.stringify(previousDataRow.utteranceTypes) === JSON.stringify(dataRow.utteranceTypes);
-            }
-
-            if (sameUtteranceTypesAsPrevious) {
-                collapsedData[collapsedData.length - 1].nTokens = previousDataRow.nTokens + dataRow.nTokens;
-                collapsedData[collapsedData.length - 1].timestamp.push(...dataRow.timestamp);
-                collapsedData[collapsedData.length - 1].speakerUtterances.push(...dataRow.speakerUtterances);
-            }
-
-            if (collapsedData.length === 0 || (collapsedData.length > 0 && !sameUtteranceTypesAsPrevious)) {
-                collapsedData.push(dataRow);
-            }
-        });
-
-        return collapsedData;
-    }
-
-    parsedData = function(options) {
-        var activeFilters = options && options.activeFilters;
-        var expandedData = this.expandedData({ activeFilters: activeFilters }),
-            collapsedData = this.collapsedData({ activeFilters: activeFilters });
-
-        var parsedData = {
-            "expanded": expandedData,
-            "collapsed": collapsedData
-        };
-
-        return parsedData;
-    }
 
     nTokensPerUtteranceType = function() {
-        var expandedData = this.expandedData(), // get array of every utterance in the transcript
-            legendLabels = LegendLabels,
+        var transcript = this.transcript(),
             talkRatios = legendLabels.map((labelObj, index, array) => { // set up object to be returned
                 return {
                     ...labelObj,
-                    ...{ nTokens: 0, percentage: 0 }
+                    nTokens: 0,
+                    percentage: 0
                 };
             });
 
         // calculate nTokens for each utterance type
         talkRatios.forEach((labelObj, index, array) => {
-            expandedData.forEach((utterance, index, array) => {
-                if (utterance.utteranceTypes.includes(labelObj.value)) {
+            transcript.forEach((utterance, index, array) => {
+                if (utteranceMatchesLabel(utterance, labelObj)) {
                     labelObj.nTokens += utterance.nTokens;
                 }
             });
@@ -236,21 +143,20 @@ export default class Parser {
 
     teacherTalkRatios = function() {
         var talkRatios = this.talkRatios(),
-            teacherTalkRatios = talkRatios.filter((item) => item.type === "Teacher").reverse();
+            teacherTalkRatios = talkRatios.filter((item) => item.speakerType === "Teacher").reverse();
 
         return teacherTalkRatios;
     }
 
     studentTalkRatios = function() {
         var talkRatios = this.talkRatios(),
-            studentTalkRatios = talkRatios.filter((item) => item.type === "Student");
+            studentTalkRatios = talkRatios.filter((item) => item.speakerType === "Student");
 
         return studentTalkRatios;
     }
 
     // only called in this file by speakerTalkTotals
     initializeSpeakerTotals = function() {
-        var legendLabels = LegendLabels;
         var speakerTotals = legendLabels.reduce((accumulator, labelObj, index, array) => {
             var speakerIsInArray = accumulator.filter((accumObj) => {
                 return accumObj.speakerType === labelObj.speakerType;

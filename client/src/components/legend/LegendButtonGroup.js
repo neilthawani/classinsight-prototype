@@ -28,17 +28,13 @@ export default class LegendButtonGroup extends Component {
       return (
         <div className="legend-button-container">
           <div className={isCollapsed ? "legend-button-dropdown collapsed" : "legend-button-dropdown"} onClick={this.toggleGroup.bind(this, this.state.isCollapsed)}>
-            <span className="legend-button-dropdown-text">{labels[0].type}</span>
+            <span className="legend-button-dropdown-text">{labels[0].speakerType}</span>
             {isCollapsed ?
               <Icon path={mdiChevronUp} className="legend-button-dropdown-toggle" size={1} /> :
               <Icon path={mdiChevronDown} className="legend-button-dropdown-toggle" size={1} />}
           </div>
           <div className="legend-buttons">
             {labels.map((label, index) => {
-                if (label.value === "Video" && label.percentage === 0) {
-                    return null;
-                }
-
                 return (
                   <LegendButton
                     key={index}

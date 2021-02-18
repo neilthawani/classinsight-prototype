@@ -5,7 +5,7 @@ import {
     EDIT_DATASET,
     UPLOAD_DATASET,
     SHOW_DATASET,
-    CLEAR_VALID_STATE
+    CLEAR_VALID_STATE,
 } from './types';
 import axios from 'axios';
 
@@ -102,7 +102,7 @@ export const uploadDataset = (dataset) => dispatch => {
                 payload: {
                     dataset: res.data
                 }
-            })
+            });
         })
         .catch(error => {
             console.error(error);
@@ -111,6 +111,6 @@ export const uploadDataset = (dataset) => dispatch => {
             dispatch({
                 type: GET_ERRORS,
                 payload: error.response && error.response.data
-            })
+            });
         });
 };

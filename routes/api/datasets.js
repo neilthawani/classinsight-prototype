@@ -60,7 +60,7 @@ router.get('/list', function(req, res) {
                     classTopic: dataset.classTopic,
                     classDate: dataset.classDate,
                     classPeriod: dataset.classPeriod,
-                    jsonData: dataset.jsonData
+                    utterances: dataset.utterances
                 });
             }
         });
@@ -87,18 +87,13 @@ router.post("/upload", (req, res) => {
     Dataset.findOne({
         _id: req.body._id
     }).then(dataset => {
-        // if multiple class periods, parse as multi-entry array
-        // otherwise, parse as single-entry array
-        var classPeriod = req.body.classPeriod.includes(",") ?
-            req.body.classPeriod.split(",").map((period) => parseInt(period.trim(), 10)) : [parseInt(req.body.classPeriod, 10)];
-
         const newDataset = new Dataset({
             userId: req.body.userId,
             filename: req.body.filename,
             classTopic: req.body.classTopic,
             classDate: req.body.classDate,
-            classPeriod: classPeriod,
-            jsonData: JSON.stringify(req.body.jsonData)
+            classPeriod: req.body.classPeriod,
+            utterances: req.body.utterances
         });
 
         // Hash password before saving in database

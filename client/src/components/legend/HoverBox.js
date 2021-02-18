@@ -26,8 +26,6 @@ export default class HoverBox extends Component {
     render() {
         return (
           <div className="hover-box" style={this.styles()}>
-            <div className="hover-box-title">
-            </div>
             <div className="hover-box-text">
               {this.props.label.description}
             </div>

@@ -9,36 +9,12 @@ import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
-/*
-For this file, the data we're after is in data.segments[0].speaking_turns.
-Each object in this array is a record of someone speaking. It has this structure:
-{
-    duration: 0
-    end_time: "[00:00:00;23]",
-​​​​    initial_time: "[00:00:00;23]",
-    speaker_pseudonym: "Teacher",
-    tokens_per_second: 0,
-​​​​​    total_tokens: 108,
-​​​​​    utterances: [],
-}
-
-Utterances is an array of objects that contain information about what was said.
-Each object in the array has this structure:
-{
-    line_number: "8",
-​​​​​​​    n_tokens: 14,
-​​​​​​​​    timestamp: "",
-​​​​​​​​    utterance: "Ok, so what is it that you though- ...",
-    utterance_type: [ " Teachers  Open-Ended  Statements/Question (S/Q)" ]
-}
-*/
-
 class TalkRatio extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            drilldownFilter: "",
+            drilldownFilter: {},
         };
     }
 
@@ -46,13 +22,14 @@ class TalkRatio extends Component {
         var parser = this.props.datasets.activeParser;
         var speakerTalkTotals = parser.speakerTalkTotals();
         var speakerTotalObj = speakerTalkTotals.filter((item) => item.speakerType === type);
+
         return speakerTotalObj[0].totalTalkPercentage;
     }
 
     handleTalkRatioSectionClick(label) {
-        var drilldownFilter = label.value === this.state.drilldownFilter ? "" : label.value;
+        var drilldownFilter = JSON.stringify(label) === JSON.stringify(this.state.drilldownFilter) ? "" : label;
 
-        if (drilldownFilter === this.state.drilldownFilter) {
+        if (JSON.stringify(drilldownFilter) === JSON.stringify(this.state.drilldownFilter)) {
             drilldownFilter = "";
         }
 
@@ -86,11 +63,7 @@ class TalkRatio extends Component {
                 Teacher Talk: {formatPercentage(this.calculateSpeakerTotal("Teacher"), 0)}
               </h3>
               <LegendItemGroup
-                labels={parser.legendLabels({ type: "Teacher" })}
-                displayRatio={true}
-                handleClick={() => {}} />
-              <LegendItemGroup
-                labels={parser.legendLabels({ type: "Media" })}
+                labels={parser.legendLabels({ speakerType: "Teacher" })}
                 displayRatio={true}
                 handleClick={() => {}} />
             </div>
@@ -131,7 +104,7 @@ class TalkRatio extends Component {
                 Student Talk: {formatPercentage(this.calculateSpeakerTotal("Student"), 0)}
               </h3>
               <LegendItemGroup
-                labels={parser.legendLabels({ type: "Student" })}
+                labels={parser.legendLabels({ speakerType: "Student" })}
                 displayRatio={true}
                 handleClick={() => {}} />
             </div>

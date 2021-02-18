@@ -4,15 +4,15 @@ import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { uploadDataset } from '../../actions/datasetActions';
+import csvToJson from '../../data/csv_to_json';
 
-class UploadDataForm extends Component {
+class UploadCsvDataForm extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             errors: {},
             userId: props.userId,
-            classTopic: "",
             isUploaded: false,
             isValid: false
         };
@@ -50,44 +50,31 @@ class UploadDataForm extends Component {
     }
 
     parseFile = async (evt) => {
-        var userId = this.state.userId;
         evt.preventDefault();
-        const reader = new FileReader();
 
-        try {
-            reader.readAsText(evt.target.files[0]);
-        } catch(e) {
-            console.error(e);
-            this.setState({
-                isUploaded: false,
-                fileData: {}
-            });
+        var that = this;
+
+        var f = evt.target.files[0];
+        if (f) {
+            var r = new FileReader();
+
+            r.onload = function(e) {
+                var contents = e.target.result;
+                var jsonData = csvToJson(contents);
+
+                that.setState({
+                    isUploaded: true,
+                    fileData: {
+                        userId: that.state.userId,
+                        ...jsonData,
+                    }
+                });
+            }
+
+            r.readAsText(f);
+        } else {
+            alert("Failed to load file");
         }
-
-        reader.onload = async (e) => {
-            const text = e.target.result;
-            var jsonData = JSON.parse(text);
-
-            var el = document.getElementById("data-upload-input");
-            var fileName = el.value.split("\\")[2];
-
-            var fileMetadata = fileName.split("_");
-            var classDate = fileMetadata[1],
-                classDate = classDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
-            var classPeriod = fileMetadata[2].replace("Per", "").replace(".json", "").replace("_", ", ");
-
-            this.setState({
-                isUploaded: true,
-                fileData: {
-                    userId: userId,
-                    filename: fileName,
-                    classTopic: "",
-                    classDate: classDate,
-                    classPeriod: classPeriod,
-                    jsonData: jsonData
-                }
-            })
-        };
     }
 
     onSubmit = e => {
@@ -105,19 +92,19 @@ class UploadDataForm extends Component {
           <div className="form-container wide">
             <div>
               <h2 className="text-center">
-                Upload data
+                Upload CSV data
               </h2>
             </div>
 
             <form noValidate onSubmit={this.onSubmit}>
-              <input id="data-upload-input" type="file" accept="application/JSON" onChange={(e) => this.parseFile(e)} />
+              <input id="data-upload-input" type="file" accept="text/csv" onChange={(e) => this.parseFile(e)} />
 
               {this.state.isUploaded ?
               <div className="even-columns-2">
                 <div className="even-column">
                   <span className="data-upload-label">Preview</span>
                   <pre className="data-upload-json">
-                    {JSON.stringify(this.state.fileData.jsonData, null, 2)}
+                    {JSON.stringify(this.state.fileData, null, 2)}
                   </pre>
                 </div>
 
@@ -176,7 +163,7 @@ class UploadDataForm extends Component {
     }
 }
 
-UploadDataForm.propTypes = {
+UploadCsvDataForm.propTypes = {
     uploadDataset: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
@@ -195,4 +182,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   { uploadDataset }
-)(withRouter(UploadDataForm));
+)(withRouter(UploadCsvDataForm));

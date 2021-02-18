@@ -29,7 +29,7 @@ export default class Script extends Component {
     }
 
     getElementIdsForFocusWindow() {
-        var scriptTurnContainer = document.getElementsByClassName('script-turn-utterance'),
+        var scriptTurnContainer = document.getElementsByClassName('script-turn'),
             elementsInBounds = [];
 
         for (var i = 0; i < scriptTurnContainer.length; i++) {
@@ -84,37 +84,15 @@ export default class Script extends Component {
 
       return (
         <div className="script-turn-container">
-          {activeTranscript.map((turn, index, array) => {
-              return (
-                <table key={index} className="script-turn">
-                  <tbody className="script-turn-rows">
-                    <tr className="script-turn-speaker">
-                      <td className="script-turn-speaker-timestamp">
-                        {turn.initialTime} - {turn.endTime}
-                      </td>
-                      <td className="script-turn-speaker-text">
-                        {turn.speakerPseudonym}
-                      </td>
-                    </tr>
-
-                    {turn.utterances.map((utterance, jindex, jarray) => {
-                        var hasTimestamp = utterance.timestamp.length > 0;
-                        var key = `${utterance}-${jindex}`;
-                        var timeStamp = hasTimestamp ? utterance.timestamp : "";
-
-                        return (
-                          <Utterance
-                            key={key}
-                            timeStamp={timeStamp}
-                            utterance={utterance}
-                            activeLabels={this.props.activeLabels}
-                            canInspect={this.props.canInspect}
-                            handleUtteranceClick={this.handleUtteranceClick.bind(this)} />
-                        );
-                    })}
-                  </tbody>
-                </table>
-              );
+          {activeTranscript.map((utterance, index, array) => {
+            return (
+              <Utterance
+                key={index}
+                utterance={utterance}
+                activeLabels={this.props.activeLabels}
+                canInspect={this.props.canInspect}
+                handleUtteranceClick={this.handleUtteranceClick.bind(this)} />
+            );
           })}
         </div>
       )

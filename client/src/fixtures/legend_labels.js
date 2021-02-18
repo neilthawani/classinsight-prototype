@@ -1,119 +1,144 @@
-var legendLabels = [{
-    type: "Teacher",
-    value: "Metacognitive Modeling Questions",
-    text: "Metacognitive",
-    barColor: "#10273d",
-    speakerType: "Teacher",
-    textColor: "white",
-    description: "Teacher models for students how they should think through a problem using questioning that is not responded to by students."
-}, {
-    type: "Teacher",
-    value: "Teacher Explanation + Evidence",
-    text: "Explanation + Evidence",
-    barColor: "#204e79",
-    speakerType: "Teacher",
-    textColor: "white",
-    description: "Teacher models making connections to evidence. Like a student explanation + evidence code, teacher offers a modeled statement/example that includes reasoning grounded in a form of evidence. This might be anecdotal (an observation), scientific (pointing to the results of an experiment), a link to a resource previously reviewed in the class, etc."
-}, {
-    type: "Teacher",
-    value: "Teacher Open-Ended S/Q",
-    text: "Open-Ended Questions",
-    barColor: "#3075b5",
-    speakerType: "Teacher",
-    textColor: "white",
-    description: "Teacher asks students to respond in a way that offers a range of possibilities for responding. These questions or statements work to solicit extended responses that make connections."
-}, {
-    type: "Teacher",
-    value: "Teacher Close-Ended S/Q",
-    text: "Close-Ended Questions",
-    barColor: "#5e9bd4",
-    speakerType: "Teacher",
-    textColor: "black",
-    description: "Teacher asks students to respond in a way that provides limited possibilities for response (yes/no, known answer, fill in the blank). These questions are calls for recitation (correct answer) or calls for connection to previously taught content."
-}, {
-    type: "Teacher",
-    value: "Assorted Teacher Talk",
-    text: "Other Talk",
-    barColor: "#d7e6f4",
-    speakerType: "Teacher",
-    textColor: "black"
-}, {
-    type: "Student",
-    value: "Student Explanation + Evidence",
-    text: "Explanation + Evidence",
-    barColor: "#562810",
-    speakerType: "Student",
-    textColor: "white",
-    description: "Students offer an open-ended response that includes reasoning grounded in a form of evidence. This might be anecdotal (an observation), scientific (pointing to the results of an experiment), a link to a resource previously reviewed in the class, etc."
-}, {
-    type: "Student",
-    value: "Student Open-Ended S/Q",
-    text: "Open-Ended Questions",
-    barColor: "#97471c",
-    speakerType: "Student",
-    textColor: "white"
-}, {
-    type: "Student",
-    value: "Student Open-Ended Response",
-    text: "Open-Ended Response",
-    barColor: "#d76528",
-    speakerType: "Student",
-    textColor: "white",
-    description: "Students provide elaborated responses that move beyond what has been covered previously in the class/\"correct answer\" recitation."
-}, {
-    type: "Student",
-    value: "Student Close-Ended S/Q",
-    text: "Close-Ended Questions",
-    barColor: "#e39368",
-    speakerType: "Student",
-    textColor: "black"
-}, {
-    type: "Student",
-    value: "Student Close-Ended Response",
-    text: "Close-Ended Response",
-    barColor: "#efc1a9",
-    speakerType: "Student",
-    textColor: "black",
-    description: "Students respond with yes/no or known answer response."
-}, {
-    type: "Student",
-    value: "Assorted Student Talk",
-    text: "Other Talk",
-    barColor: "#fbf0e9",
-    speakerType: "Student",
-    textColor: "black"
-}, {
-    type: "Technique",
-    value: "Turn-Taking Facilitation",
-    text: "Turn-Taking Facilitation",
-    barColor: "#daacec",
-    speakerType: "Teacher",
-    textColor: "black",
-    description: "Teacher directs a question to a specific student."
-}, {
-    type: "Technique",
-    value: "Re-Voicing",
-    text: "Re-Voicing",
-    barColor: "#a22fd0",
-    speakerType: "Teacher",
-    textColor: "white",
-    description: "Teacher restates/summarizes/rephrases/elaborates on a student response."
-}, {
-    type: "Technique",
-    value: "Behavior Management Questions",
-    text: "Behavior Management",
-    barColor: "#411353",
-    speakerType: "Teacher",
-    textColor: "white",
-    description: "This code is applied when a teacher asks a question that is managing behavior and/or task completion."
-}, {
-    type: "Teacher",
-    value: "Video",
-    text: "Video",
-    barColor: "#29CB97",
-    speakerType: "Teacher",
-    textColor: "black",
-    description: ""
-}];
+// Color names: htmlcsscolor.com
+// Color ideation: colorhexa.com
+// Color palette ideation: color-hex.com/color-palettes/
 
-export default legendLabels;
+var colors = {
+    Teacher: {
+        "Purple": "#800080",
+        "Navy": "#000080",
+        "Electric indigo": "#6600ff",
+        "Blue bayoux": "#607b7d",
+        "Teal": "#008080",
+        "Aqua": "#00ffff",
+        "Lime": "#3cdc14",
+        "Olive": "#808000",
+    },
+    Student: {
+        "Brown": "#a52a2a",
+        "Maroon": "#800000",
+        "Crimson": "#DC143C",
+        "Salmon": "#FA8072",
+        "Pink": "#ffc0cb",
+        "Orange red": "#ff4500",
+        "Orange": "#ffa500",
+        "Gold": "#ffd700"
+    }
+};
+
+var legendDict = {
+    "Teacher": {
+        "C": {
+            value: "Connect",
+            barColor: colors["Teacher"]["Navy"],
+            textColor: "white",
+            description: "A move that works to bring together concepts by scaffolding connections made between them or referring to prior or current discussions of them"
+        },
+        "G": {
+            value: "Guide Direction of Dialogue or Activity",
+            barColor: colors["Teacher"]["Electric indigo"],
+            textColor: "white",
+            description: "Take responsibility for shaping and directing dialogue or activity by coordinating ideas"
+        },
+        "I": {
+            value: "Invite Elaboration or Reasoning",
+            barColor: colors["Teacher"]["Purple"],
+            textColor: "white",
+            description: "Key words or phrases such as: ‘why?’, ‘how?’, ‘what caused...?’ for reasoning; or conditional phrases such as ‘what would/could/might happen if...?’, when asking for speculation/ prediction."
+        },
+        "R": {
+            value: "Make Reasoning Explicit",
+            barColor: colors["Teacher"]["Teal"],
+            textColor: "white",
+        },
+        "B": {
+            value: "Build on Ideas",
+            barColor: colors["Teacher"]["Blue bayoux"],
+            textColor: "white",
+        },
+        "EV": {
+            value: "Evaluation",
+            barColor: colors["Teacher"]["Olive"],
+            textColor: "white",
+            description: "Explicit acceptance of or agreement with a statement or statements"
+        },
+        "E": {
+            value: "Express or Invite Ideas",
+            barColor: colors["Teacher"]["Lime"],
+            textColor: "black",
+        },
+        "OTT": {
+            value: "Other Teacher Talk",
+            barColor: colors["Teacher"]["Aqua"],
+            textColor: "black",
+        },
+        // "OT": {
+        //     value: "Other Talk",
+        //     barColor: "#000",
+        //     textColor: "white",
+        // },
+    },
+    "Student": {
+        "C": {
+            value: "Connect",
+            barColor: colors["Student"]["Maroon"],
+            textColor: "white",
+        },
+        "G": {
+            value: "Guide Direction of Dialogue or Activity",
+            barColor: colors["Student"]["Brown"],
+            textColor: "white",
+            description: "Taking a position/stance in the dialogue"
+        },
+        "I": {
+            value: "Invite Elaboration or Reasoning",
+            barColor: colors["Student"]["Crimson"],
+            textColor: "white",
+            description: "Elaborate, reformulate, provide examples, extend/add to or build on contributions/ideas/theories; evaluate or (dis)agree with another's contribution/idea/theory"
+        },
+        "R": {
+            value: "Make Reasoning Explicit",
+            barColor: colors["Student"]["Orange red"],
+            textColor: "white",
+            description: "A clear explication of thinking (i.e., why I think that, the mechanism behind an idea which includes supporting evidence",
+        },
+        "B": {
+            value: "Build on Ideas",
+            barColor: colors["Student"]["Salmon"],
+            textColor: "white",
+            description: "Make a relevant contribution to the dialogue by building on, giving examples, adding to, reformulating or clarifying one's own or other's contributions"
+        },
+        "EV": {
+            value: "Evaluation",
+            barColor: colors["Student"]["Pink"],
+            textColor: "black",
+        },
+        "E": {
+            value: "Express or Invite Ideas",
+            barColor: colors["Student"]["Orange"],
+            textColor: "black",
+            description: "Providing contributions that bring something not yet expressed to the discussion, but related to the general subject"
+        },
+        "OST": {
+            value: "Other Student Talk",
+            barColor: colors["Student"]["Gold"],
+            textColor: "black",
+        },
+    }
+};
+
+var speakerTypes = Object.keys(legendDict);
+var legendLabels = speakerTypes.reduce((prev, type) => {
+    var codes = Object.keys(legendDict[type]);
+
+    codes.forEach((code) => {
+        prev.push({
+            ...legendDict[type][code],
+            code: code,
+            speakerType: type,
+        });
+    });
+
+    return prev;
+}, []);
+
+export { legendLabels, legendDict };

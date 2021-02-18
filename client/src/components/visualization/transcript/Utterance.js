@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
 
 import React, { Component } from 'react';
-import defineInitialStyle from '../turn-taking/defineInitialStyle';
+import { defineInitialStyle } from '../turn-taking/barStyles';
+import { getLabelIndex } from '../../legend/labelFilters';
 
 export default class Utterance extends Component {
     handleUtteranceClick(utteranceId) {
@@ -9,37 +10,35 @@ export default class Utterance extends Component {
     }
 
     render() {
-        var timeStamp = this.props.timeStamp;
         var utterance = this.props.utterance;
         var activeLabels = this.props.activeLabels;
         var isLineHighlighted = false;
 
         if (activeLabels) {
-            for (var i = 0; i < utterance.utteranceTypes.length; i++) {
-                if (activeLabels.includes(utterance.utteranceTypes[i])) {
-                    isLineHighlighted = true;
-                    break;
-                }
+            var index = getLabelIndex(activeLabels, utterance);
+
+            if (index > -1) {
+                isLineHighlighted = true;
             }
         }
 
-        return (
-          <tr className="script-turn-utterance" data-attr-utterance-id={utterance.id} id={utterance.id} onClick={this.handleUtteranceClick.bind(this, utterance.id)}>
-            <td className="script-turn-utterance-timestamp">
-              {timeStamp}
-            </td>
+        var hasTimestamp = utterance.timestamp && utterance.timestamp.length > 0;
+        var timeStamp = hasTimestamp ? utterance.timestamp : "";
 
-            {utterance.speakerUtterances.map((utteranceItem, index, utteranceArray) => {
-              return (
-                <td
-                  key={index}
-                  className={this.props.canInspect ? "script-turn-utterance-text inspectable" : "script-turn-utterance-text"}
-                  style={isLineHighlighted ? defineInitialStyle(utterance) : {}}>
-                  {utteranceItem}
-                </td>
-              );
-            })}
-          </tr>
+        return (
+          <div className="script-turn" data-attr-utterance-id={utterance.id} id={utterance.id} onClick={this.handleUtteranceClick.bind(this, utterance.id)}>
+            <span className="script-turn-speaker-timestamp" style={timeStamp ? {marginRight: "10px"} : {}}>
+              {timeStamp}
+            </span>
+            <span>
+              {utterance.speakerPseudonym}
+            </span>
+            <p
+              className={this.props.canInspect ? "script-turn-utterance-text inspectable" : "script-turn-utterance-text"}
+              style={isLineHighlighted ? defineInitialStyle(utterance) : {}}>
+              {utterance.utterance}
+            </p>
+          </div>
         )
     }
 }

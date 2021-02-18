@@ -1,6 +1,6 @@
-import LegendLabels from '../fixtures/legend_labels';
+import { legendLabels } from '../fixtures/legend_labels';
 import formatPercentage from '../utils/formatPercentage';
-import calculateLessonDuration from '../utils/calculateLessonDuration';
+import { convertTimestampToSeconds, calculateLessonDuration } from '../utils/calculateLessonDuration';
 
 export default class ParserCollection {
     constructor(dataParsers) {
@@ -32,7 +32,7 @@ export default class ParserCollection {
         var dateArray = Object.keys(trendLineDataObj);
 
         // allTrendLines is array of labelObj's with an empty data array appended to each obj
-        var allTrendLines = LegendLabels.map((labelObj) => {
+        var allTrendLines = legendLabels.map((labelObj) => {
             return {
                 ...labelObj,
                 data: []
@@ -71,8 +71,8 @@ export default class ParserCollection {
         });
 
         return {
-            Teacher: allTrendLines.filter((legendLabelObj => legendLabelObj.type === "Teacher")),
-            Student: allTrendLines.filter((legendLabelObj => legendLabelObj.type === "Student"))
+            Teacher: allTrendLines.filter((legendLabelObj => legendLabelObj.speakerType === "Teacher")),
+            Student: allTrendLines.filter((legendLabelObj => legendLabelObj.speakerType === "Student"))
         };
     }
 
@@ -96,7 +96,7 @@ export default class ParserCollection {
     averageDuration() {
         var dataParsers = this.dataParsers,
             averageDurationInSecs = dataParsers.reduce((prev, parser) => {
-                prev += parser.data.duration;
+                prev += convertTimestampToSeconds(parser.duration);
                 return prev;
             }, 0) / dataParsers.length;
 
@@ -104,10 +104,8 @@ export default class ParserCollection {
     }
 
     // aggregated legend labels
-    // options.type is either Teacher or Student
+    // options.speakerType is either Teacher or Student
     legendLabels = function(options) {
-        var legendLabels = LegendLabels.filter((item) => item.type === options.type);
-
-        return legendLabels;
+        return legendLabels.filter((item) => item.speakerType === options.speakerType);
     }
 }

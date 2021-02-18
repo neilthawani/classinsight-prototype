@@ -7,14 +7,15 @@ import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
-import removeArrayValue from '../../../utils/removeArrayValue';
+import { smallBarHeight } from '../turn-taking/barStyles';
+import { changeActiveFilters } from '../../legend/labelFilters';
 
 class Transcript extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            activeLabels: [],
+            activeFilters: [],
             focusBox: {
                 topElId: 0,
                 bottomElId: 0,
@@ -24,22 +25,13 @@ class Transcript extends Component {
         };
     }
 
-    // same logic as in TurnTaking::handleFilterClick
     handleClick(label) {
-        var activeLabels = this.state.activeLabels;
-
-        if (activeLabels.includes(label.value)) {
-            activeLabels = removeArrayValue(label.value, activeLabels)
-        } else {
-            activeLabels.push(label.value);
-        }
-
         this.setState({
-            activeLabels: activeLabels
+            activeFilters: changeActiveFilters(this.state.activeFilters, label)
         });
     }
 
-    barHeight = 3
+    barHeight = smallBarHeight;
 
     handleScroll(topElId, bottomElId) {
         // calculate focusBox.height
@@ -48,7 +40,11 @@ class Transcript extends Component {
         if (!turnTakingBarsSmall) return;
 
         var topOfBox = turnTakingBarsSmall.querySelectorAll(`.turn-taking-bars-small-visualization [data-attr-utterance-id='${topElId}']`)[0];
+
         var bottomOfBox = turnTakingBarsSmall.querySelectorAll(`.turn-taking-bars-small-visualization [data-attr-utterance-id='${bottomElId}']`)[0];
+
+        if (!topOfBox || !bottomOfBox) return;
+
         var topOfBoxY = topOfBox.getBoundingClientRect().y;
         var bottomOfBoxY = bottomOfBox.getBoundingClientRect().y;
         var boxHeight = bottomOfBoxY - topOfBoxY + 1;
@@ -82,33 +78,27 @@ class Transcript extends Component {
           <div className="transcript-visualization-container">
             <div className="transcript-visualization-legend">
               <LegendButtonGroup
-                labels={parser.legendLabels({ type: "Teacher"})}
+                labels={parser.legendLabels({ speakerType: "Teacher"})}
                 displayRatio={true}
-                activeLabels={this.state.activeLabels}
+                activeLabels={this.state.activeFilters}
                 handleClick={this.handleClick.bind(this)} />
               <LegendButtonGroup
-                labels={parser.legendLabels({ type: "Student"})}
+                labels={parser.legendLabels({ speakerType: "Student"})}
                 displayRatio={true}
-                activeLabels={this.state.activeLabels}
-                handleClick={this.handleClick.bind(this)} />
-              <LegendButtonGroup
-                labels={parser.legendLabels({ type: "Technique"})}
-                displayRatio={true}
-                activeLabels={this.state.activeLabels}
+                activeLabels={this.state.activeFilters}
                 handleClick={this.handleClick.bind(this)} />
             </div>
 
             <TurnTakingSmall
               parser={parser}
               chartWidth={chartWidth}
-
               barHeight={this.barHeight}
               focusBox={this.state.focusBox} />
 
             <div className="transcript-script-container" style={{ marginLeft: `${chartWidth}px` }}>
               <Script
                 transcript={transcript}
-                activeLabels={this.state.activeLabels}
+                activeLabels={this.state.activeFilters}
                 focusBox={this.state.focusBox}
                 handleScroll={this.handleScroll.bind(this)}
                 handleUtteranceClick={() => {}} />

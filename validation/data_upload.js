@@ -13,7 +13,7 @@ module.exports = function validateDatasetInput(data) {
     errors.classTopic = "Class topic missing";
   }
 
-  if (Validator.isEmpty(data.classPeriod)) {
+  if (Validator.isEmpty(data.classPeriod.toString())) {
     errors.classPeriod = "Class period missing";
   }
 

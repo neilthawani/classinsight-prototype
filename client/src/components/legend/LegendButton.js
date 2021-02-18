@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
+import { filtersIncludeLabel } from './labelFilters';
 
 import formatPercentage from '../../utils/formatPercentage';
 
 export default class LegendButton extends Component {
     styles(label) {
         var styles = {};
-        if (this.props.activeLabels.includes(label.value)) {
+
+        if (filtersIncludeLabel(this.props.activeLabels, label)) {
             styles = {
                 backgroundColor: label.barColor,
                 color: label.textColor
@@ -25,7 +27,7 @@ export default class LegendButton extends Component {
 
       return (
         <div className="legend-button" style={this.styles(label)} onClick={this.handleClick.bind(this, label)}>
-          {label.text} {this.props.displayRatio ? `(${formatPercentage(label.percentage, 0)})` : ""}
+          {label.value} {this.props.displayRatio ? `(${formatPercentage(label.percentage, 0)})` : ""}
         </div>
       );
     }
