@@ -43,6 +43,8 @@ class Transcript extends Component {
 
         var bottomOfBox = turnTakingBarsSmall.querySelectorAll(`.turn-taking-bars-small-visualization [data-attr-utterance-id='${bottomElId}']`)[0];
 
+        if (!topOfBox || !bottomOfBox) return;
+
         var topOfBoxY = topOfBox.getBoundingClientRect().y;
         var bottomOfBoxY = bottomOfBox.getBoundingClientRect().y;
         var boxHeight = bottomOfBoxY - topOfBoxY + 1;
@@ -93,7 +95,7 @@ class Transcript extends Component {
               barHeight={this.barHeight}
               focusBox={this.state.focusBox} />
 
-            <div className="transcript-script-container" style={{ marginLeft: `${chartWidth - 20}px` }}>
+            <div className="transcript-script-container" style={{ marginLeft: `${chartWidth}px` }}>
               <Script
                 transcript={transcript}
                 activeLabels={this.state.activeFilters}
