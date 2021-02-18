@@ -8,7 +8,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { smallBarHeight } from '../turn-taking/barStyles';
-import changeActiveFilters from '../../legend/changeActiveFilters';
+import { changeActiveFilters } from '../../legend/labelFilters';
 
 class Transcript extends Component {
     constructor(props) {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
-import { filtersIncludeLabel } from './compareToLabel';
+import { filtersIncludeLabel } from './labelFilters';
 
 import formatPercentage from '../../utils/formatPercentage';
 

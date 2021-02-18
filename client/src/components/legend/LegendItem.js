@@ -5,7 +5,7 @@ import HoverBox from './HoverBox';
 
 import formatPercentage from '../../utils/formatPercentage';
 
-import { filtersIncludeLabel } from './compareToLabel';
+import { filtersIncludeLabel } from './labelFilters';
 
 export default class LegendItem extends Component {
     constructor(props) {

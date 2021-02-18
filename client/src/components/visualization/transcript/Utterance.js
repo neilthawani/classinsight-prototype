@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 import React, { Component } from 'react';
 import { defineInitialStyle } from '../turn-taking/barStyles';
-import { utteranceMatchesLabel } from '../../legend/compareToLabel';
+import { utteranceMatchesLabel } from '../../legend/labelFilters';
 
 export default class Utterance extends Component {
     handleUtteranceClick(utteranceId) {

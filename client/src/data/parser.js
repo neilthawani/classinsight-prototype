@@ -1,5 +1,5 @@
 import { legendLabels, legendDict } from '../fixtures/legend_labels';
-import { utteranceMatchesLabel } from '../components/legend/compareToLabel';
+import { utteranceMatchesLabel } from '../components/legend/labelFilters';
 
 export default class Parser {
     constructor(data) {

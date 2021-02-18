@@ -4,7 +4,7 @@ import LegendItemGroup from '../../legend/LegendItemGroup';
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import changeActiveFilters from '../../legend/changeActiveFilters';
+import { changeActiveFilters } from '../../legend/labelFilters';
 
 class TurnTaking extends Component {
     constructor(props) {

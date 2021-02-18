@@ -4,7 +4,7 @@ import TrendChart from './TrendChart';
 import { removePropertyFromObject } from '../../utils/removePropertyFromObject';
 import flattenArray from '../../utils/flattenArray';
 import uuid from 'react-uuid'
-import { filtersIncludeLabel } from '../legend/compareToLabel';
+import { filtersIncludeLabel } from '../legend/labelFilters';
 
 export default class TrendChartContainer extends Component {
     constructor(props) {
