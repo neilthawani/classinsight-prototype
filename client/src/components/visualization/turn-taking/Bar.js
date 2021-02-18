@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-// import Turn from '../transcript/Turn';
 import Utterance from '../transcript/Utterance';
 
 import { drawBarStyles } from './barStyles';

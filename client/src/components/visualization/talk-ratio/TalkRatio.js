@@ -14,7 +14,7 @@ class TalkRatio extends Component {
         super(props);
 
         this.state = {
-            drilldownFilter: "",
+            drilldownFilter: {},
         };
     }
 
@@ -27,9 +27,9 @@ class TalkRatio extends Component {
     }
 
     handleTalkRatioSectionClick(label) {
-        var drilldownFilter = label === this.state.drilldownFilter ? "" : label;
+        var drilldownFilter = JSON.stringify(label) === JSON.stringify(this.state.drilldownFilter) ? "" : label;
 
-        if (drilldownFilter === this.state.drilldownFilter) {
+        if (JSON.stringify(drilldownFilter) === JSON.stringify(this.state.drilldownFilter)) {
             drilldownFilter = "";
         }
 

@@ -1,3 +1,5 @@
+// Note: this is currently unused
+
 export default function removeArrayValue(value, array, options) {
     var index = array.indexOf(value);
 

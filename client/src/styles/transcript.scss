@@ -11,5 +11,5 @@
 .transcript-script-container {
     left: calc(#{$legendButtonWidth} + #{$legendButtonPadding} + #{$legendSideBuffer});
     position: relative;
-    width: calc(100% - #{$sidebarWidth} - 2 * #{$legendButtonWidth} - #{$legendSideBuffer});
+    width: calc(100% - #{$sidebarWidth} - 2 * #{$legendButtonWidth} - 2 * #{$legendSideBuffer});
 }
