@@ -29,7 +29,7 @@ export default class LegendButton extends Component {
 
       return (
         <div className="legend-button" style={this.styles(label)} onClick={this.handleClick.bind(this, label)}>
-          {label.text} {this.props.displayRatio ? `(${formatPercentage(label.percentage, 0)})` : ""}
+          {label.value} {this.props.displayRatio ? `(${formatPercentage(label.percentage, 0)})` : ""}
         </div>
       );
     }

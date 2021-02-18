@@ -63,7 +63,7 @@ class TurnTaking extends Component {
             <div className="turn-taking-visualization-container">
               <div className="turn-taking-legend-teacher">
                 <LegendItemGroup
-                  labels={parser.legendLabels({ type: "Teacher"})}
+                  labels={parser.legendLabels({ speakerType: "Teacher"})}
                   activeFilters={this.state.activeFilters}
                   handleClick={this.handleFilterClick.bind(this) }/>
               </div>
@@ -90,7 +90,7 @@ class TurnTaking extends Component {
               </div>
               <div className="turn-taking-legend-student">
                 <LegendItemGroup
-                  labels={parser.legendLabels({ type: "Student"})}
+                  labels={parser.legendLabels({ speakerType: "Student"})}
                   activeFilters={this.state.activeFilters}
                   handleClick={this.handleFilterClick.bind(this) }/>
               </div>

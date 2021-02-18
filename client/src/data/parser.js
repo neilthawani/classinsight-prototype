@@ -20,7 +20,7 @@ export default class Parser {
     }
 
     legendLabels = function(options) {
-        var legendLabels = this.talkRatios().filter((item) => item.type === options.type);
+        var legendLabels = this.talkRatios().filter((item) => item.speakerType === options.speakerType);
         return legendLabels;
     }
 
@@ -131,19 +131,21 @@ export default class Parser {
             ratioObj.percentage = ratioObj.nTokens / allSpeakersTotalNTokens;
         });
 
+
+        console.log("nTokensPerUtteranceType", nTokensPerUtteranceType);
         return nTokensPerUtteranceType;
     }
 
     teacherTalkRatios = function() {
         var talkRatios = this.talkRatios(),
-            teacherTalkRatios = talkRatios.filter((item) => item.type === "Teacher").reverse();
+            teacherTalkRatios = talkRatios.filter((item) => item.speakerType === "Teacher").reverse();
 
         return teacherTalkRatios;
     }
 
     studentTalkRatios = function() {
         var talkRatios = this.talkRatios(),
-            studentTalkRatios = talkRatios.filter((item) => item.type === "Student");
+            studentTalkRatios = talkRatios.filter((item) => item.speakerType === "Student");
 
         return studentTalkRatios;
     }

@@ -53,7 +53,7 @@ export default class LegendItem extends Component {
           <span className="legend-item-label"
           onMouseOver={this.toggleDefinitionDisplay.bind(this, label)}
           onMouseOut={this.toggleDefinitionDisplay.bind(this, label)}>
-            {label.text}
+            {label.value}
           </span>
 
           {activeLabel ?

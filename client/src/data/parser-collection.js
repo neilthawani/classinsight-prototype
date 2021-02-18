@@ -71,8 +71,8 @@ export default class ParserCollection {
         });
 
         return {
-            Teacher: allTrendLines.filter((legendLabelObj => legendLabelObj.type === "Teacher")),
-            Student: allTrendLines.filter((legendLabelObj => legendLabelObj.type === "Student"))
+            Teacher: allTrendLines.filter((legendLabelObj => legendLabelObj.speakerType === "Teacher")),
+            Student: allTrendLines.filter((legendLabelObj => legendLabelObj.speakerType === "Student"))
         };
     }
 
@@ -105,8 +105,8 @@ export default class ParserCollection {
     }
 
     // aggregated legend labels
-    // options.type is either Teacher or Student
+    // options.speakerType is either Teacher or Student
     legendLabels = function(options) {
-        return legendLabels.filter((item) => item.type === options.type);
+        return legendLabels.filter((item) => item.speakerType === options.speakerType);
     }
 }

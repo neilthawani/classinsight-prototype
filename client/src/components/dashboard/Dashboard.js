@@ -74,7 +74,7 @@ class Dashboard extends Component {
                 </h4>
                 <div className="overview-trend-chart-container">
                   <LegendItemGroup
-                    labels={parserCollection.legendLabels({ type: "Teacher" })}
+                    labels={parserCollection.legendLabels({ speakerType: "Teacher" })}
                     activeFilters={this.state.activeFilters}
                     displayRatio={false}
                     handleClick={this.handleFilterClick.bind(this)} />
@@ -90,7 +90,7 @@ class Dashboard extends Component {
                 </h4>
                 <div className="overview-trend-chart-container">
                   <LegendItemGroup
-                    labels={parserCollection.legendLabels({ type: "Student" })}
+                    labels={parserCollection.legendLabels({ speakerType: "Student" })}
                     activeFilters={this.state.activeFilters}
                     displayRatio={false}
                     handleClick={this.handleFilterClick.bind(this)} />

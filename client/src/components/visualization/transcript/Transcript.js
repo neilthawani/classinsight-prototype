@@ -87,12 +87,12 @@ class Transcript extends Component {
           <div className="transcript-visualization-container">
             <div className="transcript-visualization-legend">
               <LegendButtonGroup
-                labels={parser.legendLabels({ type: "Teacher"})}
+                labels={parser.legendLabels({ speakerType: "Teacher"})}
                 displayRatio={true}
                 activeLabels={this.state.activeFilters}
                 handleClick={this.handleClick.bind(this)} />
               <LegendButtonGroup
-                labels={parser.legendLabels({ type: "Student"})}
+                labels={parser.legendLabels({ speakerType: "Student"})}
                 displayRatio={true}
                 activeLabels={this.state.activeFilters}
                 handleClick={this.handleClick.bind(this)} />
