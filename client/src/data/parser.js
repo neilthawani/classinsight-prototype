@@ -25,7 +25,11 @@ export default class Parser {
     }
 
     transcript = function() {
-        var transcript = this.utterances.map((utterance, index, array) => {
+        var transcript = this.utterances.reduce((prev, utterance, index, array) => {
+            if (utterance.utteranceCodes.includes("OT")) {
+                return prev;
+            }
+
             var speakerType = utterance.speakerPseudonym.includes("Student") ? "Student" : "Teacher";
             var nTokens = utterance.utterance.split(" ").length;
 
@@ -33,13 +37,15 @@ export default class Parser {
                 return legendDict[speakerType][code].value;
             });
 
-            return {
+            prev.push({
                 ...utterance,
                 speakerType: speakerType,
                 nTokens: nTokens,
                 utteranceTypes: utteranceTypes
-            };
-        });
+            });
+
+            return prev;
+        }, []);
 
         return transcript;
     }
@@ -131,8 +137,6 @@ export default class Parser {
             ratioObj.percentage = ratioObj.nTokens / allSpeakersTotalNTokens;
         });
 
-
-        console.log("nTokensPerUtteranceType", nTokensPerUtteranceType);
         return nTokensPerUtteranceType;
     }
 

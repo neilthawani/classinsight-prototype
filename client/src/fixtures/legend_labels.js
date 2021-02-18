@@ -1,90 +1,119 @@
-var legendDict = {
-    "Student": {
-        "C": {
-            value: "Connect",
-            barColor: "#370617",
-            textColor: "white",
-        },
-        "G": {
-            value: "Guide Direction of Dialogue or Activity",
-            barColor: "#6A040F",
-            textColor: "white",
-        },
-        "I": {
-            value: "Invite Elaboration or Reasoning",
-            barColor: "#9D0208",
-            textColor: "white",
-        },
-        "R": {
-            value: "Make Reasoning Explicit",
-            barColor: "#D00000",
-            textColor: "white",
-        },
-        "B": {
-            value: "Build on Ideas",
-            barColor: "#E85D04",
-            textColor: "white",
-        },
-        "EV": {
-            value: "Evaluation",
-            barColor: "#F48C06",
-            textColor: "white",
-        },
-        "E": {
-            value: "Express or Invite Ideas",
-            barColor: "#FAA307",
-            textColor: "black",
-        },
-        "OST": {
-            value: "Other Student Talk",
-            barColor: "#FFBA08",
-            textColor: "black",
-        },
+var colors = {
+    Teacher: {
+        "Purple": "#800080",
+        "Navy": "#000080",
+        "Blue": "#0000ff",
+        "Blueish": "#4d00ff",
+        "Grayish": "#607b7d",
+        "Teal": "#008080",
+        "Aqua": "#00ffff",
+        "White": "#fff",
+        "Green": "#008000",
+        "Lime": "#3cdc14",
+        "Olive": "#808000",
+        // "Someblue": "#246092",
     },
+    Student: {
+        "Brown": "#a52a2a",
+        "Maroon": "#800000",
+        // "Red": "#ff0000",
+        "Crimson": "#DC143C",
+        // "Fuchsia": "#ff00ff",
+        "Salmon": "#FA8072",
+        "Pink": "#ffc0cb",
+        "Orange red": "#ff4500",
+        "Orange": "#ffa500",
+        "Gold": "#ffd700"
+    }
+};
+
+var legendDict = {
     "Teacher": {
         "C": {
             value: "Connect",
-            barColor: "#03045E",
+            barColor: colors["Teacher"]["Navy"],
             textColor: "white",
         },
         "G": {
             value: "Guide Direction of Dialogue or Activity",
-            barColor: "#023E8A",
+            barColor: colors["Teacher"]["Blueish"],
             textColor: "white",
         },
         "I": {
             value: "Invite Elaboration or Reasoning",
-            barColor: "#0077B6",
+            barColor: colors["Teacher"]["Purple"],
             textColor: "white",
         },
         "R": {
             value: "Make Reasoning Explicit",
-            barColor: "#0096C7",
+            barColor: colors["Teacher"]["Teal"],
             textColor: "white",
         },
         "B": {
             value: "Build on Ideas",
-            barColor: "#00B4D8",
+            barColor: colors["Teacher"]["Grayish"],
             textColor: "white",
         },
         "EV": {
             value: "Evaluation",
-            barColor: "#48CAE4",
-            textColor: "black",
+            barColor: colors["Teacher"]["Olive"],
+            textColor: "white",
         },
         "E": {
             value: "Express or Invite Ideas",
-            barColor: "#90E0EF",
+            barColor: colors["Teacher"]["Lime"],
             textColor: "black",
         },
         "OTT": {
             value: "Other Teacher Talk",
-            barColor: "#ADE8F4",
+            barColor: colors["Teacher"]["Aqua"],
             textColor: "black",
         },
-        "OT": {
-            value: "Other Talk",
-            barColor: "#CAF0F8",
+        // "OT": {
+        //     value: "Other Talk",
+        //     barColor: "#000",
+        //     textColor: "white",
+        // },
+    },
+    "Student": {
+        "C": {
+            value: "Connect",
+            barColor: colors["Student"]["Maroon"],
+            textColor: "white",
+        },
+        "G": {
+            value: "Guide Direction of Dialogue or Activity",
+            barColor: colors["Student"]["Brown"],
+            textColor: "white",
+        },
+        "I": {
+            value: "Invite Elaboration or Reasoning",
+            barColor: colors["Student"]["Crimson"],
+            textColor: "white",
+        },
+        "R": {
+            value: "Make Reasoning Explicit",
+            barColor: colors["Student"]["Orange red"],
+            textColor: "white",
+        },
+        "B": {
+            value: "Build on Ideas",
+            barColor: colors["Student"]["Salmon"],
+            textColor: "white",
+        },
+        "EV": {
+            value: "Evaluation",
+            barColor: colors["Student"]["Pink"],
+            textColor: "black",
+        },
+        "E": {
+            value: "Express or Invite Ideas",
+            barColor: colors["Student"]["Orange"],
+            textColor: "black",
+        },
+        "OST": {
+            value: "Other Student Talk",
+            barColor: colors["Student"]["Gold"],
             textColor: "black",
         },
     }
