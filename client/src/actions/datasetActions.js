@@ -92,7 +92,6 @@ export const listDatasets = (userId) => {
 };
 
 export const uploadDataset = (dataset) => dispatch => {
-    // debugger;
     axios
         .post("/api/datasets/upload", dataset)
         .then(res => {
