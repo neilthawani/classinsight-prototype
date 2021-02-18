@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 import React, { Component } from 'react';
 import { defineInitialStyle } from '../turn-taking/barStyles';
-import { utteranceMatchesLabel } from '../../legend/labelFilters';
+import { getLabelIndex } from '../../legend/labelFilters';
 
 export default class Utterance extends Component {
     handleUtteranceClick(utteranceId) {
@@ -15,9 +15,7 @@ export default class Utterance extends Component {
         var isLineHighlighted = false;
 
         if (activeLabels) {
-            var index = activeLabels.findIndex(item => {
-                return utteranceMatchesLabel(utterance, item);
-            });
+            var index = getLabelIndex(activeLabels, utterance);
 
             if (index > -1) {
                 isLineHighlighted = true;

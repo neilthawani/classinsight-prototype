@@ -26,4 +26,4 @@ var filtersIncludeLabel = function(activeFilters, label) {
     return activeFilters.some(filter => label.speakerType === filter.speakerType && label.code === filter.code);
 }
 
-export { changeActiveFilters, utteranceMatchesLabel, filtersIncludeLabel };
+export { changeActiveFilters, utteranceMatchesLabel, getLabelIndex, filtersIncludeLabel };
