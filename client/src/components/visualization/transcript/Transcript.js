@@ -7,7 +7,6 @@ import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
-import removeArrayValue from '../../../utils/removeArrayValue';
 import { smallBarHeight } from '../turn-taking/barStyles';
 import changeActiveFilters from '../../legend/changeActiveFilters';
 

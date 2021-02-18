@@ -1,7 +1,8 @@
 import removeArrayValue from '../../utils/removeArrayValue';
+import { filtersIncludeLabel } from './compareToLabel';
 
 const changeActiveFilters = function(activeFilters, label) {
-    var isFilterActive = activeFilters.some(filter => label.speakerType === filter.speakerType && label.code === filter.code);
+    var isFilterActive = filtersIncludeLabel(activeFilters, label);
 
     if (isFilterActive) {
         activeFilters = removeArrayValue(label, activeFilters)

@@ -5,6 +5,8 @@ import HoverBox from './HoverBox';
 
 import formatPercentage from '../../utils/formatPercentage';
 
+import { filtersIncludeLabel } from './compareToLabel';
+
 export default class LegendItem extends Component {
     constructor(props) {
         super(props);
@@ -21,7 +23,8 @@ export default class LegendItem extends Component {
     }
 
     isActive() {
-        var isActive = (this.props.activeFilters && !this.props.activeFilters.some(filter => this.props.label.speakerType === filter.speakerType && this.props.label.code === filter.code)) || !this.props.activeFilters;
+        var isActive = (this.props.activeFilters && !filtersIncludeLabel(this.props.activeFilters, this.props.label)) || !this.props.activeFilters;
+
 
         return isActive;
     }

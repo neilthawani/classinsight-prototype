@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 
 import React, { Component } from 'react';
 import { defineInitialStyle } from '../turn-taking/barStyles';
+import { utteranceMatchesLabel } from '../../legend/compareToLabel';
 
 export default class Utterance extends Component {
     handleUtteranceClick(utteranceId) {
@@ -15,7 +16,7 @@ export default class Utterance extends Component {
 
         if (activeLabels) {
             var index = activeLabels.findIndex(item => {
-                return item.speakerType === utterance.speakerType && utterance.utteranceCodes.includes(item.code);
+                return utteranceMatchesLabel(utterance, item);
             });
 
             if (index > -1) {

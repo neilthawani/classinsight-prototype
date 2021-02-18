@@ -4,6 +4,7 @@ import TrendChart from './TrendChart';
 import { removePropertyFromObject } from '../../utils/removePropertyFromObject';
 import flattenArray from '../../utils/flattenArray';
 import uuid from 'react-uuid'
+import { filtersIncludeLabel } from '../legend/compareToLabel';
 
 export default class TrendChartContainer extends Component {
     constructor(props) {
@@ -101,9 +102,7 @@ export default class TrendChartContainer extends Component {
             var state = this.state,
                 activeFilters = this.props.activeFilters,
                 trendLineData = this.props.data.reduce((prev, dataRow) => {
-                    // if (!activeFilters.includes(dataRow.value)) {
-                    // debugger;
-                    if (!activeFilters.some(filter => dataRow.speakerType === filter.speakerType && dataRow.code === filter.code)) {
+                    if (!filtersIncludeLabel(activeFilters, dataRow)) {
                         var metaData = removePropertyFromObject(dataRow, 'data');
 
                         var newRow = this.parseData(dataRow.data).map((datum) => {

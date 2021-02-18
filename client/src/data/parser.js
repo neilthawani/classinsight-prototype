@@ -1,4 +1,5 @@
 import { legendLabels, legendDict } from '../fixtures/legend_labels';
+import { utteranceMatchesLabel } from '../components/legend/compareToLabel';
 
 export default class Parser {
     constructor(data) {
@@ -104,7 +105,7 @@ export default class Parser {
         // calculate nTokens for each utterance type
         talkRatios.forEach((labelObj, index, array) => {
             transcript.forEach((utterance, index, array) => {
-                if (utterance.speakerPseudonym.includes(labelObj.speakerType) && utterance.utteranceCodes.includes(labelObj.code)) {
+                if (utteranceMatchesLabel(utterance, labelObj)) {
                     labelObj.nTokens += utterance.nTokens;
                 }
             });
