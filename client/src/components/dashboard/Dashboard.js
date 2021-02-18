@@ -6,6 +6,7 @@ import LegendItemGroup from '../legend/LegendItemGroup';
 import TrendChartContainer from './TrendChartContainer';
 import formatDate from '../../utils/formatDate';
 import removeArrayValue from '../../utils/removeArrayValue';
+import changeActiveFilters from '../legend/changeActiveFilters';
 
 class Dashboard extends Component {
     constructor(props) {
@@ -16,20 +17,9 @@ class Dashboard extends Component {
         };
     }
 
-    // TODO: same logic as in Transcript::handleClick
     handleFilterClick(label) {
-        var activeFilters = this.state.activeFilters;
-
-        var isFilterActive = activeFilters.some(filter => label.speakerType === filter.speakerType && label.code === filter.code);
-
-        if (isFilterActive) {
-            activeFilters = removeArrayValue(label, activeFilters)
-        } else {
-            activeFilters.push(label);
-        }
-
         this.setState({
-            activeFilters: activeFilters
+            activeFilters: changeActiveFilters(this.state.activeFilters, label)
         });
     }
 

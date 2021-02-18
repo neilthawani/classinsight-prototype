@@ -5,6 +5,7 @@ import removeArrayValue from '../../../utils/removeArrayValue';
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import changeActiveFilters from '../../legend/changeActiveFilters';
 
 class TurnTaking extends Component {
     constructor(props) {
@@ -16,20 +17,9 @@ class TurnTaking extends Component {
         };
     }
 
-    // TODO: same logic as in Transcript::handleClick
     handleFilterClick(label) {
-        var activeFilters = this.state.activeFilters;
-
-        var isFilterActive = activeFilters.some(filter => label.speakerType === filter.speakerType && label.code === filter.code);
-
-        if (isFilterActive) {
-            activeFilters = removeArrayValue(label, activeFilters)
-        } else {
-            activeFilters.push(label);
-        }
-
         this.setState({
-            activeFilters: activeFilters
+            activeFilters: changeActiveFilters(this.state.activeFilters, label)
         });
     }
 

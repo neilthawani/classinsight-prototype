@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 
 import removeArrayValue from '../../../utils/removeArrayValue';
 import { smallBarHeight } from '../turn-taking/barStyles';
+import changeActiveFilters from '../../legend/changeActiveFilters';
 
 class Transcript extends Component {
     constructor(props) {
@@ -25,20 +26,9 @@ class Transcript extends Component {
         };
     }
 
-    // TODO: Refactor.
     handleClick(label) {
-        var activeFilters = this.state.activeFilters;
-
-        var isFilterActive = activeFilters.some(filter => label.speakerType === filter.speakerType && label.code === filter.code);
-
-        if (isFilterActive) {
-            activeFilters = removeArrayValue(label, activeFilters)
-        } else {
-            activeFilters.push(label);
-        }
-
         this.setState({
-            activeFilters: activeFilters
+            activeFilters: changeActiveFilters(this.state.activeFilters, label)
         });
     }
 
