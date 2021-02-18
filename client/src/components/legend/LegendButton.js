@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
+import { filtersIncludeLabel } from './compareToLabel';
 
 import formatPercentage from '../../utils/formatPercentage';
 
 export default class LegendButton extends Component {
     styles(label) {
         var styles = {};
-        var index = this.props.activeLabels.findIndex(item => {
-            return item.speakerType === label.speakerType && label.code === item.code;
-        });
 
-        if (index > -1) {
+        if (filtersIncludeLabel(this.props.activeLabels, label)) {
             styles = {
                 backgroundColor: label.barColor,
                 color: label.textColor

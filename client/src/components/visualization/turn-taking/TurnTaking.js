@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Bar from './Bar';
 import LegendItemGroup from '../../legend/LegendItemGroup';
-import removeArrayValue from '../../../utils/removeArrayValue';
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";

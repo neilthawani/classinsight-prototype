@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import LegendItemGroup from '../legend/LegendItemGroup';
 import TrendChartContainer from './TrendChartContainer';
 import formatDate from '../../utils/formatDate';
-import removeArrayValue from '../../utils/removeArrayValue';
 import changeActiveFilters from '../legend/changeActiveFilters';
 
 class Dashboard extends Component {
