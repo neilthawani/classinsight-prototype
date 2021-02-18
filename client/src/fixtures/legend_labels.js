@@ -1,24 +1,22 @@
+// Color names: htmlcsscolor.com
+// Color ideation: colorhexa.com
+// Color palette ideation: color-hex.com/color-palettes/
+
 var colors = {
     Teacher: {
         "Purple": "#800080",
         "Navy": "#000080",
-        "Blue": "#0000ff",
-        "Blueish": "#4d00ff",
-        "Grayish": "#607b7d",
+        "Electric indigo": "#6600ff",
+        "Blue bayoux": "#607b7d",
         "Teal": "#008080",
         "Aqua": "#00ffff",
-        "White": "#fff",
-        "Green": "#008000",
         "Lime": "#3cdc14",
         "Olive": "#808000",
-        // "Someblue": "#246092",
     },
     Student: {
         "Brown": "#a52a2a",
         "Maroon": "#800000",
-        // "Red": "#ff0000",
         "Crimson": "#DC143C",
-        // "Fuchsia": "#ff00ff",
         "Salmon": "#FA8072",
         "Pink": "#ffc0cb",
         "Orange red": "#ff4500",
@@ -36,7 +34,7 @@ var legendDict = {
         },
         "G": {
             value: "Guide Direction of Dialogue or Activity",
-            barColor: colors["Teacher"]["Blueish"],
+            barColor: colors["Teacher"]["Electric indigo"],
             textColor: "white",
         },
         "I": {
@@ -51,7 +49,7 @@ var legendDict = {
         },
         "B": {
             value: "Build on Ideas",
-            barColor: colors["Teacher"]["Grayish"],
+            barColor: colors["Teacher"]["Blue bayoux"],
             textColor: "white",
         },
         "EV": {
