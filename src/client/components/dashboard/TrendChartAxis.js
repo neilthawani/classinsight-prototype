@@ -9,7 +9,7 @@ import * as d3 from 'd3';
 // }
 
 export default class TrendChartAxis extends Component {
-    ref: React.RefObject<SVGGElement>;
+    // ref: React.RefObject<SVGGElement>;
 
     constructor(props) {
         super(props);
