@@ -1,14 +1,17 @@
 import React, { Component } from "react";
 import * as d3 from 'd3';
 
-interface AxisProps {
-  scale: d3.ScaleLinear<any, any>;
-}
+// Note: To use this interface, change the following:
+// export default class TrendChartAxis extends Component<AxisProps> {
+// constructor(props: AxisProps) {
+// interface AxisProps {
+//   scale: d3.ScaleLinear<any, any>;
+// }
 
-export default class TrendChartAxis extends Component<AxisProps> {
+export default class TrendChartAxis extends Component {
     ref: React.RefObject<SVGGElement>;
 
-    constructor(props: AxisProps) {
+    constructor(props) {
         super(props);
 
         this.ref = React.createRef();

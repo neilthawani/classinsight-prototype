@@ -132,7 +132,7 @@ export default class TrendChartContainer extends Component {
 
                   <span className="trend-chart-container-tooltip">
                     {this.state.circleTooltip ?
-                      `${this.state.circleTooltip.text} (${this.state.circleTooltip.score.toFixed(1)}%)`
+                      `${this.state.circleTooltip.value} (${this.state.circleTooltip.score.toFixed(1)}%)`
                     : null}
                   </span>
                 </div>
