@@ -65,7 +65,7 @@ const port = 8802 || process.env.PORT; // process.env.port is Heroku's port if y
 // Developer's note:
 // Run `killall node` in the Terminal if server doesn't refresh successfully and says EADDRINUSE.
 
-pp.all("/api/*", function(req, res) {
+app.all("/api/*", function(req, res) {
     apiProxy.web(req, res, {target: 'http://localhost:3000'});
 });
 

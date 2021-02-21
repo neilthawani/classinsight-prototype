@@ -17,7 +17,6 @@ var config = {
     // Change
     username: keychain.username,
     // Usually in the form of /Users/*username*/.shh/id_rsa
-    privateKey: require('fs').readFileSync(keychain.keyPath),
     privateKey: privateKey,
 
     // Keep the same
