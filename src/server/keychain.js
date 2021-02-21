@@ -1,7 +1,7 @@
 const oauth = require("./client/src/config/oauth");
 
 var keychain = {
-    "username": "admin",
+    "username": "neil",
     "keyPath": "/home/classinsight/.ssh/id_rsa",
     "password": "youdownwithrpp",
     "dbHost": "edusense-dev-1.andrew.cmu.edu",
