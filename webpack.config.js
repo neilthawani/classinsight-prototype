@@ -20,7 +20,7 @@ module.exports = {
         },
         {
             test: /\.s[ac]ss$/i,
-            use: ['style-loader', 'css-loader', 'sass-loader']
+            use: ['style-loader', 'sass-loader']
         },
         {
             test: /\.(png|woff|woff2|eot|ttf|svg)$/,

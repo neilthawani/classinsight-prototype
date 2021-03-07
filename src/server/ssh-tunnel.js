@@ -1,7 +1,8 @@
 const MongoClient = require('mongodb').MongoClient;
 const url = "mongodb://localhost:27017";
 var tunnel = require('tunnel-ssh');
-const keychain = require('./keychain');
+const conf = require('./.tunnel-config');
+
 const fs = require('file-system');
 let privateKey;
 var _db, _pdb;
@@ -15,13 +16,14 @@ try {
 // SSH Tunnel Config
 var config = {
     // Change
-    username: keychain.username,
+    username: conf.username,
+    password: conf.password,
     // Usually in the form of /Users/*username*/.shh/id_rsa
     privateKey: privateKey,
 
     // Keep the same
     agent: process.env.SSH_AUTH_SOCK,
-    host: keychain.dbHost,
+    host: conf.dbHost,
     port: 22, // ssh port
     dstPort: 27017
 };
@@ -40,8 +42,8 @@ module.exports = {
                     console.log("Error connecting to database");
                 }
                 console.log("Connected to database");
-                _db = client.db('classinsight');
-                _pdb = client.db('frontend-test');
+                _db = client.db('classinsight-testdb');
+                _pdb = client.db('cis-frontend-test');
                 return callback(err);
             });
         });
