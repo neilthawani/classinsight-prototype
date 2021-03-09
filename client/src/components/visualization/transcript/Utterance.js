@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 import React, { Component } from 'react';
 import { defineInitialStyle } from '../turn-taking/barStyles';
-import { getLabelIndex } from '../../legend/labelFilters';
+import { utteranceMatchesLabel } from '../../legend/labelFilters';
 
 export default class Utterance extends Component {
     handleUtteranceClick(utteranceId) {
@@ -12,15 +12,7 @@ export default class Utterance extends Component {
     render() {
         var utterance = this.props.utterance;
         var activeLabels = this.props.activeLabels;
-        var isLineHighlighted = false;
-
-        if (activeLabels) {
-            var index = getLabelIndex(activeLabels, utterance);
-
-            if (index > -1) {
-                isLineHighlighted = true;
-            }
-        }
+        var isLineHighlighted = activeLabels && activeLabels.findIndex(label => utteranceMatchesLabel(utterance, label)) > -1;
 
         var hasTimestamp = utterance.timestamp && utterance.timestamp.length > 0;
         var timeStamp = hasTimestamp ? utterance.timestamp : "";
