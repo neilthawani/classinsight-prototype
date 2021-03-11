@@ -57,4 +57,4 @@ const DatasetSchema = new Schema({
 });
 
 DatasetSchema.plugin(AutoIncrement, {id: "datasets_id_counter", inc_field: '_id'});
-module.exports = Dataset = mongoose.model("datasets", DatasetSchema);
+module.exports = mongoose.model("datasets", DatasetSchema);

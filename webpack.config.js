@@ -20,7 +20,7 @@ module.exports = {
         },
         {
             test: /\.s[ac]ss$/i,
-            use: ['style-loader', 'sass-loader']
+            use: ['style-loader', 'css-loader', 'sass-loader']
         },
         {
             test: /\.(png|woff|woff2|eot|ttf|svg)$/,
@@ -43,7 +43,7 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin([outputDirectory]),
         new HtmlWebpackPlugin({
-            template: './public/index.html',
+            template: path.join(__dirname, '/public/index.html'),
             favicon: './public/favicon.ico'
         })
     ]
