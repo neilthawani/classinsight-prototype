@@ -7,6 +7,7 @@ const passport = require("passport");
 const cookieParser = require('cookie-parser');
 const initializeDb = require('./ssh-tunnel').connectToServer;
 const conf = require('./.tunnel-config');
+const mongoose = require("mongoose");
 
 // Configure dotenv
 dotenv.config();
@@ -21,7 +22,7 @@ app.use(cookieParser());
 
 
 var corsOptions = {
-    origin: conf.allowed_domains, // need this from Nikhil
+    origin: conf.allowed_domains, // TODO: need this from Nikhil
     allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token', 'Authorization'],
     origin: 'http://localhost:3000',
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
@@ -37,6 +38,10 @@ app.use(passport.session());
 const users = require("./routes/api/users");
 const datasets = require("./routes/api/datasets");
 
+// Routes
+app.use("/api/users", users);
+app.use("/api/datasets", datasets);
+
 // var httpProxy = require('http-proxy');
 // var apiProxy = httpProxy.createProxyServer();
 
@@ -49,13 +54,14 @@ const datasets = require("./routes/api/datasets");
 const db = require("./config/keys").mongoURI;
 
 // Connect to MongoDB
-// mongoose
-//   .connect(
-//     db,
-//     { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }
-//   )
-//   .then(() => console.log("MongoDB successfully connected"))
-//   .catch(err => console.log(err));
+// TODO: Uncomment in prod?
+mongoose
+  .connect(
+    db,
+    { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }
+  )
+  .then(() => console.log("MongoDB successfully connected"))
+  .catch(err => console.log(err));
 
 const port = 8802 || process.env.PORT; // process.env.port is Heroku's port if you choose to deploy the app there
 // Developer's note:
@@ -65,6 +71,7 @@ const port = 8802 || process.env.PORT; // process.env.port is Heroku's port if y
 //     apiProxy.web(req, res, {target: 'http://localhost:3000'});
 // });
 
-initializeDb(function(err) {
+// TODO: initializeDb is the SSH tunnel
+// initializeDb(function(err) {
     app.listen(port, () => console.log(`Server up and running on port ${port} !`));
-});
+// });

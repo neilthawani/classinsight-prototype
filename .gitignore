@@ -4,5 +4,5 @@ node_modules
 .DS_Store
 Icon?
 client/.eslintcache
-keychain.js
+# src/server/.tunnel-config
 .env*

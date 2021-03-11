@@ -8,7 +8,7 @@ let privateKey;
 var _db, _pdb;
 
 try {
-    privateKey = fs.readFileSync(keychain.keyPath);
+    privateKey = fs.readFileSync(conf.keyPath);
 } catch(e) {
     privateKey = "";
 }
