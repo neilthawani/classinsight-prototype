@@ -1,4 +1,6 @@
-username = "neil"
-password = "youdownwithrpp"
-dbHost = "edusense-dev-1.andrew.cmu.edu"
-keyPath = "/home/classinsight/.ssh/id_rsa"
+module.exports = {
+    "username": "neil",
+    "keyPath": "/home/classinsight/.ssh/id_rsa",
+    "password": "youdownwithrpp",
+    "dbHost": "edusense-dev-1.andrew.cmu.edu"
+}

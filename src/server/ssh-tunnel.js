@@ -39,12 +39,15 @@ module.exports = {
 
             MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, client) {
                 if (err) {
-                    console.log("Error connecting to database");
+                    console.log("Error connecting to database", err);
+                    return callback(err);
+                } else {
+                  console.log("Connected to database");
+                  _db = client.db('classinsight-testdb');
+                  _pdb = client.db('cis-frontend-test');
+                  // _db = client.db('edusense-graphql-testdb');
+                  // _pdb = client.db('frontend-test');
                 }
-                console.log("Connected to database");
-                _db = client.db('classinsight-testdb');
-                _pdb = client.db('cis-frontend-test');
-                return callback(err);
             });
         });
     },

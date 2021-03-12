@@ -72,6 +72,6 @@ const port = 8802 || process.env.PORT; // process.env.port is Heroku's port if y
 // });
 
 // TODO: initializeDb is the SSH tunnel
-// initializeDb(function(err) {
+initializeDb(function(err) {
     app.listen(port, () => console.log(`Server up and running on port ${port} !`));
-// });
+});
