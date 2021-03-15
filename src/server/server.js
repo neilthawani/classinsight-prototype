@@ -10,28 +10,13 @@ var assert = require('assert')
 const fs = require('fs');
 
 // SSH Tunnel Config
-var config = {
-    username:'neil',
-    host:'edusense-dev-1.andrew.cmu.edu',
-    agent : process.env.SSH_AUTH_SOCK,
-    privateKey:require('fs').readFileSync('/Users/neilthawani/.ssh/id_rsa'),
-    port:22,
-    dstPort:27017,
-    password:'youdownwithrpp'
-};
+var config = require('./.tunnel-config');
 
 // Configure express app
 const app = express();
 var jsonParser = bodyParser.json()
 app.use(express.static('dist'));
 app.use(jsonParser);
-
-
-// require('./routes/datasets')(app);
-
-// GET: PD Modules
-// var pd_mod = fs.readFileSync("src/client/resources/testmd.md", "utf8");
-// app.get('/api/getPD', (req, res) => res.send({ module: pd_mod }));
 
 // SSH tunnel to database
 var server = tunnel(config, function (error, server) {
@@ -42,7 +27,7 @@ var server = tunnel(config, function (error, server) {
     }
 
     // Connect to Mongo server
-    MongoClient.connect("mongodb://localhost:27017", function (err, client) {
+    MongoClient.connect("mongodb://localhost:27017", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }, function (err, client) {
         assert.equal(null, err);
         console.log("Connected successfully to server");
 
