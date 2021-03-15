@@ -34,6 +34,7 @@ class SidebarGroup extends Component {
             </div>
             <div className="sidebar-group-data">
               {(this.props.datasets.dataParsers || []).map((item, index, array) => {
+                  // console.log('array', array);
                   var topic = item.topic,
                       date = formatDate(item.date),
                       period = item.period;

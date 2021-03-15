@@ -121,6 +121,7 @@ module.exports = function(router, basePath, db) {
     // @desc Retrieve user from Users table
     // @access Public
     router.get(`${basePath}/show`, (req, res) => {
+        // console.log('show');
         const id = mongoose.Types.ObjectId(req.query.userId)
 
         db.collection('users', function(error, collection) {
@@ -146,6 +147,7 @@ module.exports = function(router, basePath, db) {
     // @desc Edit user in Users table
     // @access Public
     router.post(`${basePath}/edit`, (req, res) => {
+        // console.log('edit');
         const {
             errors,
             isValid
@@ -174,7 +176,7 @@ module.exports = function(router, basePath, db) {
 
         db.collection('users', function(error, collection) {
             collection.findOneAndUpdate(byQuery, {$set: toUpdate}, options).then(function(result, error) {
-                console.log('error', error, 'result', result);
+                // console.log('error', error, 'result', result);
                 if (error) {
                     return res.status(400).json({
                         message: 'Unable to update user.'
@@ -250,6 +252,7 @@ module.exports = function(router, basePath, db) {
     // @desc Login user and return JWT token
     // @access Public
     router.post(`${basePath}/login`, (req, res) => {
+        // console.log('login');
         // Form validation
         const {
             errors,
@@ -317,6 +320,7 @@ module.exports = function(router, basePath, db) {
     // @desc Login user with Google SSO and return token
     // @access Public
     router.post(`${basePath}/google-login`, (req, res) => {
+        // console.log('google login');
         var email = req.body.profileObj.email;
         var tokenId = req.body.tokenId;
 
@@ -330,8 +334,9 @@ module.exports = function(router, basePath, db) {
                     });
                 }
 
+                // console.log('user', user);
                 const payload = {
-                    id: parseInt(user.id, 10),
+                    id: user._id, // parseInt(user.id, 10),
                     name: user.name,
                     email: user.email,
                     userType: user.userType,

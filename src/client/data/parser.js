@@ -26,12 +26,14 @@ export default class Parser {
     }
 
     transcript = function() {
+        // console.log('this.utterances', this.utterances);
         var transcript = this.utterances.reduce((prev, utterance, index, array) => {
             if (utterance.utteranceCodes.includes("OT")) {
                 return prev;
             }
 
             var speakerType = utterance.speakerPseudonym.includes("Student") ? "Student" : "Teacher";
+            // console.log('utterance.utterance', utterance.utterance);
             var nTokens = utterance.utterance.split(" ").length;
 
             var utteranceTypes = utterance.utteranceCodes.map((code) => {

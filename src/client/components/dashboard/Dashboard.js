@@ -41,6 +41,8 @@ class Dashboard extends Component {
             )
         }
 
+        // console.log('parserCollection.dateRange()', parserCollection.dateRange());
+
         return (
           <div className="dashboard-container">
             <div className="overview-heading">

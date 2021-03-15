@@ -33,6 +33,7 @@ export default function datasetReducer(state, action) {
 
             var parserCollection = new ParserCollection(dataParsers);
 
+            // console.log("dataParsers", dataParsers);
             return {
                 ...state,
                 datasets: sortedPayload,

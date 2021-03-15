@@ -50,6 +50,7 @@ module.exports = function(router, basePath, db) {
     router.get(`${basePath}/list`, function(req, res) {
         db.collection('datasets', function(error, collection) {
             // console.log('collection', collection);
+            // console.log('req', req);
             collection.find({userId: req.query.userId}).toArray(function(error, datasets) {
                 var parsedDatasets = [];
                 // console.log('datasets', datasets);
@@ -68,6 +69,7 @@ module.exports = function(router, basePath, db) {
                     }
                 });
 
+                // console.log('parsedDatasets', parsedDatasets);
                 res.send(parsedDatasets);
             });
         });
@@ -88,9 +90,8 @@ module.exports = function(router, basePath, db) {
             return res.status(400).json(errors);
         }
 
-        // console.log('req.body.userId', req.body.userId);
-
         db.collection('datasets', function(error, collection) {
+            // console.log('userId in', userId);
             const newDataset = new Dataset({
                 userId: req.body.userId,
                 filename: req.body.filename,
@@ -99,11 +100,11 @@ module.exports = function(router, basePath, db) {
                 classPeriod: req.body.classPeriod,
                 utterances: req.body.utterances
             });
-            // console.log('newDataset', newDataset);
 
             collection.save(newDataset)
                 .then((dataset) => {
-                    return res.json(dataset)
+                    // console.log('dataset', dataset);
+                    return res.json(dataset.ops)
                 })
                 .catch((err) => {
                     return console.log(err)

@@ -89,6 +89,9 @@ export default class ParserCollection {
             end: end
         };
 
+        // console.log('teacherData', teacherData);
+        // console.log('end', end, 'start', start);
+
         return dateRange;
     }
 

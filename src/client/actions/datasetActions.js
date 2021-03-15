@@ -77,6 +77,7 @@ export const listDatasets = (userId) => {
                 }
             })
             .then(response => {
+                // console.log('response', response);
                 return response && response.data;
             })
             .then(ret => {
@@ -95,12 +96,12 @@ export const uploadDataset = (dataset) => dispatch => {
     axios
         .post("/api/datasets/upload", dataset)
         .then(res => {
-            console.log("Success. Added dataset:", res);
+            console.log("Success. Added dataset:", res.data[0]);
 
             dispatch({
                 type: UPLOAD_DATASET,
                 payload: {
-                    dataset: res.data
+                    dataset: res.data[0]
                 }
             });
         })

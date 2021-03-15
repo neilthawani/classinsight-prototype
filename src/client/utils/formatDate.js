@@ -1,6 +1,7 @@
 import { format } from 'date-fns';
 
 export default function formatDate(dateToParse) {
+    // console.log('dateToParse', dateToParse);
     var dateObj = dateToParse.split("-").reduce((prev, item, index) => {
         switch(index) {
             case 0:

@@ -41,9 +41,7 @@ class UserDetailsPage extends Component {
     }
 
     static getDerivedStateFromProps(nextProps) {
-        // console.log('nextProps.admin', nextProps.admin);
         if (nextProps.admin.user) {
-            // console.log('getDerivedStateFromProps', nextProps.admin.user);
             return ({
                 user: nextProps.admin.user
             });
@@ -195,7 +193,7 @@ class UserDetailsPage extends Component {
 
                   return (
                     <UserDatasetTableRow
-                      key={index}
+                      key={`${index}-${index}`}
                       dataset={dataset}
                       isDeletingDataset={isDeletingDataset}
                       deleteDataset={this.deleteDataset.bind(this)} />

@@ -13,9 +13,12 @@ const DatasetSchema = new Schema({
     type: Number
   },
   userId: {
-    type: Schema.Types.Number, // https://stackoverflow.com/questions/32684927/mongoose-foreign-key
-    ref: 'User'
+    type: String
   },
+  // userId: {
+    // type: Schema.Types.Number, // https://stackoverflow.com/questions/32684927/mongoose-foreign-key
+    // ref: 'User'
+  // },
   createdDate: {
     type: Date,
     default: Date.now

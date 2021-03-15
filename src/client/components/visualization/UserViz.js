@@ -42,6 +42,7 @@ class UserViz extends Component {
     }
 
     componentDidMount() {
+        // console.log('this.props.auth.user.id', this.props.auth.user);
         this.props.listDatasets(this.props.auth.user.id).then((response) => {
             this.setState({
                 areDatasetsLoaded: true
