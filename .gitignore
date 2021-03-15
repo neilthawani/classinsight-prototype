@@ -1,5 +1,9 @@
+# dist
 package-lock.json
 node_modules
 .DS_Store
 Icon?
 client/.eslintcache
+# src/server/.tunnel-config
+
+.env*
