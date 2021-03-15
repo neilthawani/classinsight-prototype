@@ -52,6 +52,7 @@ export default function adminReducer(state, action) {
                 errors: action.payload
             }
         case SHOW_USER:
+            // console.log('show', action.payload);
             return {
                 ...state,
                 user: action.payload

@@ -26,6 +26,9 @@ var jsonParser = bodyParser.json()
 app.use(express.static('dist'));
 app.use(jsonParser);
 
+
+// require('./routes/datasets')(app);
+
 // GET: PD Modules
 // var pd_mod = fs.readFileSync("src/client/resources/testmd.md", "utf8");
 // app.get('/api/getPD', (req, res) => res.send({ module: pd_mod }));
@@ -46,6 +49,9 @@ var server = tunnel(config, function (error, server) {
         // Connect to classroom data db on server
         const db = client.db('classinsight-testdb');
         const pdb = client.db('cis-frontend-test');
+
+        require('./routes/users')(app, '/api/users', db);
+        require('./routes/datasets')(app, '/api/datasets', db);
         // const db = client.db("edusense-graphql-testdb");
 
         // const users = require("./routes/api/users");
@@ -54,9 +60,57 @@ var server = tunnel(config, function (error, server) {
         // app.use("/api/datasets", datasets);
 
         // GET: Sample frame collection
-        app.post('/api/users/register', function(req, res){
-            console.log("req", req);
-            return { errors: { username: "hello" }}
+        // app.post('/api/users/register', function(req, res){
+        //     // console.log("req", req);
+        //     // Form validation
+        //     const {
+        //         errors,
+        //         isValid
+        //     } = validateRegisterInput(req.body);
+        //
+        //     // Check validation
+        //     if (!isValid) {
+        //         return res.status(400).json(errors);
+        //     }
+// app.get(req, res) {
+//     db.collection('users', function(err, collection) {
+//         collection.findOne().toArray(function(error, items) {
+//             if (error) {
+//                 throw error;
+//             }
+//
+//             else {
+//                 res.send(items);
+//             }
+//         });
+//     });
+// }
+
+// app.get('/api/getPDProgress', function(req, res){
+//     // Get sample collection
+//     pd_db.collection('pds', function(err, collection){
+//         collection.find().toArray(function(err, items){
+//             if(err){throw err}
+//             else{
+//                 res.send(items);
+//                 // console.log(items[1])
+//             };
+//             // console.log(items[1]);
+//         });
+//     });
+// });
+
+// pd_db.collection('pds', function(err, collection){
+//         collection.find().toArray(function(err, items){
+//             if(err){throw err}
+//             else{
+//                 res.send(items);
+//                 // console.log(items[1])
+//             };
+//             // console.log(items[1]);
+//         });
+//     });
+
         //     // Get sample collection
         //     db.collection('session-5f11e488dab4eb718a819779-classinsight-graphql-video', function(err, collection){
         //         collection.find().toArray(function(err, items){
@@ -68,7 +122,7 @@ var server = tunnel(config, function (error, server) {
         //             // console.log(items[1]);
         //         });
         //     })
-        });
+        // });
 
         // Connect to front end data db on server
         // const pd_db = client.db("frontend-test");

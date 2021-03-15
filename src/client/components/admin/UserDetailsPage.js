@@ -14,6 +14,7 @@ class UserDetailsPage extends Component {
         super(props);
 
         var userId = props.match.params.userId;
+        // console.log('userdetails userId', userId);
 
         this.state = {
             isUploadingCsvData: false,
@@ -40,7 +41,9 @@ class UserDetailsPage extends Component {
     }
 
     static getDerivedStateFromProps(nextProps) {
+        // console.log('nextProps.admin', nextProps.admin);
         if (nextProps.admin.user) {
+            // console.log('getDerivedStateFromProps', nextProps.admin.user);
             return ({
                 user: nextProps.admin.user
             });

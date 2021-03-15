@@ -45,8 +45,6 @@ module.exports = {
                   console.log("Connected to database");
                   _db = client.db('classinsight-testdb');
                   _pdb = client.db('cis-frontend-test');
-                  // _db = client.db('edusense-graphql-testdb');
-                  // _pdb = client.db('frontend-test');
                 }
             });
         });
