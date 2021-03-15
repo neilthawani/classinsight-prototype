@@ -16,10 +16,13 @@ Tunnel configuration in the code is handled in `.tunnel-config`. This file shoul
 
 ```
 module.exports = {
-    "username": "loginusername",
-    "keyPath": "/home/classinsight/.ssh/id_rsa",
-    "password": "loginpassword",
-    "dbHost": "edusense-dev-1.andrew.cmu.edu"
+    username:'username',
+    host:'edusense-dev-1.andrew.cmu.edu',
+    agent : process.env.SSH_AUTH_SOCK,
+    privateKey:require('fs').readFileSync('/home/classinsight/.ssh/id_rsa'),
+    port:22,
+    dstPort:27017,
+    password:'password'
 }
 ```
 

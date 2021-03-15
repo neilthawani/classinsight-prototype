@@ -40,4 +40,4 @@ const UserSchema = new Schema({
 
 UserSchema.plugin(AutoIncrement, {id: "users_id_counter", inc_field: '_id'});
 
-module.exports = mongoose.model("users", UserSchema);
+module.exports = User = mongoose.model("users", UserSchema);

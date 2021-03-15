@@ -1,6 +1,9 @@
 module.exports = {
-    "username": "neil",
-    "keyPath": "/home/classinsight/.ssh/id_rsa",
-    "password": "youdownwithrpp",
-    "dbHost": "edusense-dev-1.andrew.cmu.edu"
+    username:'neil',
+    host:'edusense-dev-1.andrew.cmu.edu',
+    agent : process.env.SSH_AUTH_SOCK,
+    privateKey:require('fs').readFileSync('/home/classinsight/.ssh/id_rsa'),
+    port:22,
+    dstPort:27017,
+    password:'youdownwithrpp'
 }
