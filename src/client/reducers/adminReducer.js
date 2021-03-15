@@ -37,14 +37,16 @@ export default function adminReducer(state, action) {
                     })
             };
         case CREATE_USER:
+            // console.log('CREATE_USER action.payload.user', action.payload.user);
             return {
                 isValidUser: true,
                 users: [action.payload.user, ...state.users]
             };
         case DELETE_USER:
+            // console.log('DELETE_USER', state.users);
             return {
                 users:
-                    state.users.filter(user => user._id !== action.payload.data.user._id)
+                    state.users.filter(user => user && user._id !== action.payload.data.user._id)
             };
         case GET_ERRORS:
             return {

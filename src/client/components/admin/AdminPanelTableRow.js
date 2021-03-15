@@ -21,7 +21,7 @@ class AdminPanelTableRow extends Component {
 
     static getDerivedStateFromProps(nextProps, state) {
         var hasErrors = Object.keys(nextProps.errors).length > 0;
-
+        // console.log('nextProps.errors', nextProps.errors, Object.keys(nextProps.errors));
         if (hasErrors && state.email !== nextProps.user.email) {
             return ({
                 errors: nextProps.errors,
@@ -42,6 +42,7 @@ class AdminPanelTableRow extends Component {
     }
 
     toggleEditingUser(user) {
+        // console.log('toggleEditingUser', user);
         this.setState({
             isEditingUser: user ? user : false
         });
@@ -52,6 +53,7 @@ class AdminPanelTableRow extends Component {
     }
 
     editUser(id) {
+        // console.log('edituser this.state', this.state, 'id', id);
         var user = {
             _id: id,
             name: this.state.name,
@@ -66,7 +68,7 @@ class AdminPanelTableRow extends Component {
 
     render() {
         var { isCurrentUser, isDeletingUser, user } = this.props;
-        var { name, email, userType } = this.state;
+        var { name, email, userType } = this.state.isEditingUser ? this.state.isEditingUser : this.state;
         const { isEditingUser, errors } = this.state;
 
         if (isEditingUser) {

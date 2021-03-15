@@ -92,7 +92,7 @@ export const createUser = (userData) => dispatch => {
             dispatch({
                 type: CREATE_USER, // 'admin/userAdded',
                 payload: {
-                    user: res.data
+                    user: res.data.ops[0]
                 }
             })
         })
