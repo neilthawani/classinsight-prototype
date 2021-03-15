@@ -38,6 +38,10 @@ class AdminPanelTableRow extends Component {
     }
 
     onChange = e => {
+        // e.persist();
+        // console.log('e.target.id', e.target.id);
+        // console.log('e.target.value', e.target.value);
+        // console.log('e', e);
         this.setState({ [e.target.id]: e.target.value });
     }
 
@@ -68,7 +72,7 @@ class AdminPanelTableRow extends Component {
 
     render() {
         var { isCurrentUser, isDeletingUser, user } = this.props;
-        var { name, email, userType } = this.state.isEditingUser ? this.state.isEditingUser : this.state;
+        var { name, email, userType } = this.state;//this.state.isEditingUser ? this.state.isEditingUser : this.state;
         const { isEditingUser, errors } = this.state;
 
         if (isEditingUser) {

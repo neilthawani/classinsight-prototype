@@ -20,6 +20,7 @@ module.exports = {
     host:'edusense-dev-1.andrew.cmu.edu',
     agent : process.env.SSH_AUTH_SOCK,
     privateKey:require('fs').readFileSync('/home/classinsight/.ssh/id_rsa'),
+    // privateKey:require('fs').readFileSync('/Users/neilthawani/.ssh/id_rsa'),
     port:22,
     dstPort:27017,
     password:'password'

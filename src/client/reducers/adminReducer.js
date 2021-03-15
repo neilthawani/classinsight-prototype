@@ -30,7 +30,7 @@ export default function adminReducer(state, action) {
             return {
                 users:
                     state.users.map((user) => {
-                        if (user._id === action.payload.userData.user._id) {
+                        if (user && user._id === action.payload.userData.user._id) {
                             return action.payload.userData.user;
                         }
                         return user;

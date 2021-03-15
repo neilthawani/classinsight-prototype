@@ -285,7 +285,7 @@ module.exports = function(router, basePath, db) {
                         // User matched
                         // Create JWT Payload
                         const payload = {
-                            id: user.id,
+                            id: user._id,
                             name: user.name,
                             email: user.email,
                             userType: user.userType
