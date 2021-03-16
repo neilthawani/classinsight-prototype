@@ -9,14 +9,10 @@ export default class Script extends Component {
 
         if (url.indexOf("#") > -1) {
             var utteranceId = url.slice(url.indexOf("#") + 1, url.length);
+
             window.setTimeout(function() {
-                var focusId = document.getElementById(utteranceId),
-                    buffer = document.getElementsByClassName("navbar")[0].clientHeight +
-                              document.getElementsByClassName("button-selector")[0].clientHeight;
+                window.scrollTo({top: document.getElementById(utteranceId).offsetTop, behavior: 'smooth'});
 
-                const y = focusId.getBoundingClientRect().top - buffer;
-
-                window.scrollTo({top: y, behavior: 'smooth'});
             }, 1000);
         }
 
