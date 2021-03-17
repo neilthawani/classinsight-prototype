@@ -44,7 +44,7 @@ class AdminViz extends Component {
         return dashboardRoutes.definitions(this.state.admin);
     }
 
-    componentDidMount() {
+    componentDidMount() {    
         this.props.listDatasets(this.state.admin.userId).then((response) => {
             this.setState({
                 areDatasetsLoaded: true

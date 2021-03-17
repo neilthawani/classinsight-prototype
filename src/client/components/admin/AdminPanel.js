@@ -17,6 +17,10 @@ class AdminPanel extends Component {
     }
 
     componentDidMount() {
+        if (this.props.auth.user.userType !== 100) {
+            this.props.history.push('/');
+        }
+
         this.props.fetchUsers();
     }
 
