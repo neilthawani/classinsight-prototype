@@ -42,9 +42,9 @@ class Navbar extends Component {
                   <div className="navbar-dropdown-profile-photo">
                     <Icon path={mdiAccount} className="navbar-dropdown-icon" size={1.5} />
                   </div>
-                  <p className="navbar-dropdown-profile-name">
+                  {/*<p className="navbar-dropdown-profile-name">
                     {user.name}
-                  </p>
+                  </p>*/}
                 </div>
                 <Icon path={mdiChevronDown} className="navbar-dropdown-icon" size={1} />
 
@@ -58,7 +58,7 @@ class Navbar extends Component {
                       </span>
                     </div>
                   </Link> : ""}
-                  
+
                   {!this.props.auth.user.isGoogleUser ?
                     <div className="navbar-dropdown-menu-item">
                       <Icon path={mdiLogout} className="navbar-dropdown-menu-item-icon" size={1} />

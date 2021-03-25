@@ -28,6 +28,11 @@ export default class Parser {
     transcript = function() {
         // console.log('this.utterances', this.utterances);
         var transcript = this.utterances.reduce((prev, utterance, index, array) => {
+            if (utterance.isChat) {
+                utterance['utterance'] = utterance.breakoutRoom;
+            }
+
+            // console.log('utterance', utterance);
             if (utterance.utteranceCodes.includes("OT")) {
                 return prev;
             }
@@ -37,6 +42,10 @@ export default class Parser {
             var nTokens = utterance.utterance.split(" ").length;
 
             var utteranceTypes = utterance.utteranceCodes.map((code) => {
+                // console.log('legendDict[speakerType]', legendDict[speakerType]);
+                // console.log('legendDict[speakerType][code]', legendDict[speakerType][code]);
+                // console.log('legendDict[speakerType][code].value', legendDict[speakerType][code].value);
+
                 return legendDict[speakerType][code].value;
             });
 
@@ -91,7 +100,22 @@ export default class Parser {
 
         var expandedData = this.filteredTranscript({ activeFilters: activeFilters });
 
-        return Math.max.apply(Math, expandedData.map((utterance) => utterance.nTokens));
+        const maxTokens = expandedData.reduce((prev, utterance) => {
+          // debugger;
+            if (utterance.nTokens > prev[utterance.speakerType]) {
+                prev[utterance.speakerType] = utterance.nTokens;
+            }
+
+            return prev;
+        }, {
+          'Student': 0,
+          'Teacher': 0
+        });
+
+        // console.log('tokens', tokens);
+        // return Math.max.apply(Math, expandedData.map((utterance) => utterance.nTokens));
+        return maxTokens['Student'] + maxTokens['Teacher'];
+        // return 400;
     }
 
     nTokensPerUtteranceType = function() {

@@ -20,7 +20,7 @@ export default class Utterance extends Component {
         return (
           <div className="script-turn" data-attr-utterance-id={utterance.id} id={utterance.id} onClick={this.handleUtteranceClick.bind(this, utterance.id)}>
             <span className="script-turn-speaker-timestamp" style={timeStamp ? {marginRight: "10px"} : {}}>
-              {timeStamp}
+              {timeStamp}{utterance.isChat ? " (online) " : ""}
             </span>
             <span>
               {utterance.speakerPseudonym}

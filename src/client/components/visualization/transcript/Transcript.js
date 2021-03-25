@@ -71,7 +71,7 @@ class Transcript extends Component {
         }
 
         var parser = this.props.datasets.activeParser,
-            chartWidth = 2 * parser.maxNTokens(), // double width - for both left/right side of TurnTakingSmall chart
+            chartWidth = parser.maxNTokens(),
             transcript = parser.transcript();
 
         return (
