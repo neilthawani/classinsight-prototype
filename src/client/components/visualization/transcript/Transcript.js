@@ -34,6 +34,8 @@ class Transcript extends Component {
     barHeight = smallBarHeight;
 
     handleScroll(topElId, bottomElId) {
+        console.log("handleScroll", topElId, bottomElId);
+        
         // calculate focusBox.height
         var turnTakingBarsSmall = document.getElementsByClassName("turn-taking-bars-small-visualization")[0];
 
