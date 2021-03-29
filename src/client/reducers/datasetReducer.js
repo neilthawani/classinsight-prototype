@@ -60,9 +60,10 @@ export default function datasetReducer(state, action) {
                 isValid: true
             };
         case DELETE_DATASET:
+            // debugger;
             return {
                 datasets:
-                    state.datasets.filter(dataset => dataset._id !== action.payload.dataset._id)
+                    state.datasets.filter(dataset => dataset._id !== action.payload.dataset.value._id)
             };
         case SHOW_DATASET:
             var activeIndex = action.payload;

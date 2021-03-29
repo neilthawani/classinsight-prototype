@@ -171,7 +171,7 @@ class AdminPanelTableRow extends Component {
                     <span className="btn">Settings and Data</span>
                   </Link>
                   <span className="btn" onClick={this.toggleEditingUser.bind(this, user)}>
-                    Change Info
+                    Edit User Info
                   </span>
                   {!isCurrentUser ?
                     <span className="btn" onClick={this.deleteUser.bind(this, user, false)}>
