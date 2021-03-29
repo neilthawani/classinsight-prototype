@@ -10,7 +10,7 @@ var metaHeaderDict = {
 };
 
 var headerDict = {
-    "CHAT": "breakoutRoom",
+    "CHAT": "breakoutRoom", // catch-all column
     "CHAT WRITER": "speakerPseudonym",
     "CLUSTER CODES (R, E, I, B, P, C)": "utteranceCodes",
     "COMMENTS": "comments",
@@ -54,6 +54,7 @@ var csvToJson = function(contents) {
 
     var headers = lines[2];
     var lineData = lines.splice(3);
+    var warnings = [];
 
     var dataRows = lineData.reduce((prev, lineDatum, index, array) => {
         if (!lineDatum.toString().length) {
@@ -70,6 +71,24 @@ var csvToJson = function(contents) {
             if (replacementKey === "speakerPseudonym") {
                 value = value.replace(":", "").replace("_", " ");
             }
+
+            // begin error checking
+            if (replacementKey === "utterance" && !value) {
+                warnings.push(`Fatal error: No utterance in utterance row ${lineDatum[0]}`);
+            }
+
+            if (key === "SPEAKER" && !(value.includes("Student") || value.includes("Teacher"))) {
+                warnings.push(`Unrecognized speaker pseudonym in utterance row ${lineDatum[0]}: ${value}`);
+            }
+
+            if (replacementKey === "utteranceCodes" && lineDatum[1].includes("Teacher") && value === "OST") {
+                warnings.push(`Unrecognized code for speaker pseudonym ${lineDatum[1]} in utterance row ${lineDatum[0]}: ${value}`);
+            }
+
+            if (replacementKey === "utteranceCodes" && lineDatum[1].includes("Student") && value === "OTT") {
+                warnings.push(`Unrecognized code for speaker pseudonym ${lineDatum[1]} in utterance row ${lineDatum[0]}: ${value}`);
+            }
+            // end error checking
 
             if (replacementKey === "utteranceCodes" && !dataRow[replacementKey]) {
                 value = [ value ];
@@ -92,7 +111,8 @@ var csvToJson = function(contents) {
 
     var jsonData = {
         ...metaContents,
-        utterances: dataRows
+        utterances: dataRows,
+        warnings: warnings
     };
 
     return jsonData;
