@@ -90,6 +90,10 @@ class UploadCsvDataForm extends Component {
     render() {
         const { errors } = this.state;
 
+        // if (this.state.fileData) {
+        //     console.log("this.state.fileData", this.state.fileData.warnings);
+        // }
+
         return (
           <div className="form-container wide">
             <div>
@@ -103,6 +107,17 @@ class UploadCsvDataForm extends Component {
 
               {this.state.isUploaded ?
               <div className="even-columns-2">
+
+                <div className="data-upload-warnings">
+                  {this.state.fileData.warnings.map((warning, index) => {
+                    return (
+                      <span key={index} className="data-upload-warning">
+                        {warning}
+                      </span>
+                    )
+                  })}
+                </div>
+
                 <div className="even-column">
                   <span className="data-upload-label">Preview</span>
                   <pre className="data-upload-json">

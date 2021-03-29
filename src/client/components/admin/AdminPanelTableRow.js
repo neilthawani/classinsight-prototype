@@ -123,7 +123,7 @@ class AdminPanelTableRow extends Component {
                     Cancel
                   </span>
                   <span className="btn" onClick={this.editUser.bind(this, user._id)}>
-                    Save user
+                    Save Info
                   </span>
                 </td>
               </tr>
@@ -168,10 +168,10 @@ class AdminPanelTableRow extends Component {
                         user: user
                     }
                   }}>
-                    <span className="btn">View</span>
+                    <span className="btn">Settings and Data</span>
                   </Link>
                   <span className="btn" onClick={this.toggleEditingUser.bind(this, user)}>
-                    Edit
+                    Edit User Info
                   </span>
                   {!isCurrentUser ?
                     <span className="btn" onClick={this.deleteUser.bind(this, user, false)}>
