@@ -9,6 +9,9 @@ var metaHeaderDict = {
     "Subject": "classTopic" //"Science"
 };
 
+// UTTERANCE is spoken, CHAT is written
+// SPEAKER is spoken, CHAT WRITER is written
+// CHAT might contain a written utterance + a breakout room
 var headerDict = {
     "CHAT": "breakoutRoom", // catch-all column
     "CHAT WRITER": "speakerPseudonym",
