@@ -92,6 +92,7 @@ module.exports = function(router, basePath, db) {
                 } else {
                     const newUser = new User({
                         name: req.body.name,
+                        username: req.body.username,
                         email: req.body.email,
                         userType: req.body.userType,
                         password: req.body.password
@@ -163,6 +164,7 @@ module.exports = function(router, basePath, db) {
         };
         let toUpdate = {
             'name': req.body.user.name,
+            'username': req.body.user.username,
             'email': req.body.user.email,
             'userType': req.body.user.userType
         };
@@ -264,18 +266,25 @@ module.exports = function(router, basePath, db) {
             return res.status(400).json(errors);
         }
 
-        const email = req.body.email;
+        const usernameOrEmail = req.body.usernameOrEmail;
         const password = req.body.password;
 
-        // Find user by email
+        // Find user by email or username
         db.collection('users', function(err, collection) {
+            // collection.findOne({
+            //     email
+            // })
             collection.findOne({
-                email
-            }).then(user => {
+              $or: [
+                { email: usernameOrEmail },
+                { username: usernameOrEmail }
+              ]
+            })
+            .then(user => {
                 // Check if user exists
                 if (!user) {
                     return res.status(404).json({
-                        emailnotfound: "Email not found"
+                        emailnotfound: "User not found"
                     });
                 }
 
@@ -288,6 +297,7 @@ module.exports = function(router, basePath, db) {
                             id: user._id,
                             name: user.name,
                             email: user.email,
+                            username: user.username,
                             userType: user.userType
                         };
 
@@ -338,6 +348,7 @@ module.exports = function(router, basePath, db) {
                 const payload = {
                     id: user._id, // parseInt(user.id, 10),
                     name: user.name,
+                    username: user.username,
                     email: user.email,
                     userType: user.userType,
                     isGoogleUser: true

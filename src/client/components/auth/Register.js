@@ -77,6 +77,20 @@ class Register extends Component {
             <span className="input-field-error-text">{errors.name}</span>
           </div>
           <div className="input-field">
+            <label htmlFor="username">Username</label>
+            <input
+              onChange={this.onChange}
+              value={this.state.username}
+              error={errors.username}
+              id="username"
+              type="email"
+              className={classnames("", {
+                invalid: errors.username
+              })}
+            />
+            <span className="input-field-error-text">{errors.username}</span>
+          </div>
+          <div className="input-field">
             <label htmlFor="email">Email</label>
             <input
               onChange={this.onChange}

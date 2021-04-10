@@ -7,6 +7,7 @@ module.exports = function validateEditUser(data) {
   // Convert empty fields to an empty string so we can use validator functions
   data.email = !isEmpty(data.email) ? data.email : "";
   data.name = !isEmpty(data.name) ? data.name : "";
+  data.username = !isEmpty(data.username) ? data.username : "";
 
   // Email checks
   if (Validator.isEmpty(data.email)) {
@@ -17,6 +18,10 @@ module.exports = function validateEditUser(data) {
 
   if (Validator.isEmpty(data.name)) {
       errors.name = "Name is required";
+  }
+
+  if (Validator.isEmpty(data.username)) {
+      errors.name = "Username is required";
   }
 
   return {
