@@ -19,6 +19,7 @@ class CreateUserForm extends Component {
 
         this.state = {
             name: "",
+            username: "",
             email: "",
             userType: 50,
             password: "",
@@ -47,6 +48,7 @@ class CreateUserForm extends Component {
 
         const newUser = {
             name: this.state.name,
+            username: this.state.username,
             email: this.state.email,
             userType: this.state.userType,
             password: this.state.password,
@@ -66,6 +68,7 @@ class CreateUserForm extends Component {
 
         this.setState({
             name: username,
+            username: username,
             email: `${username}@gmail.com`,
             emailCopied: true
         });
@@ -111,6 +114,20 @@ class CreateUserForm extends Component {
                   })}
                 />
                 <span className="input-field-error-text">{errors.name}</span>
+              </div>
+              <div className="input-field">
+                <label htmlFor="name">Username</label>
+                <input
+                  onChange={this.onChange}
+                  value={this.state.username}
+                  error={errors.username}
+                  id="username"
+                  type="text"
+                  className={classnames("", {
+                    invalid: errors.username
+                  })}
+                />
+                <span className="input-field-error-text">{errors.username}</span>
               </div>
               <div className="input-field">
                 <label htmlFor="email">Email</label>

@@ -11,7 +11,7 @@ class Login extends Component {
   constructor() {
     super();
     this.state = {
-      email: "",
+      usernameOrEmail: "",
       password: "",
       errors: {}
     };
@@ -46,7 +46,7 @@ class Login extends Component {
     e.preventDefault();
 
     const userData = {
-      email: this.state.email,
+      usernameOrEmail: this.state.usernameOrEmail,
       password: this.state.password
     };
 
@@ -55,9 +55,11 @@ class Login extends Component {
   };
 
   onGoogleSuccess(response) {
+      console.log("Google login successful");
       this.props.loginWithGoogle(response);
   }
   onGoogleFailure(response) {
+      console.err("Google login error: ", response);
       this.props.loginWithGoogle(response);
   }
 
@@ -72,13 +74,13 @@ class Login extends Component {
 
         <form noValidate onSubmit={this.onSubmit}>
           <div className="input-field">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="usernameOrEmail">Username or email</label>
             <input
               onChange={this.onChange}
-              value={this.state.email}
-              error={errors.email}
-              id="email"
-              type="email"
+              value={this.state.usernameOrEmail}
+              error={errors.usernameOrEmail}
+              id="usernameOrEmail"
+              type="usernameOrEmail"
               autoComplete="username"
               className={classnames("", { invalid: errors.email || errors.emailnotfound })} />
             <span className="input-field-error-text">

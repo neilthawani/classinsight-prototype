@@ -9,8 +9,11 @@ var metaHeaderDict = {
     "Subject": "classTopic" //"Science"
 };
 
+// UTTERANCE is spoken, CHAT is written
+// SPEAKER is spoken, CHAT WRITER is written
+// CHAT might contain a written utterance + a breakout room
 var headerDict = {
-    "CHAT": "breakoutRoom", // catch-all column
+    "CHAT": "breakoutRoom", // can also be Utterance (Breakout Room #), depending on CSV coder
     "CHAT WRITER": "speakerPseudonym",
     "CLUSTER CODES (R, E, I, B, P, C)": "utteranceCodes",
     "COMMENTS": "comments",
@@ -73,7 +76,10 @@ var csvToJson = function(contents) {
             }
 
             // begin error checking
-            if (replacementKey === "utterance" && !value) {
+            // line datum 5 is the CHAT/breakoutRoom column
+            // speakerPseudonym is assigned to SPEAKER (in-classroom) or CHAT WRITER (in-videoconference) speakers
+            // utterance (in-classroom) and breakoutRoom (in-videoconference) should be on each line
+            if (replacementKey === "utterance" && !value && !lineDatum[5]) {
                 warnings.push(`Fatal error: No utterance in utterance row ${lineDatum[0]}`);
             }
 
@@ -81,11 +87,27 @@ var csvToJson = function(contents) {
                 warnings.push(`Unrecognized speaker pseudonym in utterance row ${lineDatum[0]}: ${value}`);
             }
 
-            if (replacementKey === "utteranceCodes" && lineDatum[1].includes("Teacher") && value === "OST") {
+            var teacherCodes = legendLabels.reduce((prev, label) => {
+                if (label.speakerType === "Teacher") {
+                    prev.push(label.code);
+                }
+
+                return prev;
+            }, [])
+
+            var studentCodes = legendLabels.reduce((prev, label) => {
+                if (label.speakerType === "Student") {
+                    prev.push(label.code);
+                }
+
+                return prev;
+            }, [])
+
+            if (replacementKey === "utteranceCodes" && lineDatum[1].includes("Teacher") && !teacherCodes.includes(value)) {
                 warnings.push(`Unrecognized code for speaker pseudonym ${lineDatum[1]} in utterance row ${lineDatum[0]}: ${value}`);
             }
 
-            if (replacementKey === "utteranceCodes" && lineDatum[1].includes("Student") && value === "OTT") {
+            if (replacementKey === "utteranceCodes" && lineDatum[1].includes("Student") &&  !studentCodes.includes(value)) {
                 warnings.push(`Unrecognized code for speaker pseudonym ${lineDatum[1]} in utterance row ${lineDatum[0]}: ${value}`);
             }
             // end error checking
