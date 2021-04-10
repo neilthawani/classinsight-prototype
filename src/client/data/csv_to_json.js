@@ -13,7 +13,7 @@ var metaHeaderDict = {
 // SPEAKER is spoken, CHAT WRITER is written
 // CHAT might contain a written utterance + a breakout room
 var headerDict = {
-    "CHAT": "breakoutRoom",
+    "CHAT": "breakoutRoom", // can also be Utterance (Breakout Room #), depending on CSV coder
     "CHAT WRITER": "speakerPseudonym",
     "CLUSTER CODES (R, E, I, B, P, C)": "utteranceCodes",
     "COMMENTS": "comments",
