@@ -301,7 +301,7 @@ class UserDetailsPage extends Component {
                 }
             </div>
 
-            <table className="admin-table">
+            <table className="admin-table-user">
               <thead>
                 <tr>
                   <th>Class Topic</th>

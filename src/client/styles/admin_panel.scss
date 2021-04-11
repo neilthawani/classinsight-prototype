@@ -14,7 +14,8 @@
     }
 }
 
-.admin-table {
+.admin-table,
+.admin-table-user {
     width: 100%;
     table-layout: fixed;
 }
@@ -32,10 +33,27 @@
 }
 
 .admin-table thead th:nth-child(4) {
+    width: 25%;
+}
+
+.admin-table-user thead th:nth-child(1) {
     width: 15%;
 }
 
-.admin-table tbody tr:nth-child(2n+1) {
+.admin-table-user thead th:nth-child(2) {
+    width: 15%;
+}
+
+.admin-table-user thead th:nth-child(3) {
+    width: 10%;
+}
+
+.admin-table-user thead th:nth-child(4) {
+    width: 40%;
+}
+
+.admin-table tbody tr:nth-child(2n+1),
+.admin-table-user tbody tr:nth-child(2n+1) {
     background-color: $lightGray;
 
     pre.admin-table-json {
@@ -48,12 +66,14 @@
     overflow: scroll;
 }
 
-.admin-table th {
+.admin-table th,
+.admin-table-user th {
     font-size: 24px;
     padding: 10px 20px;
 }
 
-.admin-table tr td {
+.admin-table tr td,
+.admin-table-user tr td {
     padding: 10px 20px;
     overflow-x: hidden;
     text-overflow: ellipsis;
