@@ -90,6 +90,7 @@ class AdminPanel extends Component {
               <thead>
                 <tr>
                   <th>Name</th>
+                  <th>Username</th>
                   <th>Email</th>
                   <th>User Type</th>
                   <th>Actions</th>

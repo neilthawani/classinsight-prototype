@@ -20,15 +20,19 @@
 }
 
 .admin-table thead th:nth-child(1) {
-    width: 17.5%;
+    width: 15%;
 }
 
 .admin-table thead th:nth-child(2) {
-    width: 25%;
+    width: 15%;
 }
 
 .admin-table thead th:nth-child(3) {
-    width: 16.67%;
+    width: 25%;
+}
+
+.admin-table thead th:nth-child(4) {
+    width: 15%;
 }
 
 .admin-table tbody tr:nth-child(2n+1) {
@@ -96,6 +100,7 @@
 
     // span
     .admin-user-info-name,
+    .admin-user-info-username,
     .admin-user-info-email,
     .admin-user-info-type {
         display: block;
@@ -123,14 +128,31 @@
 
 .admin-user-info-name {
     font-size: 36px;
+
+    input {
+        font-size: inherit;
+        text-align: center;
+    }
 }
 
+.admin-user-info-username,
 .admin-user-info-email {
     font-size: 18px;
+
+    input {
+        font-size: inherit;
+        text-align: center;
+    }
 }
 
 .admin-user-info-type {
     font-size: 18px;
+
+    select {
+        width: max-content;
+        font-size: inherit;
+        text-align: center;
+    }
 }
 
 #data-upload-input {
