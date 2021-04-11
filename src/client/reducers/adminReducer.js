@@ -27,15 +27,20 @@ export default function adminReducer(state, action) {
                 users: action.payload.data
             };
         case EDIT_USER:
+            // console.log("action.payload", action.payload)
             return {
-                users:
-                    state.users.map((user) => {
-                        if (user && user._id === action.payload.userData.user._id) {
-                            return action.payload.userData.user;
-                        }
-                        return user;
-                    })
-            };
+                ...state,
+                userEdited: action.payload.userEdited
+            }
+            // {
+            //     users:
+            //         state.users.map((user) => {
+            //             if (user && user._id === action.payload.userData.user._id) {
+            //                 return action.payload.userData.user;
+            //             }
+            //             return user;
+            //         })
+            // };
         case CREATE_USER:
             // console.log('CREATE_USER action.payload.user', action.payload.user);
             return {

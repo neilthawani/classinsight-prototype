@@ -38,7 +38,7 @@ class UserDetailsPage extends Component {
     }
 
     onChange = e => {
-        console.log('onChange', e, e.target.id, e.target.value);
+        // console.log('onChange', e, e.target.id, e.target.value);
         // e.persist();
         // console.log('e.target.id', e.target.id);
         // console.log('e.target.value', e.target.value);
@@ -57,16 +57,37 @@ class UserDetailsPage extends Component {
         }
     }
 
-    static getDerivedStateFromProps(nextProps) {
-        if (nextProps.admin.user) {
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.admin.user && !prevState.user) {
+            // console.log('here oh no');
             var user = nextProps.admin.user;
 
             return ({
                 user: user,
+                name: user.name,
+                username: user.username,
+                email: user.email,
+                userType: user.userType
             });
         }
 
         return null;
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        // console.log('shouldComponentUpdate', nextProps, nextState);
+        // if (nextProps.admin.userEdited && this.state.isEditingUser) {
+        //     // this.toggleEditingUser();
+        //     this.setState({
+        //         isEditingUser: false
+        //     });
+        // }
+
+        if (!this.state.isEditingUser && nextProps.errors.userEditingFailed && Object.keys(nextProps.errors).length > 0) {
+            this.toggleEditingUser();
+        }
+
+        return true;
     }
 
     // TODO: put this into a util function?
@@ -106,25 +127,26 @@ class UserDetailsPage extends Component {
         }
     }
 
-    toggleEditingUser(user) {
+    toggleEditingUser() {
+      console.log('this.state.isEditingUser', this.state.isEditingUser);
       this.setState(prevState => ({
           isEditingUser: !prevState.isEditingUser
       }));
     }
 
     editUser(id) {
-        console.log('edituser this.state', this.state, 'id', id);
-        // var user = {
-        //     _id: id,
-        //     name: this.state.name,
-        //     username: this.state.username,
-        //     email: this.state.email,
-        //     userType: parseInt(this.state.userType, 10)
-        // }
-        //
-        // this.props.editUser({ user: user });
-        //
-        // this.toggleEditingUser();
+        // console.log('edituser this.state', this.state, 'id', id);
+        var user = {
+            _id: id,
+            name: this.state.name,
+            username: this.state.username,
+            email: this.state.email,
+            userType: parseInt(this.state.userType, 10)
+        }
+
+        this.props.editUser({ user: user });
+
+        this.toggleEditingUser();
     }
 
     dismountForm(options) {
@@ -156,9 +178,12 @@ class UserDetailsPage extends Component {
     render() {
         var user = this.state.user || {};
         var datasets = this.props.datasets.datasets || [];
-        const { errors } = this.state;
+        const { errors } = this.props;
         const { isEditingUser } = this.state;
-        var { name, username, email, userType } = this.state.user || {};//this.state.isEditingUser ?
+        var { name, username, email, userType } = this.state || {};//this.state.isEditingUser ?
+        var userId = this.state.user?._id || "";
+        // console.log('name', name);
+        // console.log('errors', errors);
 
         return (
           <div className="admin-user">
@@ -180,7 +205,7 @@ class UserDetailsPage extends Component {
               {this.state.isEditingUser ?
                 <span
                   className="btn"
-                  onClick={this.editUser.bind(this, this.state.user._id)}>
+                  onClick={this.editUser.bind(this, userId)}>
                   Save User
                 </span>
               : ""}
@@ -236,7 +261,7 @@ class UserDetailsPage extends Component {
                   </span>
                 :
                 <span className="admin-user-info-name">
-                  {user.name}
+                  {name}
                 </span>
                 }
                 {isEditingUser ?
@@ -256,7 +281,7 @@ class UserDetailsPage extends Component {
                   </span>
                 :
                 <span className="admin-user-info-username">
-                  {user.username}
+                  {username}
                 </span>
                 }
                 {isEditingUser ?
@@ -276,7 +301,7 @@ class UserDetailsPage extends Component {
                   </span>
                 :
                 <span className="admin-user-info-email">
-                  {user.email}
+                  {email}
                 </span>
                 }
                 {isEditingUser ?
@@ -296,7 +321,7 @@ class UserDetailsPage extends Component {
                   </span>
                 :
                 <span className="admin-user-info-type">
-                  {this.userTypeAsWords(user.userType)}
+                  {this.userTypeAsWords(userType)}
                 </span>
                 }
             </div>

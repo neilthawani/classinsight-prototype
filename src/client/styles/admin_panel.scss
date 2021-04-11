@@ -33,7 +33,7 @@
 }
 
 .admin-table thead th:nth-child(4) {
-    width: 25%;
+    width: 15%;
 }
 
 .admin-table-user thead th:nth-child(1) {
@@ -162,6 +162,7 @@
     input {
         font-size: inherit;
         text-align: center;
+        margin-top: 5px;
     }
 }
 
@@ -172,6 +173,7 @@
         width: max-content;
         font-size: inherit;
         text-align: center;
+        margin-top: 5px;
     }
 }
 

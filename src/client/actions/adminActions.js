@@ -127,7 +127,7 @@ export const editUser = (userData) => dispatch => {
             dispatch({
                 type: EDIT_USER,
                 payload: {
-                    userData
+                    userEdited: true
                 }
             });
         })
@@ -136,7 +136,10 @@ export const editUser = (userData) => dispatch => {
 
             dispatch({
                 type: GET_ERRORS,
-                payload: error.response && error.response.data
+                payload: {
+                  userEditingFailed: true,
+                  ...error.response && error.response.data
+                }
             })
         });
 };
