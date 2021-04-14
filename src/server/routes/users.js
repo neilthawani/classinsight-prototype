@@ -241,6 +241,7 @@ module.exports = function(router, basePath, db) {
                             _id: user._id,
                             userType: user.userType,
                             name: user.name,
+                            username: user.username,
                             email: user.email
                         }
                     }

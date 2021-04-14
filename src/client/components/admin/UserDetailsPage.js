@@ -38,11 +38,6 @@ class UserDetailsPage extends Component {
     }
 
     onChange = e => {
-        // console.log('onChange', e, e.target.id, e.target.value);
-        // e.persist();
-        // console.log('e.target.id', e.target.id);
-        // console.log('e.target.value', e.target.value);
-        // console.log('e', e);
         this.setState({ [e.target.id]: e.target.value });
     }
 
@@ -75,14 +70,6 @@ class UserDetailsPage extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        // console.log('shouldComponentUpdate', nextProps, nextState);
-        // if (nextProps.admin.userEdited && this.state.isEditingUser) {
-        //     // this.toggleEditingUser();
-        //     this.setState({
-        //         isEditingUser: false
-        //     });
-        // }
-
         if (!this.state.isEditingUser && nextProps.errors.userEditingFailed && Object.keys(nextProps.errors).length > 0) {
             this.toggleEditingUser();
         }
@@ -180,10 +167,7 @@ class UserDetailsPage extends Component {
         var datasets = this.props.datasets.datasets || [];
         const { errors } = this.props;
         const { isEditingUser } = this.state;
-        var { name, username, email, userType } = this.state || {};//this.state.isEditingUser ?
-        var userId = this.state.user?._id || "";
-        // console.log('name', name);
-        // console.log('errors', errors);
+        var { name, username, email, userType } = this.state || {};
 
         return (
           <div className="admin-user">
@@ -384,76 +368,3 @@ export default withRouter(connect(
   mapStateToProps,
   { showUserDetails, listDatasets, deleteDatasetById, clearValidState, editUser }
 )(UserDetailsPage));
-
-// Next:
-// Add input/edit fields for fields being edited - hopefully just a copy/paste
-// original toggleEditingUser receives null on cancel - how to adapt?
-// test edit works successfully
-
-// if (isEditingUser) {
-//     return (
-//       <tr>
-//         <td>
-//           <input
-//             onChange={this.onChange}
-//             value={name}
-//             error={errors.name}
-//             id="name"
-//             type="text"
-//             className={classnames("", {
-//               invalid: errors.name
-//             })}
-//           />
-//           <span className="input-field-error-text">{errors.name}</span>
-//         </td>
-//         <td>
-//           <input
-//             onChange={this.onChange}
-//             value={username}
-//             error={errors.username}
-//             id="username"
-//             type="username"
-//             className={classnames("", {
-//               invalid: errors.username
-//             })}
-//           />
-//           <span className="input-field-error-text">{errors.username}</span>
-//         </td>
-//         <td>
-//           <input
-//             onChange={this.onChange}
-//             value={email}
-//             error={errors.email}
-//             id="email"
-//             type="email"
-//             className={classnames("", {
-//               invalid: errors.email
-//             })}
-//           />
-//           <span className="input-field-error-text">{errors.email}</span>
-//         </td>
-//         <td className="text-center">
-//           <select
-//             name="userType"
-//             id="userType"
-//             onChange={this.onChange}
-//             value={userType}>
-//
-//             {UserTypes.map((type, index) => {
-//                 return (
-//                   <option key={index} name={type.value} id={type.value} value={type.value}>{type.label}</option>
-//                 )
-//             })}
-//           </select>
-//         </td>
-//         <td className="admin-table-actions">
-//           <span className="btn" onClick={this.toggleEditingUser.bind(this, null)}>
-//             Cancel
-//           </span>
-//           <span className="btn" onClick={this.editUser.bind(this, user._id)}>
-//             Save Info
-//           </span>
-//         </td>
-//       </tr>
-//     )
-// } else

@@ -8,6 +8,7 @@ class AdminPanelTableRow extends Component {
     constructor(props) {
         super(props);
 
+        // console.log('props.user', props.user);
         this.state = {
             isEditingUser: false,
             errors: {},
@@ -36,43 +37,13 @@ class AdminPanelTableRow extends Component {
                 UserTypes.filter(obj => obj.value === type)[0].label;
     }
 
-    // onChange = e => {
-    //     // e.persist();
-    //     // console.log('e.target.id', e.target.id);
-    //     // console.log('e.target.value', e.target.value);
-    //     // console.log('e', e);
-    //     this.setState({ [e.target.id]: e.target.value });
-    // }
-
-    // toggleEditingUser(user) {
-    //     // console.log('toggleEditingUser', user);
-    //     this.setState({
-    //         isEditingUser: user ? user : false
-    //     });
-    // }
-
     deleteUser(user, confirmation) {
         this.props.deleteUser(user, confirmation);
     }
 
-    // editUser(id) {
-    //     // console.log('edituser this.state', this.state, 'id', id);
-    //     var user = {
-    //         _id: id,
-    //         name: this.state.name,
-    //         username: this.state.username,
-    //         email: this.state.email,
-    //         userType: parseInt(this.state.userType, 10)
-    //     }
-    //
-    //     this.props.editUser({ user: user });
-    //
-    //     this.toggleEditingUser();
-    // }
-
     render() {
         var { isCurrentUser, isDeletingUser, user } = this.props;
-        var { name, username, email, userType } = this.state;//this.state.isEditingUser ? this.state.isEditingUser : this.state;
+        var { name, username, email, userType } = this.state;
         const { errors } = this.state;
 
         if (isDeletingUser) {
@@ -121,9 +92,6 @@ class AdminPanelTableRow extends Component {
                   }}>
                     <span className="btn">Settings and Data</span>
                   </Link>
-                  {/*<span className="btn" onClick={this.toggleEditingUser.bind(this, user)}>
-                    Edit User Info
-                  </span>*/}
                   {!isCurrentUser ?
                     <span className="btn" onClick={this.deleteUser.bind(this, user, false)}>
                       Delete

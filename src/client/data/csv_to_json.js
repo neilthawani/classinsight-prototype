@@ -18,7 +18,7 @@ var headerDict = {
     "CLUSTER CODES (R, E, I, B, P, C)": "utteranceCodes",
     "COMMENTS": "comments",
     // "CLUSTER CODES": "utteranceTypes",
-    "EPISODES": "episodes", // not sure what this is
+    "EPISODES": "episodes", // episode is a turn or cluster of sentences pertaining to a speaker
     "SEQUENCES": "sequences", // not sure what this is
     "SPEAKER": "speakerPseudonym",
     "TIME STAMP": "timestamp", // no timestamp for online entries - unless in breakout room
