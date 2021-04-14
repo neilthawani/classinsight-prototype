@@ -10,6 +10,7 @@ export default function errorReducer(state = initialState, action) {
                 return { errors: action.payload };
             }
 
+            // console.log('returning payload', action.payload);
             return action.payload;
         default:
             return state;

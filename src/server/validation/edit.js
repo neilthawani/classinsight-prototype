@@ -21,7 +21,7 @@ module.exports = function validateEditUser(data) {
   }
 
   if (Validator.isEmpty(data.username)) {
-      errors.name = "Username is required";
+      errors.username = "Username is required";
   }
 
   return {

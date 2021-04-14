@@ -14,24 +14,46 @@
     }
 }
 
-.admin-table {
+.admin-table,
+.admin-table-user {
     width: 100%;
     table-layout: fixed;
 }
 
 .admin-table thead th:nth-child(1) {
-    width: 17.5%;
+    width: 15%;
 }
 
 .admin-table thead th:nth-child(2) {
-    width: 25%;
+    width: 15%;
 }
 
 .admin-table thead th:nth-child(3) {
-    width: 16.67%;
+    width: 25%;
 }
 
-.admin-table tbody tr:nth-child(2n+1) {
+.admin-table thead th:nth-child(4) {
+    width: 15%;
+}
+
+.admin-table-user thead th:nth-child(1) {
+    width: 15%;
+}
+
+.admin-table-user thead th:nth-child(2) {
+    width: 15%;
+}
+
+.admin-table-user thead th:nth-child(3) {
+    width: 10%;
+}
+
+.admin-table-user thead th:nth-child(4) {
+    width: 40%;
+}
+
+.admin-table tbody tr:nth-child(2n+1),
+.admin-table-user tbody tr:nth-child(2n+1) {
     background-color: $lightGray;
 
     pre.admin-table-json {
@@ -44,12 +66,14 @@
     overflow: scroll;
 }
 
-.admin-table th {
+.admin-table th,
+.admin-table-user th {
     font-size: 24px;
     padding: 10px 20px;
 }
 
-.admin-table tr td {
+.admin-table tr td,
+.admin-table-user tr td {
     padding: 10px 20px;
     overflow-x: hidden;
     text-overflow: ellipsis;
@@ -96,6 +120,7 @@
 
     // span
     .admin-user-info-name,
+    .admin-user-info-username,
     .admin-user-info-email,
     .admin-user-info-type {
         display: block;
@@ -123,14 +148,33 @@
 
 .admin-user-info-name {
     font-size: 36px;
+
+    input {
+        font-size: inherit;
+        text-align: center;
+    }
 }
 
+.admin-user-info-username,
 .admin-user-info-email {
     font-size: 18px;
+
+    input {
+        font-size: inherit;
+        text-align: center;
+        margin-top: 5px;
+    }
 }
 
 .admin-user-info-type {
     font-size: 18px;
+
+    select {
+        width: max-content;
+        font-size: inherit;
+        text-align: center;
+        margin-top: 5px;
+    }
 }
 
 #data-upload-input {
