@@ -4,6 +4,18 @@
 
 You can download [MongoDB Compass](https://www.mongodb.com/products/compass) to manage your databases and tables with a GUI.
 
+## Troubleshooting MongoDB
+
+Sometimes `localhost` will erroneously claim that MongoDB is running on port 27017 when it is actually not. There are a few commands in `package.json` that you can run to deal with this issue:
+
+```
+"kill-ports": "npx kill-port 3000 8802 27017 && killall node"
+"restart-mongo": "sudo brew services restart mongodb-community
+"list-mongo": "ps aux | grep mongo"
+```
+
+Run these commands in order if this issue occurs. For `list-mongo`, you'll need to run `kill -9 pids` for each process ID related to the processes that display when that command is run.
+
 ## Migrations
 
 To create a new migration, run:

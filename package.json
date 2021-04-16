@@ -13,8 +13,8 @@
     "kill-ports": "npx kill-port 3000 8802 27017 && killall node",
     "migrate:up": "migrate-mongo up",
     "migrate:down": "migrate-mongo down",
-    "list-mongo": "ps aux | grep mongo",
-    "restart-mongo": "sudo brew services restart mongodb-community"
+    "restart-mongo": "sudo brew services restart mongodb-community",
+    "list-mongo": "ps aux | grep mongo"
   },
   "author": "Neil Thawani",
   "dependencies": {
