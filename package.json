@@ -12,7 +12,9 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "kill-ports": "npx kill-port 3000 8802 27017 && killall node",
     "migrate:up": "migrate-mongo up",
-    "migrate:down": "migrate-mongo down"
+    "migrate:down": "migrate-mongo down",
+    "restart-mongo": "sudo brew services restart mongodb-community",
+    "list-mongo": "ps aux | grep mongo"
   },
   "author": "Neil Thawani",
   "dependencies": {
