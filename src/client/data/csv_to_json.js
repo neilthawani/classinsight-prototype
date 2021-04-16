@@ -1,3 +1,4 @@
+import { legendLabels } from '../fixtures/legend_labels';
 import { readString } from 'react-papaparse';
 
 var metaHeaderDict = {
@@ -70,6 +71,7 @@ var csvToJson = function(contents) {
             var key = headers[jindex];
             var replacementKey = headerDict[key];
             value = value.trim();
+            // console.log('value', value);
 
             if (replacementKey === "speakerPseudonym") {
                 value = value.replace(":", "").replace("_", " ");
@@ -80,10 +82,16 @@ var csvToJson = function(contents) {
             // speakerPseudonym is assigned to SPEAKER (in-classroom) or CHAT WRITER (in-videoconference) speakers
             // utterance (in-classroom) and breakoutRoom (in-videoconference) should be on each line
             if (replacementKey === "utterance" && !value && !lineDatum[5]) {
+                // console.log('uh oh');
                 warnings.push(`Fatal error: No utterance in utterance row ${lineDatum[0]}`);
             }
 
-            if (key === "SPEAKER" && !(value.includes("Student") || value.includes("Teacher"))) {
+            // speakerPseudonym can either be in SPEAKER column or CHAT WRITER column
+            if (key === "SPEAKER" && !lineDatum[4] && !(value.includes("Student") || value.includes("Teacher"))) {
+                warnings.push(`Unrecognized speaker pseudonym in utterance row ${lineDatum[0]}: ${value}`);
+            }
+
+            if (key === "CHAT WRITER" && !lineDatum[1] && !(value.includes("Student") || value.includes("Teacher"))) {
                 warnings.push(`Unrecognized speaker pseudonym in utterance row ${lineDatum[0]}: ${value}`);
             }
 
@@ -103,11 +111,14 @@ var csvToJson = function(contents) {
                 return prev;
             }, [])
 
-            if (replacementKey === "utteranceCodes" && lineDatum[1].includes("Teacher") && !teacherCodes.includes(value)) {
+            // console.log('teacherCodes', teacherCodes)
+
+            if (replacementKey === "utteranceCodes" && lineDatum[1].includes("Teacher") && value &&  !teacherCodes.includes(value)) {
+                // console.log('value', value, typeof value, value.constructor, value.length);
                 warnings.push(`Unrecognized code for speaker pseudonym ${lineDatum[1]} in utterance row ${lineDatum[0]}: ${value}`);
             }
 
-            if (replacementKey === "utteranceCodes" && lineDatum[1].includes("Student") &&  !studentCodes.includes(value)) {
+            if (replacementKey === "utteranceCodes" && lineDatum[1].includes("Student") && value && !studentCodes.includes(value)) {
                 warnings.push(`Unrecognized code for speaker pseudonym ${lineDatum[1]} in utterance row ${lineDatum[0]}: ${value}`);
             }
             // end error checking

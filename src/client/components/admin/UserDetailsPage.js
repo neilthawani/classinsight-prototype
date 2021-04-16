@@ -331,7 +331,7 @@ class UserDetailsPage extends Component {
 
                   return (
                     <UserDatasetTableRow
-                      key={dataset._id}
+                      key={`${index}-${dataset._id}`}
                       dataset={dataset}
                       isDeletingDataset={isDeletingDataset}
                       deleteDataset={this.deleteDataset.bind(this)} />
