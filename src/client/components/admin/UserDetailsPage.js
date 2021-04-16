@@ -16,7 +16,7 @@ class UserDetailsPage extends Component {
         super(props);
 
         var userId = props.match.params.userId;
-        // console.log('userdetails userId', userId);
+        console.log('userdetails userId', userId);
 
         this.state = {
             isUploadingCsvData: false,
@@ -42,6 +42,7 @@ class UserDetailsPage extends Component {
     }
 
     componentDidMount() {
+        console.log('this.state.userId', this.state.userId);
         this.props.showUserDetails(this.state.userId);
         if (!this.state.areDatasetsLoaded) {
             this.props.listDatasets(this.state.userId).then((response) => {
@@ -52,22 +53,22 @@ class UserDetailsPage extends Component {
         }
     }
 
-    static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.admin.user && !prevState.user) {
-            // console.log('here oh no');
-            var user = nextProps.admin.user;
-
-            return ({
-                user: user,
-                name: user.name,
-                username: user.username,
-                email: user.email,
-                userType: user.userType
-            });
-        }
-
-        return null;
-    }
+    // static getDerivedStateFromProps(nextProps, prevState) {
+    //     if (nextProps.admin.user && !prevState.user) {
+    //         // console.log('here oh no');
+    //         var user = nextProps.admin.user;
+    //
+    //         return ({
+    //             user: user,
+    //             name: user.name,
+    //             username: user.username,
+    //             email: user.email,
+    //             userType: user.userType
+    //         });
+    //     }
+    //
+    //     return null;
+    // }
 
     shouldComponentUpdate(nextProps, nextState) {
         if (!this.state.isEditingUser && nextProps.errors.userEditingFailed && Object.keys(nextProps.errors).length > 0) {
@@ -114,11 +115,20 @@ class UserDetailsPage extends Component {
         }
     }
 
-    toggleEditingUser() {
+    toggleEditingUser(userObj) {
       console.log('this.state.isEditingUser', this.state.isEditingUser);
       this.setState(prevState => ({
           isEditingUser: !prevState.isEditingUser
       }));
+
+      if (userObj && Object.keys(userObj).length > 0) {
+          this.setState({
+              name: userObj.name,
+              username: userObj.username,
+              email: userObj.email,
+              userType: parseInt(userObj.userType, 10)
+          })
+      }
     }
 
     editUser(id) {
@@ -163,11 +173,12 @@ class UserDetailsPage extends Component {
     }
 
     render() {
-        var user = this.state.user || {};
         var datasets = this.props.datasets.datasets || [];
         const { errors } = this.props;
         const { isEditingUser } = this.state;
-        var { name, username, email, userType } = this.state || {};
+        var { userId } = this.state || {};
+        var { name, username, email, userType } = this.props.admin.user || {};
+        var userObj = { name: name, username: username, email: email, userType: userType } || {};
 
         return (
           <div className="admin-user">
@@ -182,7 +193,7 @@ class UserDetailsPage extends Component {
 
               <span
                 className={(this.state.isResettingPassword || this.isUploadingCsvData) ? "hidden" : "btn"}
-                onClick={this.toggleEditingUser.bind(this)}>
+                onClick={this.toggleEditingUser.bind(this, userObj)}>
                 {this.state.isEditingUser ? "Cancel" : "Edit User Fields"}
               </span>
 
