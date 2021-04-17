@@ -189,7 +189,7 @@ class UserDetailsPage extends Component {
               {this.state.isEditingUser ?
                 <span
                   className="btn"
-                  onClick={this.editUser.bind(this, userId)}>
+                  onClick={this.editUser.bind(this, this.state.userId)}>
                   Save User
                 </span>
               : ""}
