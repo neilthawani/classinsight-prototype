@@ -227,88 +227,84 @@ class UserDetailsPage extends Component {
             </div>
             : ""}
 
-            <div className="admin-user-info">
-                {isEditingUser ?
-                  <span className="admin-user-info-name">
-                    <input
-                      onChange={this.onChange}
-                      placeholder="Name"
-                      value={name}
-                      error={errors.name}
-                      id="name"
-                      type="text"
-                      className={classnames("", {
-                        invalid: errors.name
-                      })}
-                    />
-                    <span className="input-field-error-text">{errors.name}</span>
-                  </span>
-                :
+            {isEditingUser ?
+              <div className="admin-user-info">
+                <span className="admin-user-info-name">
+                  <input
+                    onChange={this.onChange}
+                    placeholder="Name"
+                    value={name}
+                    error={errors.name}
+                    id="name"
+                    type="text"
+                    className={classnames("", {
+                      invalid: errors.name
+                    })}
+                  />
+                  <span className="input-field-error-text">{errors.name}</span>
+                </span>
+
+                <span className="admin-user-info-username">
+                  <input
+                    onChange={this.onChange}
+                    placeholder="Username"
+                    value={username}
+                    error={errors.username}
+                    id="username"
+                    type="username"
+                    className={classnames("", {
+                      invalid: errors.username
+                    })}
+                  />
+                  <span className="input-field-error-text">{errors.username}</span>
+                </span>
+
+                <span className="admin-user-info-email">
+                  <input
+                    onChange={this.onChange}
+                    placeholder="Email"
+                    value={email}
+                    error={errors.email}
+                    id="email"
+                    type="email"
+                    className={classnames("", {
+                      invalid: errors.email
+                    })}
+                  />
+                  <span className="input-field-error-text">{errors.email}</span>
+                </span>
+
+                <span className="admin-user-info-type">
+                  <select
+                    name="userType"
+                    id="userType"
+                    onChange={this.onChange}
+                    value={userType}>
+
+                    {UserTypes.map((type, index) => {
+                        return (
+                          <option key={index} name={type.value} id={type.value} value={type.value}>{type.label}</option>
+                        )
+                    })}
+                  </select>
+                </span>
+              </div>
+            :
+              <div className="admin-user-info">
                 <span className="admin-user-info-name">
                   {name}
                 </span>
-                }
-                {isEditingUser ?
-                  <span className="admin-user-info-username">
-                    <input
-                      onChange={this.onChange}
-                      placeholder="Username"
-                      value={username}
-                      error={errors.username}
-                      id="username"
-                      type="username"
-                      className={classnames("", {
-                        invalid: errors.username
-                      })}
-                    />
-                    <span className="input-field-error-text">{errors.username}</span>
-                  </span>
-                :
                 <span className="admin-user-info-username">
                   {username}
                 </span>
-                }
-                {isEditingUser ?
-                  <span className="admin-user-info-email">
-                    <input
-                      onChange={this.onChange}
-                      placeholder="Email"
-                      value={email}
-                      error={errors.email}
-                      id="email"
-                      type="email"
-                      className={classnames("", {
-                        invalid: errors.email
-                      })}
-                    />
-                    <span className="input-field-error-text">{errors.email}</span>
-                  </span>
-                :
                 <span className="admin-user-info-email">
                   {email}
                 </span>
-                }
-                {isEditingUser ?
-                  <span className="admin-user-info-type">
-                    <select
-                      name="userType"
-                      id="userType"
-                      onChange={this.onChange}
-                      value={userType}>
-
-                      {UserTypes.map((type, index) => {
-                          return (
-                            <option key={index} name={type.value} id={type.value} value={type.value}>{type.label}</option>
-                          )
-                      })}
-                    </select>
-                  </span>
-                :
                 <span className="admin-user-info-type">
                   {this.userTypeAsWords(userType)}
                 </span>
-                }
-            </div>
+              </div>
+            }
 
             <table className="admin-table-user">
               <thead>
