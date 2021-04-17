@@ -53,8 +53,7 @@ class UserDetailsPage extends Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.admin.user && !prevState.user) {
-            // console.log('here oh no');
+        if (nextProps.admin.user && !prevState.isEditingUser && JSON.stringify(nextProps.admin.user) !== JSON.stringify(prevState.user)) {
             var user = nextProps.admin.user;
 
             return ({
