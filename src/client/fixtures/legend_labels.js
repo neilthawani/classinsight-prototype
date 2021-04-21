@@ -12,6 +12,7 @@ var colors = {
         "Aqua": "#00ffff",
         "Lime": "#3cdc14",
         "Olive": "#808000",
+        "Black": "#000"
     },
     Student: {
         "Brown": "#a52a2a",
@@ -71,11 +72,11 @@ var legendDict = {
             barColor: colors["Teacher"]["Aqua"],
             textColor: "black",
         },
-        // "OT": {
-        //     value: "Other Talk",
-        //     barColor: "#000",
-        //     textColor: "white",
-        // },
+        "OT": {
+            value: "Other Talk",
+            barColor: colors["Teacher"]["Black"],
+            textColor: "white",
+        },
     },
     "Student": {
         "C": {

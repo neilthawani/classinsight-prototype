@@ -27,6 +27,10 @@ var headerDict = {
     "UTTERANCE": "utterance"
 };
 
+var mutateSpeakerPseudonym = function(value) {
+    return value.replace(":", "").replace("_", " ");
+};
+
 var csvToJson = function(contents) {
     var parsedCsv = readString(contents);
     var lines = parsedCsv.data;
@@ -74,7 +78,7 @@ var csvToJson = function(contents) {
             // console.log('value', value);
 
             if (replacementKey === "speakerPseudonym") {
-                value = value.replace(":", "").replace("_", " ");
+                value = mutateSpeakerPseudonym(value);
             }
 
             // begin error checking
@@ -87,8 +91,20 @@ var csvToJson = function(contents) {
             }
 
             // speakerPseudonym can either be in SPEAKER column or CHAT WRITER column
-            if (key === "SPEAKER" && !lineDatum[4] && !(value.includes("Student") || value.includes("Teacher"))) {
-                warnings.push(`Unrecognized speaker pseudonym in utterance row ${lineDatum[0]}: ${value}`);
+            if (key === "SPEAKER" && !lineDatum[4] && !(value.includes("Student") || value.includes("Teacher")) && value !== "Andi") {
+                // console.log('value', value);
+                var codeValues = [];
+                if (lineDatum[8]) {
+                    codeValues.push(lineDatum[8]);
+                }
+
+                if (lineDatum[9]) {
+                    codeValues.push(lineDatum[9]);
+                }
+
+                var codeLabel = codeValues.length > 1 ? "codes" : "code";
+
+                warnings.push(`Unrecognized speaker pseudonym in utterance row ${lineDatum[0]}: ${value} (utterance ${codeLabel}: ${codeValues})`);
             }
 
             if (key === "CHAT WRITER" && !lineDatum[1] && !(value.includes("Student") || value.includes("Teacher"))) {
@@ -121,13 +137,17 @@ var csvToJson = function(contents) {
                 }
             }
 
-            if (replacementKey === "utteranceCodes" && lineDatum[1].includes("Teacher") && value &&  !teacherCodes.includes(value)) {
+            var mutatedSpeakerPseudonym = mutateSpeakerPseudonym(lineDatum[1]);
+
+            if (replacementKey === "utteranceCodes" && mutatedSpeakerPseudonym.endsWith("Teacher") && value &&  !teacherCodes.includes(value)) {
                 // console.log('value', value, typeof value, value.constructor, value.length);
-                warnings.push(`Unrecognized code for speaker pseudonym ${lineDatum[1]} in utterance row ${lineDatum[0]}: ${value}`);
+                // console.log("mutateSpeakerPseudonym(lineDatum[1])", mutateSpeakerPseudonym(lineDatum[1]));
+                warnings.push(`Unrecognized code for speaker pseudonym ${mutatedSpeakerPseudonym} in utterance row ${lineDatum[0]}: ${value}`);
             }
 
-            if (replacementKey === "utteranceCodes" && lineDatum[1].includes("Student") && value && !studentCodes.includes(value)) {
-                warnings.push(`Unrecognized code for speaker pseudonym ${lineDatum[1]} in utterance row ${lineDatum[0]}: ${value}`);
+            // two checks for speaker pseudonym here because "Student Teacher" is a known pseudonym
+            if (replacementKey === "utteranceCodes" && mutatedSpeakerPseudonym.startsWith("Student") && !mutatedSpeakerPseudonym.endsWith("Teacher") && value && !studentCodes.includes(value)) {
+                warnings.push(`Unrecognized code for speaker pseudonym ${mutatedSpeakerPseudonym} in utterance row ${lineDatum[0]}: ${value}`);
             }
             // end error checking
 
