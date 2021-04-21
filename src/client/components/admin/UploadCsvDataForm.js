@@ -143,6 +143,21 @@ class UploadCsvDataForm extends Component {
                     </div>
 
                     <div className="input-field">
+                      <label htmlFor="topic">Lesson Name</label>
+                      <input
+                        onChange={this.onChange}
+                        value={this.state.fileData.lessonName}
+                        id="lessonName"
+                        type="text"
+                        error={errors.lessonName}
+                        className={classnames("", {
+                          invalid: errors.lessonName
+                        })}
+                      />
+                      <span className="input-field-error-text">{errors.lessonName}</span>
+                    </div>
+
+                    <div className="input-field">
                       <label htmlFor="date">Date</label>
                       <input
                         onChange={this.onChange}

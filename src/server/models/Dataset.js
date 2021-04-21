@@ -35,6 +35,10 @@ const DatasetSchema = new Schema({
     type: String,
     required: true
   },
+  lessonName: {
+    type: String,
+    required: true
+  },
   classDate: {
     type: String,
     required: true
