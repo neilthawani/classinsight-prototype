@@ -108,6 +108,7 @@ class UploadCsvDataForm extends Component {
               {this.state.isUploaded ?
               <div className="even-columns-2">
 
+                {this.state.fileData.warnings.length > 0 ?
                 <div className="data-upload-warnings">
                   {this.state.fileData.warnings.map((warning, index) => {
                     return (
@@ -117,6 +118,7 @@ class UploadCsvDataForm extends Component {
                     )
                   })}
                 </div>
+                : ""}
 
                 <div className="even-column">
                   <span className="data-upload-label">Preview</span>
@@ -128,7 +130,7 @@ class UploadCsvDataForm extends Component {
                 <div className="even-column data-upload-metadata">
                   <div className="data-upload-metadata-fields">
                     <div className="input-field">
-                      <label htmlFor="topic">Class Topic</label>
+                      <label htmlFor="topic">Class Subject</label>
                       <input
                         onChange={this.onChange}
                         value={this.state.fileData.classTopic}
@@ -140,6 +142,21 @@ class UploadCsvDataForm extends Component {
                         })}
                       />
                       <span className="input-field-error-text">{errors.classTopic}</span>
+                    </div>
+
+                    <div className="input-field">
+                      <label htmlFor="topic">Lesson Name</label>
+                      <input
+                        onChange={this.onChange}
+                        value={this.state.fileData.lessonName}
+                        id="lessonName"
+                        type="text"
+                        error={errors.lessonName}
+                        className={classnames("", {
+                          invalid: errors.lessonName
+                        })}
+                      />
+                      <span className="input-field-error-text">{errors.lessonName}</span>
                     </div>
 
                     <div className="input-field">

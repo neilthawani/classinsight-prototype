@@ -114,7 +114,7 @@ class UserDetailsPage extends Component {
     }
 
     toggleEditingUser() {
-      console.log('this.state.isEditingUser', this.state.isEditingUser);
+      // console.log('this.state.isEditingUser', this.state.isEditingUser);
       this.setState(prevState => ({
           isEditingUser: !prevState.isEditingUser
       }));
@@ -308,7 +308,7 @@ class UserDetailsPage extends Component {
             <table className="admin-table-user">
               <thead>
                 <tr>
-                  <th>Class Topic</th>
+                  <th>Class</th>
                   <th>Date</th>
                   <th>Period(s)</th>
                   <th>Actions</th>

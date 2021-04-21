@@ -36,8 +36,10 @@ class SidebarGroup extends Component {
               {(this.props.datasets.dataParsers || []).map((item, index, array) => {
                   // console.log('array', array);
                   var topic = item.topic,
+                      lesson = item.lessonName,
                       date = formatDate(item.date),
                       period = item.period;
+                  // console.log('item', item);
 
                   return (
                     <Link key={index} to={linkTo} exact="true">
@@ -48,6 +50,16 @@ class SidebarGroup extends Component {
                           {topic}
                         </div>
 
+                        {lesson ?
+                          <div className="sidebar-data-row-descriptor">
+                            <span className="sidebar-data-row-descriptor-label">
+                              Lesson:
+                            </span>
+                            <span className="sidebar-data-row-descriptor-value">
+                              {lesson}
+                            </span>
+                          </div>
+                        : ""}
                         <div className="sidebar-data-row-descriptor">
                           <span className="sidebar-data-row-descriptor-label">
                             Date:

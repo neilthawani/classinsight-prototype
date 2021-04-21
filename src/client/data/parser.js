@@ -3,6 +3,7 @@ import { utteranceMatchesLabel } from '../components/legend/labelFilters';
 
 export default class Parser {
     constructor(data) {
+        this.lessonName = data.lessonName;
         this.topic = data.classTopic;
         this.period = data.classPeriod;
         this.date = data.classDate;

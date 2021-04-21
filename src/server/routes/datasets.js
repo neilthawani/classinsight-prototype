@@ -62,6 +62,7 @@ module.exports = function(router, basePath, db) {
                             isActive: dataset.isActive,
                             isDeleted: dataset.isDeleted,
                             classTopic: dataset.classTopic,
+                            lessonName: dataset.lessonName,
                             classDate: dataset.classDate,
                             classPeriod: dataset.classPeriod,
                             utterances: dataset.utterances
@@ -92,10 +93,12 @@ module.exports = function(router, basePath, db) {
 
         db.collection('datasets', function(error, collection) {
             // console.log('userId in', userId);
+            // console.log('lessonName', req.body.lessonName);
             const newDataset = new Dataset({
                 userId: req.body.userId,
                 filename: req.body.filename,
                 classTopic: req.body.classTopic,
+                lessonName: req.body.lessonName,
                 classDate: req.body.classDate,
                 classPeriod: req.body.classPeriod,
                 utterances: req.body.utterances

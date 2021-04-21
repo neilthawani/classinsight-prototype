@@ -70,7 +70,7 @@ class UserDatasetTableRow extends Component {
             return [
               <tr key={dataset._id}>
                 <td>
-                  {dataset.classTopic}
+                  {dataset.classTopic}{dataset.lessonName ? `: ${dataset.lessonName}` : ''}
                 </td>
                 <td className="text-center">
                   {formatDate(dataset.classDate)}

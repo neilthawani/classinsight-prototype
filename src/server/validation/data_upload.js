@@ -6,12 +6,17 @@ module.exports = function validateDatasetInput(data) {
 
   // Convert empty fields to an empty string so we can use validator functions
   data.classTopic = !isEmpty(data.classTopic) ? data.classTopic : "";
+  // data.lessonName = !isEmpty(data.lessonName) ? data.lessonName : "";
   data.classPeriod = !isEmpty(data.classPeriod) ? data.classPeriod : "";
 
   // Empty checks
   if (Validator.isEmpty(data.classTopic)) {
-    errors.classTopic = "Class topic missing";
+    errors.classTopic = "Class subject missing";
   }
+
+  // if (Validator.isEmpty(data.lessonName)) {
+  //   errors.lessonName = "Lesson name missing";
+  // }
 
   if (Validator.isEmpty(data.classPeriod.toString())) {
     errors.classPeriod = "Class period missing";
