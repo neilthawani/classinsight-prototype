@@ -41,11 +41,12 @@ export default class Parser {
             // console.log('utterance.utterance', utterance.utterance);
             var nTokens = utterance.utterance.split(" ").length;
 
+            // console.log('utterance', utterance);
             var utteranceTypes = utterance.utteranceCodes.map((code) => {
                 // console.log('legendDict[speakerType]', legendDict[speakerType]);
                 // console.log('legendDict[speakerType][code]', legendDict[speakerType][code]);
                 // console.log('legendDict[speakerType][code].value', legendDict[speakerType][code].value);
-
+                // console.log("legendDict[speakerType][code]", legendDict[speakerType][code], 'speakerType', speakerType, 'code', code);
                 return legendDict[speakerType][code].value;
             });
 
@@ -114,6 +115,7 @@ export default class Parser {
 
         // console.log('tokens', tokens);
         // return Math.max.apply(Math, expandedData.map((utterance) => utterance.nTokens));
+        console.log('maxTokens', maxTokens);
         return maxTokens['Student'] + maxTokens['Teacher'];
         // return 400;
     }

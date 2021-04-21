@@ -32,6 +32,8 @@ var drawBarStyles = function(item, areBarsSmall = false) {
 
     var barWidth = item.nTokens,
         barHeight = "14px";
+    if (barWidth === 518)
+    console.log("barWidth", barWidth);
 
     if (areBarsSmall) {
         barHeight = `${smallBarHeight}px`;

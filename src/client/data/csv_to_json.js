@@ -113,6 +113,14 @@ var csvToJson = function(contents) {
 
             // console.log('teacherCodes', teacherCodes)
 
+            if (replacementKey === "utteranceCodes" && !lineDatum[8] && !lineDatum[9]) {
+                const warning = `Fatal error: No utterance codes in utterance row ${lineDatum[0]}`;
+
+                if (!warnings.includes(warning)) {
+                    warnings.push(warning);
+                }
+            }
+
             if (replacementKey === "utteranceCodes" && lineDatum[1].includes("Teacher") && value &&  !teacherCodes.includes(value)) {
                 // console.log('value', value, typeof value, value.constructor, value.length);
                 warnings.push(`Unrecognized code for speaker pseudonym ${lineDatum[1]} in utterance row ${lineDatum[0]}: ${value}`);
