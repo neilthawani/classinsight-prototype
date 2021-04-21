@@ -34,8 +34,8 @@ class Transcript extends Component {
     barHeight = smallBarHeight;
 
     handleScroll(topElId, bottomElId) {
-        console.log("handleScroll", topElId, bottomElId);
-        
+        // console.log("handleScroll", topElId, bottomElId);
+
         // calculate focusBox.height
         var turnTakingBarsSmall = document.getElementsByClassName("turn-taking-bars-small-visualization")[0];
 
@@ -75,6 +75,7 @@ class Transcript extends Component {
         var parser = this.props.datasets.activeParser,
             chartWidth = parser.maxNTokens(),
             transcript = parser.transcript();
+        console.log("chartWidth", chartWidth);
 
         return (
           <div className="transcript-visualization-container">
