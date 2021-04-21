@@ -11,7 +11,7 @@ module.exports = function validateDatasetInput(data) {
 
   // Empty checks
   if (Validator.isEmpty(data.classTopic)) {
-    errors.classTopic = "Class topic missing";
+    errors.classTopic = "Class subject missing";
   }
 
   // if (Validator.isEmpty(data.lessonName)) {
