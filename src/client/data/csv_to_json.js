@@ -148,15 +148,32 @@ var csvToJson = function(contents) {
 
             var mutatedSpeakerPseudonym = mutateSpeakerPseudonym(lineDatum[1]);
 
-            if (replacementKey === "utteranceCodes" && mutatedSpeakerPseudonym.endsWith("Teacher") && value &&  !teacherCodes.includes(value)) {
+            var flagAllUtteranceCodeErrors = true;
+            if (replacementKey === "utteranceCodes" && mutatedSpeakerPseudonym.endsWith("Teacher") && value && !teacherCodes.includes(value)) {
                 // console.log('value', value, typeof value, value.constructor, value.length);
                 // console.log("mutateSpeakerPseudonym(lineDatum[1])", mutateSpeakerPseudonym(lineDatum[1]));
                 warnings.push(`Unrecognized code for speaker pseudonym ${mutatedSpeakerPseudonym} in utterance row ${lineDatum[0]}: ${value}`);
+                flagAllUtteranceCodeErrors = false;
             }
 
             // two checks for speaker pseudonym here because "Student Teacher" is a known pseudonym
             if (replacementKey === "utteranceCodes" && mutatedSpeakerPseudonym.startsWith("Student") && !mutatedSpeakerPseudonym.endsWith("Teacher") && value && !studentCodes.includes(value)) {
                 warnings.push(`Unrecognized code for speaker pseudonym ${mutatedSpeakerPseudonym} in utterance row ${lineDatum[0]}: ${value}`);
+                flagAllUtteranceCodeErrors = false;
+            }
+
+            // ensures only Students are OST or Teachers are OTT - otherwise it gives a warning
+            if (replacementKey === "utteranceCodes" && !flagAllUtteranceCodeErrors) {
+                for (var i = 8; i < 10; i++) {
+                    var code = lineDatum[i];
+
+                    var notAStudent = code === "OST" && (!lineDatum[1].includes("Student") && !lineDatum[4].includes("Student"));
+                    var notATeacher = code === "OTT" && (!lineDatum[1].includes("Teacher") && !lineDatum[4].includes("Teacher")) && !knownSpeakerPseudonyms.includes(lineDatum[1]) && !knownSpeakerPseudonyms.includes(lineDatum[4]);
+
+                    if (notAStudent || notATeacher) {
+                        warnings.push(`Unrecognized speaker pseudonym in utterance row ${lineDatum[0]}: ${lineDatum[1] || lineDatum[4]} (code: ${code})`);
+                    }
+                }
             }
             // end error checking
 

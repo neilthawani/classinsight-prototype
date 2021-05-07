@@ -44,8 +44,13 @@ export default class Parser {
 
             // console.log('utterance', utterance);
             var utteranceTypes = utterance.utteranceCodes.map((code) => {
-                // console.log('legendDict[speakerType]', legendDict[speakerType]);
-                // console.log('legendDict[speakerType][code]', legendDict[speakerType][code]);
+                // console.log('code', code);
+                console.log('legendDict[speakerType]', legendDict[speakerType]);
+                console.log('legendDict[speakerType][code]', legendDict[speakerType][code]);
+                if (!legendDict[speakerType][code]) {
+                  console.log('utterance', utterance);
+                  debugger;
+                }
                 // console.log('legendDict[speakerType][code].value', legendDict[speakerType][code].value);
                 // console.log("legendDict[speakerType][code]", legendDict[speakerType][code], 'speakerType', speakerType, 'code', code);
                 return legendDict[speakerType][code].value;

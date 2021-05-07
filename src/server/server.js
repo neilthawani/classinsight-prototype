@@ -17,6 +17,10 @@ const app = express();
 var jsonParser = bodyParser.json()
 app.use(express.static('dist'));
 app.use(jsonParser);
+app.use(express.json({limit: '50mb'}));
+app.use(express.urlencoded({limit: '50mb'}));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 // SSH tunnel to database
 var server = tunnel(config, function (error, server) {
