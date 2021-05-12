@@ -60,6 +60,7 @@ module.exports = function(router, basePath, db) {
                 (datasets || []).forEach((dataset) => {
                     if (!dataset.isDeleted) {
                         var utterances = dataset.utterances ? dataset.utterances : [];
+
                         var newDataset = {
                             _id: dataset._id,
                             isActive: dataset.isActive,
@@ -79,8 +80,8 @@ module.exports = function(router, basePath, db) {
                     }
                 });
 
-                console.log('parsedDatasets', parsedDatasets);
-                console.log('datasetsToPopulate', datasetsToPopulate);
+                // console.log('parsedDatasets', parsedDatasets);
+                // console.log('datasetsToPopulate', datasetsToPopulate);
 
                 datasetsToPopulate.forEach((dataset) => {
                     db.collection('utterances', function(error, collection) {
@@ -93,7 +94,7 @@ module.exports = function(router, basePath, db) {
                     });
                 });
 
-                console.log('list end', parsedDatasets);
+                // console.log('list end', parsedDatasets);
                 res.send(parsedDatasets);
             });
         });
@@ -103,6 +104,8 @@ module.exports = function(router, basePath, db) {
     // @desc Upload dataset
     // @access Public
     router.post(`${basePath}/upload`, (req, res) => {
+        console.log('req', req);
+        console.log('res', res);
         // Form validation
         const {
             errors,
@@ -115,6 +118,8 @@ module.exports = function(router, basePath, db) {
         }
 
         db.collection('datasets', function(error, collection) {
+            // var dataset = JSON.parse(req.body);
+            console.log('dataset', dataset);
             // console.log('userId in', userId);
             // console.log('lessonName', req.body.lessonName);
             const newDataset = new Dataset({
@@ -124,6 +129,7 @@ module.exports = function(router, basePath, db) {
                 lessonName: req.body.lessonName,
                 classDate: req.body.classDate,
                 classPeriod: req.body.classPeriod,
+                // utterances: []
                 // utterances: []//req.body.utterances
             });
 
@@ -143,9 +149,14 @@ module.exports = function(router, basePath, db) {
                               return console.error(err);
                             })
                         })
-                    });
 
-                    return res.json(dataset.ops)
+                        var datasetToReturn = {
+                            ...dataset.ops,
+                            utterances: req.body.utterances
+                        };
+
+                        return res.json(datasetToReturn);
+                    });
                 })
                 .catch((err) => {
                     return console.log(err)

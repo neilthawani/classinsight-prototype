@@ -93,25 +93,46 @@ export const listDatasets = (userId) => {
 };
 
 export const uploadDataset = (dataset) => dispatch => {
-    axios
-        .post("/api/datasets/upload", dataset)
-        .then(res => {
-            console.log("Success. Added dataset:", res.data[0]);
+  const data = {
+      email: "sam@corcos.io"
+    }
 
-            dispatch({
-                type: UPLOAD_DATASET,
-                payload: {
-                    dataset: res.data[0]
-                }
-            });
-        })
-        .catch(error => {
-            console.error(error);
-            console.error(error.response && error.response.data);
-
-            dispatch({
-                type: GET_ERRORS,
-                payload: error.response && error.response.data
-            });
-        });
+    fetch('/api/datasets/upload', {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(dataset)
+    }).then((res) => {
+      console.log("this is res", res)
+    }).catch((err) => {
+      console.log(err)
+    })
+    // console.log('dataset', dataset);
+    // fetch("/api/datasets/upload", {
+    //   method: 'POST',
+    //   body: JSON.stringify({dataset: dataset})
+    // })
+    // // axios
+    //     // .post("/api/datasets/upload", dataset)//JSON.stringify(dataset))
+    //     .then(res => {
+    //         console.log("Success. Added dataset:", res.data[0]);
+    //
+    //         dispatch({
+    //             type: UPLOAD_DATASET,
+    //             payload: {
+    //                 dataset: res.data[0]
+    //             }
+    //         });
+    //     })
+    //     .catch(error => {
+    //         console.error(error);
+    //         console.error(error.response && error.response.data);
+    //
+    //         dispatch({
+    //             type: GET_ERRORS,
+    //             payload: error.response && error.response.data
+    //         });
+    //     });
 };
