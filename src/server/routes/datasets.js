@@ -81,21 +81,21 @@ module.exports = function(router, basePath, db) {
 
                 console.log('parsedDatasets', parsedDatasets);
                 console.log('datasetsToPopulate', datasetsToPopulate);
-            });
 
-            datasetsToPopulate.forEach((dataset) => {
-                db.collection('utterances', function(error, collection) {
-                    collection.find({datasetId: dataset._id}).toArray(function(error, utterances) {
-                        parsedDatasets.push({
-                            ...dataset,
-                            utterances: utterances
+                datasetsToPopulate.forEach((dataset) => {
+                    db.collection('utterances', function(error, collection) {
+                        collection.find({datasetId: dataset._id}).toArray(function(error, utterances) {
+                            parsedDatasets.push({
+                                ...dataset,
+                                utterances: utterances
+                            });
                         });
                     });
                 });
-            });
 
-            console.log('list end', parsedDatasets);
-            res.send(parsedDatasets);
+                console.log('list end', parsedDatasets);
+                res.send(parsedDatasets);
+            });
         });
     });
 
