@@ -48,16 +48,19 @@ module.exports = function(router, basePath, db) {
     // @desc List all datasets
     // @access Public
     router.get(`${basePath}/list`, function(req, res) {
+        var parsedDatasets = [];
+        var datasetsToPopulate = [];
+
         db.collection('datasets', function(error, collection) {
             // console.log('collection', collection);
             // console.log('req', req);
             collection.find({userId: req.query.userId}).toArray(function(error, datasets) {
-                var parsedDatasets = [];
                 // console.log('datasets', datasets);
 
                 (datasets || []).forEach((dataset) => {
                     if (!dataset.isDeleted) {
-                        parsedDatasets.push({
+                        var utterances = dataset.utterances ? dataset.utterances : [];
+                        var newDataset = {
                             _id: dataset._id,
                             isActive: dataset.isActive,
                             isDeleted: dataset.isDeleted,
@@ -65,14 +68,34 @@ module.exports = function(router, basePath, db) {
                             lessonName: dataset.lessonName,
                             classDate: dataset.classDate,
                             classPeriod: dataset.classPeriod,
-                            utterances: dataset.utterances
-                        });
+                            utterances: utterances
+                        };
+
+                        if (utterances.length === 0) {
+                            datasetsToPopulate.push(newDataset);
+                        } else {
+                            parsedDatasets.push(newDataset);
+                        }
                     }
                 });
 
-                // console.log('parsedDatasets', parsedDatasets);
-                res.send(parsedDatasets);
+                console.log('parsedDatasets', parsedDatasets);
+                console.log('datasetsToPopulate', datasetsToPopulate);
             });
+
+            datasetsToPopulate.forEach((dataset) => {
+                db.collection('utterances', function(error, collection) {
+                    collection.find({datasetId: dataset._id}).toArray(function(error, utterances) {
+                        parsedDatasets.push({
+                            ...dataset,
+                            utterances: utterances
+                        });
+                    });
+                });
+            });
+
+            console.log('list end', parsedDatasets);
+            res.send(parsedDatasets);
         });
     });
 
@@ -101,12 +124,27 @@ module.exports = function(router, basePath, db) {
                 lessonName: req.body.lessonName,
                 classDate: req.body.classDate,
                 classPeriod: req.body.classPeriod,
-                utterances: req.body.utterances
+                // utterances: []//req.body.utterances
             });
 
             collection.save(newDataset)
                 .then((dataset) => {
                     // console.log('dataset', dataset);
+                    db.collection('utterances', function(error, collection) {
+                        req.body.utterances.forEach((utterance) => {
+                            collection.save({
+                              ...utterance,
+                              datasetId: dataset._id
+                            })
+                            .then((row) => {
+                                console.log('Utterance saved: ', row);
+                            })
+                            .catch((err) => {
+                              return console.error(err);
+                            })
+                        })
+                    });
+
                     return res.json(dataset.ops)
                 })
                 .catch((err) => {
