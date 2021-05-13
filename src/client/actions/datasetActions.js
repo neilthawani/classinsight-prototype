@@ -69,6 +69,7 @@ export const clearValidState = () => {
     }
 }
 
+// TODO: Do listing by querying utterances and appending them to datasets.
 export const listDatasets = (userId) => {
     return (dispatch) => {
         return axios.get("/api/datasets/list", {
@@ -93,46 +94,37 @@ export const listDatasets = (userId) => {
 };
 
 export const uploadDataset = (dataset) => dispatch => {
-  const data = {
-      email: "sam@corcos.io"
-    }
+    const utterances = dataset['utterances'];
+    delete dataset['utterances'];
 
-    fetch('/api/datasets/upload', {
-      method: "POST",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(dataset)
-    }).then((res) => {
-      console.log("this is res", res)
-    }).catch((err) => {
-      console.log(err)
+    axios.post("/api/datasets/upload", dataset)
+    .then(res => {
+        var newDataset = { ...res.data[0], utterances: [] };
+        console.log("Success. Added dataset:", newDataset);
+
+        utterances.forEach((utterance) => {
+            axios.post("/api/datasets/upload-utterances").then((res) => {
+                console.log("Pushing utterance", utterance, "to dataset", dataset);
+                newDataset.utterances.push(res.data[0]);
+            }).catch(error => {
+                console.log("Error saving utterance:", error);
+            });
+        });
+
+        dispatch({
+            type: UPLOAD_DATASET,
+            payload: {
+                dataset: newDataset
+            }
+        });
     })
-    // console.log('dataset', dataset);
-    // fetch("/api/datasets/upload", {
-    //   method: 'POST',
-    //   body: JSON.stringify({dataset: dataset})
-    // })
-    // // axios
-    //     // .post("/api/datasets/upload", dataset)//JSON.stringify(dataset))
-    //     .then(res => {
-    //         console.log("Success. Added dataset:", res.data[0]);
-    //
-    //         dispatch({
-    //             type: UPLOAD_DATASET,
-    //             payload: {
-    //                 dataset: res.data[0]
-    //             }
-    //         });
-    //     })
-    //     .catch(error => {
-    //         console.error(error);
-    //         console.error(error.response && error.response.data);
-    //
-    //         dispatch({
-    //             type: GET_ERRORS,
-    //             payload: error.response && error.response.data
-    //         });
-    //     });
+    .catch(error => {
+        console.error(error);
+        console.error(error.response && error.response.data);
+
+        dispatch({
+            type: GET_ERRORS,
+            payload: error.response && error.response.data
+        });
+    });
 };

@@ -103,6 +103,28 @@ module.exports = function(router, basePath, db) {
     // @route POST api/datasets/upload
     // @desc Upload dataset
     // @access Public
+    router.post(`${basePath}/upload-utterances`, (req, res) => {
+        console.log('req', req);
+        console.log('res', res);
+        var data = req.body;
+
+        // Check validation
+        db.collection('utterances', function(error, collection) {
+                collection.save(data)
+                .then((row) => {
+                    console.log('Utterance saved: ', row);
+                    res.json(row.ops);
+                })
+                .catch((err) => {
+                  return console.error(err);
+                })
+            })
+        });
+    });
+
+    // @route POST api/datasets/upload
+    // @desc Upload dataset
+    // @access Public
     router.post(`${basePath}/upload`, (req, res) => {
         console.log('req', req);
         console.log('res', res);
@@ -135,28 +157,7 @@ module.exports = function(router, basePath, db) {
 
             collection.save(newDataset)
                 .then((dataset) => {
-                    // console.log('dataset', dataset);
-                    db.collection('utterances', function(error, collection) {
-                        req.body.utterances.forEach((utterance) => {
-                            collection.save({
-                              ...utterance,
-                              datasetId: dataset._id
-                            })
-                            .then((row) => {
-                                console.log('Utterance saved: ', row);
-                            })
-                            .catch((err) => {
-                              return console.error(err);
-                            })
-                        })
-
-                        var datasetToReturn = {
-                            ...dataset.ops,
-                            utterances: req.body.utterances
-                        };
-
-                        return res.json(datasetToReturn);
-                    });
+                    return res.json(dataset.ops);
                 })
                 .catch((err) => {
                     return console.log(err)

@@ -17,11 +17,11 @@ const app = express();
 var jsonParser = bodyParser.json()
 app.use(express.static('dist'));
 app.use(jsonParser);
-app.use(express.json({limit: '9999999999mb'}));
-app.use(express.urlencoded({limit: '9999999999mb'}));
-app.use(bodyParser.json({limit: '9999999999mb'}));
-app.use(bodyParser.urlencoded({limit: '9999999999mb', parameterLimit: 10000, extended: true}));
-app.use(bodyParser.text({limit: '9999999999mb'}));
+app.use(express.json({limit: '100mb'}));
+app.use(express.urlencoded({limit: '100mb'}));
+app.use(bodyParser.json({limit: '100mb'}));
+app.use(bodyParser.urlencoded({limit: '100mb', parameterLimit: 10000, extended: true}));
+app.use(bodyParser.text({limit: '100mb'}));
 
 // SSH tunnel to database
 var server = tunnel(config, function (error, server) {
