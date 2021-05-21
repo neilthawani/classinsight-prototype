@@ -38,15 +38,17 @@ export default class Parser {
                 return prev;
             }
 
-            var speakerType = utterance.speakerPseudonym.includes("Student") ? "Student" : "Teacher";
+            var speakerType = (utterance.speakerPseudonym.includes("Student") || utterance.speakerPseudonym.includes("students")) ? "Student" : "Teacher";
             // console.log('utterance.utterance', utterance.utterance);
             var nTokens = utterance.utterance.split(" ").length;
 
             // console.log('utterance', utterance);
             var utteranceTypes = utterance.utteranceCodes.map((code) => {
                 // console.log('code', code);
-                console.log('legendDict[speakerType]', legendDict[speakerType]);
-                console.log('legendDict[speakerType][code]', legendDict[speakerType][code]);
+
+                // NOTE: Keep this code. It's one of the most common errors.
+                // console.log('legendDict[speakerType]', legendDict[speakerType]);
+                // console.log('legendDict[speakerType][code]', legendDict[speakerType][code]);
                 if (!legendDict[speakerType][code]) {
                   console.log('utterance', utterance);
                   debugger;
