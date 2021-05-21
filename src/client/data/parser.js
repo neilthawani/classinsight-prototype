@@ -38,7 +38,7 @@ export default class Parser {
                 return prev;
             }
 
-            var speakerType = utterance.speakerPseudonym.includes("Student") ? "Student" : "Teacher";
+            var speakerType = (utterance.speakerPseudonym.includes("Student") || utterance.speakerPseudonym.includes("students")) ? "Student" : "Teacher";
             // console.log('utterance.utterance', utterance.utterance);
             var nTokens = utterance.utterance.split(" ").length;
 

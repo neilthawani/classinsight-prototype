@@ -14,21 +14,21 @@ export default class Bar extends Component {
         };
     }
 
-    handleMouseOver() {
-        if (isObjectEmpty(this.props.activeTurn)) {
-            this.setState({
-                hoveredTurn: this.props.data
-            });
-        }
-    }
-
-    handleMouseOut(value) {
-        if (value.id !== this.props.activeTurn.id) {
-            this.setState({
-                hoveredTurn: {}
-            });
-        }
-    }
+    // handleMouseOver() {
+    //     if (isObjectEmpty(this.props.activeTurn)) {
+    //         this.setState({
+    //             hoveredTurn: this.props.data
+    //         });
+    //     }
+    // }
+    //
+    // handleMouseOut(value) {
+    //     if (value.id !== this.props.activeTurn.id) {
+    //         this.setState({
+    //             hoveredTurn: {}
+    //         });
+    //     }
+    // }
 
     handleBarClick(turnObj) {
         this.props.handleBarClick(turnObj);
@@ -44,11 +44,10 @@ export default class Bar extends Component {
         var { teacherStyle, studentStyle } = drawBarStyles(item);
 
         var isActive = this.state.hoveredTurn.id === item.id || this.props.activeTurn.id === item.id;
-
+        {/*onMouseOver={this.handleMouseOver.bind(this, item)}
+        onMouseOut={this.handleMouseOut.bind(this, item)}*/}
         return (
           <div className="turn-taking-visualization-row"
-          onMouseOver={this.handleMouseOver.bind(this, item)}
-          onMouseOut={this.handleMouseOut.bind(this, item)}
           onClick={this.handleBarClick.bind(this, item)}>
             <div className="turn-taking-bar-timestamp-time">
               {item.timestamp}
