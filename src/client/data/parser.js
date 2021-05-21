@@ -47,8 +47,8 @@ export default class Parser {
                 // console.log('code', code);
 
                 // NOTE: Keep this code. It's one of the most common errors.
-                console.log('legendDict[speakerType]', legendDict[speakerType]);
-                console.log('legendDict[speakerType][code]', legendDict[speakerType][code]);
+                // console.log('legendDict[speakerType]', legendDict[speakerType]);
+                // console.log('legendDict[speakerType][code]', legendDict[speakerType][code]);
                 if (!legendDict[speakerType][code]) {
                   console.log('utterance', utterance);
                   debugger;
