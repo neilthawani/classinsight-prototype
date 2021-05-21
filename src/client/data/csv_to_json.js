@@ -34,7 +34,9 @@ var mutateSpeakerPseudonym = function(value) {
 var knownSpeakerPseudonyms = [
   "Andi",
   "Katherine",
-  "Video"
+  "Video",
+  "Audio",
+  "Ung-Sang"
 ];
 
 var csvToJson = function(contents) {

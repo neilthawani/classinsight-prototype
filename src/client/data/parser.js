@@ -45,6 +45,8 @@ export default class Parser {
             // console.log('utterance', utterance);
             var utteranceTypes = utterance.utteranceCodes.map((code) => {
                 // console.log('code', code);
+
+                // NOTE: Keep this code. It's one of the most common errors.
                 console.log('legendDict[speakerType]', legendDict[speakerType]);
                 console.log('legendDict[speakerType][code]', legendDict[speakerType][code]);
                 if (!legendDict[speakerType][code]) {
