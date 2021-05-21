@@ -26,56 +26,73 @@ var colors = {
     }
 };
 
+var definitions = {
+    "C": "Linking ideas to prior contirbutions made in class and/or contexts and information from outside the class.", // connect
+    "G": "Guiding or scaffolding conversations and activities in class by highlighting key ideas and/or setting up process for further argumentation and discussion.", // guide direction of dialogue or dialogic activity
+    "I": "The speaker invites responses to either add to an idea or explicitly reason out an idea providing further information.", // invite elaboration or reasoning
+    "R": "The speaker explicitly explains their thought process behind an answer/proposition.", // make reasoning explicit
+    "B": "Adding more information to your/others ideas. Generally done by adding further examples or explanations.", // build on ideas
+    "EV": "Statements that evaluate contributions. Includes corroborating correct facts and repeating students responses to confirm their contribution.", // evaluation
+    "E": "Statements that express or invite ideas that are new (not connected to previous contributions).", // express or invite ideas
+    "OTT": "Teacher talk that does not fit into oher categories. Includes lecturing and progress/task checks.", // other teacher talk
+    "OST": "Student talk that does not fit into oher categories. Includes responses and questions that are procedural, like responding to attendance.", // other student talk
+    "OT": "Extra conversation that includes people beyond the teacher and students." // other talk
+};
+
 var legendDict = {
     "Teacher": {
         "C": {
             value: "Connect",
             barColor: colors["Teacher"]["Navy"],
             textColor: "white",
-            description: "A move that works to bring together concepts by scaffolding connections made between them or referring to prior or current discussions of them"
+            description: definitions["C"]
         },
         "G": {
             value: "Guide Direction of Dialogue or Activity",
             barColor: colors["Teacher"]["Electric indigo"],
             textColor: "white",
-            description: "Take responsibility for shaping and directing dialogue or activity by coordinating ideas"
+            description: definitions["G"]
         },
         "I": {
             value: "Invite Elaboration or Reasoning",
             barColor: colors["Teacher"]["Purple"],
             textColor: "white",
-            description: "Key words or phrases such as: ‘why?’, ‘how?’, ‘what caused...?’ for reasoning; or conditional phrases such as ‘what would/could/might happen if...?’, when asking for speculation/ prediction."
+            description: definitions["I"]
         },
         "R": {
             value: "Make Reasoning Explicit",
             barColor: colors["Teacher"]["Teal"],
             textColor: "white",
+            description: definitions["R"]
         },
         "B": {
             value: "Build on Ideas",
             barColor: colors["Teacher"]["Blue bayoux"],
-            textColor: "white",
+            textColor: definitions["B"]
         },
         "EV": {
             value: "Evaluation",
             barColor: colors["Teacher"]["Olive"],
             textColor: "white",
-            description: "Explicit acceptance of or agreement with a statement or statements"
+            description: definitions["EV"]
         },
         "E": {
             value: "Express or Invite Ideas",
             barColor: colors["Teacher"]["Lime"],
             textColor: "black",
+            description: definitions["E"]
         },
         "OTT": {
             value: "Other Teacher Talk",
             barColor: colors["Teacher"]["Aqua"],
             textColor: "black",
+            description: definitions["OTT"]
         },
         "OT": {
             value: "Other Talk",
             barColor: colors["Teacher"]["Black"],
             textColor: "white",
+            description: definitions["OT"]
         },
     },
     "Student": {
@@ -83,46 +100,49 @@ var legendDict = {
             value: "Connect",
             barColor: colors["Student"]["Maroon"],
             textColor: "white",
+            description: definitions["C"]
         },
         "G": {
             value: "Guide Direction of Dialogue or Activity",
             barColor: colors["Student"]["Brown"],
             textColor: "white",
-            description: "Taking a position/stance in the dialogue"
+            description: definitions["G"]
         },
         "I": {
             value: "Invite Elaboration or Reasoning",
             barColor: colors["Student"]["Crimson"],
             textColor: "white",
-            description: "Elaborate, reformulate, provide examples, extend/add to or build on contributions/ideas/theories; evaluate or (dis)agree with another's contribution/idea/theory"
+            description: definitions["I"]
         },
         "R": {
             value: "Make Reasoning Explicit",
             barColor: colors["Student"]["Orange red"],
             textColor: "white",
-            description: "A clear explication of thinking (i.e., why I think that, the mechanism behind an idea which includes supporting evidence",
+            description: definitions["R"]
         },
         "B": {
             value: "Build on Ideas",
             barColor: colors["Student"]["Salmon"],
             textColor: "white",
-            description: "Make a relevant contribution to the dialogue by building on, giving examples, adding to, reformulating or clarifying one's own or other's contributions"
+            description: definitions["B"]
         },
         "EV": {
             value: "Evaluation",
             barColor: colors["Student"]["Pink"],
             textColor: "black",
+            description: definitions["EV"]
         },
         "E": {
             value: "Express or Invite Ideas",
             barColor: colors["Student"]["Orange"],
             textColor: "black",
-            description: "Providing contributions that bring something not yet expressed to the discussion, but related to the general subject"
+            description: definitions["E"]
         },
         "OST": {
             value: "Other Student Talk",
             barColor: colors["Student"]["Gold"],
             textColor: "black",
+            description: definitions["OST"]
         },
     }
 };
