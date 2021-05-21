@@ -69,7 +69,11 @@ export const clearValidState = () => {
     }
 }
 
-// TODO: Do listing by querying utterances and appending them to datasets.
+
+// Angela suggested iterating over each utterance
+// Instead of adding an utterance collection, add each utterance in batches to the same collection
+// Do listing by querying utterances and appending them to datasets.
+
 export const listDatasets = (userId) => {
     return (dispatch) => {
         return axios.get("/api/datasets/list", {
@@ -103,6 +107,8 @@ export const uploadDataset = (dataset) => dispatch => {
         console.log("Success. Added dataset:", newDataset);
 
         utterances.forEach((utterance) => {
+            // console.log('utterance', utterance);
+            // debugger;
             axios.post("/api/datasets/upload-utterances").then((res) => {
                 console.log("Pushing utterance", utterance, "to dataset", dataset);
                 newDataset.utterances.push(res.data[0]);

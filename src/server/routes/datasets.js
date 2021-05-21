@@ -104,8 +104,8 @@ module.exports = function(router, basePath, db) {
     // @desc Upload dataset
     // @access Public
     router.post(`${basePath}/upload-utterances`, (req, res) => {
-        console.log('req', req);
-        console.log('res', res);
+        // console.log('req', req);
+        // console.log('res', res);
         var data = req.body;
 
         // Check validation
@@ -118,16 +118,15 @@ module.exports = function(router, basePath, db) {
                 .catch((err) => {
                   return console.error(err);
                 })
-            })
-        });
+            });
     });
 
     // @route POST api/datasets/upload
     // @desc Upload dataset
     // @access Public
     router.post(`${basePath}/upload`, (req, res) => {
-        console.log('req', req);
-        console.log('res', res);
+        // console.log('req', req);
+        // console.log('res', res);
         // Form validation
         const {
             errors,
@@ -141,7 +140,7 @@ module.exports = function(router, basePath, db) {
 
         db.collection('datasets', function(error, collection) {
             // var dataset = JSON.parse(req.body);
-            console.log('dataset', dataset);
+            // console.log('dataset', dataset);
             // console.log('userId in', userId);
             // console.log('lessonName', req.body.lessonName);
             const newDataset = new Dataset({
@@ -151,12 +150,13 @@ module.exports = function(router, basePath, db) {
                 lessonName: req.body.lessonName,
                 classDate: req.body.classDate,
                 classPeriod: req.body.classPeriod,
-                // utterances: []
+                utterances: []
                 // utterances: []//req.body.utterances
             });
 
             collection.save(newDataset)
                 .then((dataset) => {
+                    console.log('server dataset', dataset);
                     return res.json(dataset.ops);
                 })
                 .catch((err) => {
