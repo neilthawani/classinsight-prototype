@@ -14,13 +14,7 @@ var config = require('./.tunnel-config');
 
 // Configure express app
 const app = express();
-var jsonParser = bodyParser.json()
 app.use(express.static('dist'));
-app.use(jsonParser);
-// app.use(express.json({limit: '50mb'}));
-// app.use(express.urlencoded({limit: '50mb'}));
-// app.use(bodyParser.json({limit: '50mb'}));
-// app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 // SSH tunnel to database
 var server = tunnel(config, function (error, server) {
@@ -32,6 +26,12 @@ var server = tunnel(config, function (error, server) {
 
     // Connect to Mongo server
     MongoClient.connect("mongodb://localhost:27017", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }, function (err, client) {
+        app.use(express.json({limit: '100mb'}));
+        app.use(express.urlencoded({limit: '100mb'}));
+        app.use(bodyParser.json({limit: '100mb'}));
+        app.use(bodyParser.urlencoded({limit: '100mb', parameterLimit: 10000, extended: true}));
+        app.use(bodyParser.text({limit: '100mb'}));
+
         assert.equal(null, err);
         console.log("Connected successfully to server");
 
