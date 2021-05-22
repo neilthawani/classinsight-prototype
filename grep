@@ -1,6 +1,0 @@
-
-> classinsight@1.0.0 list-mongo /Users/neilthawani/Google Drive/ClassInSight/classinsight-prototype
-> ps aux | grep mongo
-
-neilthawani       5160   0.0  0.0  4268300    708 s000  S+   11:14AM   0:00.00 grep mongo
-neilthawani       5158   0.0  0.0  4268876   1068 s000  S+   11:14AM   0:00.01 sh -c ps aux | grep mongo
