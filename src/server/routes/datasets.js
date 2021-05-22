@@ -103,23 +103,23 @@ module.exports = function(router, basePath, db) {
     // @route POST api/datasets/upload
     // @desc Upload dataset
     // @access Public
-    router.post(`${basePath}/upload-utterances`, (req, res) => {
-        // console.log('req', req);
-        // console.log('res', res);
-        var data = req.body;
-
-        // Check validation
-        db.collection('utterances', function(error, collection) {
-                collection.save(data)
-                .then((row) => {
-                    console.log('Utterance saved: ', row);
-                    res.json(row.ops);
-                })
-                .catch((err) => {
-                  return console.error(err);
-                })
-            });
-    });
+    // router.post(`${basePath}/upload-utterances`, (req, res) => {
+    //     // console.log('req', req);
+    //     // console.log('res', res);
+    //     var data = req.body;
+    //
+    //     // Check validation
+    //     db.collection('utterances', function(error, collection) {
+    //             collection.save(data)
+    //             .then((row) => {
+    //                 console.log('Utterance saved: ', row);
+    //                 res.json(row.ops);
+    //             })
+    //             .catch((err) => {
+    //               return console.error(err);
+    //             })
+    //         });
+    // });
 
     // @route POST api/datasets/upload
     // @desc Upload dataset
@@ -150,13 +150,13 @@ module.exports = function(router, basePath, db) {
                 lessonName: req.body.lessonName,
                 classDate: req.body.classDate,
                 classPeriod: req.body.classPeriod,
-                utterances: []
-                // utterances: []//req.body.utterances
+                utterances: req.body.utterances
             });
 
             collection.save(newDataset)
                 .then((dataset) => {
-                    console.log('server dataset', dataset);
+                    // console.log('server dataset', dataset);
+                    // debugger;
                     return res.json(dataset.ops);
                 })
                 .catch((err) => {

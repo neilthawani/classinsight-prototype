@@ -99,23 +99,30 @@ export const listDatasets = (userId) => {
 
 export const uploadDataset = (dataset) => dispatch => {
     const utterances = dataset['utterances'];
+    const batchedUtterances = [];
+    const batchSize = 200;
+    utterances.forEach((item, index) => {
+        if (index % batchSize === 0) {
+            batchedUtterances.push(utterances.slice(index, index + batchSize));
+        }
+    });
     delete dataset['utterances'];
 
     axios.post("/api/datasets/upload", dataset)
     .then(res => {
-        var newDataset = { ...res.data[0], utterances: [] };
+        var newDataset = { ...res.data[0], utterances: batchedUtterances };
         console.log("Success. Added dataset:", newDataset);
 
-        utterances.forEach((utterance) => {
-            // console.log('utterance', utterance);
-            // debugger;
-            axios.post("/api/datasets/upload-utterances").then((res) => {
-                console.log("Pushing utterance", utterance, "to dataset", dataset);
-                newDataset.utterances.push(res.data[0]);
-            }).catch(error => {
-                console.log("Error saving utterance:", error);
-            });
-        });
+        // utterances.forEach((utterance) => {
+        //     // console.log('utterance', utterance);
+        //     // debugger;
+        //     axios.post("/api/datasets/upload-utterances").then((res) => {
+        //         console.log("Pushing utterance", utterance, "to dataset", dataset);
+        //         newDataset.utterances.push(res.data[0]);
+        //     }).catch(error => {
+        //         console.log("Error saving utterance:", error);
+        //     });
+        // });
 
         dispatch({
             type: UPLOAD_DATASET,
