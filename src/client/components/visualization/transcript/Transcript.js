@@ -75,7 +75,7 @@ class Transcript extends Component {
         var parser = this.props.datasets.activeParser,
             chartWidth = parser.maxNTokens(),
             transcript = parser.transcript();
-        console.log("chartWidth", chartWidth);
+        // console.log("chartWidth", chartWidth);
 
         return (
           <div className="transcript-visualization-container">

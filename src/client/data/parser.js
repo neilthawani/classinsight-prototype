@@ -123,7 +123,7 @@ export default class Parser {
 
         // console.log('tokens', tokens);
         // return Math.max.apply(Math, expandedData.map((utterance) => utterance.nTokens));
-        console.log('maxTokens', maxTokens);
+        // console.log('maxTokens', maxTokens);
         return maxTokens['Student'] + maxTokens['Teacher'];
         // return 400;
     }

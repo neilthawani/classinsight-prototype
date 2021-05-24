@@ -122,6 +122,26 @@ var csvToJson = function(contents) {
                 warnings.push(`Unrecognized speaker pseudonym in utterance row ${lineDatum[0]}: ${value}`);
             }
 
+            // if (key === "CHAT WRITER" && (value.includes("Teacher") || knownSpeakerPseudonyms.includes(value))) {
+            //     if (lineDatum[8] === "OST") {
+            //         warnings.push(`Fatal error: Teacher utterance in utterance row ${lineDatum[0]} has invalid code: ${lineDatum[8]}`);
+            //     }
+            //
+            //     if (lineDatum[9] === "OST") {
+            //         warnings.push(`Fatal error: Teacher utterance in utterance row ${lineDatum[0]} has invalid code: ${lineDatum[9]}`);
+            //     }
+            // }
+            //
+            // if (key === "CHAT WRITER" && (value.includes("Student") || knownSpeakerPseudonyms.includes(value))) {
+            //     if (lineDatum[8] === "OST") {
+            //         warnings.push(`Fatal error: Teacher utterance in utterance row ${lineDatum[0]} has invalid code: ${lineDatum[8]}`);
+            //     }
+            //
+            //     if (lineDatum[9] === "OST") {
+            //         warnings.push(`Fatal error: Teacher utterance in utterance row ${lineDatum[0]} has invalid code: ${lineDatum[9]}`);
+            //     }
+            // }
+
             var teacherCodes = legendLabels.reduce((prev, label) => {
                 if (label.speakerType === "Teacher") {
                     prev.push(label.code);
@@ -148,9 +168,19 @@ var csvToJson = function(contents) {
                 }
             }
 
+
             var mutatedSpeakerPseudonym = mutateSpeakerPseudonym(lineDatum[1]);
+            // if (lineDatum[1]) {
+            //     mutatedSpeakerPseudonym = mutateSpeakerPseudonym(lineDatum[1]);
+            // } else
+            if (lineDatum[4]) {
+                mutatedSpeakerPseudonym = mutateSpeakerPseudonym(lineDatum[4]);
+            }
 
             var flagAllUtteranceCodeErrors = true;
+            // if (lineDatum[0] === '144' && replacementKey === 'utteranceCodes') {
+            //     debugger;
+            // }
             if (replacementKey === "utteranceCodes" && mutatedSpeakerPseudonym.endsWith("Teacher") && value && !teacherCodes.includes(value)) {
                 // console.log('value', value, typeof value, value.constructor, value.length);
                 // console.log("mutateSpeakerPseudonym(lineDatum[1])", mutateSpeakerPseudonym(lineDatum[1]));
@@ -165,18 +195,18 @@ var csvToJson = function(contents) {
             }
 
             // ensures only Students are OST or Teachers are OTT - otherwise it gives a warning
-            if (replacementKey === "utteranceCodes" && !flagAllUtteranceCodeErrors) {
-                for (var i = 8; i < 10; i++) {
-                    var code = lineDatum[i];
-
-                    var notAStudent = code === "OST" && (!lineDatum[1].includes("Student") && !lineDatum[4].includes("Student"));
-                    var notATeacher = code === "OTT" && (!lineDatum[1].includes("Teacher") && !lineDatum[4].includes("Teacher")) && !knownSpeakerPseudonyms.includes(lineDatum[1]) && !knownSpeakerPseudonyms.includes(lineDatum[4]);
-
-                    if (notAStudent || notATeacher) {
-                        warnings.push(`Unrecognized speaker pseudonym in utterance row ${lineDatum[0]}: ${lineDatum[1] || lineDatum[4]} (code: ${code})`);
-                    }
-                }
-            }
+            // if (replacementKey === "utteranceCodes" && !flagAllUtteranceCodeErrors) {
+            //     for (var i = 8; i < 10; i++) {
+            //         var code = lineDatum[i];
+            //
+            //         var notAStudent = code === "OST" && (!lineDatum[1].includes("Student") && !lineDatum[4].includes("Student"));
+            //         var notATeacher = code === "OTT" && (!lineDatum[1].includes("Teacher") && !lineDatum[4].includes("Teacher")) && !knownSpeakerPseudonyms.includes(lineDatum[1]) && !knownSpeakerPseudonyms.includes(lineDatum[4]);
+            //
+            //         if (notAStudent || notATeacher) {
+            //             warnings.push(`Unrecognized speaker pseudonym in utterance row ${lineDatum[0]}: ${lineDatum[1] || lineDatum[4]} (code: ${code})`);
+            //         }
+            //     }
+            // }
             // end error checking
 
             if (replacementKey === "utteranceCodes" && !dataRow[replacementKey]) {
