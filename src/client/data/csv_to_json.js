@@ -40,7 +40,7 @@ var knownSpeakerPseudonyms = [
   "Video",
 ];
 
-var csvToJson = function(contents) {
+var csvToJson = function(nameOfFile, contents) {
     var warnings = [];
     var parsedCsv = readString(contents);
     var lines = parsedCsv.data;
@@ -73,7 +73,15 @@ var csvToJson = function(contents) {
 
     // grab filename, split by _
     // date is at index 0, parse date
-    metaContents["classDate"] = metaContents["filename"].split("_")[0].replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
+    var parseFileName = function(filename) {
+      return filename.split("_")[0].replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
+    }
+    
+    if (metaContents["filename"]) {
+      metaContents["classDate"] = parseFileName(metaContents["filename"])
+    } else {
+      metaContents["classDate"] = parseFileName(nameOfFile);
+    }
 
     var headers = lines[2];
     var lineData = lines.splice(3);

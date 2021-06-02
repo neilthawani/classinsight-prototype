@@ -61,8 +61,10 @@ class UploadCsvDataForm extends Component {
             var r = new FileReader();
 
             r.onload = function(e) {
+                // debugger;
                 var contents = e.target.result;
-                var jsonData = csvToJson(contents);
+                var filename = document.getElementById("data-upload-input").value.substring(document.getElementById("data-upload-input").value.lastIndexOf('\\') + 1);
+                var jsonData = csvToJson(filename, contents);
 
                 that.setState({
                     isUploaded: true,
