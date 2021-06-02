@@ -41,6 +41,7 @@ var knownSpeakerPseudonyms = [
 ];
 
 var csvToJson = function(contents) {
+    var warnings = [];
     var parsedCsv = readString(contents);
     var lines = parsedCsv.data;
 
@@ -58,6 +59,7 @@ var csvToJson = function(contents) {
             try {
               value = [ ...value.split("/") ];
             } catch(e) {
+              warnings.push(`Warning: Inconsistent/unexpected class period format (expected /), got: ${value}`);
               value = 0;
             }
         }
@@ -75,7 +77,6 @@ var csvToJson = function(contents) {
 
     var headers = lines[2];
     var lineData = lines.splice(3);
-    var warnings = [];
 
     var dataRows = lineData.reduce((prev, lineDatum, index, array) => {
         // console.log('lineDatum.toString().length', lineDatum.toString().length);
