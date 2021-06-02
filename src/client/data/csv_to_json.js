@@ -33,10 +33,11 @@ var mutateSpeakerPseudonym = function(value) {
 
 var knownSpeakerPseudonyms = [
   "Andi",
-  "Katherine",
-  "Video",
   "Audio",
-  "Ung-Sang"
+  "Katherine",
+  "Observer",
+  "Ung-Sang",
+  "Video",
 ];
 
 var csvToJson = function(contents) {
@@ -54,7 +55,11 @@ var csvToJson = function(contents) {
 
         // parse and flatten as array
         if (replacementKey === "classPeriod") {
-            value = [ ...value.split("/") ];
+            try {
+              value = [ ...value.split("/") ];
+            } catch(e) {
+              value = 0;
+            }
         }
 
         if (replacementKey && value) {
