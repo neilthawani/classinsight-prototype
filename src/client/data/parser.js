@@ -28,7 +28,20 @@ export default class Parser {
 
     transcript = function() {
         // console.log('this.utterances', this.utterances);
-        var transcript = this.utterances.reduce((prev, utterance, index, array) => {
+        var utterances = this.utterances;
+        // debugger;
+        // console.log('uhhh if???', !utterances[0].hasOwnProperty('utterance') && utterances[0].hasOwnProperty['undefined'])
+
+        if (!utterances[0].hasOwnProperty('utterance')) {//} && utterances[0].hasOwnProperty['undefined']) {
+          // debugger;
+          utterances = utterances.map((utterance) => {
+            return {
+              ...utterance,
+              'utterance': utterance['undefined']
+            }
+          });
+        }
+        var transcript = utterances.reduce((prev, utterance, index, array) => {
             if (utterance.isChat) {
                 utterance['utterance'] = utterance.breakoutRoom;
             }
@@ -40,7 +53,8 @@ export default class Parser {
 
             var speakerType = (utterance.speakerPseudonym.includes("Student") || utterance.speakerPseudonym.includes("students")) ? "Student" : "Teacher";
             // console.log('utterance.utterance', utterance.utterance);
-            var nTokens = utterance.utterance.split(" ").length;
+            if (!utterance.utterance) debugger;
+            var nTokens = utterance.utterance ? utterance.utterance.split(" ").length : 0; // monkey patch - utterances should not be blank and this should be caught in the csv_to_json converter, but sometimes postdocs overlook the warnings in their uploads
 
             // console.log('utterance', utterance);
             var utteranceTypes = utterance.utteranceCodes.map((code) => {
