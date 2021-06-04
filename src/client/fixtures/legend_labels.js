@@ -34,8 +34,8 @@ var definitions = {
     "B": "Adding more information to your/others ideas. Generally done by adding further examples or explanations.", // build on ideas
     "EV": "Statements that evaluate contributions. Includes corroborating correct facts and repeating students responses to confirm their contribution.", // evaluation
     "E": "Statements that express or invite ideas that are new (not connected to previous contributions).", // express or invite ideas
-    "OTT": "Teacher talk that does not fit into oher categories. Includes lecturing and progress/task checks.", // other teacher talk
-    "OST": "Student talk that does not fit into oher categories. Includes responses and questions that are procedural, like responding to attendance.", // other student talk
+    "OTT": "Teacher talk that does not fit into other categories. Includes lecturing and progress/task checks.", // other teacher talk
+    "OST": "Student talk that does not fit into other categories. Includes responses and questions that are procedural, like responding to attendance.", // other student talk
     "OT": "Extra conversation that includes people beyond the teacher and students." // other talk
 };
 
