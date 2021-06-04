@@ -1,6 +1,7 @@
 export default function formatPercentage(decimalValue, precision, showValuesLessThanOne = true, appendPercentSign = true) {
      // * 1 is a hacky way to convert string to number
      var formattedValue = parseFloat(100 * decimalValue).toFixed(precision) * 1;
+     // console.log('formattedValue', formattedValue);
 
     if (appendPercentSign) {
         formattedValue += '%';

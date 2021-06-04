@@ -4,6 +4,15 @@ import formatPercentage from '../../../utils/formatPercentage';
 
 export default class TalkRatioSection extends Component {
     formatStyle(item) {
+        // console.log('item.percentage', item.percentage);
+        if (item.percentage < 0.01 && item.percentage > 0) {
+            // console.log('item.percentage', item.percentage);
+            item = {
+              ...item,
+              percentage: 0.01
+            };
+        }
+        // console.log('fixed?', item.percentage);
         return {
             width: formatPercentage(item.percentage, 2, false),
             backgroundColor: item.barColor
