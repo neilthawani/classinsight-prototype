@@ -41,7 +41,7 @@ export default class Parser {
         //     }
         //   });
         // }
-        var transcript = utterances.reduce((prev, utterance, index, array) => {
+        var transcript = this.utterances.reduce((prev, utterance, index, array) => {
             if (utterance.isChat) {
                 utterance['utterance'] = utterance.breakoutRoom;
             }
