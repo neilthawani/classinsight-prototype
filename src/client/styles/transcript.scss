@@ -6,6 +6,8 @@
 .transcript-visualization-legend {
     position: fixed;
     left: $sidebarWidth;
+    overflow-y: scroll;
+    height: 100%;
 }
 
 .transcript-script-container {
