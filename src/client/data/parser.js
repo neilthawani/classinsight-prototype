@@ -1,4 +1,5 @@
 import { legendLabels, legendDict } from '../fixtures/legend_labels';
+import { knownStudentSpeakerPseudonymSubstrings } from './csv_to_json';
 import { utteranceMatchesLabel } from '../components/legend/labelFilters';
 
 export default class Parser {
@@ -51,7 +52,14 @@ export default class Parser {
                 return prev;
             }
 
-            var speakerType = (utterance.speakerPseudonym.includes("Student") || utterance.speakerPseudonym.includes("students")) ? "Student" : "Teacher";
+            var speakerType = "Teacher";
+            // const knownStudentSpeakerPseudonyms = ["Student", "students", "Class Members"];
+            for (var i = 0; i < knownStudentSpeakerPseudonymSubstrings.length; i++) {
+                if (utterance.speakerPseudonym.includes(knownStudentSpeakerPseudonymSubstrings[i])) {
+                    speakerType = "Student";
+                }
+            }
+            // var speakerType = (utterance.speakerPseudonym.includes("Student") || utterance.speakerPseudonym.includes("students") || utterance.speakerPseudonym.includes("Class Members")) ? "Student" : "Teacher";
             // console.log('utterance.utterance', utterance.utterance);
             // if (!utterance.utterance) debugger;
             var nTokens = utterance.utterance.split(" ").length;

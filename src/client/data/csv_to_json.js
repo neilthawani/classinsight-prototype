@@ -40,6 +40,12 @@ var knownSpeakerPseudonyms = [
   "Video",
 ];
 
+export const knownStudentSpeakerPseudonymSubstrings = [
+  "Student",
+  "students",
+  "Class Members"
+];
+
 var csvToJson = function(nameOfFile, contents) {
     var warnings = [];
     var parsedCsv = readString(contents);
@@ -76,7 +82,7 @@ var csvToJson = function(nameOfFile, contents) {
     var parseFileName = function(filename) {
       return filename.split("_")[0].replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
     }
-    
+
     if (metaContents["filename"]) {
       metaContents["classDate"] = parseFileName(metaContents["filename"])
     } else {
@@ -116,7 +122,10 @@ var csvToJson = function(nameOfFile, contents) {
             }
 
             // speakerPseudonym can either be in SPEAKER column or CHAT WRITER column
-            if (key === "SPEAKER" && !lineDatum[4] && !(value.includes("Student") || value.includes("Teacher") || value.endsWith("students")) && !knownSpeakerPseudonyms.includes(value)) {
+            const hasKnownStudentPseudonym = value.includes("Student") || value.endsWidth("students") || value.includes("Class Members"); // note: an array with these values is defined above - refactor later
+            const hasKnownTeacherPseudonym = value.includes("Teacher") || knownSpeakerPseudonyms.includes(value);
+            // TODO: Implement these two flags in the two if statements below
+            if (key === "SPEAKER" && !lineDatum[4] && !(value.includes("Student") || value.includes("Teacher") || value.endsWith("students") || value.includes("Class Members")) && !knownSpeakerPseudonyms.includes(value)) {
                 // console.log('value', value);
                 var codeValues = [];
                 if (lineDatum[8]) {
@@ -132,7 +141,7 @@ var csvToJson = function(nameOfFile, contents) {
                 warnings.push(`Unrecognized speaker pseudonym in utterance row ${lineDatum[0]}: ${value} (utterance ${codeLabel}: ${codeValues})`);
             }
 
-            if (key === "CHAT WRITER" && !lineDatum[1] && !(value.includes("Student") || value.includes("Teacher") || value.endsWith("students")) && !knownSpeakerPseudonyms.includes(value)) {
+            if (key === "CHAT WRITER" && !lineDatum[1] && !(value.includes("Student") || value.includes("Teacher") || value.endsWith("students") || value.includes("Class Members")) && !knownSpeakerPseudonyms.includes(value)) {
                 warnings.push(`Unrecognized speaker pseudonym in utterance row ${lineDatum[0]}: ${value}`);
             }
 
