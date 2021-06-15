@@ -38,6 +38,8 @@ var knownSpeakerPseudonyms = [
   "Observer",
   "Ung-Sang",
   "Video",
+  "Tarang",
+  "Zaynab",
 ];
 
 export const knownStudentSpeakerPseudonymSubstrings = [
@@ -120,10 +122,11 @@ var csvToJson = function(nameOfFile, contents) {
                 // console.log('lineDatum.toString().length', lineDatum.toString().length, lineDatum);
                 warnings.push(`Fatal error: No utterance in utterance row ${lineDatum[0]}`);
             }
-
+            // console.log('value after TODO', value);
             // speakerPseudonym can either be in SPEAKER column or CHAT WRITER column
-            const hasKnownStudentPseudonym = value.includes("Student") || value.endsWidth("students") || value.includes("Class Members"); // note: an array with these values is defined above - refactor later
-            const hasKnownTeacherPseudonym = value.includes("Teacher") || knownSpeakerPseudonyms.includes(value);
+            const hasKnownStudentPseudonym = (key === "SPEAKER" || key === "CHAT WRITER") && (value.includes("Student") || value.endsWith("students") || value.includes("Class Members")); // note: an array with these values is defined above - refactor later
+            const hasKnownTeacherPseudonym = (key === "SPEAKER" || key === "CHAT WRITER") && (value.includes("Teacher") || knownSpeakerPseudonyms.includes(value));
+            // console.log('value after TODO', value);
             // TODO: Implement these two flags in the two if statements below
             if (key === "SPEAKER" && !lineDatum[4] && !(value.includes("Student") || value.includes("Teacher") || value.endsWith("students") || value.includes("Class Members")) && !knownSpeakerPseudonyms.includes(value)) {
                 // console.log('value', value);
@@ -141,6 +144,7 @@ var csvToJson = function(nameOfFile, contents) {
                 warnings.push(`Unrecognized speaker pseudonym in utterance row ${lineDatum[0]}: ${value} (utterance ${codeLabel}: ${codeValues})`);
             }
 
+            // console.log('value', value);
             if (key === "CHAT WRITER" && !lineDatum[1] && !(value.includes("Student") || value.includes("Teacher") || value.endsWith("students") || value.includes("Class Members")) && !knownSpeakerPseudonyms.includes(value)) {
                 warnings.push(`Unrecognized speaker pseudonym in utterance row ${lineDatum[0]}: ${value}`);
             }
@@ -204,6 +208,7 @@ var csvToJson = function(nameOfFile, contents) {
             // if (lineDatum[0] === '144' && replacementKey === 'utteranceCodes') {
             //     debugger;
             // }
+            // console.log('value, flagAllUtteranceCodeErrors', value);
             if (replacementKey === "utteranceCodes" && mutatedSpeakerPseudonym.endsWith("Teacher") && value && !teacherCodes.includes(value)) {
                 // console.log('value', value, typeof value, value.constructor, value.length);
                 // console.log("mutateSpeakerPseudonym(lineDatum[1])", mutateSpeakerPseudonym(lineDatum[1]));
